@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-aldeasinfantiles-dev-152305-authRole",
+      "UnauthRoleArn": "arn:aws:iam::833801403589:role/amplify-aldeasinfantiles-dev-152305-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::833801403589:role/amplify-aldeasinfantiles-dev-152305-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-aldeasinfantiles-dev-152305-deployment",
+      "UnauthRoleName": "amplify-aldeasinfantiles-dev-152305-unauthRole",
+      "StackName": "amplify-aldeasinfantiles-dev-152305",
+      "StackId": "arn:aws:cloudformation:us-east-1:833801403589:stack/amplify-aldeasinfantiles-dev-152305/ed76fb10-ff6c-11ea-9593-0a1e17b4f729",
+      "AmplifyAppId": "d1c45kw48vysu4"
+    }
+  }
+}
