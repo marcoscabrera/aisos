@@ -5,6 +5,11 @@
     sort-by="id"
     class="elevation-1"
   >
+    <template v-slot:item.activo="{ item }">
+        <v-simple-checkbox v-model="item.activo" disabled></v-simple-checkbox>
+     </template>
+
+     
     <template v-slot:top>
       <v-toolbar flat color="white">
         <v-toolbar-title>Catalogo de Documentos de Apoyo</v-toolbar-title>
@@ -13,9 +18,11 @@
         <v-dialog v-model="dialog" max-width="500px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on"
-              >Nuevo Usuario</v-btn
+              >Nuevo Documento</v-btn
             >
           </template>
+
+
           <v-card>
             <v-card-title>
               <span class="headline">{{ formTitle }}</span>
@@ -27,37 +34,28 @@
                   <v-col cols="12" xs="12" sm="12" md="12">
                     <v-text-field
                       v-model="editedItem.name"
-                      label="Nombre de usuario"
+                      label="Nombre del Docto"
                     ></v-text-field>
                   </v-col>
                 </v-row>
                 <v-row>
                   <v-col cols="12" xs="12" sm="6" md="4">
                     <v-text-field
-                      v-model="editedItem.email"
-                      label="email"
+                      v-model="editedItem.descripcion"
+                      label="descripcion"
                     ></v-text-field>
                   </v-col>
                 </v-row>
                 <v-row>
                   <v-col cols="12" xs="12" sm="6" md="4">
-                    <v-select
-                      v-model="editedItem.cargo"
-                      :items="cargos"
-                      label="Cargo"
-                      dense
-                    >
-                    </v-select>
+
+                    <v-switch v-model="editedItem.activo"
+                     class="mx-2" 
+                     label="En uso ">
+                     </v-switch>
+
                   </v-col>
-                  <v-col cols="12" xs="12" sm="6" md="4">
-                    <v-select
-                      v-model="editedItem.rol"
-                      :items="roles"
-                      label="Rol"
-                      dense
-                    >
-                    </v-select>
-                  </v-col>
+
                 </v-row>
               </v-container>
             </v-card-text>
@@ -86,8 +84,8 @@
 export default {
   data: () => ({
     dialog: false,
-    cargos: ["puesto en Aldeas 1", "puesto en Aldeas 2", "cargo en ALDEAS SOS"],
-    roles: ["PFN", "PFL", "PL", "ELPI"],
+
+  
     headers: [
       {
         text: "Nombre",
@@ -95,31 +93,27 @@ export default {
         sortable: false,
         value: "name",
       },
-      { text: "Email", value: "email" },
-      { text: "Cargo", value: "cargo" },
-      { text: "Rol", value: "rol" },
-
+      { text: "Descripcion", value: "descripcion" },
+      { text: "en uso", value: "activo" },
       { text: "acciones", value: "actions", sortable: false },
     ],
     desserts: [],
     editedIndex: -1,
     editedItem: {
       name: "",
-      email: "",
-      cargo: "",
-      rol: "",
+      descripcion: "",
+      activo: ""
     },
     defaultItem: {
       name: "",
-      email: "",
-      cargo: "",
-      rol: "",
+      descripcion: "",
+      activo: ""
     },
   }),
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "Nuevo Usuario" : "Editar Usuario";
+      return this.editedIndex === -1 ? "Nuevo Documento" : "Editar Documento";
     },
   },
 
@@ -135,67 +129,41 @@ export default {
 
   methods: {
     initialize() {
-      this.usuarios = [
+      this.documentos = [
         {
-          name: "nombre de Usuario 1",
-          email: "usuario1@aldeassos.com",
-          cargo: "ELPI",
-          rol: "PFN",
-          protein: 4.0,
+          name: "documento",
+          descripcion: "descripcion del documento",
+          activo: true
+
         },
         {
-          name: "nombre de Usuario 1",
-          email: "usuario1@aldeassos.com",
-          cargo: "ELPI",
-          rol: "PFN",
+          name: "documento",
+          descripcion: "descripcion del documento",
+          activo: true
+
         },
         {
-          name: "nombre de Usuario 2",
-          email: "usuario2@aldeassos.com",
-          cargo: "ELPI",
-          rol: "PFN",
+          name: "documento",
+          descripcion: "descripcion del documento",
+          activo: true
+
         },
         {
-          name: "nombre de Usuario 3",
-          email: "usuario3@aldeassos.com",
-          cargo: "cargo en ALDEAS SOS",
-          rol: "PFN",
+          name: "documento",
+          descripcion: "descripcion del documento",
+          activo: false
+
         },
         {
-          name: "nombre de Usuario 4",
-          email: "usuario4@aldeassos.com",
-          cargo: "cargo en ALDEAS SOS",
-          rol: "PFN",
+          name: "documento",
+          descripcion: "descripcion del documento",
+          activo: true
+
         },
         {
-          name: "nombre de Usuario 5",
-          email: "usuario5@aldeassos.com",
-          cargo: "cargo en ALDEAS SOS",
-          rol: "PFN",
-        },
-        {
-          name: "nombre de Usuario 6",
-          email: "usuario6@aldeassos.com",
-          cargo: "cargo en ALDEAS SOS",
-          rol: "PFN",
-        },
-        {
-          name: "nombre de Usuario 7",
-          email: "usuario7@aldeassos.com",
-          cargo: "cargo en ALDEAS SOS",
-          rol: "PFN",
-        },
-        {
-          name: "nombre de Usuario 8",
-          email: "usuario8@aldeassos.com",
-          cargo: "cargo en ALDEAS SOS",
-          rol: "PFN",
-        },
-        {
-          name: "nombre de Usuario 9",
-          email: "usuario9@aldeassos.com",
-          cargo: "cargo en ALDEAS SOS",
-          rol: "PFN",
+          name: "documento",
+          descripcion: "descripcion del documento",
+          activo: true
         },
       ];
     },
@@ -208,7 +176,7 @@ export default {
 
     deleteItem(item) {
       const index = this.usuarios.indexOf(item);
-      confirm("¿Estas seguro de eliminar este usuario ? ") &&
+      confirm("¿Estas seguro de eliminar este Documento ? ") &&
         this.usuarios.splice(index, 1);
     },
 
@@ -222,9 +190,9 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.usuarios[this.editedIndex], this.editedItem);
+        Object.assign(this.documentos[this.editedIndex], this.editedItem);
       } else {
-        this.usuarios.push(this.editedItem);
+        this.documentos.push(this.editedItem);
       }
       this.close();
     },
