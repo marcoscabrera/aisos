@@ -23,7 +23,7 @@
 
         <v-list-item @click="irADashboard">
           <v-list-item-action>
-            <v-icon> mdi-alarm-panel-outline </v-icon>
+            <v-icon> mdi-view-dashboard-variant </v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title> Dashboard </v-list-item-title>
@@ -32,7 +32,7 @@
 
         <v-list-item @click="irADenuncias">
           <v-list-item-action>
-            <v-icon> mdi-alarm-panel-outline </v-icon>
+            <v-icon> mdi-alert-circle-outline </v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title> Denuncias </v-list-item-title>
@@ -50,7 +50,7 @@
 
         <v-list-item @click="irAEstadisticas">
           <v-list-item-action>
-            <v-icon> mdi-alarm-panel-outline </v-icon>
+            <v-icon> mdi-chart-bar </v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title> Estadisticas </v-list-item-title>
