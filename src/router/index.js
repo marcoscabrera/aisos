@@ -71,6 +71,18 @@ const routes = [
       import(/* webpackChunckName:"unidades" */ "../views/Documentos.vue"),
   },
   {
+    path: "/cargos",
+    name: "CargosSOS",
+    component: () =>
+      import(/* webpackChunckName:"cargos" */ "../views/CargosSOS.vue"),
+  },
+  {
+    path: "/parentesco",
+    name: "Familia",
+    component: () =>
+      import(/* webpackChunckName:"parentesco" */ "../views/Familia.vue"),
+  },
+  {
     path: "/about",
     name: "About",
     // route level code-splitting

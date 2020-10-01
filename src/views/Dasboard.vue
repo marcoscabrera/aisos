@@ -1,6 +1,6 @@
 <template>
   <v-container name="contenedordasboard">
-    <h2>en Dashboard</h2>
+    <h2>Dashboard</h2>
     <dashboardVista></dashboardVista>
   </v-container>
 </template>

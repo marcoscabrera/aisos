@@ -6,10 +6,20 @@
       titulo="Documentos"
       ruta="documentos"
     ></cardConfiguracion>
+
     <cardConfiguracion titulo="Criterios" ruta="criterios"></cardConfiguracion>
     <cardConfiguracion
       titulo="Unidades SOS"
       ruta="unidades"
+    ></cardConfiguracion>
+      <cardConfiguracion
+      titulo="Cargos SOS"
+      ruta="cargos"
+    ></cardConfiguracion>
+
+      <cardConfiguracion
+      titulo="Parentescos"
+      ruta="parentesco"
     ></cardConfiguracion>
   </v-row>
 </template>

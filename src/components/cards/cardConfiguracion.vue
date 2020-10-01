@@ -1,11 +1,11 @@
 <template>
-  <v-col xs-12 sm-6 md-6 lg-4>
+  <v-col xs-12 sm-6 md-6 lg-6>
     <v-card width="100%">
       <v-card-text class="text--primary">
         <div>{{ titulo }}</div>
       </v-card-text>
       <v-card-actions>
-        <v-btn color="orange" block @click="irALaRuta">
+        <v-btn color="primary" block @click="irALaRuta">
           {{ titulo }}
         </v-btn>
       </v-card-actions>

@@ -1,7 +1,7 @@
- <template>
-  <v-data-table
+<template>
+ <v-data-table
     :headers="headers"
-    :items="criterios"
+    :items="unidades"
     sort-by="id"
     class="elevation-1"
   >
@@ -12,13 +12,13 @@
      
     <template v-slot:top>
       <v-toolbar flat color="white">
-        <v-toolbar-title>Catalogo de Criterios</v-toolbar-title>
+        <v-toolbar-title>Catalogo de Unidades</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="500px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on"
-              >Nuevo Criterio</v-btn
+              >Nueva Unidad</v-btn
             >
           </template>
 
@@ -34,7 +34,7 @@
                   <v-col cols="12" xs="12" sm="12" md="12">
                     <v-text-field
                       v-model="editedItem.name"
-                      label="Nombre del criterio"
+                      label="Nombre de la unidad"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -97,7 +97,7 @@ export default {
       { text: "en uso", value: "activo" },
       { text: "acciones", value: "actions", sortable: false },
     ],
-    criterios: [],
+    unidades: [],
     editedIndex: -1,
     editedItem: {
       name: "",
@@ -113,7 +113,7 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "Nuevo Criterio" : "Editar Criterio";
+      return this.editedIndex === -1 ? "Nueva Unidad" : "Editar Unidad";
     },
   },
 
@@ -129,55 +129,55 @@ export default {
 
   methods: {
     initialize() {
-      this.criterios = [
+      this.unidades = [
         {
-          name: "criterio 1",
-          descripcion: "descripcion del criterio 1",
+          name: "Unidad",
+          descripcion: "descripcion del Unidad",
           activo: true
 
         },
         {
-          name: "criterio 2",
-          descripcion: "descripcion del criterio ",
+          name: "Unidad",
+          descripcion: "descripcion del Unidad",
           activo: true
 
         },
         {
-          name: "criterio 3",
-          descripcion: "descripcion del criterio 3",
+          name: "Unidad",
+          descripcion: "descripcion del Unidad",
           activo: true
 
         },
         {
-          name: "criterio 4",
-          descripcion: "descripcion del criterio 4",
+          name: "Unidad",
+          descripcion: "descripcion del Unidad",
           activo: false
 
         },
         {
-          name: "criterio 5",
-          descripcion: "descripcion del criterio 5",
+          name: "Unidad",
+          descripcion: "descripcion del Unidad",
           activo: true
 
         },
         {
-          name: "criterio 6",
-          descripcion: "descripcion del criterio 6",
+          name: "Unidad",
+          descripcion: "descripcion del Unidad",
           activo: true
         },
       ];
     },
 
     editItem(item) {
-      this.editedIndex = this.criterios.indexOf(item);
+      this.editedIndex = this.usuarios.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
 
     deleteItem(item) {
-      const index = this.criterios.indexOf(item);
-      confirm("¿Estas seguro de eliminar este Criterio ? ") &&
-        this.criterios.splice(index, 1);
+      const index = this.usuarios.indexOf(item);
+      confirm("¿Estas seguro de eliminar este Unidad ? ") &&
+        this.usuarios.splice(index, 1);
     },
 
     close() {
@@ -190,9 +190,9 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.criterios[this.editedIndex], this.editedItem);
+        Object.assign(this.unidades[this.editedIndex], this.editedItem);
       } else {
-        this.criterios.push(this.editedItem);
+        this.unidades.push(this.editedItem);
       }
       this.close();
     },
