@@ -1,6 +1,6 @@
 <template>
   <v-container name="vprincipal.">
-    <h2>Configuration</h2>
+    <h2>Configuración</h2>
     <detalleConfiguracion></detalleConfiguracion>
   </v-container>
 </template>

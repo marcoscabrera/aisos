@@ -1,4 +1,5 @@
 <template>
+<v-container name="cardCatalogos">
   <v-row>
     <cardConfiguracion titulo="Usuarios" ruta="usuarios"></cardConfiguracion>
     <cardConfiguracion titulo="Roles" ruta="roles"></cardConfiguracion>
@@ -7,21 +8,29 @@
       ruta="documentos"
     ></cardConfiguracion>
 
+  </v-row>
+  <v-row>
+
     <cardConfiguracion titulo="Criterios" ruta="criterios"></cardConfiguracion>
     <cardConfiguracion
       titulo="Unidades SOS"
       ruta="unidades"
     ></cardConfiguracion>
+
       <cardConfiguracion
       titulo="Cargos SOS"
       ruta="cargos"
     ></cardConfiguracion>
+</v-row>
 
+<v-row>
       <cardConfiguracion
       titulo="Parentescos"
       ruta="parentesco"
-    ></cardConfiguracion>
+    >
+    </cardConfiguracion>
   </v-row>
+</v-container>
 </template>
 <script>
 import cardConfiguracion from "@/components/cards/cardConfiguracion.vue";

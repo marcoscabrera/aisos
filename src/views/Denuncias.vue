@@ -9,7 +9,7 @@ import reporteInicialEtapa from '@/components/etapas/reporteInicialEtapa.vue';
 export default {
   name: "Denuncias",
 
-  components : {  reporteInicialEtapa } 
+  components : {  reporteInicialEtapa } ,
 
   data() {
     return {};
