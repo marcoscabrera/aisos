@@ -1,6 +1,6 @@
 <template>
   <v-container name="contenedordenuncias">
-    <h2>Reporte Inicial</h2>
+   <!-- <h2>Valoracion Inicial</h2> -->
     <reporteInicialEtapa></reporteInicialEtapa>
   </v-container>
 </template>
@@ -16,6 +16,7 @@ export default {
   },
 
   methods: {
+
     saludo() {
       console.log("saludos estas en denuncias");
     },

@@ -331,7 +331,7 @@
                         :loading="loading"
                         :disabled="loading"
                         color="red"
-                        @click="loader = 'loading'"
+                        @click="guardar__iraDashboard"
                         block
                         >
                          <v-icon
@@ -350,7 +350,7 @@
                         :loading="loading"
                         :disabled="loading"
                         color="green"
-                        @click="loader = 'loading'"
+                        @click="guardar__iraDashboard"
                         block
                         >
                          <v-icon
@@ -378,6 +378,9 @@ export default {
 components :{ barraDocumentosVue },
 
 methods :{
+            guardar__iraDashboard(){
+       this.$router.push('/dashboard');
+    },
 
     seleccionar(valor) {
 

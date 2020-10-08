@@ -1,3 +1,4 @@
+import cardConfiguracion from '@/components/cards/cardConfiguracion.vue';
   <template>
   <v-data-table
     :headers="headers"
@@ -23,12 +24,25 @@
       <v-toolbar flat color="white">
         <v-toolbar-title>Incidentes</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
+        <v-chip>1.- Valoración Inicial</v-chip>
+        <v-chip>2.- Valoración Integral</v-chip>
+        <v-chip>3.- Seguimiento</v-chip>
+        <v-chip>4.- Cierre</v-chip>
+        <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
+
+         <v-btn 
+         color="primary" 
+         dark class="mb-2" 
+         @click="irADenuncias"     >
+              Nuevo Incidente
+          </v-btn>
+        <!--
         <v-dialog v-model="dialog" max-width="500px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on"
               >
-              Nueva Denuncia
+              Nuevo Incidente
               </v-btn
             >
           </template>
@@ -79,19 +93,19 @@
 
 
           </v-card>
-        </v-dialog>
+        </v-dialog> -->
       </v-toolbar>
     </template>
 
 
     <!-- etapas -->
-    <template v-slot:item.actions="{ item }">
+    <template v-slot:item.actions>
         <v-btn  x-small
                 color="green"
-                dark @click="editItem(item)"> 1</v-btn>
-        <v-btn  x-small color="green" @click="editItem(item)" >2</v-btn>
-        <v-btn  x-small color="yellow" @click="editItem(item)" >3</v-btn>
-        <v-btn  x-small color="red" @click="editItem(item)">4</v-btn>
+                dark @click="irA('/denuncias')"> 1</v-btn>
+        <v-btn  x-small color="green" @click="irA('/valoracionintegral')" >2</v-btn>
+        <v-btn  x-small color="yellow" @click="irA('/seguimiento')" >3</v-btn>
+        <v-btn  x-small color="red" @click="irA('/cierre')">4</v-btn>
      </template>
 
   </v-data-table>
@@ -155,6 +169,18 @@ export default {
   },
 
   methods: {
+
+    irA(ruta){
+   
+       this.$router.push(ruta);
+    },
+    irADenuncias(){
+      this.$router.push('/denuncias');
+    },
+    guardar__iradenuncias(){
+       this.$router.push('/dashboard');
+    }
+    ,
     initialize() {
       this.incidentes = [
         { 

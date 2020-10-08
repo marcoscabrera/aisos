@@ -77,10 +77,22 @@ const routes = [
       import(/* webpackChunckName:"cargos" */ "../views/CargosSOS.vue"),
   },
   {
-    path: "/parentesco",
-    name: "Familia",
+    path: "/valoracionintegral",
+    name: "ValoracionIntegral",
     component: () =>
-      import(/* webpackChunckName:"parentesco" */ "../views/Familia.vue"),
+      import(/* webpackChunckName:"valoracionintegral" */ "../views/ValoracionIntegral.vue"),
+  },
+    {
+    path: "/seguimiento",
+    name: "Seguimiento",
+    component: () =>
+      import(/* webpackChunckName:"seguimiento" */ "../views/Seguimiento.vue"),
+  },
+      {
+    path: "/cierre",
+    name: "Cierre",
+    component: () =>
+      import(/* webpackChunckName:"cierre" */ "../views/Cierre.vue"),
   },
   {
     path: "/about",
