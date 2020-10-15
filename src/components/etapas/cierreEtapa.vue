@@ -77,24 +77,36 @@
 
     <!-- =============================================== -->
 
+    <h4>ACCIONES REALIZADAS PARA CIERRE DE INCIDENTE</h4>
+
+    <!-- =============================================== -->
+
     <v-row>
       <v-card width="100%">
-        <v-card-title> Acciones realizadas para cierre de incidente  </v-card-title>
+        <v-card-title> </v-card-title>
         <v-card-text>
           <v-row>
             <v-col cols="12" xs="12" sm="6" md="6">
               <v-checkbox
-                label="INTERNO"
+                label="SE NOTIFICO AL SISTEMA DIF O PROCURADURIA"
                 :model="adulto"
                 @click="seleccionar('adulto')"
               ></v-checkbox>
             </v-col>
             <v-col cols="12" xs="12" sm="6" md="6">
-              <v-checkbox
-                label="EXTERNO"
-                :model="pares"
-                @click="seleccionar('pares')"
-              ></v-checkbox>
+              <v-file-input
+                v-model="files"
+                placeholder="Adjunta tu documento"
+                label="Archivo"
+                multiple
+                prepend-icon="mdi-paperclip"
+              >
+                <template v-slot:selection="{ text }">
+                  <v-chip small label color="primary">
+                    {{ text }}
+                  </v-chip>
+                </template>
+              </v-file-input>
             </v-col>
           </v-row>
         </v-card-text>
@@ -103,126 +115,36 @@
 
     <!-- =============================================== -->
     <br />
-    <!--
-    <v-row>
-      <v-card width="100%">
-        <v-card-title> PERFIL DE LA VICTIMA</v-card-title>
-        <v-card-text>
-          <v-row>
-            <v-radio-group width="100%" v-model="perfilAgresor" row>
-              <v-col cols="12" xs="12" sm="12" md="6">
-                <v-radio label="NIÑA" value="NIÑA"> </v-radio>
-              </v-col>
 
-              <v-col cols="12" xs="12" sm="12" md="6">
-                <v-radio label="NIÑO" value="NIÑO"> </v-radio>
-              </v-col>
-            </v-radio-group>
-          </v-row>
-
-          <v-row>
-            <v-radio-group width="100%" v-model="perfilAgresor" row>
-              <v-col cols="12" xs="12" sm="12" md="6">
-                <v-radio label="SI RECIBE APOYO DE SOS" value="SI"> </v-radio>
-              </v-col>
-
-              <v-col cols="12" xs="12" sm="12" md="6">
-                <v-radio label="NO RECIBE APOYO SOS" value="NO"> </v-radio>
-              </v-col>
-            </v-radio-group>
-          </v-row>
-        </v-card-text>
-      </v-card>
-    </v-row> -->
-
-    <br />
-
-    <!--
-    <v-row>
-      <v-col cols="12">
-        <v-textarea
-          filled
-          name="input-7-4"
-          label="MEDIDAS DE PROTECCIÓN INMEDIATA (500 PALABRAS)"
-          value=""
-        >
-        </v-textarea>
-      </v-col>
-    </v-row> -->
-
-    <v-row>
-      <v-card width="100%">
-        <v-card-title> NIVEL DEL INCIDENTE </v-card-title>
-        <v-card-text>
-          <v-row>
-            <v-col cols="12" xs="12" sm="12" md="4">
-              <v-checkbox color="primary" label="BAJO PERFIL"> </v-checkbox>
-            </v-col>
-            <v-col cols="12" xs="12" sm="12" md="4">
-              <v-checkbox color="primary" label="CRITICO"> </v-checkbox>
-            </v-col>
-            <v-col cols="12" xs="12" sm="12" md="4">
-              <v-checkbox color="primary" label="ALTO PERFIL"> </v-checkbox>
-            </v-col>
-          </v-row>
-        </v-card-text>
-      </v-card>
-    </v-row>
-
-    <br />
     <!-- =============================================== -->
 
     <v-row>
       <v-card width="100%">
-        <v-card-title> TIPO DE CASO </v-card-title>
+        <v-card-title> </v-card-title>
         <v-card-text>
           <v-row>
             <v-col cols="12" xs="12" sm="6" md="6">
               <v-checkbox
-                label="ABUSO FISICO"
+                label="SE NOTIFICÓ A LA AUTORIDAD CORRESPONDIENTE"
                 :model="adulto"
                 @click="seleccionar('adulto')"
               ></v-checkbox>
             </v-col>
             <v-col cols="12" xs="12" sm="6" md="6">
-              <v-checkbox
-                label="ABUSO SEXUAL"
-                :model="pares"
-                @click="seleccionar('pares')"
-              ></v-checkbox>
+              <v-file-input
+                v-model="files"
+                placeholder="Adjunta tu documento"
+                label="Archivo"
+                multiple
+                prepend-icon="mdi-paperclip"
+              >
+                <template v-slot:selection="{ text }">
+                  <v-chip small label color="primary">
+                    {{ text }}
+                  </v-chip>
+                </template>
+              </v-file-input>
             </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-checkbox
-                label="ABUSO EMOCIONAL"
-                :model="adulto"
-                @click="seleccionar('adulto')"
-              ></v-checkbox>
-            </v-col>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-checkbox
-                label="NEGLIGENCIA Y/O TRATO NEGLIGENTE"
-                :model="pares"
-                @click="seleccionar('pares')"
-              ></v-checkbox>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-checkbox
-                label="VIOLACION DE LA PRIVACIDAD DE LOS NIÑOS Y NIÑAS"
-                :model="adulto"
-                @click="seleccionar('adulto')"
-              ></v-checkbox>
-            </v-col>
-            <!---  <v-col cols="12" xs="12" sm="6" md="6">
-              <v-checkbox
-                label="ABUSO SEXUAL"
-                :model="pares"
-                @click="seleccionar('pares')"
-              ></v-checkbox>
-            </v-col> -->
           </v-row>
         </v-card-text>
       </v-card>
@@ -234,56 +156,140 @@
 
     <v-row>
       <v-card width="100%">
-        <v-card-title> TIPO DE ABORDAJE </v-card-title>
+        <v-card-title> </v-card-title>
         <v-card-text>
           <v-row>
             <v-col cols="12" xs="12" sm="6" md="6">
               <v-checkbox
-                label="DENUNCIA PENAL"
+                label="SE NOTIFICÓ Al PFN O AL ELPI"
                 :model="adulto"
                 @click="seleccionar('adulto')"
               ></v-checkbox>
             </v-col>
             <v-col cols="12" xs="12" sm="6" md="6">
-              <v-checkbox
-                label="INVESTIGACION INTERNA"
-                :model="pares"
-                @click="seleccionar('pares')"
-              ></v-checkbox>
+              <v-file-input
+                v-model="files"
+                placeholder="Adjunta tu documento"
+                label="Archivo"
+                multiple
+                prepend-icon="mdi-paperclip"
+              >
+                <template v-slot:selection="{ text }">
+                  <v-chip small label color="primary">
+                    {{ text }}
+                  </v-chip>
+                </template>
+              </v-file-input>
             </v-col>
           </v-row>
-          <!-- <v-row>
+        </v-card-text>
+      </v-card>
+    </v-row>
+
+    <!-- =============================================== -->
+    <br />
+    <!-- =============================================== -->
+
+    <v-row>
+      <v-card width="100%">
+        <v-card-title> </v-card-title>
+        <v-card-text>
+          <v-row>
             <v-col cols="12" xs="12" sm="6" md="6">
               <v-checkbox
-                label="ABUSO EMOCIONAL"
+                label="SE NOTIFICÓ A LA PERSONA DENUNCIANTE"
                 :model="adulto"
                 @click="seleccionar('adulto')"
               ></v-checkbox>
             </v-col>
             <v-col cols="12" xs="12" sm="6" md="6">
-              <v-checkbox
-                label="NEGLIGENCIA Y/O TRATO NEGLIGENTE"
-                :model="pares"
-                @click="seleccionar('pares')"
-              ></v-checkbox>
+              <v-file-input
+                v-model="files"
+                placeholder="Adjunta tu documento"
+                label="Archivo"
+                multiple
+                prepend-icon="mdi-paperclip"
+              >
+                <template v-slot:selection="{ text }">
+                  <v-chip small label color="primary">
+                    {{ text }}
+                  </v-chip>
+                </template>
+              </v-file-input>
             </v-col>
-          </v-row> -->
-          <!-- <v-row>
+          </v-row>
+        </v-card-text>
+      </v-card>
+    </v-row>
+
+    <!-- =============================================== -->
+    <br />
+    <!-- =============================================== -->
+
+    <v-row>
+      <v-card width="100%">
+        <v-card-title> </v-card-title>
+        <v-card-text>
+          <v-row>
             <v-col cols="12" xs="12" sm="6" md="6">
               <v-checkbox
-                label="VIOLACION DE LA PRIVACIDAD DE LOS NIÑOS Y NIÑAS"
+                label="SE CUENTA CON EL LLENADO DEL ACTA DE VALORACIÓN DEL/DE LOS INCIDENTES/S"
                 :model="adulto"
                 @click="seleccionar('adulto')"
               ></v-checkbox>
-            </v-col> -->
-          <!---  <v-col cols="12" xs="12" sm="6" md="6">
+            </v-col>
+            <v-col cols="12" xs="12" sm="6" md="6">
+              <v-file-input
+                v-model="files"
+                placeholder="Adjunta tu documento"
+                label="Archivo"
+                multiple
+                prepend-icon="mdi-paperclip"
+              >
+                <template v-slot:selection="{ text }">
+                  <v-chip small label color="primary">
+                    {{ text }}
+                  </v-chip>
+                </template>
+              </v-file-input>
+            </v-col>
+          </v-row>
+        </v-card-text>
+      </v-card>
+    </v-row>
+
+    <!-- =============================================== -->
+    <br />
+    <!-- =============================================== -->
+
+    <v-row>
+      <v-card width="100%">
+        <v-card-title> </v-card-title>
+        <v-card-text>
+          <v-row>
+            <v-col cols="12" xs="12" sm="6" md="6">
               <v-checkbox
-                label="ABUSO SEXUAL"
-                :model="pares"
-                @click="seleccionar('pares')"
+                label="SE CUENTA CON UN PLAN DE RECUPERACIÓN EMOCIONAL CON SEGUIMIENTO"
+                :model="adulto"
+                @click="seleccionar('adulto')"
               ></v-checkbox>
-            </v-col> 
-          </v-row> -->
+            </v-col>
+            <v-col cols="12" xs="12" sm="6" md="6">
+              <v-file-input
+                v-model="files"
+                placeholder="Adjunta tu documento"
+                label="Archivo"
+                multiple
+                prepend-icon="mdi-paperclip"
+              >
+                <template v-slot:selection="{ text }">
+                  <v-chip small label color="primary">
+                    {{ text }}
+                  </v-chip>
+                </template>
+              </v-file-input>
+            </v-col>
+          </v-row>
         </v-card-text>
       </v-card>
     </v-row>
@@ -295,40 +301,21 @@
     <v-row>
       <v-card width="100%">
         <v-card-title>
-          ¿SE CONFIRMA QUE EL EVENTO ES UN INCIDENTE ?
+          NOMBRE, CARGO Y FIRMA DE QUIEN ELABORA EL ACTA DE CIERRE
         </v-card-title>
         <v-card-text>
-          <v-row>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-checkbox
-                label=" SI ES UN INCIDENTE"
-                :model="adulto"
-                @click="seleccionar('adulto')"
-              ></v-checkbox>
-            </v-col>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-checkbox
-                label="NO ES UN INCIDENTE"
-                :model="pares"
-                @click="seleccionar('pares')"
-              ></v-checkbox>
-            </v-col>
-          </v-row>
+          <usuariosCierre></usuariosCierre>
         </v-card-text>
       </v-card>
     </v-row>
 
-    <v-row>
-      <v-col cols="12">
-        <v-textarea
-          filled
-          name="input-7-4"
-          label="PARTICIPANTES (250 PALABRAS)"
-          value=""
-        >
-        </v-textarea>
-      </v-col>
-    </v-row>
+    <br />
+
+    <!-- =============================================== -->
+
+    <!-- =============================================== -->
+    <br />
+    <!-- =============================================== -->
 
     <v-row>
       <v-col cols="12" xs="12" sm="12" md="4">
@@ -375,9 +362,9 @@
 </template>
 <script>
 import barraDocumentosVue from "../barradocumentos/barraDocumentos.vue";
-
+import usuariosCierre from "@/components/usuarios/usuariosCierre.vue";
 export default {
-  components: { barraDocumentosVue },
+  components: { barraDocumentosVue, usuariosCierre },
 
   methods: {
     guardar__iraDashboard() {

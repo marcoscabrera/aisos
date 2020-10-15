@@ -317,17 +317,15 @@
         </v-card-text>
       </v-card>
     </v-row>
-
+    <!-- =============================================== -->
+    <br />
     <v-row>
-      <v-col cols="12">
-        <v-textarea
-          filled
-          name="input-7-4"
-          label="PARTICIPANTES (250 PALABRAS)"
-          value=""
-        >
-        </v-textarea>
-      </v-col>
+      <v-card width="100%">
+        <v-card-title> MEDIDAS INTEGRALES </v-card-title>
+        <v-card-text>
+          <medidasCrud></medidasCrud>
+        </v-card-text>
+      </v-card>
     </v-row>
 
     <v-row>
@@ -375,9 +373,9 @@
 </template>
 <script>
 import barraDocumentosVue from "../barradocumentos/barraDocumentos.vue";
-
+import medidasCrud from "@/components/seguimiento/medidasCrud.vue";
 export default {
-  components: { barraDocumentosVue },
+  components: { barraDocumentosVue, medidasCrud },
 
   methods: {
     guardar__iraDashboard() {
