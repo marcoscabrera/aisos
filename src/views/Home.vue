@@ -24,15 +24,15 @@
     <v-col></v-col>
     </v-row>
 
-
+http://aldeasinfantiles-20200925152634-hostingbucket-dev.s3-website-us-east-1.amazonaws.com/
     <v-row>
     <v-col></v-col>
     <v-col>
       <ul>
         <li>Distribucion de acceso en barra lateral</li>
-          <li>Presentación de vista de Dashboard y navegación</li>
-          <li>Presentación de vista de Valoracion Inicial </li>
-          <li>Presentacion de vista de configuración (catalogos)</li>
+        <li>Presentación de vista de Dashboard y navegación</li>
+        <li>Presentación de vista de Valoracion Inicial </li>
+        <li>Presentacion de vista de configuración (catalogos)</li>
       </ul>
     </v-col>
     <v-col></v-col>

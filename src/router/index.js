@@ -28,6 +28,13 @@ const routes = [
     component: () =>
       import(/* webpackChunckName:"dashboard" */ "../views/Denuncias.vue"),
   },
+
+    {
+    path: "/valoracionintegral",
+    name: "ValoracionIntegral",
+    component: () =>
+      import(/* webpackChunckName:"valoracionintegral" */ "../views/ValoracionIntegral.vue"),
+  },
   {
     path: "/estadisticas",
     name: "Estadisticas",
@@ -76,12 +83,7 @@ const routes = [
     component: () =>
       import(/* webpackChunckName:"cargos" */ "../views/CargosSOS.vue"),
   },
-  {
-    path: "/valoracionintegral",
-    name: "ValoracionIntegral",
-    component: () =>
-      import(/* webpackChunckName:"valoracionintegral" */ "../views/ValoracionIntegral.vue"),
-  },
+  
     {
     path: "/seguimiento",
     name: "Seguimiento",
