@@ -24,7 +24,6 @@
     <v-col></v-col>
     </v-row>
 
-http://aldeasinfantiles-20200925152634-hostingbucket-dev.s3-website-us-east-1.amazonaws.com/
     <v-row>
     <v-col></v-col>
     <v-col>

@@ -12,7 +12,13 @@
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="500px">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on"
+            <v-btn
+              disabled
+              color="primary"
+              dark
+              class="mb-2"
+              v-bind="attrs"
+              v-on="on"
               >+ Medida</v-btn
             >
           </template>
@@ -80,8 +86,10 @@
       </v-toolbar>
     </template>
     <template v-slot:item.actions="{ item }">
-      <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
-      <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+      <!-- <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon> -->
+      <v-btn color="blue darken-1" text @click="editItem(item)">agregar</v-btn>
+
+      <!-- <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon> -->
     </template>
 
     <template v-slot:item.porcentaje="{ item }">
@@ -115,7 +123,7 @@ export default {
 
       { text: "Duración", value: "tiempo" },
 
-      /*  { text: "%", value: "porcentaje" },*/
+      { text: "%", value: "porcentaje" },
 
       { text: "Comentarios", value: "comentarios" },
 

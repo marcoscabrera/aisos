@@ -323,6 +323,54 @@
       <v-card width="100%">
         <v-card-title> MEDIDAS INTEGRALES </v-card-title>
         <v-card-text>
+          <v-row>
+            <v-col cols="12" xs="12" sm="6" md="6">
+              <v-checkbox
+                label="PLAN"
+                :model="adulto"
+                @click="seleccionar('adulto')"
+              ></v-checkbox>
+            </v-col>
+            <v-col cols="12" xs="12" sm="6" md="6">
+              <v-file-input
+                v-model="files"
+                placeholder="Adjunta tu documento"
+                label="Archivo"
+                multiple
+                prepend-icon="mdi-paperclip"
+              >
+                <template v-slot:selection="{ text }">
+                  <v-chip small label color="primary">
+                    {{ text }}
+                  </v-chip>
+                </template>
+              </v-file-input>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="12" xs="12" sm="6" md="6">
+              <v-checkbox
+                label=" CRONOGRAMA "
+                :model="adulto"
+                @click="seleccionar('adulto')"
+              ></v-checkbox>
+            </v-col>
+            <v-col cols="12" xs="12" sm="6" md="6">
+              <v-file-input
+                v-model="files"
+                placeholder="Adjunta tu documento"
+                label="Archivo"
+                multiple
+                prepend-icon="mdi-paperclip"
+              >
+                <template v-slot:selection="{ text }">
+                  <v-chip small label color="primary">
+                    {{ text }}
+                  </v-chip>
+                </template>
+              </v-file-input>
+            </v-col>
+          </v-row>
           <medidasCrud></medidasCrud>
         </v-card-text>
       </v-card>
