@@ -272,16 +272,25 @@
             <v-col cols="12" xs="12" sm="4" md="4">
               <v-checkbox
                 label="DENUNCIA PENAL"
-                :model="adulto"
-                @click="seleccionar('adulto')"
+                :input-value="seleccionDP"
+                @click="mostrarbotondp"
               ></v-checkbox>
+
+              <v-btn color="blue" v-if="verBotonDP" @click="irADenuncia">
+                Denuncia Penal
+              </v-btn>
             </v-col>
             <v-col cols="12" xs="12" sm="4" md="4">
               <v-checkbox
                 label="INVESTIGACION INTERNA"
                 :model="pares"
-                @click="seleccionar('pares')"
+                :input-value="seleccionInv"
+                @click="mostrarbotonInvI"
               ></v-checkbox>
+
+              <v-btn color="blue" v-if="verBotonInvI" @click="irAInvestigacion">
+                Investigacion Interna
+              </v-btn>
             </v-col>
             <v-col cols="12" xs="12" sm="4" md="4">
               <v-checkbox
@@ -291,38 +300,6 @@
               ></v-checkbox>
             </v-col>
           </v-row>
-          <!-- <v-row>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-checkbox
-                label="ABUSO EMOCIONAL"
-                :model="adulto"
-                @click="seleccionar('adulto')"
-              ></v-checkbox>
-            </v-col>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-checkbox
-                label="NEGLIGENCIA Y/O TRATO NEGLIGENTE"
-                :model="pares"
-                @click="seleccionar('pares')"
-              ></v-checkbox>
-            </v-col>
-          </v-row> -->
-          <!-- <v-row>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-checkbox
-                label="VIOLACION DE LA PRIVACIDAD DE LOS NIÑOS Y NIÑAS"
-                :model="adulto"
-                @click="seleccionar('adulto')"
-              ></v-checkbox>
-            </v-col> -->
-          <!---  <v-col cols="12" xs="12" sm="6" md="6">
-              <v-checkbox
-                label="ABUSO SEXUAL"
-                :model="pares"
-                @click="seleccionar('pares')"
-              ></v-checkbox>
-            </v-col> 
-          </v-row> -->
         </v-card-text>
       </v-card>
     </v-row>
@@ -435,6 +412,40 @@ export default {
   components: { barraDocumentosVue },
 
   methods: {
+    mostrarbotondp() {
+      if (this.verBotonDP == true) {
+        this.verBotonDP = false;
+        this.seleccionDP = false;
+        this.seleccionInv = false;
+        this.verBotonInvI = false;
+      } else {
+        console.log("mostrarBoton denuncia penal");
+        this.verBotonDP = true;
+        this.seleccionInv = false;
+        this.verBotonInvI = false;
+        this.seleccionDP = true;
+      }
+    },
+    mostrarbotonInvI() {
+      if (this.verBotonInv == true) {
+        this.verBotonDP = false;
+        this.seleccionDP = false;
+        this.verBotonInvI = false;
+        this.seleccionInv = false;
+      } else {
+        console.log("mostrarBoton investigacion interna");
+        this.verBotonDP = false;
+        this.seleccionDP = false;
+        this.verBotonInvI = true;
+        this.seleccionInv = true;
+      }
+    },
+    irADenuncia() {
+      this.$router.push("/denuncialegal");
+    },
+    irAInvestigacion() {
+      this.$router.push("/investigacioninterna");
+    },
     guardar__iraDashboard() {
       this.$router.push("/dashboard");
     },
@@ -457,6 +468,14 @@ export default {
       adulto: false,
 
       pares: false,
+
+      verBotonDP: false,
+
+      seleccionDP: false,
+
+      verBotonInvI: false,
+
+      seleccionInv: false,
 
       itemsUnidades: ["Unidad SOS Tijuana", "Unidad SOS CDMX"],
 

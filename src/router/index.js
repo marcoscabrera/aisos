@@ -95,6 +95,19 @@ const routes = [
     name: "Cierre",
     component: () =>
       import(/* webpackChunckName:"cierre" */ "../views/Cierre.vue"),
+  }
+  ,
+      {
+    path: "/denuncialegal",
+    name: "DenunciaLegal",
+    component: () =>
+      import(/* webpackChunckName:"denuncialegal" */ "../views/DenunciaLegal.vue"),
+  },
+      {
+    path: "/investigacioninterna",
+    name: "InvestigacionInterna",
+    component: () =>
+      import(/* webpackChunckName:"denuncialegal" */ "../views/InvestigacionInterna.vue"),
   },
   {
     path: "/about",
