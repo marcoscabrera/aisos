@@ -119,34 +119,22 @@ export default {
     initialize() {
       this.usuarios = [
         {
-          name: "nombre de Usuario 1",
+          name: "Lic. Roberto Trejo",
           email: "usuario1@aldeassos.com",
-          cargo: "ELPI",
+          cargo: "Representante DIF",
           rol: "PFN",
           protein: 4.0,
         },
         {
-          name: "nombre de Usuario 1",
+          name: "Julio C. Fernandez",
           email: "usuario1@aldeassos.com",
           cargo: "ELPI",
           rol: "PFN",
         },
         {
-          name: "nombre de Usuario 2",
+          name: "Juan Antonio Acuña",
           email: "usuario2@aldeassos.com",
-          cargo: "ELPI",
-          rol: "PFN",
-        },
-        {
-          name: "nombre de Usuario 3",
-          email: "usuario3@aldeassos.com",
-          cargo: "cargo en ALDEAS SOS",
-          rol: "PFN",
-        },
-        {
-          name: "nombre de Usuario 4",
-          email: "usuario4@aldeassos.com",
-          cargo: "cargo en ALDEAS SOS",
+          cargo: "Asesor independiente",
           rol: "PFN",
         },
       ];

@@ -232,21 +232,60 @@
     <br />
     <!-- =============================================== -->
 
+    <!-- =============================================== -->
+    <br />
+    <!-- =============================================== -->
+
     <v-row>
       <v-card width="100%">
-        <v-card-title> TIPO DE ABORDAJE </v-card-title>
+        <v-card-title>
+          ¿SE CONFIRMA QUE EL EVENTO ES UN INCIDENTE ?
+        </v-card-title>
         <v-card-text>
           <v-row>
             <v-col cols="12" xs="12" sm="6" md="6">
               <v-checkbox
-                label="DENUNCIA PENAL"
+                label=" SI ES UN INCIDENTE"
                 :model="adulto"
                 @click="seleccionar('adulto')"
               ></v-checkbox>
             </v-col>
             <v-col cols="12" xs="12" sm="6" md="6">
               <v-checkbox
+                label="NO ES UN INCIDENTE"
+                :model="pares"
+                @click="seleccionar('pares')"
+              ></v-checkbox>
+            </v-col>
+          </v-row>
+        </v-card-text>
+      </v-card>
+    </v-row>
+    <!-- =============================================== -->
+    <br />
+    <!-- =============================================== -->
+    <v-row>
+      <v-card width="100%">
+        <v-card-title> TIPO DE RESPUESTA </v-card-title>
+        <v-card-text>
+          <v-row>
+            <v-col cols="12" xs="12" sm="4" md="4">
+              <v-checkbox
+                label="DENUNCIA PENAL"
+                :model="adulto"
+                @click="seleccionar('adulto')"
+              ></v-checkbox>
+            </v-col>
+            <v-col cols="12" xs="12" sm="4" md="4">
+              <v-checkbox
                 label="INVESTIGACION INTERNA"
+                :model="pares"
+                @click="seleccionar('pares')"
+              ></v-checkbox>
+            </v-col>
+            <v-col cols="12" xs="12" sm="4" md="4">
+              <v-checkbox
+                label="ABORDAJE INTERNO"
                 :model="pares"
                 @click="seleccionar('pares')"
               ></v-checkbox>
@@ -288,36 +327,6 @@
       </v-card>
     </v-row>
 
-    <!-- =============================================== -->
-    <br />
-    <!-- =============================================== -->
-
-    <v-row>
-      <v-card width="100%">
-        <v-card-title>
-          ¿SE CONFIRMA QUE EL EVENTO ES UN INCIDENTE ?
-        </v-card-title>
-        <v-card-text>
-          <v-row>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-checkbox
-                label=" SI ES UN INCIDENTE"
-                :model="adulto"
-                @click="seleccionar('adulto')"
-              ></v-checkbox>
-            </v-col>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-checkbox
-                label="NO ES UN INCIDENTE"
-                :model="pares"
-                @click="seleccionar('pares')"
-              ></v-checkbox>
-            </v-col>
-          </v-row>
-        </v-card-text>
-      </v-card>
-    </v-row>
-    <!-- =============================================== -->
     <br />
     <v-row>
       <v-card width="100%">
@@ -371,7 +380,7 @@
               </v-file-input>
             </v-col>
           </v-row>
-          <medidasCrud></medidasCrud>
+          <!--  <medidasCrud></medidasCrud> -->
         </v-card-text>
       </v-card>
     </v-row>
@@ -421,9 +430,9 @@
 </template>
 <script>
 import barraDocumentosVue from "../barradocumentos/barraDocumentos.vue";
-import medidasCrud from "@/components/seguimiento/medidasCrud.vue";
+//import medidasCrud from "@/components/seguimiento/medidasCrud.vue";
 export default {
-  components: { barraDocumentosVue, medidasCrud },
+  components: { barraDocumentosVue },
 
   methods: {
     guardar__iraDashboard() {

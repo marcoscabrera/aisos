@@ -94,19 +94,13 @@
               ></v-checkbox>
             </v-col>
             <v-col cols="12" xs="12" sm="6" md="6">
-              <v-file-input
-                v-model="files"
-                placeholder="Adjunta tu documento"
-                label="Archivo"
-                multiple
-                prepend-icon="mdi-paperclip"
-              >
-                <template v-slot:selection="{ text }">
-                  <v-chip small label color="primary">
-                    {{ text }}
-                  </v-chip>
-                </template>
-              </v-file-input>
+              <v-bottom-navigation v-model="value">
+                <v-btn value="favorites">
+                  <span>NO existe ningun archivo</span>
+
+                  <v-icon color="yellow" large="true">mdi-file-document</v-icon>
+                </v-btn>
+              </v-bottom-navigation>
             </v-col>
           </v-row>
         </v-card-text>
@@ -127,23 +121,18 @@
               <v-checkbox
                 label="SE NOTIFICÓ A LA AUTORIDAD CORRESPONDIENTE"
                 :model="adulto"
+                input-value="true"
                 @click="seleccionar('adulto')"
               ></v-checkbox>
             </v-col>
             <v-col cols="12" xs="12" sm="6" md="6">
-              <v-file-input
-                v-model="files"
-                placeholder="Adjunta tu documento"
-                label="Archivo"
-                multiple
-                prepend-icon="mdi-paperclip"
-              >
-                <template v-slot:selection="{ text }">
-                  <v-chip small label color="primary">
-                    {{ text }}
-                  </v-chip>
-                </template>
-              </v-file-input>
+              <v-bottom-navigation v-model="value">
+                <v-btn value="favorites">
+                  <span>Notificacionparaautoridad.pdf</span>
+
+                  <v-icon color="green" large="true">mdi-file-document</v-icon>
+                </v-btn>
+              </v-bottom-navigation>
             </v-col>
           </v-row>
         </v-card-text>
@@ -167,19 +156,13 @@
               ></v-checkbox>
             </v-col>
             <v-col cols="12" xs="12" sm="6" md="6">
-              <v-file-input
-                v-model="files"
-                placeholder="Adjunta tu documento"
-                label="Archivo"
-                multiple
-                prepend-icon="mdi-paperclip"
-              >
-                <template v-slot:selection="{ text }">
-                  <v-chip small label color="primary">
-                    {{ text }}
-                  </v-chip>
-                </template>
-              </v-file-input>
+              <v-bottom-navigation v-model="value">
+                <v-btn value="favorites">
+                  <span>No existe ningun archivo</span>
+
+                  <v-icon color="yellow" large="true">mdi-file-document</v-icon>
+                </v-btn>
+              </v-bottom-navigation>
             </v-col>
           </v-row>
         </v-card-text>
@@ -199,23 +182,18 @@
               <v-checkbox
                 label="SE NOTIFICÓ A LA PERSONA DENUNCIANTE"
                 :model="adulto"
+                input-value="true"
                 @click="seleccionar('adulto')"
               ></v-checkbox>
             </v-col>
             <v-col cols="12" xs="12" sm="6" md="6">
-              <v-file-input
-                v-model="files"
-                placeholder="Adjunta tu documento"
-                label="Archivo"
-                multiple
-                prepend-icon="mdi-paperclip"
-              >
-                <template v-slot:selection="{ text }">
-                  <v-chip small label color="primary">
-                    {{ text }}
-                  </v-chip>
-                </template>
-              </v-file-input>
+              <v-bottom-navigation v-model="value">
+                <v-btn value="favorites">
+                  <span>Notificacionaldenunciante.pdf</span>
+
+                  <v-icon color="green" large="true">mdi-file-document</v-icon>
+                </v-btn>
+              </v-bottom-navigation>
             </v-col>
           </v-row>
         </v-card-text>
@@ -235,23 +213,18 @@
               <v-checkbox
                 label="SE CUENTA CON EL LLENADO DEL ACTA DE VALORACIÓN DEL/DE LOS INCIDENTES/S"
                 :model="adulto"
+                input-value="true"
                 @click="seleccionar('adulto')"
               ></v-checkbox>
             </v-col>
             <v-col cols="12" xs="12" sm="6" md="6">
-              <v-file-input
-                v-model="files"
-                placeholder="Adjunta tu documento"
-                label="Archivo"
-                multiple
-                prepend-icon="mdi-paperclip"
-              >
-                <template v-slot:selection="{ text }">
-                  <v-chip small label color="primary">
-                    {{ text }}
-                  </v-chip>
-                </template>
-              </v-file-input>
+              <v-bottom-navigation v-model="value">
+                <v-btn value="favorites">
+                  <span>NotificacionSistemaDIF.pdf</span>
+
+                  <v-icon color="green" large="true">mdi-file-document</v-icon>
+                </v-btn>
+              </v-bottom-navigation>
             </v-col>
           </v-row>
         </v-card-text>
@@ -275,19 +248,13 @@
               ></v-checkbox>
             </v-col>
             <v-col cols="12" xs="12" sm="6" md="6">
-              <v-file-input
-                v-model="files"
-                placeholder="Adjunta tu documento"
-                label="Archivo"
-                multiple
-                prepend-icon="mdi-paperclip"
-              >
-                <template v-slot:selection="{ text }">
-                  <v-chip small label color="primary">
-                    {{ text }}
-                  </v-chip>
-                </template>
-              </v-file-input>
+              <v-bottom-navigation v-model="value">
+                <v-btn value="favorites">
+                  <span>No existe ningun archivo</span>
+
+                  <v-icon color="yellow" large="true">mdi-file-document</v-icon>
+                </v-btn>
+              </v-bottom-navigation>
             </v-col>
           </v-row>
         </v-card-text>
@@ -354,7 +321,7 @@
         >
           <v-icon right dark> mdi-check </v-icon>
           <v-spacer></v-spacer>
-          Guardar
+          Cerrar este incidente
         </v-btn>
       </v-col>
     </v-row>
