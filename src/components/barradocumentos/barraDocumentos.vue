@@ -1,18 +1,18 @@
 <template>
-<v-bottom-navigation v-model="value">
-    <v-btn value="recent">
+  <v-bottom-navigation>
+    <v-btn>
       <span>Politicas</span>
 
       <v-icon>mdi-file-document</v-icon>
     </v-btn>
 
-    <v-btn value="favorites">
+    <v-btn>
       <span>Criterios</span>
 
       <v-icon>mdi-file-document</v-icon>
     </v-btn>
 
-    <v-btn value="nearby">
+    <v-btn>
       <span>Otros</span>
 
       <v-icon>mdi-file-document</v-icon>
@@ -21,7 +21,5 @@
 </template>
 
 <script>
-export default {
-    
-}
+export default {};
 </script>

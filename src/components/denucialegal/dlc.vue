@@ -269,11 +269,25 @@
   </v-container>
 </template>
 <script>
+import apiIncidentes from "@/apialdeas/apiIncidentes.js";
+
 export default {
   data() {
     return {
       itemsCargos: ["SI", "NO", "EN PROCESO"],
+      loading: false,
     };
+  },
+
+  methods: {
+    hola() {
+      console.log("montnado dlc");
+      apiIncidentes.hola();
+    },
+  },
+
+  mounted() {
+  //  this.hola();
   },
 };
 </script>
