@@ -30,17 +30,14 @@
           </v-list-item-content>
         </v-list-item>
 
-
-        <v-list-item @click="irADenuncias">
+        <!-- <v-list-item @click="irADenuncias">
           <v-list-item-action>
             <v-icon> mdi-alert-circle-outline </v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title> Incidentes (Eventual) </v-list-item-title>
           </v-list-item-content>
-        </v-list-item>
-        
-       
+        </v-list-item> -->
 
         <v-list-item @click="irAConciencia">
           <v-list-item-action>

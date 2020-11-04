@@ -32,6 +32,34 @@ export default {
 
     },
 
+    recuperarTodosLosIncidentes(store) {
+
+    let predicado = '/api/v0/incidentes';
+
+    let apix = store.state.urlServidor;
+
+    let endpoint = apix + predicado;
+
+    console.log("valor del endpoint " + endpoint);
+
+    return api.axiosget(endpoint);       
+     },
+
+    recuperarUnIncidente(parametro, store) { 
+
+    
+    let predicado = "/api/v0/incidentes/" + parametro;
+
+    let apix = store.state.urlServidor;
+
+    let endpoint = apix + predicado;
+
+    console.log("valor del endpoint " + endpoint);
+
+    return api.axiosget(endpoint);
+
+    },
+
     nuevoUsuario(parametros, store) {
         
         

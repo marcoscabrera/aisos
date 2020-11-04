@@ -20,17 +20,22 @@ const routes = [
     path: "/conciencia",
     name: "Conciencia",
     component: () =>
-      import(/* webpackChunckName:"dashboard" */ "../views/Conciencia.vue"),
+      import(/* webpackChunckName:"conciencia" */ "../views/Conciencia.vue"),
   },
   {
     path: "/denuncias",
     name: "Denuncias",
     component: () =>
-      import(/* webpackChunckName:"dashboard" */ "../views/Denuncias.vue"),
+      import(/* webpackChunckName:"denuncias" */ "../views/Denuncias.vue"),
   },
-
+ {
+    path: "/denuncias/:id",
+    name: "DenunciasDetalle",
+    component: () =>
+      import(/* webpackChunckName:"denunciasdetalle" */ "../views/Denuncias.vue"),
+  },
     {
-    path: "/valoracionintegral",
+    path: "/valoracionintegral/:id",
     name: "ValoracionIntegral",
     component: () =>
       import(/* webpackChunckName:"valoracionintegral" */ "../views/ValoracionIntegral.vue"),
@@ -39,7 +44,7 @@ const routes = [
     path: "/estadisticas",
     name: "Estadisticas",
     component: () =>
-      import(/* webpackChunckName:"dashboard" */ "../views/Estadisticas.vue"),
+      import(/* webpackChunckName:"estadisticas" */ "../views/Estadisticas.vue"),
   },
   {
     path: "/configuracion",

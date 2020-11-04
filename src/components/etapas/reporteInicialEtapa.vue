@@ -201,51 +201,47 @@
         <v-card-title> PERFIL DE LA VICTIMA</v-card-title>
         <v-card-text>
           <v-row>
-            <v-radio-group width="100%" v-model="perfilAgresor" row>
-              <v-col cols="12" xs="12" sm="12" md="6">
-                <v-checkbox
-                  :input-value="perfilnina"
-                  color="primary"
-                  label="NIÑA"
-                  @click="seleccionar_perfilnina_o_perfilnino('perfilnina')"
-                >
-                </v-checkbox>
-              </v-col>
+            <v-col cols="12" xs="12" sm="12" md="6">
+              <v-checkbox
+                :input-value="perfilnina"
+                color="primary"
+                label="NIÑA"
+                @click="seleccionar_perfilnina_o_perfilnino('perfilnina')"
+              >
+              </v-checkbox>
+            </v-col>
 
-              <v-col cols="12" xs="12" sm="12" md="6">
-                <v-checkbox
-                  :input-value="perfilnino"
-                  color="primary"
-                  label="NIÑO"
-                  @click="seleccionar_perfilnina_o_perfilnino('perfilnino')"
-                >
-                </v-checkbox>
-              </v-col>
-            </v-radio-group>
+            <v-col cols="12" xs="12" sm="12" md="6">
+              <v-checkbox
+                :input-value="perfilnino"
+                color="primary"
+                label="NIÑO"
+                @click="seleccionar_perfilnina_o_perfilnino('perfilnino')"
+              >
+              </v-checkbox>
+            </v-col>
           </v-row>
 
           <v-row>
-            <v-radio-group width="100%" v-model="perfilAgresor" row>
-              <v-col cols="12" xs="12" sm="12" md="6">
-                <v-checkbox
-                  :input-value="sirecibeayudasos"
-                  color="primary"
-                  label="SI RECIBE APOYO DE SOS"
-                  @click="seleccionar_recibeayuda('sirecibeayudasos')"
-                >
-                </v-checkbox>
-              </v-col>
+            <v-col cols="12" xs="12" sm="12" md="6">
+              <v-checkbox
+                :input-value="sirecibeayudasos"
+                color="primary"
+                label="SI RECIBE APOYO DE SOS"
+                @click="seleccionar_recibeayuda('sirecibeayudasos')"
+              >
+              </v-checkbox>
+            </v-col>
 
-              <v-col cols="12" xs="12" sm="12" md="6">
-                <v-checkbox
-                  :input-value="norecibeayudasos"
-                  color="primary"
-                  label="NO RECIBE APOYO DE SOS"
-                  @click="seleccionar_recibeayuda('norecibeayudasos')"
-                >
-                </v-checkbox>
-              </v-col>
-            </v-radio-group>
+            <v-col cols="12" xs="12" sm="12" md="6">
+              <v-checkbox
+                :input-value="norecibeayudasos"
+                color="primary"
+                label="NO RECIBE APOYO DE SOS"
+                @click="seleccionar_recibeayuda('norecibeayudasos')"
+              >
+              </v-checkbox>
+            </v-col>
           </v-row>
         </v-card-text>
       </v-card>
@@ -320,7 +316,7 @@
       <v-col cols="12" xs="12" sm="12" md="4">
         <v-btn
           :loading="loading"
-          :disabled="loading"
+          :disabled="verBotonImpresion"
           color="primary"
           @click="loader = 'loading'"
           block
@@ -345,8 +341,8 @@
       </v-col>
       <v-col cols="12" xs="12" sm="12" md="4">
         <v-btn
-          :loading="loading"
-          :disabled="loading"
+          :loading="loadingGuardar"
+          :disabled="loadingGuardar"
           color="green"
           @click="guardar_incidente"
           block
@@ -370,7 +366,8 @@ export default {
     guardar__iraDashboard() {
       this.$router.push("/dashboard");
     },
-    guardar_incidente() {
+    nuevo_incidente() {
+      this.loadingGuardar = true;
       apiIncidentes.hola();
 
       console.log("valor de programa " + this.programaSeleccionado);
@@ -410,8 +407,16 @@ export default {
         perfildelagresor = "pares";
       }
 
+      let nnj = "";
       if (this.pares == true) {
         console.log("valor de perfil agresor -pares" + this.pares);
+
+        if (this.nnjs == true) {
+          nnj = "nnjs";
+        }
+        if (this.nnje == true) {
+          nnj = "nnje";
+        }
       }
 
       console.log(
@@ -419,9 +424,9 @@ export default {
       );
 
       if (this.perfilnina == true) {
-        perfilvictima = "niña";
+        perfilvictima = "nina";
       } else {
-        perfilvictima = "niño";
+        perfilvictima = "nino";
       }
 
       console.log(
@@ -480,11 +485,21 @@ export default {
         pafamilia: this.familiaorigen,
         pafamiliatipo: this.perfilfamiliaorigen,
         adultoexterno: this.perfiladultoexterno,
+        nnj: nnj,
         perfilvictima: perfilvictima,
         recibeayuda: recibeayuda,
         medidasproinmediatasdiatas: this.medidasproteccion,
         incidenteconfirmado: incidenteconfirmado,
+        testigos: this.testigos,
         etapa: etapa,
+        etapauno: "visible",
+        etapados: "visible",
+        etapatres: "invisible",
+        etapacuatro: "invisible",
+        coloretapauno: "green",
+        coloretapados: "yellow",
+        coloretapatres: "yellow",
+        coloretapacuatro: "yellow",
       };
 
       console.log("== valores del incidente ==");
@@ -495,9 +510,43 @@ export default {
       // let x = apiIncidentes.nuevoUsuario(parametros, this.$store);
       x.then((response) => {
         console.log(response.data);
+        this.loadingGuardar = false;
+        //redireccionamos
+
+        let a = JSON.parse(response.data);
+
+        let atipo = typeof a;
+
+        console.log(atipo);
+        let idRecuperado = a["id"];
+
+        console.log("valor de idRecuperado  : " + idRecuperado);
+
+        this.modo = "update";
+
+        this.folio = a["folio"];
+
+        this.verBotonImpresion = false;
+
+        this.$router.push({
+          name: "DenunciasDetalle",
+          params: { id: idRecuperado },
+        });
       }).catch((error) => {
         console.log(error.data);
+        this.loadingGuardar = false;
       });
+    }, //termina nuevo_incidente
+    update_incidente() {
+      console.log("update");
+    },
+    guardar_incidente() {
+      console.log(" valor de this.modo : " + this.modo);
+      if (this.modo == "nuevo") {
+        this.nuevo_incidente();
+      } else {
+        this.update_incidente();
+      }
     },
 
     seleccionar(valor) {
@@ -564,6 +613,7 @@ export default {
     },
 
     seleccionar_siesincidente(valor) {
+      console.log("valor de valor " + valor);
       if (valor == "esincidente") {
         this.esincidente = true;
         this.noesincidente = false;
@@ -582,10 +632,187 @@ export default {
         this.porconfirmar = true;
       }
     },
+    seleccionar_siesincidente_recuperado(valor) {
+      console.log("valor de valor " + valor);
+      if (valor == "Si") {
+        this.esincidente = true;
+        this.noesincidente = false;
+        this.porconfirmar = false;
+      }
+
+      if (valor == "No") {
+        this.esincidente = false;
+        this.noesincidente = true;
+        this.porconfirmar = false;
+      }
+
+      if (valor == "por confirmar") {
+        this.esincidente = false;
+        this.noesincidente = false;
+        this.porconfirmar = true;
+      }
+    },
+
+    perfilAgresor_recuperado(valor) {
+      if (valor == "adulto") {
+        this.adulto = true;
+      }
+
+      if (valor == "pares") {
+        this.pares = true;
+      }
+    },
+    perfilvictima_recuperado(valor) {
+      if (valor == "nina") {
+        this.perfilnina = true;
+      }
+      if (valor == "nino") {
+        this.perfilnino = true;
+      }
+    },
+    recibeayuda_recuperado(valor) {
+      if (valor == "Si") {
+        this.sirecibeayudasos = true;
+        this.norecibeayudasos = false;
+      } else {
+        this.sirecibeayudasos = false;
+        this.norecibeayudasos = true;
+      }
+    },
+
+    seleccionar_nnjs_o_nnje_recuperar(valor) {
+      if (valor == "nnjs") {
+        this.nnjs = true;
+        this.nnje = false;
+      }
+      if (valor == "nnje") {
+        this.nnjs = false;
+        this.nnje = true;
+      }
+    },
+
+    asignarAVariablesValoresDeConsulta(respuesta) {
+      console.log("asignarAVariablesValoresDeConsulta : ");
+      console.log(JSON.stringify(respuesta.data));
+
+      var a = respuesta.data;
+      this.folio = a[0]["folio"];
+      this.date = a[0]["fechaAlta"];
+
+      console.log(this.date);
+      //fechaUpdate: this.date,
+      //usuarioCreador: usuarioCreador,
+      this.involucrados = a[0]["involucrados"];
+
+      console.log(this.involucrados);
+
+      this.elaboro = a[0]["elaboro"];
+
+      this.cargo = a[0]["cargo"];
+
+      this.registrohechos = a[0]["registrohechos"];
+
+      /* perfil del agresor */
+      // let pa = a[0]["perfildelagresor"];
+
+      this.colaboradorsos = a[0]["paadultocolaborador"];
+
+      this.perfilcolaboradorsos = a[0]["paadultocolaboradortipo"];
+
+      this.familiaorigen = a[0]["pafamilia"];
+
+      this.perfilfamiliaorigen = a[0]["pafamiliatipo"];
+
+      this.perfiladultoexterno = a[0]["adultoexterno"];
+
+      let nnj = a[0]["nnj"];
+
+      this.seleccionar_nnjs_o_nnje_recuperar(nnj);
+
+      this.medidasproteccion = a[0]["medidasproinmediatas"];
+
+      this.testigos = a[0]["testigos"];
+
+      let v1 = a[0]["incidenteconfirmado"];
+
+      this.seleccionar_siesincidente_recuperado(v1);
+
+      this.perfilAgresor = a[0]["prefildelagresor"];
+
+      this.perfilAgresor_recuperado(this.perfilAgresor);
+
+      let pvivtima = a[0]["perfilvictima"];
+
+      this.perfilvictima_recuperado(pvivtima);
+
+      let ra = a[0]["recibeayuda"];
+
+      this.recibeayuda_recuperado(ra);
+
+      /*  let e1 = a[0]["etapauno"];
+          let e2 = a[0]["etapados"];
+            let e3 = a[0]["etapatres"];
+              let e4 = a[0]["etapcuatro"];*/
+
+      /* elaboro: this.elaboro,
+        cargousuario: this.cargo,
+        registrohechos: this.registrohechos,
+
+        perfildelagresor: perfildelagresor,
+        paadultocolaborador: this.colaboradorsos,
+        paadultocolaboradortipo: this.perfilcolaboradorsos,
+        pafamilia: this.familiaorigen,
+        pafamiliatipo: this.perfilfamiliaorigen,
+        adultoexterno: this.perfiladultoexterno,
+        perfilvictima: perfilvictima,
+        recibeayuda: recibeayuda,
+        medidasproinmediatasdiatas: this.medidasproteccion,
+        incidenteconfirmado: incidenteconfirmado,
+        etapa: etapa,
+      };*/
+    },
+    escogerProcedimiento() {
+      //recuperamos el paraemtro id de la ruta
+      let parametroId = 0;
+      parametroId = this.$route.params.id;
+      console.log(parametroId);
+      this.modo = "nuevo";
+      if (parametroId == undefined) {
+        console.log("valor de parametroID : " + parametroId);
+      } else {
+        console.log("valor actual de parametroId : " + parametroId);
+
+        let P_incidente = apiIncidentes.recuperarUnIncidente(
+          parametroId,
+          this.$store
+        );
+
+        P_incidente.then((response) => {
+          console.log(JSON.stringify(response.data));
+          /** */
+          this.asignarAVariablesValoresDeConsulta(response);
+
+          this.modo = "update";
+          this.verBotonImpresion = false;
+        }).catch((error) => {
+          console.log(JSON.stringify(error.response));
+          this.modo = "update";
+        });
+      }
+    },
+  },
+
+  created() {
+    console.log("en created, valor de this.modo : " + this.modo);
+    this.escogerProcedimiento();
   },
 
   data() {
     return {
+      verBotonImpresion: true,
+      verBotonCancelar: false,
+
+      modo: "nuevo",
       perfilcolaboradorsos: "",
       perfilfamiliaorigen: "",
       perfiladultoexterno: "",
@@ -620,6 +847,7 @@ export default {
       registrohechos: "",
 
       loading: false,
+      loadingGuardar: false,
 
       adulto: false,
 

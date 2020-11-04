@@ -312,7 +312,7 @@
           <v-row>
             <v-col cols="12" xs="12" sm="6" md="6">
               <v-checkbox
-                label="PLAN"
+                label="PLAN Y CRONOGRAMA"
                 :model="adulto"
                 @click="seleccionar('adulto')"
               ></v-checkbox>
@@ -333,7 +333,7 @@
               </v-file-input>
             </v-col>
           </v-row>
-          <v-row>
+          <!-- <v-row>
             <v-col cols="12" xs="12" sm="6" md="6">
               <v-checkbox
                 label=" CRONOGRAMA "
@@ -356,7 +356,7 @@
                 </template>
               </v-file-input>
             </v-col>
-          </v-row>
+          </v-row> -->
           <!--  <medidasCrud></medidasCrud> -->
         </v-card-text>
       </v-card>
