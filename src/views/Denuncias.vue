@@ -1,22 +1,23 @@
 <template>
   <v-container name="contenedordenuncias">
-   <!-- <h2>Valoracion Inicial</h2> -->
-    <reporteInicialEtapa></reporteInicialEtapa>
+    <!-- <h2>Valoracion Inicial</h2> -->
+    <reporteInicialEtapa2></reporteInicialEtapa2>
   </v-container>
 </template>
 <script>
-import reporteInicialEtapa from '@/components/etapas/reporteInicialEtapa.vue';
+import reporteInicialEtapa2 from "@/components/etapas/reporteInicialEtapa2.vue";
 export default {
   name: "Denuncias",
 
-  components : {  reporteInicialEtapa } ,
+  components: {
+    reporteInicialEtapa2,
+  },
 
   data() {
     return {};
   },
 
   methods: {
-
     saludo() {
       console.log("saludos estas en denuncias");
     },

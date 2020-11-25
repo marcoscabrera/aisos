@@ -4,362 +4,68 @@
 
     <v-row>
       <v-col cols="12" xs="12" md="6">
-        <v-label filled> FOLIO # AAA-000-20 </v-label>
+        <v-label filled> FOLIO # {{ folio }} </v-label>
       </v-col>
 
       <v-col cols="12" xs="12" md="6">
         <barraDocumentosVue></barraDocumentosVue>
       </v-col>
     </v-row>
+ 
 
     <v-row>
-      <!--  <v-col cols="12" xs="12" md="6">
-        <v-select :items="itemsUnidades" label="PROGRAMA" dense filled>
-        </v-select>
-      </v-col> -->
-
-      <v-col cols="12" xs="12" md="6">
-        <v-menu
-          v-model="menu2"
-          :close-on-content-click="false"
-          :nudge-right="40"
-          transition="scale-transition"
-          offset-y
-          min-width="290px"
-        >
-          <template v-slot:activator="{ on, attrs }">
-            <v-text-field
-              v-model="date"
-              label="Fecha"
-              prepend-icon="mdi-calendar"
-              readonly
-              v-bind="attrs"
-              v-on="on"
-            ></v-text-field>
-          </template>
-          <v-date-picker v-model="date" @input="menu2 = false"></v-date-picker>
-        </v-menu>
-      </v-col>
-    </v-row>
-
-    <v-row>
-      <v-col cols="12">
-        <v-textarea
-          filled
-          name="input-7-4"
-          label="VALORACIÓN INICIAL (250 PALABRAS)"
-          value=""
-        >
-        </v-textarea>
-      </v-col>
-    </v-row>
-
-    <!-- <v-row>
-      <v-col cols="12" xs="12" md="6">
-        <v-text-field label="ELABORO" filled> </v-text-field>
-      </v-col>
-      <v-col cols="12" xs="12" md="6">
-        <v-select :items="itemsCargos" label="CARGO" dense filled> </v-select>
-      </v-col>
-    </v-row>
-
-    <v-row>
-      <v-col cols="12">
-        <v-textarea
-          filled
-          name="input-7-4"
-          label="REGISTRO DE HECHOS (500 PALABRAS)"
-          value=""
-        >
-        </v-textarea>
-      </v-col>
-    </v-row> -->
-
-    <!-- =============================================== -->
-
-    <v-row>
-      <v-card width="100%">
-        <v-card-title> TIPOLOGIA DEL INCIDENTE </v-card-title>
-        <v-card-text>
-          <v-row>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-checkbox
-                label="INTERNO"
-                :model="adulto"
-                @click="seleccionar('adulto')"
-              ></v-checkbox>
-            </v-col>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-checkbox
-                label="EXTERNO"
-                :model="pares"
-                @click="seleccionar('pares')"
-              ></v-checkbox>
-            </v-col>
-          </v-row>
-        </v-card-text>
-      </v-card>
-    </v-row>
-
-    <!-- =============================================== -->
-    <br />
-    <!--
-    <v-row>
-      <v-card width="100%">
-        <v-card-title> PERFIL DE LA VICTIMA</v-card-title>
-        <v-card-text>
-          <v-row>
-            <v-radio-group width="100%" v-model="perfilAgresor" row>
-              <v-col cols="12" xs="12" sm="12" md="6">
-                <v-radio label="NIÑA" value="NIÑA"> </v-radio>
-              </v-col>
-
-              <v-col cols="12" xs="12" sm="12" md="6">
-                <v-radio label="NIÑO" value="NIÑO"> </v-radio>
-              </v-col>
-            </v-radio-group>
-          </v-row>
-
-          <v-row>
-            <v-radio-group width="100%" v-model="perfilAgresor" row>
-              <v-col cols="12" xs="12" sm="12" md="6">
-                <v-radio label="SI RECIBE APOYO DE SOS" value="SI"> </v-radio>
-              </v-col>
-
-              <v-col cols="12" xs="12" sm="12" md="6">
-                <v-radio label="NO RECIBE APOYO SOS" value="NO"> </v-radio>
-              </v-col>
-            </v-radio-group>
-          </v-row>
-        </v-card-text>
-      </v-card>
-    </v-row> -->
-
-    <br />
-
-    <!--
-    <v-row>
-      <v-col cols="12">
-        <v-textarea
-          filled
-          name="input-7-4"
-          label="MEDIDAS DE PROTECCIÓN INMEDIATA (500 PALABRAS)"
-          value=""
-        >
-        </v-textarea>
-      </v-col>
-    </v-row> -->
-
-    <v-row>
-      <v-card width="100%">
-        <v-card-title> NIVEL DEL INCIDENTE </v-card-title>
-        <v-card-text>
-          <v-row>
-            <v-col cols="12" xs="12" sm="12" md="4">
-              <v-checkbox color="primary" label="BAJO PERFIL"> </v-checkbox>
-            </v-col>
-            <v-col cols="12" xs="12" sm="12" md="4">
-              <v-checkbox color="primary" label="CRITICO"> </v-checkbox>
-            </v-col>
-            <v-col cols="12" xs="12" sm="12" md="4">
-              <v-checkbox color="primary" label="ALTO PERFIL"> </v-checkbox>
-            </v-col>
-          </v-row>
-        </v-card-text>
-      </v-card>
+      <textareaValoracion :texto="textovi"></textareaValoracion>
     </v-row>
 
     <br />
     <!-- =============================================== -->
 
     <v-row>
-      <v-card width="100%">
-        <v-card-title> TIPO DE CASO </v-card-title>
-        <v-card-text>
-          <v-row>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-checkbox
-                label="ABUSO FISICO"
-                :model="adulto"
-                @click="seleccionar('adulto')"
-              ></v-checkbox>
-            </v-col>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-checkbox
-                label="ABUSO SEXUAL"
-                :model="pares"
-                @click="seleccionar('pares')"
-              ></v-checkbox>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-checkbox
-                label="ABUSO EMOCIONAL"
-                :model="adulto"
-                @click="seleccionar('adulto')"
-              ></v-checkbox>
-            </v-col>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-checkbox
-                label="NEGLIGENCIA Y/O TRATO NEGLIGENTE"
-                :model="pares"
-                @click="seleccionar('pares')"
-              ></v-checkbox>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-checkbox
-                label="VIOLACION DE LA PRIVACIDAD DE LOS NIÑOS Y NIÑAS"
-                :model="adulto"
-                @click="seleccionar('adulto')"
-              ></v-checkbox>
-            </v-col>
-            <!---  <v-col cols="12" xs="12" sm="6" md="6">
-              <v-checkbox
-                label="ABUSO SEXUAL"
-                :model="pares"
-                @click="seleccionar('pares')"
-              ></v-checkbox>
-            </v-col> -->
-          </v-row>
-        </v-card-text>
-      </v-card>
+      <cardConfirmacion :confirmacion="confirmaincidente"></cardConfirmacion>
+    </v-row>
+    <!-- =============================================== -->
+    <br />
+    <v-row v-if="this.$store.state.uivars.uivar_esincidente">
+      <cardTipologia :tipologia="tipologiadelincidente"></cardTipologia>
+    </v-row>
+
+    <!-- =============================================== -->
+  
+
+    <br />
+
+    <v-row  v-if="this.$store.state.uivars.uivar_esincidente">
+      <cardNivelIncidente :nivel="niveldelincidente"></cardNivelIncidente>
+    </v-row>
+
+    <br />
+    <!-- =============================================== -->
+
+    <v-row v-if="this.$store.state.uivars.uivar_esincidente">
+      <cardTipoCaso :tipo="tipodecaso"></cardTipoCaso>
     </v-row>
 
     <!-- =============================================== -->
     <br />
     <!-- =============================================== -->
 
+
     <!-- =============================================== -->
     <br />
     <!-- =============================================== -->
-
-    <v-row>
-      <v-card width="100%">
-        <v-card-title>
-          ¿SE CONFIRMA QUE EL EVENTO ES UN INCIDENTE ?
-        </v-card-title>
-        <v-card-text>
-          <v-row>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-checkbox
-                label=" SI ES UN INCIDENTE"
-                :model="adulto"
-                @click="seleccionar('adulto')"
-              ></v-checkbox>
-            </v-col>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-checkbox
-                label="NO ES UN INCIDENTE"
-                :model="pares"
-                @click="seleccionar('pares')"
-              ></v-checkbox>
-            </v-col>
-          </v-row>
-        </v-card-text>
-      </v-card>
-    </v-row>
-    <!-- =============================================== -->
-    <br />
-    <!-- =============================================== -->
-    <v-row>
-      <v-card width="100%">
-        <v-card-title> TIPO DE RESPUESTA </v-card-title>
-        <v-card-text>
-          <v-row>
-            <v-col cols="12" xs="12" sm="4" md="4">
-              <v-checkbox
-                label="DENUNCIA PENAL"
-                :input-value="seleccionDP"
-                @click="mostrarbotondp"
-              ></v-checkbox>
-
-              <v-btn color="blue" v-if="verBotonDP" @click="irADenuncia">
-                Denuncia Penal
-              </v-btn>
-            </v-col>
-            <v-col cols="12" xs="12" sm="4" md="4">
-              <v-checkbox
-                label="INVESTIGACION INTERNA"
-                :model="pares"
-                :input-value="seleccionInv"
-                @click="mostrarbotonInvI"
-              ></v-checkbox>
-
-              <v-btn color="blue" v-if="verBotonInvI" @click="irAInvestigacion">
-                Investigacion Interna
-              </v-btn>
-            </v-col>
-            <v-col cols="12" xs="12" sm="4" md="4">
-              <v-checkbox
-                label="ABORDAJE INTERNO"
-                :model="pares"
-                @click="seleccionar('pares')"
-              ></v-checkbox>
-            </v-col>
-          </v-row>
-        </v-card-text>
-      </v-card>
+    <v-row v-if="this.$store.state.uivars.uivar_esincidente">
+      <cardTipoRespuesta :respuesta="tipoderespuesta"></cardTipoRespuesta>
     </v-row>
 
     <br />
-    <v-row>
-      <v-card width="100%">
-        <v-card-title> MEDIDAS INTEGRALES </v-card-title>
-        <v-card-text>
-          <v-row>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-checkbox
-                label="PLAN Y CRONOGRAMA"
-                :model="adulto"
-                @click="seleccionar('adulto')"
-              ></v-checkbox>
-            </v-col>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-file-input
-                v-model="files"
-                placeholder="Adjunta tu documento"
-                label="Archivo"
-                multiple
-                prepend-icon="mdi-paperclip"
-              >
-                <template v-slot:selection="{ text }">
-                  <v-chip small label color="primary">
-                    {{ text }}
-                  </v-chip>
-                </template>
-              </v-file-input>
-            </v-col>
-          </v-row>
-          <!-- <v-row>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-checkbox
-                label=" CRONOGRAMA "
-                :model="adulto"
-                @click="seleccionar('adulto')"
-              ></v-checkbox>
-            </v-col>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-file-input
-                v-model="files"
-                placeholder="Adjunta tu documento"
-                label="Archivo"
-                multiple
-                prepend-icon="mdi-paperclip"
-              >
-                <template v-slot:selection="{ text }">
-                  <v-chip small label color="primary">
-                    {{ text }}
-                  </v-chip>
-                </template>
-              </v-file-input>
-            </v-col>
-          </v-row> -->
-          <!--  <medidasCrud></medidasCrud> -->
-        </v-card-text>
-      </v-card>
+    <v-row v-if="this.$store.state.uivars.uivar_esincidente">
+      <cardMedidasIntegrales
+       :archivoId           ="planycronograma"
+       :archivo             ="planycronograma" 
+       :sihayarchivo        ="hayPlan"
+       :incidenteId         ="incidenteid"
+       :objetoDatosArchivo  ="datosDelArchivo"
+       :nombreDelArchivo    ="nombreDelArchivo"></cardMedidasIntegrales>
     </v-row>
 
     <v-row>
@@ -368,7 +74,7 @@
           :loading="loading"
           :disabled="loading"
           color="primary"
-          @click="loader = 'loading'"
+          @click="solicitudImpresion"
           block
         >
           <v-icon right dark> mdi-printer </v-icon>
@@ -394,7 +100,7 @@
           :loading="loading"
           :disabled="loading"
           color="green"
-          @click="guardar__iraDashboard"
+          @click="actualizarValoracion"
           block
         >
           <v-icon right dark> mdi-check </v-icon>
@@ -407,11 +113,42 @@
 </template>
 <script>
 import barraDocumentosVue from "../barradocumentos/barraDocumentos.vue";
+import apiValoracion from "@/apialdeas/apiValoracion.js";
+import apiArchivos from "@/apialdeas/apiArchivos.js";
+
+import textareaValoracion from "@/components/etapasComponentesValoracion/textareaValoracion.vue";
+import cardTipologia from "@/components/etapasComponentesValoracion/cardTipologia.vue";
+
+import cardNivelIncidente from "@/components/etapasComponentesValoracion/cardNivelIncidente.vue";
+import cardConfirmacion from "../etapasComponentesValoracion/cardConfirmacion.vue";
+import cardTipoCaso from "../etapasComponentesValoracion/cardTipoCaso.vue";
+import cardTipoRespuesta from "../etapasComponentesValoracion/cardTipoRespuesta.vue";
+//import cardMedidasIntegrales from "../etapasComponentesValoracion/cardMedidasIntegrales.vue";
+
 //import medidasCrud from "@/components/seguimiento/medidasCrud.vue";
 export default {
-  components: { barraDocumentosVue },
+  components: {
+    barraDocumentosVue,
+    cardMedidasIntegrales :() => import('../etapasComponentesValoracion/cardMedidasIntegrales.vue'),
+    textareaValoracion,
+    cardTipologia,
+    cardNivelIncidente,
+    cardConfirmacion,
+    cardTipoCaso,
+    cardTipoRespuesta,
+  },
 
   methods: {
+
+    solicitudImpresion(){
+      let idRecuperado = this.$route.params.id;
+ 
+      this.$router.push({
+
+          name: "PermisoImpresion",
+          params: { incidenteId: idRecuperado },
+        });
+    },
     mostrarbotondp() {
       if (this.verBotonDP == true) {
         this.verBotonDP = false;
@@ -450,21 +187,180 @@ export default {
       this.$router.push("/dashboard");
     },
 
-    seleccionar(valor) {
-      if (valor == "adulto") {
-        this.adulto = true;
-        this.pares = false;
-      }
+   async cargarValoracionIntegral() {
+      let idx = this.$route.params.id;
+      console.log("valor de incidenteid " + idx);
+      let res = apiValoracion.recuperarUnaValoracion(idx, this.$store);
+      this.incidenteid = idx;
 
-      if (valor == "pares") {
-        this.adulto = false;
-        this.pares = true;
-      }
+    
+      res
+        .then((response) => {
+          console.log("Datos de la valoracionIntegral ");
+          console.log(JSON.stringify(response.data));
+
+          console.log("valor de id : ");
+
+          console.log(response.data[0]["id"]);
+          this.id = response.data[0]["id"];
+          this.textovi = response.data[0]["textovi"];
+          this.$store.dispatch('action_textovi',this.textovi);
+
+          this.tipologiadelincidente =
+            response.data[0]["tipologiadelincidente"];
+        this.$store.dispatch('action_tipologiadelincidente', this.tipologiadelincidente
+);
+
+
+         this.niveldelincidente = response.data[0]["niveldelincidente"];
+         this.$store.dispatch('action_niveldelincidente',this.niveldelincidente);
+
+         this.tipodecaso = response.data[0]["tipodecaso"];
+         this.$store.dispatch('action_tipodecaso',this.niveldelincidente);
+
+
+          this.confirmaincidente = response.data[0]["confirmaincidente"];
+          this.$store.dispatch('action_confirmaincidente',this.confirmaincidente);        
+         
+         this.confirmaincidente == "SI ES UN INCIDENTE" ?
+         this.$store.dispatch("actions_uivars_esincidente",true) :
+         this.$store.dispatch("actions_uivars_esincidente",false) ;
+
+    
+
+          this.tipoderespuesta = response.data[0]["tipoderespuesta"];
+          this.$store.dispatch('action_tipoderespuesta',this.tipoderespuesta);   
+
+          
+          /*-------------*/
+          let idarchivo = '';
+          idarchivo = response.data[0]["medidasintegrales"];
+          //console.log("valor de planycronograma : " +  this.planycronograma  );
+           //this.planycronograma.length>3 ?  this.hayPlan   = true :false;
+          // this.plan =true;
+          
+          idarchivo == '0'? this.planycronograma = '0':  this.descargarDatosDelArchivo(idarchivo, this.$store.state);
+
+
+        })
+        .catch((error) => {
+          console.log(JSON.stringify(error.data));
+        });
+    },
+     
+    async descargarDatosDelArchivo(id, state){
+
+      console.log(" dentro de descargarDatosDelArchivo => id = " + id);
+          
+     let archivo =   apiArchivos.conseguirArchivo(id,state);
+
+     archivo.then( response => {
+          
+          console.log(JSON.stringify(response.data));
+          this.datosDelArchivo = response.data;
+          this.nombreDelArchivo = JSON.stringify(response.data[0]['nombreOriginal']);
+          console.log(" nombreOriginal :" + this.nombreDelArchivo);
+          this.hayPlan =true;
+
+     })
+     .catch( error => {
+           
+           console.log("valro de error : " + error)
+
+     });
+
+    },
+
+    actualizarValoracion() {
+
+      const {
+       // etapavaloracion_incidenteid,
+       // etapavaloracion_fechacreacion,
+       // etapavaloracion_fechaupdate,
+        etapavaloracion_textovi,
+        etapavaloracion_tipologiadelincidente,
+        etapavaloracion_niveldelincidente,
+        etapavaloracion_tipodecaso,
+        etapavaloracion_confirmaincidente,
+        etapavaloracion_tipoderespuesta,
+        etapavaloracion_medidasintegrales,
+      } = this.$store.state.valoracion;
+
+      var parmetros = {
+        //'fechacreacion'         : $datos['fechacreacion'],
+        // 'fechaupdate'           : $datos['fechaupdate'],
+        id: this.id,
+        incidenteid: this.incidenteid,
+        textovi: etapavaloracion_textovi,
+        tipologiadelincidente:etapavaloracion_tipologiadelincidente,
+        niveldelincidente: etapavaloracion_niveldelincidente,
+        tipodecaso: etapavaloracion_tipodecaso,
+        confirmaincidente: etapavaloracion_confirmaincidente,
+        tipoderespuesta: etapavaloracion_tipoderespuesta,
+        medidasintegrales:  etapavaloracion_medidasintegrales,
+      };
+
+      console.log(parmetros);
+
+      let update = apiValoracion.updateValoracion(parmetros, this.$store);
+
+      update
+        .then((response) => {
+          console.log(JSON.stringify(response.data));
+        })
+        .catch((error) => {
+          console.log(error.data);
+        });
+      /*
+      'fechacreacion'         => $datos['fechacreacion'],
+            'fechaupdate'           => $datos['fechaupdate'],
+            'textovi'               => $datos['textovi'],
+            'tipologiadelincidente' => $datos['tipologiadelincidente'],
+            'niveldelincidente'     => $datos['niveldelincidente'],
+            'tipodecaso'            => $datos['tipodecaso'],
+            'confirmaincidente'     => $datos['confirmaincidente'],
+            'tipoderespuesta'       => $datos['tipoderespuesta'],
+            'medidasintegrales'     => $datos['medidasintegrales'],
+            'activo'                => $datos['activo']*/
     },
   },
-
+  created() {
+    this.cargarValoracionIntegral();
+  },
   data() {
     return {
+      nombreDelArchivo : '',
+      datosDelArchivo : null,
+      planycronograma: "0",
+      hayPlan: false,
+
+      loading: false,
+
+      files: "",
+
+      siesincidente: false,
+      noesincidente: false,
+
+      nivelbajo: false,
+      nivelcritico: false,
+      nivelalto: false,
+
+      tipoexterno: false,
+      tipointerno: false,
+
+      incidenteid: 0,
+      id: 0,
+
+      tipologiadelincidente: "",
+      niveldelincidente: "",
+      tipodecaso: "",
+      confirmaincidente: "",
+      tipoderespuesta: "",
+      medidasintegrales: "",
+
+      textovi: "",
+      folio: "",
+
       adulto: false,
 
       pares: false,
@@ -476,6 +372,16 @@ export default {
       verBotonInvI: false,
 
       seleccionInv: false,
+
+      seleccionabordaje: false,
+
+      itemsTipoDeCaso: [
+        " ABUSO FISICO",
+        "ABUSO SEXUAL",
+        "ABUSO EMOCIONAL",
+        "NEGLIGENCIA Y/O TRATO NEGLIGENTE",
+        "VIOLACION DE LA PRIVACIDAD DE LOS NIÑOS Y NIÑAS",
+      ],
 
       itemsUnidades: ["Unidad SOS Tijuana", "Unidad SOS CDMX"],
 

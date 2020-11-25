@@ -96,23 +96,41 @@ const routes = [
       import(/* webpackChunckName:"seguimiento" */ "../views/Seguimiento.vue"),
   },
       {
-    path: "/cierre",
+    path: "/cierre/:incidenteId",
     name: "Cierre",
     component: () =>
       import(/* webpackChunckName:"cierre" */ "../views/Cierre.vue"),
   }
   ,
       {
-    path: "/denuncialegal",
+    path: "/denuncialegal/:denunciaId",
     name: "DenunciaLegal",
     component: () =>
       import(/* webpackChunckName:"denuncialegal" */ "../views/DenunciaLegal.vue"),
+  },
+      {
+    path: "/notificacionuno/:incidenteId/:folio",
+    name: "Notificacionuno",
+    component: () =>
+      import(/* webpackChunckName:"notificacionuno" */ "../views/Notificacionuno.vue"),
+  },
+  {
+    path: "/permisoimpresion/:incidenteId",
+    name: "PermisoImpresion",
+    component: () =>
+      import(/* webpackChunckName:"permisoimpresion" */ "../views/permisoimpresion.vue"),
   },
       {
     path: "/investigacioninterna",
     name: "InvestigacionInterna",
     component: () =>
       import(/* webpackChunckName:"denuncialegal" */ "../views/InvestigacionInterna.vue"),
+  },
+  {
+    path: "/subirarchivos",
+    name: "SubirArchivos",
+    component: () =>
+      import(/* webpackChunckName:"subirarchivos" */ "../views/subirArchivo.vue"),
   },
   {
     path: "/about",

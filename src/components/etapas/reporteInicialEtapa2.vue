@@ -1,0 +1,474 @@
+<template>
+  <v-container>
+    <h2>Valoracion Inicial</h2>
+
+    <v-row>
+      <v-col cols="12" xs="12" md="6">
+        <v-label filled> FOLIO # {{ folio }} </v-label>
+      </v-col>
+
+      <v-col cols="12" xs="12" md="6">
+        <barraDocumentosVue></barraDocumentosVue>
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <comboboxProgramaSeleccionado :programa="programaSeleccionado"></comboboxProgramaSeleccionado>
+      <calendario :fecha="date"></calendario>
+    </v-row>
+
+    <v-row>
+      <textareaInvolucrados :texto="involucrados"></textareaInvolucrados>
+    </v-row>
+
+    <v-row>
+      <textfieldElaboro :quienelaboro="elaboro"></textfieldElaboro>
+      <comboboxCargos :quecargo="cargo"></comboboxCargos>
+    </v-row>
+
+    <v-row>
+      <textareaRegistro :texto="registrohechos"></textareaRegistro>
+    </v-row>
+
+    <!-- =============================================== -->
+
+    <v-row>
+      <cardPerlfilAgresor
+        :perfilagresor="perfildelagresor"
+        :tiponiveluno="paadultocolaborador"
+        :tiponiveldos="paadultocolaboradortipo"
+        :vercomboniveluno="vercomboniveluno"
+        :vercomboniveldos ="vercomboniveldos"       
+      >
+      </cardPerlfilAgresor>
+    </v-row>
+
+    <!-- =============================================== -->
+
+    <v-row>
+      <cardPerfilVictima
+        :perfilvictima="perfilvictima"
+        :recibeayuda="recibeayuda"
+      >
+      </cardPerfilVictima>
+    </v-row>
+
+    <br />
+
+    <v-row>
+      <textareaMedidasProteccion
+        :texto="medidasproteccion"
+      ></textareaMedidasProteccion>
+    </v-row>
+
+    <v-row>
+      <esunincidente :incidente="incidenteconfirmado"></esunincidente>
+    </v-row>
+
+    <v-row>
+      <textareaTestigos :texto="testigos"></textareaTestigos>
+    </v-row>
+
+    <v-row>
+      <v-col cols="12" xs="12" sm="12" md="4">
+        <v-btn
+          :loading="loading"
+          :disabled="verBotonImpresion"
+          color="primary"
+          @click="solicitudImpresion"
+          block
+        >
+          <v-icon right dark> mdi-printer </v-icon>
+          <v-spacer></v-spacer>
+          Imprimir
+        </v-btn>
+      </v-col>
+      <v-col cols="12" xs="12" sm="12" md="4">
+        <v-btn
+          :loading="loading"
+          :disabled="loading"
+          color="red"
+          @click="guardar__iraDashboard"
+          block
+        >
+          <v-icon right dark> mdi-close </v-icon>
+          <v-spacer></v-spacer>
+          Cancelar
+        </v-btn>
+      </v-col>
+      <v-col cols="12" xs="12" sm="12" md="4">
+        <v-btn
+          :loading="loadingGuardar"
+          :disabled="loadingGuardar"
+          color="green"
+          @click="nuevo_incidente"
+          block
+        >
+          <v-icon right dark> mdi-check </v-icon>
+          <v-spacer></v-spacer>
+          Guardar
+        </v-btn>
+      </v-col>
+    </v-row>
+  </v-container>
+</template>
+<script>
+import barraDocumentosVue from "../barradocumentos/barraDocumentos.vue";
+import apiIncidentes from "@/apialdeas/apiIncidentes.js";
+import comboboxProgramaSeleccionado from "@/components/etapasComponentes/comboboxProgramaSeleccionado.vue";
+import calendario from "@/components/etapasComponentes/calendario.vue";
+import textareaInvolucrados from "@/components/etapasComponentes/textareaInvolucrados.vue";
+import textfieldElaboro from "@/components/etapasComponentes/textfieldElaboro.vue";
+import comboboxCargos from "@/components/etapasComponentes/comboboxCargos.vue";
+import textareaRegistro from "@/components/etapasComponentes/textareaRegistro.vue";
+import cardPerlfilAgresor from "@/components/etapasComponentes/cardPerlfilAgresor.vue";
+import esunincidente from "@/components/etapasComponentes/esunincidente.vue";
+import cardPerfilVictima from "@/components/etapasComponentes/cardPerfilVictima.vue";
+import textareaMedidasProteccion from "@/components/etapasComponentes/textareaMedidasProteccion.vue";
+import textareaTestigos from "@/components/etapasComponentes/textareaTestigos.vue";
+export default {
+  components: {
+    barraDocumentosVue,
+    comboboxProgramaSeleccionado,
+    calendario,
+    textareaInvolucrados,
+    textfieldElaboro,
+    comboboxCargos,
+    textareaRegistro,
+    cardPerlfilAgresor,
+    esunincidente,
+    cardPerfilVictima,
+    textareaMedidasProteccion,
+    textareaTestigos,
+  },
+
+  methods: {
+
+    solicitudImpresion(){
+      let idRecuperado = this.$route.params.id;
+ 
+             this.$router.push({
+          name: "PermisoImpresion",
+          params: { incidenteId: idRecuperado },
+        });
+    },
+    guardar__iraDashboard() {
+      this.$router.push("/dashboard");
+    },
+    nuevo_incidente_test(){
+      
+     // var a = this.$store.state.incidentes;
+
+      const  { 
+      etapainicial_programa ,
+       etapainicial_fecha ,
+        etapainicial_involucrados,
+          etapainicial_elaboro,
+      etapainicial_cargos,
+      etapainicial_registrohechos,
+      etapainicial_perfildelagresor,
+      etapainicial_paadultocolaborador,
+      etapainicial_paadultocolaboradortipo,
+      etapainicial_perfilvictima,
+      etapainicial_recibeayuda,
+      etapainicial_medidasproteccion,
+      etapainicial_incidenteconfirmado,etapainicial_testigos} =this.$store.state.incidentes;
+     
+      console.log({ etapainicial_programa,
+      etapainicial_fecha ,
+      etapainicial_involucrados ,
+      etapainicial_elaboro,
+      etapainicial_cargos,
+      etapainicial_registrohechos,
+      etapainicial_perfildelagresor,
+      etapainicial_paadultocolaborador,
+      etapainicial_paadultocolaboradortipo,
+      etapainicial_perfilvictima,
+      etapainicial_recibeayuda,
+      etapainicial_medidasproteccion,
+      etapainicial_incidenteconfirmado,etapainicial_testigos});
+     
+  
+  },
+    nuevo_incidente() {
+
+      this.loadingGuardar = true;
+    
+
+const  { 
+      etapainicial_programa ,
+      etapainicial_fecha ,
+      etapainicial_involucrados,
+      etapainicial_elaboro,
+      etapainicial_cargos,
+      etapainicial_registrohechos,
+      etapainicial_perfildelagresor,
+      etapainicial_paadultocolaborador,
+      etapainicial_paadultocolaboradortipo,
+      etapainicial_perfilvictima,
+      etapainicial_recibeayuda,
+      etapainicial_medidasproteccion,
+      etapainicial_incidenteconfirmado,
+      etapainicial_testigos} =this.$store.state.incidentes;
+     
+      /* usuario creador es el usuario logueado. */
+      var usuarioCreador = "1";
+      var etapa = 1;
+
+      var parametros = {
+        programa: etapainicial_programa,
+        fechaAlta:etapainicial_fecha,
+        fechaUpdate: etapainicial_fecha,
+        usuarioCreador: usuarioCreador,
+        involucrados: etapainicial_involucrados,
+        elaboro: etapainicial_elaboro,
+        cargousuario: etapainicial_cargos,
+        registrohechos: etapainicial_registrohechos,
+
+        perfildelagresor: etapainicial_perfildelagresor,
+
+        paadultocolaborador: etapainicial_paadultocolaborador,
+        paadultocolaboradortipo: etapainicial_paadultocolaboradortipo,
+        pafamilia: '',
+        pafamiliatipo: '',
+        adultoexterno: '',
+
+        nnj: '',
+        perfilvictima: etapainicial_perfilvictima,
+        recibeayuda: etapainicial_recibeayuda,
+        medidasproinmediatasdiatas:etapainicial_medidasproteccion,
+        incidenteconfirmado: etapainicial_incidenteconfirmado, //incidenteconfirmado,
+        testigos: etapainicial_testigos,
+        etapa: etapa,
+        etapauno: "visible",
+        etapados: "visible",
+        etapatres: "invisible",
+        etapacuatro: "invisible",
+        coloretapauno: "green",
+        coloretapados: "yellow",
+        coloretapatres: "yellow",
+        coloretapacuatro: "yellow",
+      };
+
+      console.log("== valores del incidente ==");
+      console.log(JSON.stringify(parametros));
+
+      let x = apiIncidentes.nuevoIncidente(parametros, this.$store);
+      //let x = apiIncidentes.saludo(this.$store);
+      // let x = apiIncidentes.nuevoUsuario(parametros, this.$store);
+      x.then((response) => {
+        console.log(response.data);
+        this.loadingGuardar = false;
+        //redireccionamos
+
+        let a = JSON.parse(response.data);
+
+        let atipo = typeof a;
+
+        console.log(atipo);
+        let idRecuperado = a["id"];
+
+        console.log("valor de idRecuperado  : " + idRecuperado);
+
+        this.modo = "update";
+
+        this.folio = a["folio"];
+
+        this.verBotonImpresion = false;
+         /*
+        this.$router.push({
+          name: "DenunciasDetalle",
+          params: { id: idRecuperado },
+        });*/
+      
+          this.$router.push({
+          name: "Notificacionuno",
+          params: { incidenteId: idRecuperado,folio:this.folio },
+        });
+
+      }).catch((error) => {
+        console.log(error.data);
+        this.loadingGuardar = false;
+      });
+    }, //termina nuevo_incidente
+    update_incidente() {
+      console.log("update");
+    },
+
+    guardar_incidente() {
+      console.log(" valor de this.modo : " + this.modo);
+      if (this.modo == "nuevo") {
+        this.nuevo_incidente();
+      } else {
+        this.update_incidente();
+      }
+    },
+
+    asignarAVariablesValoresDeConsulta(respuesta) {
+      console.log("==>asignarAVariablesValoresDeConsulta<== : ");
+      //console.log(JSON.stringify(respuesta.data));
+      var a = respuesta.data;
+     
+      this.folio = a[0]["folio"];
+      this.date = a[0]["fechaAlta"];
+      this.programaSeleccionado = a[0]["programa"];
+     
+      this.involucrados = a[0]["involucrados"];
+
+     // console.log(this.involucrados);
+
+      this.elaboro = a[0]["elaboro"];
+
+      this.cargo = a[0]["cargousuario"];
+
+      this.registrohechos = a[0]["registrohechos"];
+
+      /* perfil del agresor */
+     this.perfildelagresor= a[0]["prefildelagresor"];
+     this.paadultocolaborador = a[0]["paadultocolaborador"];
+     this.paadultocolaboradortipo = a[0]["paadultocolaboradortipo"];
+
+     console.log('-----------');
+     console.log(this.perfildelagresor);
+     console.log(this.paadultocolaborador);
+     console.log(this.paadultocolaboradortipo);
+
+     
+
+      this.medidasproteccion = a[0]["medidasproinmediatas"];
+
+      this.testigos = a[0]["testigos"];
+
+     this.incidenteconfirmado = a[0]["incidenteconfirmado"];
+
+      
+   
+
+      this.perfilvictima = a[0]["perfilvictima"];
+
+      this.recibeayuda = a[0]["recibeayuda"];
+
+      console.log( " perfil victiam " + this.perfilvictima) ;
+console.log( " perfil recibeayuda " + this.recibeayuda) ;
+     
+    },
+
+    escogerProcedimiento() {
+      //recuperamos el paraemtro id de la ruta
+      let parametroId = 0;
+      parametroId = this.$route.params.id;
+      console.log(parametroId);
+      this.modo = "nuevo";
+
+      if (parametroId == undefined) {
+        console.log("valor de parametroID : " + parametroId);
+      } else {
+        console.log("valor actual de parametroId : " + parametroId);
+
+        let P_incidente = apiIncidentes.recuperarUnIncidente(
+          parametroId,
+          this.$store
+        );
+
+        P_incidente.then((response) => {
+          console.log("recuperando los datos del incidente ");
+          // console.log(JSON.stringify(response.data));
+          /** */
+          this.asignarAVariablesValoresDeConsulta(response);
+
+          this.modo = "update";
+          this.verBotonImpresion = false;
+        }).catch((error) => {
+          console.log(JSON.stringify(error.response));
+          this.modo = "update";
+        });
+      }
+    },
+  },
+
+  created() {
+    console.log("en created, valor de this.modo : " + this.modo);
+    this.escogerProcedimiento();
+  },
+
+  data() {
+    return {
+      vercomboniveluno: false,
+      vercomboniveldos: false,
+      paadultocolaborador: '',
+      paadultocolaboradortipo :'',
+      incidenteconfirmado: '',
+      perfilvictima: '',
+      recibeayuda: '',
+      verBotonImpresion: true,
+      verBotonCancelar: false,
+
+      modo: "nuevo",
+
+      perfildelagresor: "",
+
+      perfilcolaboradorsos: "",
+      perfilfamiliaorigen: "",
+      perfiladultoexterno: "",
+
+      elaboro: "",
+      cargo: "",
+
+      medidasproteccion: "",
+      testigos: "",
+
+      esincidente: false,
+      noesincidente: false,
+      porconfirmar: false,
+
+      perfilnina: false,
+      perfilnino: false,
+
+      sirecibeayudasos: false,
+      norecibeayudasos: false,
+
+      colaboradorsos: false,
+      familiaorigen: false,
+      adultoexterno: false,
+
+      nnjs: false,
+
+      nnje: false,
+      folio: "000-nan-000",
+
+      involucrados: "",
+
+      registrohechos: "",
+
+      loading: false,
+      loadingGuardar: false,
+
+      adulto: false,
+
+      pares: false,
+
+      itemsUnidades: ["Unidad SOS Tijuana", "Unidad SOS CDMX"],
+
+      programaSeleccionado: "",
+
+      itemsCargos: ["Cuidador", "Mamá SOS", "Papá SOS"],
+      itemsFamilia: [
+        "Papá",
+        "Mamá",
+        "Hermano",
+        "Hermana",
+        "Padrastro",
+        "Madrastra",
+        "Tio",
+      ],
+
+      perfilAgresor: "",
+
+      date: new Date().toISOString().substr(0, 10),
+
+      menu2: false,
+    };
+  },
+};
+</script>
+

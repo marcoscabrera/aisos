@@ -56,4 +56,20 @@ export default {
         });
     }, //termina axiopost2
 
+    axiosdelete(endpoint) {
+      return new Promise((resolve, reject) => {
+          axios
+              .delete(endpoint)
+              .then((response) => {
+                  console.log("valor del data axiosdelete : " + response.data);
+
+                  resolve(response);
+                  //return response.data;
+              })
+              .catch((error) => {
+                  console.log(error);
+                  reject(error);
+              });
+      });
+  }, //termina axiosget
 };

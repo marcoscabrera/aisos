@@ -4,18 +4,21 @@
 
     <v-row>
       <v-col cols="12" xs="12" md="6">
-        <v-label filled> FOLIO # AAA-000-20 </v-label>
+        <v-label filled> FOLIO # {{folio}} </v-label>
       </v-col>
 
-      <v-col cols="12" xs="12" md="6">
+      <!--  <v-col cols="12" xs="12" md="6">
         <barraDocumentosVue></barraDocumentosVue>
-      </v-col>
+      </v-col> -->
     </v-row>
 
     <v-row>
       <v-col cols="12" xs="12" md="6">
-        <v-select :items="itemsUnidades" label="PROGRAMA" dense filled>
-        </v-select>
+        <v-text-field 
+            :value="programa"
+            label="Programa"
+            filled
+            readonly> </v-text-field>
       </v-col>
 
       <v-col cols="12" xs="12" md="6">
@@ -42,24 +45,24 @@
       </v-col>
     </v-row>
 
-    <!--  <v-row>
-      <v-col cols="12">
-        <v-textarea
-          filled
-          name="input-7-4"
-          label="VALORACIÓN INICIAL (250 PALABRAS)"
-          value=""
-        >
-        </v-textarea>
-      </v-col>
-    </v-row> -->
+    
 
     <v-row>
       <v-col cols="12" xs="12" md="6">
-        <v-text-field label="ELABORO" filled> </v-text-field>
+        <v-text-field 
+            :value="elaboro"
+            label="Elaboro"
+           
+            filled
+            readonly> </v-text-field>
       </v-col>
       <v-col cols="12" xs="12" md="6">
-        <v-select :items="itemsCargos" label="CARGO" dense filled> </v-select>
+        <v-text-field 
+            :value="cargo"
+            label="Cargo"
+            filled
+            readonly> 
+        </v-text-field>
       </v-col>
     </v-row>
 
@@ -67,9 +70,10 @@
       <v-col cols="12">
         <v-textarea
           filled
-          name="input-7-4"
+          name="input-7-7"
           label=" DECLARATORIA (250 PALABRAS) "
-          value=""
+      
+           :placeholder ="place" 
         >
         </v-textarea>
       </v-col>
@@ -82,29 +86,19 @@
     <!-- =============================================== -->
 
     <v-row>
-      <v-card width="100%">
-        <v-card-title> </v-card-title>
-        <v-card-text>
-          <v-row>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-checkbox
-                label="SE NOTIFICO AL SISTEMA DIF O PROCURADURIA"
-                :model="adulto"
-                @click="seleccionar('adulto')"
-              ></v-checkbox>
-            </v-col>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-bottom-navigation v-model="value">
-                <v-btn value="favorites">
-                  <span>NO existe ningun archivo</span>
+      <cardDocumentoEnCierre 
 
-                  <v-icon color="yellow" large="true">mdi-file-document</v-icon>
-                </v-btn>
-              </v-bottom-navigation>
-            </v-col>
-          </v-row>
-        </v-card-text>
-      </v-card>
+       labelCheckbox= "SE NOTIFICO AL SISTEMA DIF "
+        
+       :inputValueCheckbox ="Archivo_notificaciondif.hayArchivo"
+
+       :nombreArchivo ="Archivo_notificaciondif.nombreOriginal"
+
+       :colorIcono ="Archivo_notificaciondif.hayArchivo == false ? 'yellow' : 'green' "
+      >
+
+      </cardDocumentoEnCierre>
+
     </v-row>
 
     <!-- =============================================== -->
@@ -113,30 +107,21 @@
     <!-- =============================================== -->
 
     <v-row>
-      <v-card width="100%">
-        <v-card-title> </v-card-title>
-        <v-card-text>
-          <v-row>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-checkbox
-                label="SE NOTIFICÓ A LA AUTORIDAD CORRESPONDIENTE"
-                :model="adulto"
-                input-value="true"
-                @click="seleccionar('adulto')"
-              ></v-checkbox>
-            </v-col>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-bottom-navigation v-model="value">
-                <v-btn value="favorites">
-                  <span>Notificacionparaautoridad.pdf</span>
 
-                  <v-icon color="green" large="true">mdi-file-document</v-icon>
-                </v-btn>
-              </v-bottom-navigation>
-            </v-col>
-          </v-row>
-        </v-card-text>
-      </v-card>
+      <cardDocumentoEnCierre 
+
+       labelCheckbox= "SE NOTIFICÓ A LA AUTORIDAD CORRESPONDIENTE"
+        
+      :inputValueCheckbox ="Archivo_notificacionAutoridad.hayArchivo"
+
+       :nombreArchivo ="Archivo_notificacionAutoridad.nombreOriginal"
+
+       :colorIcono ="Archivo_notificacionAutoridad.hayArchivo === true ? 'green' : 'yellow' "
+   
+      >
+
+      </cardDocumentoEnCierre>
+
     </v-row>
 
     <!-- =============================================== -->
@@ -144,29 +129,21 @@
     <!-- =============================================== -->
 
     <v-row>
-      <v-card width="100%">
-        <v-card-title> </v-card-title>
-        <v-card-text>
-          <v-row>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-checkbox
-                label="SE NOTIFICÓ Al PFN O AL ELPI"
-                :model="adulto"
-                @click="seleccionar('adulto')"
-              ></v-checkbox>
-            </v-col>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-bottom-navigation v-model="value">
-                <v-btn value="favorites">
-                  <span>No existe ningun archivo</span>
 
-                  <v-icon color="yellow" large="true">mdi-file-document</v-icon>
-                </v-btn>
-              </v-bottom-navigation>
-            </v-col>
-          </v-row>
-        </v-card-text>
-      </v-card>
+      <cardDocumentoEnCierre 
+
+       labelCheckbox= "SE NOTIFICÓ Al PFN O AL ELPI CORRESPONDIENTE"
+        
+       :inputValueCheckbox ="Archivo_notificacionPFN.hayArchivo"
+
+       :nombreArchivo ="Archivo_notificacionPFN.nombreOriginal"
+
+       :colorIcono ="Archivo_notificacionPFN.hayArchivo === true ? 'green' : 'yellow' "
+ 
+      >
+
+      </cardDocumentoEnCierre>
+      
     </v-row>
 
     <!-- =============================================== -->
@@ -174,30 +151,40 @@
     <!-- =============================================== -->
 
     <v-row>
-      <v-card width="100%">
-        <v-card-title> </v-card-title>
-        <v-card-text>
-          <v-row>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-checkbox
-                label="SE NOTIFICÓ A LA PERSONA DENUNCIANTE"
-                :model="adulto"
-                input-value="true"
-                @click="seleccionar('adulto')"
-              ></v-checkbox>
-            </v-col>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-bottom-navigation v-model="value">
-                <v-btn value="favorites">
-                  <span>Notificacionaldenunciante.pdf</span>
+        <cardDocumentoEnCierre 
 
-                  <v-icon color="green" large="true">mdi-file-document</v-icon>
-                </v-btn>
-              </v-bottom-navigation>
-            </v-col>
-          </v-row>
-        </v-card-text>
-      </v-card>
+       labelCheckbox= "SE NOTIFICÓ A LA PERSONA DENUNCIANTE"
+        
+       :inputValueCheckbox ="Archivo_notificacionDenunciante.hayArchivo"
+
+       :nombreArchivo ="Archivo_notificacionDenunciante.nombreOriginal"
+
+       :colorIcono ="Archivo_notificacionDenunciante.hayArchivo === true ? 'green' : 'yellow' "
+      >
+
+      </cardDocumentoEnCierre>
+    </v-row>
+
+    <!-- =============================================== -->
+    <br />
+    <!-- =============================================== -->
+
+    <v-row> 
+      
+      <cardDocumentoEnCierre 
+
+       labelCheckbox= "SE CUENTA CON EL LLENADO DEL ACTA DE VALORACIÓN DEL/DE LOS INCIDENTES/S"
+        
+      :inputValueCheckbox ="Archivo_notificacionValoracion.hayArchivo"
+
+       :nombreArchivo ="Archivo_notificacionValoracion.nombreOriginal"
+
+       :colorIcono ="Archivo_notificacionValoracion.hayArchivo === true ? 'green' : 'yellow' "
+
+      >
+
+      </cardDocumentoEnCierre>      
+     
     </v-row>
 
     <!-- =============================================== -->
@@ -205,60 +192,21 @@
     <!-- =============================================== -->
 
     <v-row>
-      <v-card width="100%">
-        <v-card-title> </v-card-title>
-        <v-card-text>
-          <v-row>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-checkbox
-                label="SE CUENTA CON EL LLENADO DEL ACTA DE VALORACIÓN DEL/DE LOS INCIDENTES/S"
-                :model="adulto"
-                input-value="true"
-                @click="seleccionar('adulto')"
-              ></v-checkbox>
-            </v-col>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-bottom-navigation v-model="value">
-                <v-btn value="favorites">
-                  <span>NotificacionSistemaDIF.pdf</span>
 
-                  <v-icon color="green" large="true">mdi-file-document</v-icon>
-                </v-btn>
-              </v-bottom-navigation>
-            </v-col>
-          </v-row>
-        </v-card-text>
-      </v-card>
-    </v-row>
+            <cardDocumentoEnCierre 
 
-    <!-- =============================================== -->
-    <br />
-    <!-- =============================================== -->
+       labelCheckbox= "SE CUENTA CON UN PLAN DE RECUPERACIÓN EMOCIONAL CON SEGUIMIENTO"
+        
+      :inputValueCheckbox ="Archivo_notificacionPlan.hayArchivo"
 
-    <v-row>
-      <v-card width="100%">
-        <v-card-title> </v-card-title>
-        <v-card-text>
-          <v-row>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-checkbox
-                label="SE CUENTA CON UN PLAN DE RECUPERACIÓN EMOCIONAL CON SEGUIMIENTO"
-                :model="adulto"
-                @click="seleccionar('adulto')"
-              ></v-checkbox>
-            </v-col>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-bottom-navigation v-model="value">
-                <v-btn value="favorites">
-                  <span>No existe ningun archivo</span>
+       :nombreArchivo ="Archivo_notificacionPlan.nombreOriginal"
 
-                  <v-icon color="yellow" large="true">mdi-file-document</v-icon>
-                </v-btn>
-              </v-bottom-navigation>
-            </v-col>
-          </v-row>
-        </v-card-text>
-      </v-card>
+       :colorIcono ="Archivo_notificacionPlan.hayArchivo === true ? 'green' : 'yellow' "
+
+      >
+
+      </cardDocumentoEnCierre>      
+
     </v-row>
 
     <!-- =============================================== -->
@@ -271,7 +219,9 @@
           NOMBRE, CARGO Y FIRMA DE QUIEN ELABORA EL ACTA DE CIERRE
         </v-card-title>
         <v-card-text>
-          <usuariosCierre></usuariosCierre>
+          <usuariosCierre :incidenteid="incidenteid"
+                          :testigos="testigos">
+                          </usuariosCierre>
         </v-card-text>
       </v-card>
     </v-row>
@@ -328,12 +278,195 @@
   </v-container>
 </template>
 <script>
-import barraDocumentosVue from "../barradocumentos/barraDocumentos.vue";
+//import barraDocumentosVue from "../barradocumentos/barraDocumentos.vue";
 import usuariosCierre from "@/components/usuarios/usuariosCierre.vue";
+import apiIncidentes from '@/apialdeas/apiIncidentes.js';
+import cardDocumentoEnCierre from '@/components/etapasComponentesCierre/cardDocumentoEnCierre.vue';
+import apiArchivos from '@/apialdeas/apiArchivos.js';
 export default {
-  components: { barraDocumentosVue, usuariosCierre },
+  components: {
+    //barraDocumentosVue,
+    usuariosCierre,
+    cardDocumentoEnCierre },
 
   methods: {
+      
+      cargarDocumento(idDocto){
+
+
+        let tipovar = typeof idDocto;
+
+        console.log("valor de tipovar " + tipovar);
+       
+       let arrayDeRegreso ={};
+
+
+       console.log(" === vaor de idDocto en cargarDocumento : " + idDocto);
+
+
+      if ( idDocto==='0' ) {
+
+        
+
+        var tempArray =  {
+                hayArchivo    : false,
+                id            : 0,
+               nombreOriginal :  'no hay archivo'  };
+
+        arrayDeRegreso = tempArray;
+        console.table(arrayDeRegreso);
+
+      
+
+        return arrayDeRegreso;
+
+      }else {
+       let docto =     apiArchivos.conseguirArchivo(idDocto, this.$store.state);
+       
+       docto
+       .then(
+         response=>{
+
+            let id =  idDocto;
+            let nombreoriginal =response.data[0]['nombreOriginal'];
+            
+
+            console.log("docto =>  id :" + id);
+            console.log("docto => nombreOriginal :" + nombreoriginal)
+             
+             let tempArray =  {
+               hayArchivo : true,
+               id :  id,
+               nombreOriginal :  nombreoriginal  };
+
+
+                arrayDeRegreso = tempArray;
+                 console.log("probando los valores recibidos ==> nombreOriginal : " + arrayDeRegreso.nombreOriginal);
+             console.log("probando los valores recibidos ==> id : " + arrayDeRegreso.id);
+               
+                console.log("  *** * * * * * *");
+                console.table(arrayDeRegreso);
+                console.log("  *** * * * * * *");
+                   
+                  return arrayDeRegreso;
+
+            /* arrayDeRegreso['hayArchivo']= true;
+             arrayDeRegreso['id']= JSON.stringify(response.data[0]['id']);
+             arrayDeRegreso['nombreOriginal']=JSON.stringify(response.data[0]['nombreOriginal']);*/
+         }
+       ).catch(
+         error=> { console.log("eror : "+ error.response)}
+       ); 
+
+
+      }
+         
+      
+    
+    },
+
+   async cargarDatos(){
+      
+     //obtenenemos el 
+      let incidenteId = this.$route.params.incidenteId;
+
+      this.incidenteid = incidenteId;
+
+      console.log("valor de incidenteID : " + incidenteId);
+
+      let datos = apiIncidentes.revisarCierre(incidenteId, this.$store);
+
+      datos.then(
+        response=>{ 
+          
+          console.log(response.data);
+          this.folio = response.data[0]["folio"];
+          this.programa= response.data[0]["programa"];
+          this.elaboro= response.data[0]["elaboro"];
+          this.cargo= response.data[0]["cargousuario"];
+
+          this.testigos= response.data[0]["testigos"];
+
+        
+       
+        
+        
+/*
+         this.Archivo_notificacionPlan.nombreOriginal =response.data[0]['Archivo_Plan_nombreOriginal'];
+         this.Archivo_notificacionPlan.id =response.data[0]['Archivo_Plan_id'];
+         this.Archivo_notificacionPlan.hayArchivo =response.data[0]['Archivo_Plan_hayArchivo'];
+         this.Archivo_notificacionPlan.nombreInterno =response.data[0]['Archivo_Plan_nombreinterno'];
+          this.Archivo_notificacionPlan.directorio =response.data[0]['Archivo_Plan_directorio'];
+         this.Archivo_notificacionPlan.ext = response.data[0]['Archivo_Plan_ext'];
+*/
+      
+       
+         this.Archivo_notificacionPlan.nombreOriginal =response.data[0]['Archivo_planrecuperacion_nombreOriginal'];
+         this.Archivo_notificacionPlan.id =response.data[0]['Archivo_planrecuperacion_id'];
+         this.Archivo_notificacionPlan.hayArchivo =response.data[0]['Archivo_planrecuperacion_hayArchivo'];
+         this.Archivo_notificacionPlan.nombreInterno =response.data[0]['Archivo_planrecuperacion_nombreinterno'];
+         this.Archivo_notificacionPlan.directorio =response.data[0]['Archivo_planrecuperacion_directorio'];
+         this.Archivo_notificacionPlan.ext = response.data[0]['Archivo_planrecuperacion_ext'];
+
+
+       
+         this.Archivo_notificacionValoracion.nombreOriginal =response.data[0]['Archivo_actavaloracion_nombreOriginal'];
+         this.Archivo_notificacionValoracion.id =response.data[0]['Archivo_actavaloracion_id'];
+         this.Archivo_notificacionValoracion.hayArchivo =response.data[0]['Archivo_actavaloracion_hayArchivo'];
+         this.Archivo_notificacionValoracion.nombreInterno =response.data[0]['Archivo_actavaloracion_nombreinterno'];
+         this.Archivo_notificacionValoracion.directorio =response.data[0]['Archivo_actavaloracion_directorio'];
+         this.Archivo_notificacionValoracion.ext = response.data[0]['Archivo_actavaloracion_ext'];
+
+
+    
+         this.Archivo_notificacionDenunciante.nombreOriginal =response.data[0]['Archivo_notificaciondenunciante_nombreOriginal'];
+         this.Archivo_notificacionDenunciante.id =response.data[0]['Archivo_notificaciondenunciante_id'];
+         this.Archivo_notificacionDenunciante.hayArchivo =response.data[0]['Archivo_notificaciondenunciante_hayArchivo'];
+         this.Archivo_notificacionDenunciante.nombreInterno =response.data[0]['Archivo_notificaciondenunciante_nombreinterno'];
+         this.Archivo_notificacionDenunciante.directorio =response.data[0]['Archivo_notificaciondenunciante_directorio'];
+         this.Archivo_notificacionDenunciante.ext = response.data[0]['Archivo_notificaciondenunciante_ext'];
+          
+
+         this.Archivo_notificaciondif.nombreOriginal =response.data[0]['Archivo_notificaciondif_nombreOriginal'];
+         this.Archivo_notificaciondif.id =response.data[0]['Archivo_notificaciondif_id'];
+         this.Archivo_notificaciondif.hayArchivo =response.data[0]['Archivo_notificaciondif_hayArchivo'];
+         this.Archivo_notificaciondif.nombreInterno =response.data[0]['Archivo_notificaciondif_nombreinterno'];
+         this.Archivo_notificaciondif.directorio =response.data[0]['Archivo_notificaciondif_directorio'];
+         this.Archivo_notificaciondif.ext = response.data[0]['Archivo_notificaciondif_ext'];
+
+
+         this.Archivo_notificacionAutoridad.nombreOriginal =response.data[0]['Archivo_notificacionautoridad_nombreOriginal'];
+         this.Archivo_notificacionAutoridad.id =response.data[0]['Archivo_notificacionautoridad_id'];
+         this.Archivo_notificacionAutoridad.hayArchivo =response.data[0]['Archivo_notificacionautoridad_hayArchivo'];
+         this.Archivo_notificacionAutoridad.nombreInterno =response.data[0]['Archivo_notificacionautoridad_nombreinterno'];
+         this.Archivo_notificacionAutoridad.directorio =response.data[0]['Archivo_notificacionutoridad_directorio'];
+         this.Archivo_notificacionAutoridad.ext = response.data[0]['Archivo_notificacionautoridad_ext'];
+        
+
+         this.Archivo_notificacionPFN.nombreOriginal =response.data[0]['Archivo_notificacionPFN_nombreOriginal'];
+         this.Archivo_notificacionPFN.id =response.data[0]['Archivo_notificacionPFN_id'];
+         this.Archivo_notificacionPFN.hayArchivo =response.data[0]['Archivo_notificacionPFN_hayArchivo'];
+         this.Archivo_notificacionPFN.nombreInterno =response.data[0]['Archivo_notificacionPFN_nombreinterno'];
+         this.Archivo_notificacionPFN.directorio =response.data[0]['notificacionutoridad_directorio'];
+         this.Archivo_notificacionPFN.ext = response.data[0]['Archivo_notificacionPFN_ext'];
+  
+
+           }
+      ).catch(
+        error =>{
+          console.log(error);
+        }
+      )
+
+/*
+      datos.then( response => {
+        console.log(JSON.stringify(response.data));
+      }).catch(error => {
+        console.log(JSON.stringify(error.data));
+      });*/
+
+
+    },
     guardar__iraDashboard() {
       this.$router.push("/dashboard");
     },
@@ -351,26 +484,67 @@ export default {
     },
   },
 
+  mounted() {
+
+   // if ($this.$nextTick){
+      this.cargarDatos();
+  //  }
+
+    
+
+  },
+
   data() {
     return {
-      adulto: false,
 
-      pares: false,
 
-      itemsUnidades: ["Unidad SOS Tijuana", "Unidad SOS CDMX"],
+      verNotificacionAutoridad : false,
 
-      itemsCargos: ["Cuidador", "Mamá SOS", "Papá SOS"],
-      itemsFamilia: [
-        "Papá",
-        "Mamá",
-        "Hermano",
-        "Hermana",
-        "Padrastro",
-        "Madrastra",
-        "Tio",
-      ],
+      incidente :[],
+      incidenteid: '',
+      loading :false,
 
-      perfilAgresor: null,
+      programa :'',
+      elaboro :'',
+      cargo :'',
+
+     hayNotificacionAlDif:false,
+      Archivo_notificaciondif:[],
+     
+
+
+      Archivo_notificacionAutoridad :[],
+      hayNotificacionAlaAutoridad:false,
+
+      Archivo_notificacionPFN :[],
+      hayNotificacionAlaPFN:false,
+
+      hayNotificacionDenunciante :false,
+      Archivo_notificacionDenunciante:[],
+
+      hayNotificacionActa : false,
+      Archivo_notificacionValoracion :[],
+
+      hayNotificacionPlan : false ,
+      Archivo_notificacionPlan : [],
+
+      testigos : [],
+
+      
+      folio :'',
+
+      place : `A Qué hechos concretos se dio respuesta
+              Qué acciones se realizaron
+              Con quiénes se realizaron
+              Quién las realizó
+              Cómo se realizaron
+              Cuando se realizaron
+              A quienes se contactó para notificar los hechos
+              Instancias involucradas en el abordaje
+              Documentos probatorios del abordaje.
+              Conclusión de resultados del abordaje.`,
+    
+
 
       date: new Date().toISOString().substr(0, 10),
 

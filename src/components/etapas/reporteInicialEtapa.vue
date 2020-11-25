@@ -63,7 +63,7 @@
 
     <v-row>
       <v-col cols="12" xs="12" md="6">
-        <v-text-field label="ELABORO" v-model="elaboro" filled> </v-text-field>
+        <v-text-field label="DENUNCIANTE" v-model="elaboro" filled> </v-text-field>
       </v-col>
       <v-col cols="12" xs="12" md="6">
         <v-select
@@ -160,7 +160,7 @@
             <v-col cols="12" xs="12" sm="12" md="4">
               <v-checkbox
                 color="primary"
-                :input-value="adultoexterno"
+                :input-value="perfiladultoexterno"
                 @click="
                   seleccionar_colaborador_famorig_adulext('adultoexterno')
                 "
@@ -356,7 +356,7 @@
   </v-container>
 </template>
 <script>
-import barraDocumentosVue from "../barradocumentos/barraDocumentos.vue";
+
 import apiIncidentes from "@/apialdeas/apiIncidentes.js";
 
 export default {
@@ -480,11 +480,13 @@ export default {
         registrohechos: this.registrohechos,
 
         perfildelagresor: perfildelagresor,
+
         paadultocolaborador: this.colaboradorsos,
         paadultocolaboradortipo: this.perfilcolaboradorsos,
         pafamilia: this.familiaorigen,
         pafamiliatipo: this.perfilfamiliaorigen,
         adultoexterno: this.perfiladultoexterno,
+
         nnj: nnj,
         perfilvictima: perfilvictima,
         recibeayuda: recibeayuda,
@@ -576,19 +578,19 @@ export default {
       if (valor == "colaboradorsos") {
         this.colaboradorsos = true;
         this.familiaorigen = false;
-        this.adultoexterno = false;
+        this.perfiladultoexterno = false;
       }
 
       if (valor == "familiaorigen") {
         this.colaboradorsos = false;
         this.familiaorigen = true;
-        this.adultoexterno = false;
+        this.perfiladultoexterno = false;
       }
 
       if (valor == "adultoexterno") {
         this.colaboradorsos = false;
         this.familiaorigen = false;
-        this.adultoexterno = true;
+        this.perfiladultoexterno = true;
       }
     },
 
@@ -699,6 +701,7 @@ export default {
       this.folio = a[0]["folio"];
       this.date = a[0]["fechaAlta"];
 
+      this.programaSeleccionado = a[0]["programa"];
       console.log(this.date);
       //fechaUpdate: this.date,
       //usuarioCreador: usuarioCreador,
@@ -708,22 +711,48 @@ export default {
 
       this.elaboro = a[0]["elaboro"];
 
-      this.cargo = a[0]["cargo"];
+      this.cargo = a[0]["cargousuario"];
 
       this.registrohechos = a[0]["registrohechos"];
 
       /* perfil del agresor */
       // let pa = a[0]["perfildelagresor"];
 
-      this.colaboradorsos = a[0]["paadultocolaborador"];
+      //activa o desactiva el checkbox colaborador sos
+      if (a[0]["paadultocolaborador"] == 0) {
+        this.colaboradorsos = false;
+      } else {
+        this.colaboradorsos = true;
+      }
+      //this.colaboradorsos = a[0]["paadultocolaborador"];
+      console.log("valor del check colaboradorsos" + this.colaboradorsos);
 
+      //muestra el valor del    combo de colaboradores
       this.perfilcolaboradorsos = a[0]["paadultocolaboradortipo"];
 
-      this.familiaorigen = a[0]["pafamilia"];
+      //activa o desactiva el check de familia de origen
+      if (a[0]["pafamilia"] == 1) {
+        this.familiaorigen = true;
+      } else {
+        this.familiaorigen = false;
+      }
 
+      console.log("valor del check familiaorigen" + this.familiaorigen);
+
+      //muestra el valor del combo
       this.perfilfamiliaorigen = a[0]["pafamiliatipo"];
 
-      this.perfiladultoexterno = a[0]["adultoexterno"];
+      //activa o desactiva checkbox del adulyto externo
+      if (a[0]["adultoexterno"] == 1) {
+        this.perfiladultoexterno = true;
+      } else {
+        this.perfiladultoexterno = false;
+      }
+
+      console.log(
+        "valor del check perfiladultoexterno" + this.perfiladultoexterno
+      );
+      /*------------*/
 
       let nnj = a[0]["nnj"];
 
@@ -788,6 +817,7 @@ export default {
         );
 
         P_incidente.then((response) => {
+          console.log("recuperando los datos del incidente ");
           console.log(JSON.stringify(response.data));
           /** */
           this.asignarAVariablesValoresDeConsulta(response);

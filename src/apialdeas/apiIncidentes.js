@@ -74,6 +74,21 @@ export default {
 
     return api.axiospost(endpoint, parametros);
 
+     },
+
+     revisarCierre(parametro,store) {
+
+        ///api/v0/incidentes/{id}/cierre
+        let predicado = "/api/v0/incidentes/"+ parametro +"/cierre" ;
+
+        let apix = store.state.urlServidor;
+    
+        let endpoint = apix + predicado;
+    
+        console.log("valor del endpoint " + endpoint);
+    
+        return api.axiosget(endpoint);
+
      }
 
     

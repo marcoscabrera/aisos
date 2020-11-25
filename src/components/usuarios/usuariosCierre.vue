@@ -26,14 +26,15 @@
                 <v-row>
                   <v-col cols="12" xs="12" sm="12" md="12">
                     <v-text-field
-                      v-model="editedItem.name"
-                      label="Nombre de usuario"
+                      v-model="editedItem.nombre"
+                      label="Nombre del testigo"
                     ></v-text-field>
                   </v-col>
                 </v-row>
                 <v-row>
                   <v-col cols="12" xs="12" sm="6" md="4">
                     <v-select
+                     
                       v-model="editedItem.cargo"
                       :items="cargos"
                       label="Cargo"
@@ -66,18 +67,24 @@
 
 
 <script>
+
+import apiTestigos from '@/apialdeas/apiTestigos.js';
 export default {
+  props : { incidenteid : { type:String},
+            testigos : {type: Array}},
   data: () => ({
+    usuarios :[],
     dialog: false,
     cargos: ["puesto en Aldeas 1", "puesto en Aldeas 2", "cargo en ALDEAS SOS"],
     roles: ["PFN", "PFL", "PL", "ELPI"],
     headers: [
       {
-        text: "Nombre",
+        text: "id",
         align: "start",
         sortable: false,
-        value: "name",
+        value: "id",
       },
+      { text: "Nombre", value: "nombre" },
 
       { text: "Cargo", value: "cargo" },
 
@@ -86,22 +93,21 @@ export default {
     desserts: [],
     editedIndex: -1,
     editedItem: {
+      id: "",
       name: "",
-      email: "",
       cargo: "",
-      rol: "",
+    
     },
     defaultItem: {
+      id: "",
       name: "",
-      email: "",
       cargo: "",
-      rol: "",
     },
   }),
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "Nuevo Usuario" : "Editar Usuario";
+      return this.editedIndex === -1 ? "Nuevo Testigo" : "Editar Testigo";
     },
   },
 
@@ -112,32 +118,34 @@ export default {
   },
 
   created() {
-    this.initialize();
+    //this.initialize();
+      this.$nextTick(() => {
+          this.poblarGrid();
+      });
+   
   },
 
   methods: {
+
     initialize() {
-      this.usuarios = [
-        {
-          name: "Lic. Roberto Trejo",
-          email: "usuario1@aldeassos.com",
-          cargo: "Representante DIF",
-          rol: "PFN",
-          protein: 4.0,
-        },
-        {
-          name: "Julio C. Fernandez",
-          email: "usuario1@aldeassos.com",
-          cargo: "ELPI",
-          rol: "PFN",
-        },
-        {
-          name: "Juan Antonio Acuña",
-          email: "usuario2@aldeassos.com",
-          cargo: "Asesor independiente",
-          rol: "PFN",
-        },
-      ];
+        this.usuarios = this.testigos;
+    },
+   poblarGrid () {
+
+     let id = this.incidenteid;
+      
+      let testigos = apiTestigos.cargarTestigos(id,this.$store);
+
+      testigos.then(
+        response => {
+            this.usuarios = response.data;
+        }
+      ).catch(
+        error=>{
+          console.log(error);
+        }
+      );
+      
     },
 
     editItem(item) {
@@ -147,9 +155,30 @@ export default {
     },
 
     deleteItem(item) {
-      const index = this.usuarios.indexOf(item);
-      confirm("¿Estas seguro de eliminar este usuario ? ") &&
-        this.usuarios.splice(index, 1);
+      
+    console.log("valor dei en borrar item.id " + item.id);
+
+     var opcion =  confirm("¿Estas seguro de eliminar este testigo ? ");
+      
+      var promesa;
+      opcion== true  ? 
+      promesa =  apiTestigos.DeleteTestigo(item.id, this.$store) :
+      this.close();
+
+      promesa
+      .then(
+        response =>{
+          console.log(response);
+          this.poblarGrid();
+          this.close();
+        }
+      ).catch(
+        error => {
+          console.log(error);
+          alert("La operacion no se ha podido realizar");
+        }
+      );
+      
     },
 
     close() {
@@ -161,12 +190,45 @@ export default {
     },
 
     save() {
-      if (this.editedIndex > -1) {
-        Object.assign(this.usuarios[this.editedIndex], this.editedItem);
-      } else {
-        this.usuarios.push(this.editedItem);
-      }
-      this.close();
+   
+      //console.log("valor del id " + this.editedItem.id);
+
+      let idCount = 0;
+      idCount = this.editedItem.id.length;
+
+      let operacion =''
+
+      idCount==0 ? operacion ='nuevo' : operacion='editar';
+
+      let parametros = {   
+             'id' : this.editedItem.id,
+             'nombre' : this.editedItem.nombre,
+             'cargo' : this.editedItem.cargo,
+             'incidenteid' :this.incidenteid
+      };
+      //console.log("valor del parametros " + parametros);
+
+      let insertar;
+
+      operacion==='nuevo' ? 
+       insertar = apiTestigos.nuevoTestigo(parametros,this.$store) :
+       insertar = apiTestigos.updateTestigo(parametros,this.$store);
+
+      insertar.then(
+        response =>{
+          console.log("valor de la operacion : " + operacion);
+          console.log(response.data);
+
+          this.poblarGrid();
+         this.close();
+
+        }
+      ).catch(
+                error =>{
+          console.log(JSON.stringify(error.data));
+        }
+      );
+     
     },
   },
 };

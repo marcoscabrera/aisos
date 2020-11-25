@@ -27,14 +27,33 @@
     <v-row>
       <v-col></v-col>
       <v-col>
-        <ul>
-          <li>Se realizan correciones en valoracion integral para VoBo</li>
-          <li>Se realizan correciones en seguimiento para VoBo</li>
-          <li>Se realizan correciones en cierre para VoBo</li>
+        <!-- <ul>
+          <li>
+            Se reestablece conexion a base de datos en las fases de 
+            valoracion inicial y valoracion integral.
+          </li>
+          <li>
+            Cambios menores a la interfaz de usuario en
+            <a href="#/seguimiento">etapa de seguimiento</a>
+          </li>
+          <li>
+            Se realizan Cambio a interfaz de usuarios (Casillas de verficación
+            por Listas Desplegables) en pantalla de
+            <a href="#/denuncias">etapa inicial</a> y
+            <a href="#/valoracionintegral/2">valoración integral</a>
+          </li>
 
-          <li>Presentación de vista Denuncia legal</li>
-          <li>Presentación de vista de Investigacion interna</li>
-        </ul>
+            <li>
+            Cambios a interfaz de usuario en Dashboad( tablero de dato)
+          
+          </li>
+          <li>
+            se agrega pantalla de confirmación de alta de reporte
+          </li>
+                    <li>
+            se agrega pantalla de solicitud de permiso de impresion en valoracion incial
+          </li>
+        </ul> -->
       </v-col>
       <v-col></v-col>
     </v-row>

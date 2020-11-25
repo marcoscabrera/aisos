@@ -38,7 +38,23 @@
         </v-btn>
       </v-toolbar>
     </template>
+    <template v-slot:item.confirmaincidente="{ item }">
+   
+          <v-icon color="green"  v-if="item.confirmaincidentenumerico== 2"> mdi-checkbox-marked-circle</v-icon>
+          <v-icon color="red"    v-if="item.confirmaincidentenumerico== 1">mdi-close-circle</v-icon>
+          <v-icon color="yellow" v-if="item.confirmaincidentenumerico== 0">mdi-timer</v-icon>
 
+    </template>
+
+    <template v-slot:item.tipoderespuesta="{ item }">
+
+      <v-btn color="yellow" dark dense @click="ir_a_respuesta(item)">
+        {{item.tipoderespuesta}}
+      </v-btn>
+   
+    </template>
+
+  
     <template v-slot:item.etapauno="{ item }">
       <v-btn
         x-small
@@ -47,8 +63,8 @@
         dark
         @click="irAValoracionInicial(item.id)"
       >
-        1</v-btn
-      >
+         <!-- <v-icon>mdi-file-document</v-icon>
+       --></v-btn> 
     </template>
 
     <template v-slot:item.etapados="{ item }">
@@ -59,7 +75,7 @@
         dark
         @click="irAValoracionIntegral(item.id)"
       >
-        1</v-btn
+        .</v-btn
       >
     </template>
 
@@ -69,9 +85,9 @@
         x-small
         :color="item.coloretapatres"
         dark
-        @click="irAValoracionInicial(item.id)"
+        @click="irASeguimiento(item.id)"
       >
-        1</v-btn
+        .</v-btn
       >
     </template>
 
@@ -81,9 +97,9 @@
         x-small
         :color="item.coloretapacuatro"
         dark
-        @click="irAValoracionInicial(item.id)"
+        @click="irACierre(item.id)"
       >
-        1</v-btn
+        .</v-btn
       >
     </template>
 
@@ -95,28 +111,28 @@
         dark
         @click="irAValoracionInicial(item.id)"
       >
-        1</v-btn
+        .</v-btn
       >
       <v-btn
         :v-if="item.etapados"
         x-small
         :color="colorvintegral"
         @click="irAValoracionIntegral(item.id)"
-        >2</v-btn
+        >.</v-btn
       >
       <v-btn
         :v-if="item.etapatres"
         x-small
         :color="colors"
         @click="irA('/seguimiento')"
-        >3</v-btn
+        >.</v-btn
       >
       <v-btn
         :v-if="item.etapacuatro"
         x-small
         :color="colorc"
-        @click="irA('/cierre')"
-        >4</v-btn
+        @click="irACierre(item.id)"
+        >.</v-btn
       >
     </template>
   </v-data-table>
@@ -143,22 +159,24 @@ export default {
     singleExpand: false,
 
     headers: [
-      {
+     /* {
         text: "id",
         align: "start",
         sortable: false,
         value: "id",
-      },
+      },*/
       {
         text: "Folio",
         value: "folio",
       },
-      { text: "Programa", value: "programa" },
+      //{ text: "Programa", value: "programa" },
       { text: "Fecha", value: "fechaAlta" },
       { text: "¿Incidente?", value: "incidenteconfirmado" },
-
+      { text: "Confirmacion", value: "confirmaincidente" },
+     
+      { text: "Respuesta", value: "tipoderespuesta" },
       { text: "Hechos", value: "data-table-expand" },
-      { text: "Activo", value: "activo" },
+     // { text: "Activo", value: "activo" },
       { text: "V Inicial", value: "etapauno" },
       { text: "V Integral", value: "etapados" },
       { text: "Seguimiento", value: "etapatres" },
@@ -196,6 +214,34 @@ export default {
   },
 
   methods: {
+    ir_a_respuesta(valor){
+
+      /* 
+              "DENUNCIA PENAL",
+        "INVESTIGACION INTERNA",
+        "ABORDAJE INTERNO", */
+
+      console.log("ir a " + valor.tipoderespuesta);
+
+     // var ruta = '';
+
+     if (valor.tipoderespuesta =="DENUNCIA PENAL") {
+
+      this.$router.push({ name: "DenunciaLegal", params: { denunciaId: valor.id } });
+     // this.$router.push('/denuncialegal');
+  
+     }
+     if (valor.tipoderespuesta =="INVESTIGACION INTERNA") {
+
+     // this.$router.push({ name: "DenunciasDetalle", params: { id: ruta } });
+     this.$router.push('/investigacioninterna');
+     }
+    if (valor.tipoderespuesta =="ABORDAJE INTERNO") {
+
+    // this.$router.push({ name: "DenunciasDetalle", params: { id: ruta } });
+      console.log("no genera ningun movimiento")
+    }
+    },
     irA(ruta) {
       this.$router.push(ruta);
     },
@@ -209,6 +255,13 @@ export default {
     irAValoracionIntegral(id) {
       // named route
       this.$router.push({ name: "ValoracionIntegral", params: { id: id } });
+    },
+    irASeguimiento(id) {
+      this.$router.push({ name: "Seguimiento", params: { id: id } });
+    },
+
+    irACierre(id) {
+      this.$router.push({ name: "Cierre", params: { incidenteId: id } });
     },
     irADenuncias() {
       this.$router.push("/denuncias");
@@ -225,7 +278,7 @@ export default {
 
       getIncidentes
         .then((response) => {
-          console.log(response.data);
+          console.log(JSON.stringify(response.data));
 
           this.incidentes = response.data;
           this.cargandoDatos = false; //termina la animacion de la tabla loading
@@ -235,74 +288,7 @@ export default {
           this.cargandoDatos = false; //termina la animacion de la tabla loading
         });
       /*
-      this.incidentes = [
-        {
-          id: "1",
-          folio: "000-00-00",
-          unidad: "PROGRAM CIUDAD",
-          fecha: "12-05-2020",
-          hechos: "AQUI VIENE UNA DESCRIP---",
-          hechoslargos:
-            "1ESTA ES UNA DESCRIPCION QUE CONTIENE ALREDEDOR DE 200 PALABRAS MAS PALABRAS MENOS ,Y ESTE TEXTO ES PARA PROBAR LO LARGO QUE PODRIA SER LA DESCRIPCION DE  HECHOS. AHORA PROCEDEREMOS A PEGAR UN TEXTO Los Derechos Humanos de niñas, niños y adolescentes están previstos en la Constitución Política de los Estados Unidos Mexicanos, en los tratados internacionales y en las demás leyes aplicables, esencialmente en la Convención sobre los Derechos del Niño y en la Ley General de los Derechos de Niñas, Niños y Adolescentes (publicada el 4 de diciembre de 2014), la cual reconoce a niñas, niños y adolescentes como titulares de derechos y, en su artículo 13, de manera enunciativa y no limitativa señala los siguientes:                          Los Derechos Humanos de niñas, niños y adolescentes están previstos en la Constitución Política de los Estados Unidos Mexicanos, en los tratados internacionales y en las demás leyes aplicables, esencialmente en la Convención sobre los Derechos del Niño y en la Ley General de los Derechos de Niñas, Niños y Adolescentes (publicada el 4 de diciembre de 2014), la cual reconoce a niñas, niños y adolescentes como titulares de derechos y, en su artículo 13, de manera enunciativa y no limitativa señala",
-          activo: true,
-          incidente: "Si",
-        },
-        {
-          id: "2",
-          folio: "000-00-00",
-          unidad: "PROGRAM CIUDAD",
-          fecha: "12-05-2020",
-          hechos: "AQUI VIENE UNA DESCRIP---",
-          hechoslargos:
-            "2ESTA ES UNA DESCRIPCION QUE CONTIENE ALREDEDOR DE 200 PALABRAS MAS PALABRAS MENOS ,Y ESTE TEXTO ES PARA PROBAR LO LARGO QUE PODRIA SER LA DESCRIPCION DE  HECHOS. AHORA PROCEDEREMOS A PEGAR UN TEXTO Los Derechos Humanos de niñas, niños y adolescentes están previstos en la Constitución Política de los Estados Unidos Mexicanos, en los tratados internacionales y en las demás leyes aplicables, esencialmente en la Convención sobre los Derechos del Niño y en la Ley General de los Derechos de Niñas, Niños y Adolescentes (publicada el 4 de diciembre de 2014), la cual reconoce a niñas, niños y adolescentes como titulares de derechos y, en su artículo 13, de manera enunciativa y no limitativa señala los siguientes:                          Los Derechos Humanos de niñas, niños y adolescentes están previstos en la Constitución Política de los Estados Unidos Mexicanos, en los tratados internacionales y en las demás leyes aplicables, esencialmente en la Convención sobre los Derechos del Niño y en la Ley General de los Derechos de Niñas, Niños y Adolescentes (publicada el 4 de diciembre de 2014), la cual reconoce a niñas, niños y adolescentes como titulares de derechos y, en su artículo 13, de manera enunciativa y no limitativa señala",
-          activo: true,
-          incidente: "Si",
-        },
-        {
-          id: "3",
-          folio: "000-00-00",
-          unidad: "PROGRAM CIUDAD",
-          fecha: "12-05-2020",
-          hechos: "AQUI VIENE UNA DESCRIP---",
-          hechoslargos:
-            "3ESTA ES UNA DESCRIPCION QUE CONTIENE ALREDEDOR DE 200 PALABRAS MAS PALABRAS MENOS ,Y ESTE TEXTO ES PARA PROBAR LO LARGO QUE PODRIA SER LA DESCRIPCION DE  HECHOS. AHORA PROCEDEREMOS A PEGAR UN TEXTO Los Derechos Humanos de niñas, niños y adolescentes están previstos en la Constitución Política de los Estados Unidos Mexicanos, en los tratados internacionales y en las demás leyes aplicables, esencialmente en la Convención sobre los Derechos del Niño y en la Ley General de los Derechos de Niñas, Niños y Adolescentes (publicada el 4 de diciembre de 2014), la cual reconoce a niñas, niños y adolescentes como titulares de derechos y, en su artículo 13, de manera enunciativa y no limitativa señala los siguientes:                          Los Derechos Humanos de niñas, niños y adolescentes están previstos en la Constitución Política de los Estados Unidos Mexicanos, en los tratados internacionales y en las demás leyes aplicables, esencialmente en la Convención sobre los Derechos del Niño y en la Ley General de los Derechos de Niñas, Niños y Adolescentes (publicada el 4 de diciembre de 2014), la cual reconoce a niñas, niños y adolescentes como titulares de derechos y, en su artículo 13, de manera enunciativa y no limitativa señala",
-          activo: true,
-          incidente: "No",
-        },
-        {
-          id: "4",
-          folio: "000-00-00",
-          unidad: "PROGRAM CIUDAD",
-          fecha: "12-05-2020",
-          hechos: "AQUI VIENE UNA DESCRIP---",
-          hechoslargos:
-            "4ESTA ES UNA DESCRIPCION QUE CONTIENE ALREDEDOR DE 200 PALABRAS MAS PALABRAS MENOS ,Y ESTE TEXTO ES PARA PROBAR LO LARGO QUE PODRIA SER LA DESCRIPCION DE  HECHOS. AHORA PROCEDEREMOS A PEGAR UN TEXTO Los Derechos Humanos de niñas, niños y adolescentes están previstos en la Constitución Política de los Estados Unidos Mexicanos, en los tratados internacionales y en las demás leyes aplicables, esencialmente en la Convención sobre los Derechos del Niño y en la Ley General de los Derechos de Niñas, Niños y Adolescentes (publicada el 4 de diciembre de 2014), la cual reconoce a niñas, niños y adolescentes como titulares de derechos y, en su artículo 13, de manera enunciativa y no limitativa señala los siguientes:                          Los Derechos Humanos de niñas, niños y adolescentes están previstos en la Constitución Política de los Estados Unidos Mexicanos, en los tratados internacionales y en las demás leyes aplicables, esencialmente en la Convención sobre los Derechos del Niño y en la Ley General de los Derechos de Niñas, Niños y Adolescentes (publicada el 4 de diciembre de 2014), la cual reconoce a niñas, niños y adolescentes como titulares de derechos y, en su artículo 13, de manera enunciativa y no limitativa señala",
-          activo: true,
-          incidente: "N0",
-        },
-        {
-          id: "5",
-          folio: "000-00-00",
-          unidad: "PROGRAM CIUDAD",
-          fecha: "12-05-2020",
-          hechos: "AQUI VIENE UNA DESCRIP---",
-          hechoslargos:
-            "5ESTA ES UNA DESCRIPCION QUE CONTIENE ALREDEDOR DE 200 PALABRAS MAS PALABRAS MENOS ,Y ESTE TEXTO ES PARA PROBAR LO LARGO QUE PODRIA SER LA DESCRIPCION DE  HECHOS. AHORA PROCEDEREMOS A PEGAR UN TEXTO Los Derechos Humanos de niñas, niños y adolescentes están previstos en la Constitución Política de los Estados Unidos Mexicanos, en los tratados internacionales y en las demás leyes aplicables, esencialmente en la Convención sobre los Derechos del Niño y en la Ley General de los Derechos de Niñas, Niños y Adolescentes (publicada el 4 de diciembre de 2014), la cual reconoce a niñas, niños y adolescentes como titulares de derechos y, en su artículo 13, de manera enunciativa y no limitativa señala los siguientes:                          Los Derechos Humanos de niñas, niños y adolescentes están previstos en la Constitución Política de los Estados Unidos Mexicanos, en los tratados internacionales y en las demás leyes aplicables, esencialmente en la Convención sobre los Derechos del Niño y en la Ley General de los Derechos de Niñas, Niños y Adolescentes (publicada el 4 de diciembre de 2014), la cual reconoce a niñas, niños y adolescentes como titulares de derechos y, en su artículo 13, de manera enunciativa y no limitativa señala",
-          activo: true,
-          incidente: "Si",
-        },
-        {
-          id: "6",
-          folio: "000-00-00",
-          unidad: "PROGRAM CIUDAD",
-          fecha: "12-05-2020",
-          hechos: "AQUI VIENE UNA DESCRIP---",
-          hechoslargos:
-            "6ESTA ES UNA DESCRIPCION QUE CONTIENE ALREDEDOR DE 200 PALABRAS MAS PALABRAS MENOS ,Y ESTE TEXTO ES PARA PROBAR LO LARGO QUE PODRIA SER LA DESCRIPCION DE  HECHOS. AHORA PROCEDEREMOS A PEGAR UN TEXTO Los Derechos Humanos de niñas, niños y adolescentes están previstos en la Constitución Política de los Estados Unidos Mexicanos, en los tratados internacionales y en las demás leyes aplicables, esencialmente en la Convención sobre los Derechos del Niño y en la Ley General de los Derechos de Niñas, Niños y Adolescentes (publicada el 4 de diciembre de 2014), la cual reconoce a niñas, niños y adolescentes como titulares de derechos y, en su artículo 13, de manera enunciativa y no limitativa señala los siguientes:                          Los Derechos Humanos de niñas, niños y adolescentes están previstos en la Constitución Política de los Estados Unidos Mexicanos, en los tratados internacionales y en las demás leyes aplicables, esencialmente en la Convención sobre los Derechos del Niño y en la Ley General de los Derechos de Niñas, Niños y Adolescentes (publicada el 4 de diciembre de 2014), la cual reconoce a niñas, niños y adolescentes como titulares de derechos y, en su artículo 13, de manera enunciativa y no limitativa señala",
-          activo: true,
-          incidente: "Si",
-        },
-      ];*/
+      ]*/
     },
 
     editItem(item) {
