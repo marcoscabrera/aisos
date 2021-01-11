@@ -59,10 +59,34 @@ const routes = [
       import(/* webpackChunckName:"roles" */ "../views/Roles.vue"),
   },
   {
+    path: "/nuevorol",
+    name: "Nuevorol",
+    component: () =>
+      import(/* webpackChunckName:"nuevorol" */ "../views/NuevoRol.vue"),
+  },
+  {
     path: "/usuarios",
     name: "Usuarios",
     component: () =>
       import(/* webpackChunckName:"usuarios" */ "../views/Usuarios.vue"),
+  },
+  {
+    path: "/nuevousuario",
+    name: "Nuevousuario",
+    component: () =>
+      import(/* webpackChunckName:"nuevousuario" */ "../views/NuevoUsuario.vue"),
+  },
+  {
+    path: "/acuerdo",
+    name: "Acuerdo",
+    component: () =>
+      import(/* webpackChunckName:"acuerdo" */ "../views/Acuerdo.vue"),
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: () =>
+      import(/* webpackChunckName:"login" */ "../views/Login.vue"),
   },
   {
     path: "/criterios",
@@ -114,6 +138,12 @@ const routes = [
     component: () =>
       import(/* webpackChunckName:"notificacionuno" */ "../views/Notificacionuno.vue"),
   },
+   {
+    path: "/notificaciondos/:incidenteId/:folio/:esincidente",
+    name: "Notificaciondos",
+    component: () =>
+      import(/* webpackChunckName:"notificaciondos" */ "../views/Notificaciondos.vue"),
+  },
   {
     path: "/permisoimpresion/:incidenteId",
     name: "PermisoImpresion",
@@ -121,16 +151,41 @@ const routes = [
       import(/* webpackChunckName:"permisoimpresion" */ "../views/permisoimpresion.vue"),
   },
       {
-    path: "/investigacioninterna",
+    path: "/investigacioninterna/:incidenteId",
     name: "InvestigacionInterna",
     component: () =>
       import(/* webpackChunckName:"denuncialegal" */ "../views/InvestigacionInterna.vue"),
+  },
+      
+  {
+    path: "/prevencion",
+    name: "Prevencion",
+    component: () =>
+      import(/* webpackChunckName:"prevencion" */ "../views/Prevencion.vue"),
+  },
+  {
+    path: "/evidencias/:incidenteId",
+    name: "Evidencias",
+    component: () =>
+      import(/* webpackChunckName:"evidencias" */ "../views/Evidencias.vue"),
+  },
+  {
+    path: "/evidencias/agregar/:incidenteId",
+    name: "EvidenciasAgregar",
+    component: () =>
+      import(/* webpackChunckName:"evidencias" */ "../views/EvidenciasAgregar.vue"),
   },
   {
     path: "/subirarchivos",
     name: "SubirArchivos",
     component: () =>
       import(/* webpackChunckName:"subirarchivos" */ "../views/subirArchivo.vue"),
+  },
+    {
+    path: "/catalogos/programas",
+    name: "Programas",
+    component: () =>
+      import(/* webpackChunckName:"programas" */ "../views/Programas.vue"),
   },
   {
     path: "/about",

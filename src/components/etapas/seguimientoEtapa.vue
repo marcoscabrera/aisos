@@ -8,7 +8,18 @@
 
     <v-row>
       <v-col cols="12" xs="12" md="6">
-        <v-label filled> FOLIO # {{ folio }} </v-label>
+        <v-text-field
+           id="labelFolio"
+           class="cssnuevo"
+           :value="generarFolio"
+            label="FOLIO"
+            filled
+            disabled
+            background-color="#87CEFA"
+            
+          >
+        
+          </v-text-field>
       </v-col>
 
       <v-col cols="12" xs="12" md="6">
@@ -79,8 +90,7 @@
     <v-row>
    <cardNotificacionDIF
 
-       :incidenteId ="incidenteIdPE"
-
+        :incidenteId ="incidenteIdPE"
         :archivoId ="seguimiento.notificaciondif_docto"
         :nombreDelArchivo="data_notificaciondif_docto.nombreOriginal"
         :sihayarchivo="data_notificaciondif_docto.hayArchivo"
@@ -91,7 +101,7 @@
      <br>
 
        <v-row>
-   <cardNotificacionAutoridad
+   <cardNotificacionAutoridad v-if="esDenuncia"
         :incidenteId ="incidenteIdPE"
         :archivoId ="seguimiento.notificacionautoridad_docto"
         :nombreDelArchivo="data_notificacionautoridad_docto.nombreOriginal"
@@ -179,7 +189,15 @@ SE CUENTA CON EL LLENADO DEL ACTA DE VALORACION DEL/DE LOS INCIDENTES
     <!-- =============================================== -->
     <br />
     <!-- =============================================== -->
+    <v-row>
+        <cardProtocoloComponente v-if="verDenuncia_o_investigacion"
+        valorCombo="SI"
+        :esDenuncia="esDenuncia"
+        :incidenteId="incidenteId"
+        :textoRespuesta="tipoderespuesta">
 
+        </cardProtocoloComponente>
+    </v-row>
 
     <!-- =============================================== -->
 
@@ -233,10 +251,12 @@ SE CUENTA CON EL LLENADO DEL ACTA DE VALORACION DEL/DE LOS INCIDENTES
 
 import seguimientoEtapa from '@/components/etapas/seguimientoEtapa.js'
 import apiArchivos from '@/apialdeas/apiArchivos.js';
+import cardProtocoloComponente  from  '@/components/etapasComponentesSeguimiento/cardProtocoloComponente.vue'
 
 
 export default {
-  components: {                  
+  components: {     
+    cardProtocoloComponente,             
     textAreaRegistroDelEstatus : () => import('@/components/etapasComponentesSeguimiento/textAreaRegistroDelEstatus.vue'),
     cardPlanEnEjecucion :()=> import('@/components/etapasComponentesSeguimiento/cardPlanEnEjecucion.vue'),
     cardNotificacionDIF :()=> import('@/components/etapasComponentesSeguimiento/cardNotificacionDIF.vue'),
@@ -247,6 +267,13 @@ export default {
     cardPlanRecuperacion :() => import('@/components/etapasComponentesSeguimiento/cardPlanRecuperacion.vue'),
     cardDocumentosOficiales:() => import('@/components/etapasComponentesSeguimiento/cardDocumentosOficiales.vue')
 
+  },
+
+  
+  computed: {
+    generarFolio() {
+      return "Folio # " + this.folio; 
+    }
   },
 
   methods: {
@@ -366,7 +393,26 @@ export default {
       let  datos = seguimientoEtapa.cargarDatosSeguimiento(id,this.$store);
 
       datos.then( response => {
-             
+
+      this.folio = response.data[0]["folio"];
+      
+      this.incidenteId =response.data[0]["incidenteid"];
+      /* *******************************************************/
+
+      this.tipoderespuesta = response.data[0]["tipoderespuesta"];
+
+      this.tipoderespuesta == 'DENUNCIA PENAL' ? this.esDenuncia=true : this.esDenuncia =false;
+      
+      //si se muestra o no 
+      this.tipoderespuesta== 'DENUNCIA PENAL' ? this.verDenuncia_o_investigacion= true 
+      : this.tipoderespuesta == 'INVESTIGACION INTERNA' ? this.verDenuncia_o_investigacion= true 
+      : this.verDenuncia_o_investigacion= false;
+      
+      console.log(" tipoderespuesta >> " + this.tipoderespuesta);
+      
+      console.log(" verDenuncia_o_investigacion >> " + this.verDenuncia_o_investigacion);
+      
+      /* *******************************************************/
       this.seguimiento = response.data[0];
 
       seguimientoEtapa.asignarVariablesGLobales( this.seguimiento ,this.$store );
@@ -524,6 +570,10 @@ export default {
   data() {
     return {
 
+      tipoderespuesta : '',
+      esDenuncia : false,
+      verDenuncia_o_investigacion : false,
+
       data_plan_docto : [],
       data_planrecuperacion_docto: [],
       data_notificacionpfn_docto: [],
@@ -534,6 +584,8 @@ export default {
       data_actavaloracion_docto: [],
 
       seguimiento:[],
+
+      incidenteId:'',
      
       incidenteIdPE :"",
 

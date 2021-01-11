@@ -23,6 +23,7 @@ seguimiento_notificacionautoridad_docto:null,
 seguimiento_notificacionpfn_docto      :null,
 seguimiento_notificaciodenunciante_docto:null,
 seguimiento_actavaloracion_docto       :null,
+seguimiento_protocolosos       :null,
 seguimiento_planrecuperacion_docto     :null
                              },   
      mutations,

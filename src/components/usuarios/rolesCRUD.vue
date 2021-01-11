@@ -2,149 +2,67 @@
   <v-data-table
     :headers="headers"
     :items="roles"
-    sort-by="calories"
+    sort-by="id"
     class="elevation-1"
   >
-    <template v-slot:item.at="{ item }">
-      <v-simple-checkbox v-model="item.at" disabled></v-simple-checkbox>
-    </template>
 
-    <template v-slot:item.ar="{ item }">
-      <v-simple-checkbox v-model="item.ar" disabled></v-simple-checkbox>
-    </template>
-
-    <template v-slot:item.it="{ item }">
-      <v-simple-checkbox v-model="item.it" disabled></v-simple-checkbox>
-    </template>
-
-    <template v-slot:item.ir="{ item }">
-      <v-simple-checkbox v-model="item.ir" disabled></v-simple-checkbox>
-    </template>
-
+ 
     <template v-slot:top>
       <v-toolbar flat color="white">
-        <v-toolbar-title>Catalogo de roles</v-toolbar-title>
+        <v-toolbar-title> **</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
-        <v-dialog v-model="dialog" max-width="500px">
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on"
-              >Nuevo rol</v-btn
-            >
-          </template>
-          <v-card>
-            <v-card-title>
-              <span class="headline">{{ formTitle }}</span>
-            </v-card-title>
+            <v-btn color="primary" dark class="mb-2" @click="agregarNuevoRol"
+              >+ Agregar Rol</v-btn
+            >        
 
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col cols="12" xs="12" sm="12" md="12">
-                    <v-text-field
-                      v-model="editedItem.name"
-                      label="Nombre de rol"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-col cols="12" xs="12" sm="12" md="12">
-                    <v-text-field
-                      v-model="editedItem.email"
-                      label="Descripcion"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-col cols="12" xs="12" sm="6" md="4">
-                    <v-checkbox
-                      v-model="editedItem.at"
-                      label="acceso total"
-                    ></v-checkbox>
-                  </v-col>
-                  <v-col cols="12" xs="12" sm="6" md="4">
-                    <v-checkbox
-                      v-model="editedItem.ar"
-                      label="acceso restringido"
-                    ></v-checkbox>
-                  </v-col>
-                </v-row>
-
-                <v-row>
-                  <v-col cols="12" xs="12" sm="6" md="4">
-                    <v-checkbox
-                      v-model="editedItem.it"
-                      label="impresion total"
-                    ></v-checkbox>
-                  </v-col>
-                  <v-col cols="12" xs="12" sm="6" md="4">
-                    <v-checkbox
-                      v-model="editedItem.ir"
-                      label="impresion restringido"
-                    ></v-checkbox>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
-
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="close">Cancelar</v-btn>
-              <v-btn color="blue darken-1" text @click="save">Guardar</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
       </v-toolbar>
     </template>
+
+
+    <template v-slot:item.ACTIVO="{ item }">
+      <v-icon color="green" v-if="item.ACTIVO == 1">
+        mdi-checkbox-marked-circle
+      </v-icon>
+      <v-icon color="red" v-if="item.ACTIVO == 0">mdi-close-circle </v-icon>
+    </template>
+
+   
+
     <template v-slot:item.actions="{ item }">
       <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
       <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
     </template>
     <template v-slot:no-data>
-      <v-btn color="primary" @click="initialize">Reset</v-btn>
+      <v-btn color="primary" @click="initialize">No existen Roles</v-btn>
     </template>
   </v-data-table>
 </template>
 
 
 <script>
+import apiRoles from '@/apialdeas/apiRoles.js';
 export default {
   data: () => ({
     dialog: false,
-    cargos: ["puesto en Aldeas 1", "puesto en Aldeas 2", "cargo en ALDEAS SOS"],
-    roles: ["PFN", "PFL", "PL", "ELPI"],
+     roles: [],
     headers: [
       {
-        text: "Nombre",
+        text: "id",
         align: "start",
         sortable: false,
-        value: "name",
+        value: "id",
       },
-      { text: "Descripcion", value: "descripcion" },
-      { text: "acceso total", value: "at" },
-      { text: "acceso restringido", value: "ar" },
-      { text: "impresion total", value: "it" },
-      { text: "impresion restringida", value: "ir" },
-
+      { text: "Rol", value: "NOMBREDELROL" },
+      { text: "Activo", value: "ACTIVO" },
       { text: "acciones", value: "actions", sortable: false },
     ],
-    desserts: [],
     editedIndex: -1,
     editedItem: {
-      name: "",
-      descripcion: "",
-      at: false,
-      ar: false,
-      it: false,
-      if: false,
+
     },
     defaultItem: {
-      name: "",
-      descripcion: "",
-      at: false,
-      ar: false,
-      it: false,
-      if: false,
+
     },
   }),
 
@@ -165,54 +83,136 @@ export default {
   },
 
   methods: {
-    initialize() {
-      this.roles = [
-        {
-          name: "PFN",
-          descripcion: "A Nivel Nacional",
-          at: true,
-          ar: true,
-          it: true,
-          if: true,
-        },
-        {
-          name: "PFL",
-          descripcion: "A Nivel Local o de unidad",
-          at: false,
-          ar: true,
-          it: false,
-          if: true,
-        },
-        {
-          name: "ELPI",
-          descripcion: "A Nivel local",
-          at: false,
-          ar: false,
-          it: false,
-          if: false,
-        },
-        {
-          name: "ELPIL",
-          descripcion: "A Nivel local",
-          at: false,
-          ar: false,
-          it: false,
-          if: false,
-        },
-      ];
+
+   async poblarGrid(){
+
+        let TodosLosroles = apiRoles.cargar__todos_los_roles(this.$store);
+
+         TodosLosroles
+        .then( response => { 
+          console.log(JSON.stringify(response.data));
+          this.roles = response.data;
+        } )
+        .catch( error => { console.log(JSON.stringify(error.data))});
     },
 
-    editItem(item) {
-      this.editedIndex = this.roles.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialog = true;
+    agregarNuevoRol(){
+
+      console.log("agregando nuevo rol");
+
+      this.$store.dispatch('action_roles_id',0);
+
+      this.$router.push('Nuevorol');
+
+   },
+
+    initialize() {
+      //this.roles = [ ];
+      this.poblarGrid();
     },
+
+
+    editItem(item) {
+      
+      console.log("agregando nuevo rol");
+
+      /* probando otras opciones */
+
+      this.$store.dispatch('action_roles_id',item.id)
+
+      let promesa = apiRoles.cargar__roles(item.id,this.$store);
+
+ 
+
+       promesa
+      .then( response => {
+         console.log(JSON.stringify(response.data[0]));
+         console.log("no seas mamaon " + response.data[0]['NOMBREDELROL']);
+            
+        this.$store.dispatch('action_roles_id',item.id);
+        this.$store.dispatch('action_NOMBREDELROL',response.data[0]['NOMBREDELROL']);
+        this.$store.dispatch('action_ALTADECATALOGOS',response.data[0]['ALTADECATALOGOS']);
+        this.$store.dispatch('action_BAJADECATALOGOS',response.data[0]['BAJADECATALOGOS']);
+        this.$store.dispatch('action_MODIFICACIOnDECATALOGOS',response.data[0]['MODIFICACIOnDECATALOGOS']);
+        this.$store.dispatch('action_ALTADEUSUARIOS',response.data[0]['ALTADEUSUARIOS']);
+        this.$store.dispatch('action_BAJADEUSUARIOS',response.data[0]['BAJADEUSUARIOS']);
+        this.$store.dispatch('action_MODIFICACIONDEUSUARIOS',response.data[0]['MODIFICACIONDEUSUARIOS']);
+        this.$store.dispatch('action_ALTADEROL',response.data[0]['ALTADEROL']);
+        this.$store.dispatch('action_BAJADEROL',response.data[0]['BAJADEROL']);
+        this.$store.dispatch('action_MODIFICACIONDEROL',response.data[0]['MODIFICACIONDEROL']);
+        this.$store.dispatch('action_ALTADEVALORACIONINICIAL',response.data[0]['ALTADEVALORACIONINICIAL']);
+        this.$store.dispatch('action_MODIFICACIONREAPERTURAVALORACIONINICIAL',response.data[0]['MODIFICACIONREAPERTURAVALORACIONINICIAL']);
+        this.$store.dispatch('action_EDITARANTESDECIERREDELAVALORACIONINICIAL',response.data[0]['MODIFICACIONREAPERTURAVALORACIONINICIAL']);
+        this.$store.dispatch('action_BAJAVALORACIONINICIAL',response.data[0]['BAJAVALORACIONINICIAL']);
+        this.$store.dispatch('action_IMPRESIONVALORACIONINICIAL',response.data[0]['IMPRESIONVALORACIONINICIAL']);
+        this.$store.dispatch('action_VISUALIZACIONVALORACIONINICIAL',response.data[0]['VISUALIZACIONVALORACIONINICIAL']);
+        this.$store.dispatch('action_ALTADEVALORACIONINTEGRAL',response.data[0]['ALTADEVALORACIONINTEGRAL']);
+        this.$store.dispatch('action_MODIFICACIONREAPERTURAVALORACIONINTEGRAL',response.data[0]['MODIFICACIONREAPERTURAVALORACIONINTEGRAL']);
+        this.$store.dispatch('action_EDITARANTESDECIERREDELAVALORACIONINTEGRAL',response.data[0]['EDITARANTESDECIERREDELAVALORACIONINTEGRAL']);
+        this.$store.dispatch('action_BAJAVALORACIONINTEGRAL',response.data[0]['BAJAVALORACIONINTEGRAL']);
+        this.$store.dispatch('action_IMPRESIONVALORACIONINTEGRAL',response.data[0]['IMPRESIONVALORACIONINTEGRAL']);
+        this.$store.dispatch('action_VISUALIZACIONVALORACIONINTEGRAL',response.data[0]['VISUALIZACIONVALORACIONINTEGRAL']);
+        this.$store.dispatch('action_ALTADESEGUIMIENTO',response.data[0]['ALTADESEGUIMIENTO']);
+        this.$store.dispatch('action_MODIFICACIONDESEGUIMIENTO',response.data[0]['MODIFICACIONDESEGUIMIENTO']);
+        this.$store.dispatch('action_EDITARDESEGUIMIENTO',response.data[0]['EDITARDESEGUIMIENTO']);
+        this.$store.dispatch('action_BAJADESEGUIMIENTO',response.data[0]['BAJADESEGUIMIENTO']);
+        this.$store.dispatch('action_IMPRESIONDESEGUIMIENTO',response.data[0]['IMPRESIONDESEGUIMIENTO']);
+        this.$store.dispatch('action_VISUALIZACIONDESEGUIMIENTO',response.data[0]['VISUALIZACIONDESEGUIMIENTO']);
+        this.$store.dispatch('action_ALTADECIERRE',response.data[0]['ALTADECIERRE']);
+        this.$store.dispatch('action_MODIFICACIONDECIERRE',response.data[0]['MODIFICACIONDECIERRE']);
+        this.$store.dispatch('action_EDICIONDECIERRE',response.data[0]['EDICIONDECIERRE']);
+        this.$store.dispatch('action_BAJADECIERRE',response.data[0]['BAJADECIERRE']);
+        this.$store.dispatch('action_IMPRESIONDECIERRE',response.data[0]['IMPRESIONDECIERRE']);
+        this.$store.dispatch('action_VISUALIZACIONDECIERRE',response.data[0]['VISUALIZACIONDECIERRE']);
+        this.$store.dispatch('action_ALTADENUNCIA',response.data[0]['ALTADENUNCIA']);
+        this.$store.dispatch('action_MODIFCACIONDENUNCIA',response.data[0]['ALTADENUNCIA']);
+        this.$store.dispatch('action_EDICIONDENUNCIA',response.data[0]['EDICIONDENUNCIA']);
+        this.$store.dispatch('action_BAJADENUNCIA',response.data[0]['BAJADENUNCIA']);
+        this.$store.dispatch('action_IMPRESIONDENUNCIA',response.data[0]['IMPRESIONDENUNCIA']);
+        this.$store.dispatch('action_VISUALIZACIONDENUNCIA',response.data[0]['VISUALIZACIONDENUNCIA']);
+        this.$store.dispatch('action_ALTAINVESTIGACION',response.data[0]['ALTAINVESTIGACION']);
+        this.$store.dispatch('action_MODIFICACIONINVESTIGACION',response.data[0]['MODIFICACIONINVESTIGACION']);
+        this.$store.dispatch('action_EDICIONINVESTIGACION',response.data[0]['EDICIONINVESTIGACION']);
+        this.$store.dispatch('action_BAJAINVESTIGACION',response.data[0]['BAJAINVESTIGACION']);
+        this.$store.dispatch('action_IMPRESIONINVESTIGACION',response.data[0]['IMPRESIONINVESTIGACION']);
+        this.$store.dispatch('action_VISUALIZACIONINVESTIGACION',response.data[0]['VISUALIZACIONINVESTIGACION']);
+        this.$store.dispatch('action_ALTAEVIDENCIA',response.data[0]['ALTAEVIDENCIA']);
+        this.$store.dispatch('action_MODIFCACIONEVIDENCIA',response.data[0]['MODIFCACIONEVIDENCIA']);
+        this.$store.dispatch('action_EDICIONEVIDENCIA',response.data[0]['EDICIONEVIDENCIA']);
+        this.$store.dispatch('action_BAJAEVIDENCIA',response.data[0]['BAJAEVIDENCIA']);
+        this.$store.dispatch('action_IMPRESIONEVIDENCIA',response.data[0]['IMPRESIONEVIDENCIA']);
+        this.$store.dispatch('action_VISUALIZACIONEVIDENCIA',response.data[0]['VISUALIZACIONEVIDENCIA']);
+        this.$store.dispatch('action_ALTADEARCHIVOS',response.data[0]['ALTADEARCHIVOS']);
+        this.$store.dispatch('action_MODIFICACIONARCHIVOS',response.data[0]['MODIFICACIONARCHIVOS']);
+        this.$store.dispatch('action_IMPRESIONARCHIVOS',response.data[0]['IMPRESIONARCHIVOS']);
+        this.$store.dispatch('action_VISUALIZACIONARCHIVOS',response.data[0]['VISUALIZACIONARCHIVOS']);
+        
+        let tempActivo = true;
+        response.data[0]['ACTIVO'] == 1 ? tempActivo = true : tempActivo = false
+        this.$store.dispatch('action_roles_activo',tempActivo);
+
+        this.$router.push('Nuevorol');
+} )
+      .catch( error => { console.log(JSON.stringify(error.data))});
+
+      this.$router.push('Editarol');
+
+    },
+
 
     deleteItem(item) {
       const index = this.roles.indexOf(item);
-      confirm("¿Estas seguro de eliminar este rol ? ") &&
+      let r = confirm("¿Estas seguro de eliminar este rol ? ") &&
         this.roles.splice(index, 1);
+
+         if (r == true) {
+
+          apiRoles.Delete__roles(item.id, this.$store);
+          this.poblarGrid();
+
+         }
     },
+
 
     close() {
       this.dialog = false;
@@ -222,6 +222,8 @@ export default {
       });
     },
 
+
+
     save() {
       if (this.editedIndex > -1) {
         Object.assign(this.roles[this.editedIndex], this.editedItem);
@@ -230,6 +232,8 @@ export default {
       }
       this.close();
     },
+
+
   },
 };
 </script>

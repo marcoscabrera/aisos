@@ -38,39 +38,72 @@
         </v-btn>
       </v-toolbar>
     </template>
-    <template v-slot:item.confirmaincidente="{ item }">
-   
-          <v-icon color="green"  v-if="item.confirmaincidentenumerico== 2"> mdi-checkbox-marked-circle</v-icon>
-          <v-icon color="red"    v-if="item.confirmaincidentenumerico== 1">mdi-close-circle</v-icon>
-          <v-icon color="yellow" v-if="item.confirmaincidentenumerico== 0">mdi-timer</v-icon>
+    <!--
+      
+     -->
+    <template v-slot:item.fechaAlta="{ item }">
+      {{ item.fechaAlta | quitarCeros }}
+    </template>
+    <template v-slot:item.incidenteconfirmado="{ item }">
+      <v-icon color="red" v-if="item.incidenteconfirmado == 'SI'">
+        mdi-checkbox-marked-circle</v-icon
+      >
+      <v-icon color="green" v-if="item.incidenteconfirmado == 'NO'"
+        >mdi-close-circle</v-icon
+      >
+      <v-icon color="yellow" v-if="item.incidenteconfirmado == 'POR CONFIRMAR'"
+        >mdi-timer</v-icon
+      >
+    </template>
 
+    <!-- confirmaciones -->
+    <template v-slot:item.confirmaincidente="{ item }">
+      <v-icon color="red" v-if="item.confirmaincidentenumerico == 2">
+        mdi-checkbox-marked-circle</v-icon
+      >
+      <v-icon color="green" v-if="item.confirmaincidentenumerico == 1"
+        >mdi-close-circle</v-icon
+      >
+      <v-icon color="yellow" v-if="item.confirmaincidentenumerico == 0"
+        >mdi-timer</v-icon
+      >
     </template>
 
     <template v-slot:item.tipoderespuesta="{ item }">
-
-      <v-btn color="yellow" dark dense @click="ir_a_respuesta(item)">
-        {{item.tipoderespuesta}}
+      <v-btn v-if="item.estado == 'cerrado_x_ni'" color="green" dark dense>
+        NO ES UN INCIDENTE
       </v-btn>
-   
+
+      <v-btn
+        v-else
+        :color="item.coloretapacuatro"
+        dark
+        dense
+        @click="ir_a_respuesta(item)"
+      >
+        {{ item.tipoderespuesta }}
+      </v-btn>
     </template>
 
-  
     <template v-slot:item.etapauno="{ item }">
       <v-btn
         x-small
+        fab
         :class="item.etapauno"
         :color="item.coloretapauno"
         dark
         @click="irAValoracionInicial(item.id)"
       >
-         <!-- <v-icon>mdi-file-document</v-icon>
-       --></v-btn> 
+        <!-- <v-icon>mdi-file-document</v-icon>
+       --></v-btn
+      >
     </template>
 
     <template v-slot:item.etapados="{ item }">
       <v-btn
         :class="item.etapados"
         x-small
+        fab
         :color="item.coloretapados"
         dark
         @click="irAValoracionIntegral(item.id)"
@@ -83,6 +116,7 @@
       <v-btn
         :class="item.etapatres"
         x-small
+        fab
         :color="item.coloretapatres"
         dark
         @click="irASeguimiento(item.id)"
@@ -95,6 +129,7 @@
       <v-btn
         :class="item.etapacuatro"
         x-small
+        fab
         :color="item.coloretapacuatro"
         dark
         @click="irACierre(item.id)"
@@ -107,6 +142,7 @@
     <template v-slot:item.actions="{ item }">
       <v-btn
         x-small
+        fab
         :color="colorvi"
         dark
         @click="irAValoracionInicial(item.id)"
@@ -116,6 +152,7 @@
       <v-btn
         :v-if="item.etapados"
         x-small
+        fab
         :color="colorvintegral"
         @click="irAValoracionIntegral(item.id)"
         >.</v-btn
@@ -123,6 +160,7 @@
       <v-btn
         :v-if="item.etapatres"
         x-small
+        fab
         :color="colors"
         @click="irA('/seguimiento')"
         >.</v-btn
@@ -130,6 +168,7 @@
       <v-btn
         :v-if="item.etapacuatro"
         x-small
+        fab
         :color="colorc"
         @click="irACierre(item.id)"
         >.</v-btn
@@ -159,7 +198,7 @@ export default {
     singleExpand: false,
 
     headers: [
-     /* {
+      /* {
         text: "id",
         align: "start",
         sortable: false,
@@ -173,10 +212,10 @@ export default {
       { text: "Fecha", value: "fechaAlta" },
       { text: "¿Incidente?", value: "incidenteconfirmado" },
       { text: "Confirmacion", value: "confirmaincidente" },
-     
+
       { text: "Respuesta", value: "tipoderespuesta" },
       { text: "Hechos", value: "data-table-expand" },
-     // { text: "Activo", value: "activo" },
+      // { text: "Activo", value: "activo" },
       { text: "V Inicial", value: "etapauno" },
       { text: "V Integral", value: "etapados" },
       { text: "Seguimiento", value: "etapatres" },
@@ -196,7 +235,11 @@ export default {
       activo: "",
     },
   }),
-
+  filters: {
+    quitarCeros: function (value) {
+      return value.replace(/00:00:00/, "");
+    },
+  },
   computed: {
     formTitle() {
       return this.editedIndex === -1 ? "Nuevo Incidente " : "Editar Incidente";
@@ -214,8 +257,7 @@ export default {
   },
 
   methods: {
-    ir_a_respuesta(valor){
-
+    ir_a_respuesta(valor) {
       /* 
               "DENUNCIA PENAL",
         "INVESTIGACION INTERNA",
@@ -223,24 +265,26 @@ export default {
 
       console.log("ir a " + valor.tipoderespuesta);
 
-     // var ruta = '';
+      // var ruta = '';
 
-     if (valor.tipoderespuesta =="DENUNCIA PENAL") {
-
-      this.$router.push({ name: "DenunciaLegal", params: { denunciaId: valor.id } });
-     // this.$router.push('/denuncialegal');
-  
-     }
-     if (valor.tipoderespuesta =="INVESTIGACION INTERNA") {
-
-     // this.$router.push({ name: "DenunciasDetalle", params: { id: ruta } });
-     this.$router.push('/investigacioninterna');
-     }
-    if (valor.tipoderespuesta =="ABORDAJE INTERNO") {
-
-    // this.$router.push({ name: "DenunciasDetalle", params: { id: ruta } });
-      console.log("no genera ningun movimiento")
-    }
+      if (valor.tipoderespuesta == "DENUNCIA PENAL") {
+        this.$router.push({
+          name: "DenunciaLegal",
+          params: { denunciaId: valor.id },
+        });
+        // this.$router.push('/denuncialegal');
+      }
+      if (valor.tipoderespuesta == "INVESTIGACION INTERNA") {
+        this.$router.push({
+          name: "InvestigacionInterna",
+          params: { incidenteId: valor.id },
+        });
+        //this.$router.push('/investigacioninterna');
+      }
+      if (valor.tipoderespuesta == "ABORDAJE INTERNO") {
+        // this.$router.push({ name: "DenunciasDetalle", params: { id: ruta } });
+        console.log("no genera ningun movimiento");
+      }
     },
     irA(ruta) {
       this.$router.push(ruta);

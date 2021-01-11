@@ -76,6 +76,9 @@ export default {
             store.dispatch('action_planrecuperacion_docto'    ,  datos_planrecuperacion_docto) ;
             store.dispatch('action_plan_docto'    ,  datos_plan_docto );
 
+            let datos_protocolosos = JSON.stringify(datos.protocolosos) ;
+            store.dispatch('action_protocolosos'    ,  datos_protocolosos );
+
     }
   /*
 

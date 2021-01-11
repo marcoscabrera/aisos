@@ -3,11 +3,14 @@
     <v-textarea
       filled
       name="input-7-4"
-      label="INVOLUCRADOS (500 PALABRAS)"
+      
       :clearable="limpiar"
       
       :value="texto"
       @input="guardandoTexto($event)"
+       :label="mensaje"
+       auto-grow
+       :error-messages="errores"
     >
     </v-textarea>
   </v-col>
@@ -18,6 +21,42 @@ export default {
   props: ["texto"],
 
   methods: {
+
+   /*
+          numeroPalabras: 0,
+      mensaje : ' VALORACIÓN INICIAL (MAXIMO 250 PALABRAS) ',
+      errores : ''
+
+
+      ccomponentes
+      :label="mensaje"
+       auto-grow
+       :error-messages="errores"
+       */
+    asignarValor(evento){
+    
+     this.$store.dispatch('action_textovi',evento);
+     let cuantos = this.cuentaPalabras(evento);
+     let m1 = "HA EXCEDIDO EL NUMERO MAXIMO DE PALABRAS PERMITIDAS =";
+     cuantos >250 ? this.errores = m1 :
+     this.errores ='' 
+
+    },
+    cuentaPalabras(texto) {
+
+      let numeroPalabras = texto.split(" ");
+      let cuantos = numeroPalabras.length;
+
+      let m= `INVOLUCRADOS (250 PALABRAS)  PALABRAS #${cuantos}`;
+         
+      this.mensaje = m;
+
+      console.log(this.mensaje);
+      
+      return cuantos;
+    },
+
+
     prop_to_local() {
       this.involucrados = this.texto;
       console.log("asignando valor de :" + this.texto);
@@ -31,7 +70,10 @@ export default {
         
       this.$store.dispatch('setear_Involucrados',contenido);
       //console.log("valor de involucrados en state " + this.$store.state.incidentes.etapainicial_involucrados);
-
+ let cuantos = this.cuentaPalabras(contenido);
+     let m1 = "HA EXCEDIDO EL NUMERO MAXIMO DE PALABRAS PERMITIDAS =";
+     cuantos >250 ? this.errores = m1 :
+     this.errores ='' 
     },
 
     up() {
@@ -54,8 +96,11 @@ export default {
     return {
       limpiar: true,
       involucrados: "",
-    };
+             numeroPalabras: 0,
+      mensaje : 'INVOLUCRADOS (250 PALABRAS)',
+      errores : ''
+    }
   },
-};
+}
 </script>
     

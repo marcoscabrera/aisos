@@ -7,9 +7,9 @@ export default {
     state: {
 
       
-        
+     
         etapainicial_programa: '',
-        
+   
         etapainicial_fecha: '',
         etapainicial_involucrados: '',
         etapainicial_elaboro: '',

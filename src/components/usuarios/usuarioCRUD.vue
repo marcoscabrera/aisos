@@ -10,100 +10,67 @@
         <v-toolbar-title>Catalogo de Usuarios</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
-        <v-dialog v-model="dialog" max-width="500px">
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on"
-              >Nuevo Usuario</v-btn
-            >
-          </template>
-          <v-card>
-            <v-card-title>
-              <span class="headline">{{ formTitle }}</span>
-            </v-card-title>
+            <v-btn color="primary" dark class="mb-2" @click="agregarNuevoUsuario"
+              >Nuevo Usuario
+              </v-btn >
 
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col cols="12" xs="12" sm="12" md="12">
-                    <v-text-field
-                      v-model="editedItem.name"
-                      label="Nombre de usuario"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-col cols="12" xs="12" sm="6" md="4">
-                    <v-text-field
-                      v-model="editedItem.email"
-                      label="email"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-col cols="12" xs="12" sm="6" md="4">
-                    <v-select
-                      v-model="editedItem.cargo"
-                      :items="cargos"
-                      label="Cargo"
-                      dense
-                    >
-                    </v-select>
-                  </v-col>
-                  <v-col cols="12" xs="12" sm="6" md="4">
-                    <v-select
-                      v-model="editedItem.rol"
-                      :items="roles"
-                      label="Rol"
-                      dense
-                    >
-                    </v-select>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
-
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="close">Cancelar</v-btn>
-              <v-btn color="blue darken-1" text @click="save">Guardar</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
       </v-toolbar>
     </template>
     <template v-slot:item.actions="{ item }">
       <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
       <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
     </template>
+        <template v-slot:item.activo="{ item }">
+      <v-icon color="green" v-if="item.activo == 1">
+        mdi-checkbox-marked-circle
+      </v-icon>
+      <v-icon color="red" v-if="item.activo == 0">mdi-close-circle </v-icon>
+    </template>
     <template v-slot:no-data>
-      <v-btn color="primary" @click="initialize">Reset</v-btn>
+      <v-btn color="primary" @click="initialize">No hay Usuarios</v-btn>
     </template>
   </v-data-table>
 </template>
 
 
 <script>
+/*
+
+        usuarios_id: null,  
+        usuarios_nombre: null  ,
+        usuarios_email: null  ,
+        usuarios_password: null  ,
+        usuarios_rol: null  ,
+        usuarios_programa: null  ,
+        usuarios_fechaCreacion: null  ,
+        usuarios_activo: null  ,
+*/
+import apiUsuarios from '@/apialdeas/apiUsuarios.js';
 export default {
   data: () => ({
     dialog: false,
-    cargos: ["puesto en Aldeas 1", "puesto en Aldeas 2", "cargo en ALDEAS SOS"],
-    roles: ["PFN", "PFL", "PL", "ELPI"],
+    usuarios:[],
+    cargos: [],
+    roles: [],
     headers: [
       {
-        text: "Nombre",
+        text: "#",
         align: "start",
         sortable: false,
-        value: "name",
+        value: "id",
       },
-      { text: "Email", value: "email" },
-      { text: "Cargo", value: "cargo" },
-      { text: "Rol", value: "rol" },
+       { text: "Nombre", value: "nombre" },
+        { text: "Correo", value: "email" },
+       { text: "Programa", value: "programa" },
+       //{ text: "Cargo", value: "cargo" },
+       { text: "Rol", value: "rol" },
+       { text: "Activo", value: "activo" },
 
       { text: "acciones", value: "actions", sortable: false },
     ],
-    desserts: [],
+   
     editedIndex: -1,
-    editedItem: {
+    /*editedItem: {
       name: "",
       email: "",
       cargo: "",
@@ -114,7 +81,7 @@ export default {
       email: "",
       cargo: "",
       rol: "",
-    },
+    },*/
   }),
 
   computed: {
@@ -135,82 +102,74 @@ export default {
 
   methods: {
     initialize() {
-      this.usuarios = [
-        {
-          name: "nombre de Usuario 1",
-          email: "usuario1@aldeassos.com",
-          cargo: "ELPI",
-          rol: "PFN",
-          protein: 4.0,
-        },
-        {
-          name: "nombre de Usuario 1",
-          email: "usuario1@aldeassos.com",
-          cargo: "ELPI",
-          rol: "PFN",
-        },
-        {
-          name: "nombre de Usuario 2",
-          email: "usuario2@aldeassos.com",
-          cargo: "ELPI",
-          rol: "PFN",
-        },
-        {
-          name: "nombre de Usuario 3",
-          email: "usuario3@aldeassos.com",
-          cargo: "cargo en ALDEAS SOS",
-          rol: "PFN",
-        },
-        {
-          name: "nombre de Usuario 4",
-          email: "usuario4@aldeassos.com",
-          cargo: "cargo en ALDEAS SOS",
-          rol: "PFN",
-        },
-        {
-          name: "nombre de Usuario 5",
-          email: "usuario5@aldeassos.com",
-          cargo: "cargo en ALDEAS SOS",
-          rol: "PFN",
-        },
-        {
-          name: "nombre de Usuario 6",
-          email: "usuario6@aldeassos.com",
-          cargo: "cargo en ALDEAS SOS",
-          rol: "PFN",
-        },
-        {
-          name: "nombre de Usuario 7",
-          email: "usuario7@aldeassos.com",
-          cargo: "cargo en ALDEAS SOS",
-          rol: "PFN",
-        },
-        {
-          name: "nombre de Usuario 8",
-          email: "usuario8@aldeassos.com",
-          cargo: "cargo en ALDEAS SOS",
-          rol: "PFN",
-        },
-        {
-          name: "nombre de Usuario 9",
-          email: "usuario9@aldeassos.com",
-          cargo: "cargo en ALDEAS SOS",
-          rol: "PFN",
-        },
-      ];
+     this.poblarGrid();
+    },
+       async poblarGrid(){
+
+        let TodosLosUsuarios = apiUsuarios.cargar__todos__los__usuarios(this.$store);
+
+         TodosLosUsuarios
+        .then( response => { 
+          console.log(JSON.stringify(response.data));
+          this.usuarios = response.data;
+        } )
+        .catch( error => { console.log(JSON.stringify(error.data))});
     },
 
+     agregarNuevoUsuario(){
+
+      console.log("agregando nuevo usuarios");
+
+      this.$store.dispatch('action_usuarios_id',0);
+
+      this.$router.push('Nuevousuario');
+
+   },
+
     editItem(item) {
-      this.editedIndex = this.usuarios.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialog = true;
+      
+      console.log("editando usuario");
+
+      /* probando otras opciones */
+
+      this.$store.dispatch('action_usuarios_id',item.id)
+
+      let promesa = apiUsuarios.cargar__usuarios(item.id,this.$store);
+
+      promesa
+      .then( response => {
+         console.log(JSON.stringify(response.data[0]));
+         console.log("valor de usuario " + response.data[0]['nombre']);
+
+         let activoTemp = true;
+
+         response.data[0]["activo"]== 1 ? activoTemp = true : activoTemp= false;
+            
+        this.$store.dispatch('action_usuario_id',item.id);
+        this.$store.dispatch('action_usuarios_activo', activoTemp);
+        this.$store.dispatch('action_usuarios_nombre', response.data[0]['nombre']);
+        this.$store.dispatch('action_usuarios_email', response.data[0]['email']);
+        this.$store.dispatch('action_usuarios_rol', response.data[0]['rol']);
+        this.$store.dispatch('action_usuarios_programa', response.data[0]['programa']);
+        this.$router.push('Nuevousuario'); } )
+       .catch( error => { console.log(JSON.stringify(error.data))});
+
+  
+
     },
 
     deleteItem(item) {
-      const index = this.usuarios.indexOf(item);
-      confirm("¿Estas seguro de eliminar este usuario ? ") &&
-        this.usuarios.splice(index, 1);
+  
+      let r = confirm("¿Estas seguro de eliminar este usuario ? ") ;
+
+         if (r == true) {
+          console.log("el vlaor de r : " + r);
+          apiUsuarios.Delete__usuarios(item.id, this.$store);
+          this.poblarGrid();
+
+         }
     },
+
 
     close() {
       this.dialog = false;

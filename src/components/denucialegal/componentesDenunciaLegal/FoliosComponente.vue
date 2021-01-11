@@ -1,12 +1,33 @@
 <template>
     <v-row>
       <v-col cols="12" xs="12" md="4">
-        <v-label filled> FOLIO # {{  folio  }} </v-label>
+                 <v-text-field
+          id="labelFolio"
+          class="cssnuevo"
+           :value="generarFolio"
+            label="FOLIO"
+            filled
+            disabled
+            background-color="#87CEFA"
+            
+          >
+        
+          </v-text-field>
       </v-col>
 
       <v-col cols="12" xs="12" md="4">
-        <v-label filled> FOLIO  DENUNCIA # {{ foliodenuncia}} </v-label>
-      </v-col>
+            <v-text-field
+          id="labelFolio"
+          class="cssnuevo"
+           :value="generarFolio_docto"
+            label="FOLIO"
+            filled
+            disabled
+            background-color="#87CEFA"
+            
+          >
+        
+          </v-text-field>    </v-col>
       <v-col cols="12" xs="12" md="4">
         <v-menu
           v-model="menu2"
@@ -41,6 +62,15 @@
          props : {
              folio :{ type:String},
               foliodenuncia :{ type:String},
+              tipofolio : {type : String, default: ''}
+         },
+         computed: {
+           generarFolio() {
+             return "FOLIO #" + this.folio
+           },
+            generarFolio_docto() {
+             return "FOLIO " + this.tipofolio + " #" + this.foliodenuncia
+           },
          },
 
          data () {

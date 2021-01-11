@@ -16,9 +16,7 @@
               >
              </v-select>
             </v-col>
-          </v-row>
 
-          <v-row>
                <v-col cols="12" xs="12" sm="6" md="6">
              <!-- aqui va fileupload
                 placeholder=" Adjuntar  minuta de reunion de valoracion integral con Concenso y firmas"
@@ -32,9 +30,9 @@
                 :nombreArchivo = "nombreDelArchivo"
                 :incidenteid ="incidenteId"
                 :archivoId="archivoId"
-                action_a_Ejecutar="action_consenso_docto"
-                modulo="denuncia"
-                campoState="seguimiento_notificaciondif_docto">
+                action_a_Ejecutar="action_consensodocto"
+                modulo="denuncias"
+                campoState="denuncialegal_consensodocto">
                 </uploadFile2> 
                </v-col>
           </v-row>
@@ -45,6 +43,7 @@
 
 <script >
    // import Vue from 'vue'
+   import uploadFile2 from  '@/components/manipulacionArchivos/uploadFile2.vue'
 
     export default {
 
@@ -54,9 +53,14 @@
           valorcombo    : { type:String , default: ''},
           incidenteId   : { type: String , default : '0'},
           archivoId     : {type:String, default :'0'},
-          action_plan      :{type:Boolean , default :false},
+          action_plan      :{type:String , default :''},
           nombreDelArchivo:{ type:String , default : 'Sin asignar'},
           sihayarchivo:{type:Boolean , default :false},
+        },
+        components : {
+          
+          uploadFile2
+           
         },
            data() {
 
@@ -68,7 +72,7 @@
       methods : {
          asignarValor(event){
 
-            this.$store.dispatch("action_notificaciondif", event);
+            this.$store.dispatch("action_consenso", event);
          }
       }
 

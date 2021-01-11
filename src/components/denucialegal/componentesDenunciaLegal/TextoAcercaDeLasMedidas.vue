@@ -5,7 +5,8 @@
           filled
           name="input-7-4"
           label="ACERCA DE LAS MEDIDAS (250 PALABRAS)"
-          value=""
+           :value="texto"
+           @input="asignarValor($event)"
         >
         </v-textarea>
       </v-col>
@@ -15,7 +16,22 @@
 <script >
    
     export default {
-        name : 'TextoAcercaDeLasMedidas'
+        name : 'TextoAcercaDeLasMedidas',
+
+        props :{
+          texto : { 
+            type:String
+          }
+        },
+
+        methods : {
+
+          asignarValor(evento){
+
+            this.$store.dispatch("action_medidastexto",evento);
+
+          }
+        }
     }
 </script>
 

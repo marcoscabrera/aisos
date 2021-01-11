@@ -4,11 +4,23 @@
 
     <v-row>
       <v-col cols="12" xs="12" md="6">
-        <v-label filled> FOLIO # {{ folio }} </v-label>
+        <v-text-field
+          id="labelFolio"
+          class="cssnuevo"
+           :value="generarFolio"
+            label="FOLIO"
+            filled
+            disabled
+            background-color="#87CEFA"
+            
+          >
+        
+          </v-text-field>
       </v-col>
 
       <v-col cols="12" xs="12" md="6">
-        <barraDocumentosVue></barraDocumentosVue>
+        <barraDocumentosVue
+        :files="filesa"></barraDocumentosVue>
       </v-col>
     </v-row>
  
@@ -68,7 +80,7 @@
        :nombreDelArchivo    ="nombreDelArchivo"></cardMedidasIntegrales>
     </v-row>
 
-    <v-row>
+    <v-row >
       <v-col cols="12" xs="12" sm="12" md="4">
         <v-btn
           :loading="loading"
@@ -95,8 +107,8 @@
           Cancelar
         </v-btn>
       </v-col>
-      <v-col cols="12" xs="12" sm="12" md="4">
-        <v-btn
+      <v-col v-if="this.verBotonera" cols="12" xs="12" sm="12" md="4">
+        <v-btn 
           :loading="loading"
           :disabled="loading"
           color="green"
@@ -136,6 +148,11 @@ export default {
     cardConfirmacion,
     cardTipoCaso,
     cardTipoRespuesta,
+  },
+  computed: {
+    generarFolio() {
+      return "Folio # " + this.folio; 
+    }
   },
 
   methods: {
@@ -220,8 +237,16 @@ export default {
 
 
           this.confirmaincidente = response.data[0]["confirmaincidente"];
-          this.$store.dispatch('action_confirmaincidente',this.confirmaincidente);        
-         
+          this.$store.dispatch('action_confirmaincidente',this.confirmaincidente);   
+          
+          this.folio = response.data[0]["folio"];
+          
+         this.confirmaincidente == "SI ES UN INCIDENTE" ?
+         this.verBotonera =true : this.confirmaincidente == "En Proceso de Valoracion"
+          ? this.verBotonera = true: this.verBotonera = false;
+
+        // this.$store.dispatch("actions_uivars_esincidente",false) ;  
+
          this.confirmaincidente == "SI ES UN INCIDENTE" ?
          this.$store.dispatch("actions_uivars_esincidente",true) :
          this.$store.dispatch("actions_uivars_esincidente",false) ;
@@ -307,6 +332,14 @@ export default {
       update
         .then((response) => {
           console.log(JSON.stringify(response.data));
+         // let ruta =`/notificaciondos/${this.incidenteid}/${this.folio}/${etapavaloracion_confirmaincidente}`;
+
+         // this.$router.push(ruta);
+          this.$router.push({
+          name: "Notificaciondos",
+          params: { incidenteId:  this.incidenteid, folio:this.folio,esincidente :etapavaloracion_confirmaincidente },
+        });
+
         })
         .catch((error) => {
           console.log(error.data);
@@ -329,6 +362,8 @@ export default {
   },
   data() {
     return {
+
+      verBotonera : true,
       nombreDelArchivo : '',
       datosDelArchivo : null,
       planycronograma: "0",
@@ -401,6 +436,73 @@ export default {
       date: new Date().toISOString().substr(0, 10),
 
       menu2: false,
+
+                filesa: [
+        {
+          color: 'blue',
+          icon: 'mdi-clipboard-text',
+          subtitle: 'Descripcion breve de este docto',
+          title: 'Politica de Proteccion Infantil',
+          link :'https://onedrive.live.com/?authkey=%21AhxF5wMG%5FSJ00H0&cid=D1B73E758E4318E6&id=D1B73E758E4318E6%21703&parId=D1B73E758E4318E6%21690&o=OneUp'
+        },
+        {
+          color: 'blue',
+          icon: 'mdi-adobe',
+          subtitle: 'Descripcion breve de este docto',
+          title: 'Código de Conducta',
+          link :'https://onedrive.live.com/?authkey=%21AhxF5wMG%5FSJ00H0&cid=D1B73E758E4318E6&id=D1B73E758E4318E6%21709&parId=D1B73E758E4318E6%21690&o=OneUp'
+        },
+        {
+          color: 'blue',
+          icon: 'mdi-adobe',
+          subtitle: 'Descripcion breve de este docto',
+          title: 'Directorio de Emergencia',
+          link : ''
+        },
+        {
+          color: 'blue',
+          icon: 'mdi-adobe',
+          subtitle: 'Descripcion breve de este docto',
+          title: 'Violentometro',
+          link :'https://onedrive.live.com/?authkey=%21AhxF5wMG%5FSJ00H0&cid=D1B73E758E4318E6&id=D1B73E758E4318E6%21707&parId=D1B73E758E4318E6%21690&o=OneUp'
+        },
+                {
+          color: 'yellow',
+          icon: 'mdi-adobe',
+          subtitle: 'Descripcion breve de este docto',
+          title:  'Documento de Denuncia y Respuesta',
+          link :'sin link'
+        },
+
+          {
+          color: 'yellow',
+          icon: 'mdi-adobe',
+          subtitle: 'Descripcion breve de este docto',
+          title:  'Procedimiento para Denuncia y Respuesta',
+          link :'sin link'
+        },
+           {
+          color: 'blue',
+          icon: 'mdi-adobe',
+          subtitle: 'Descripcion breve de este docto',
+          title:  'Guía de intervención PAS y CSP',
+          link :'https://onedrive.live.com/?authkey=%21AhxF5wMG%5FSJ00H0&cid=D1B73E758E4318E6&id=D1B73E758E4318E6%21700&parId=D1B73E758E4318E6%21690&o=OneUp'
+        },      
+             {
+          color: 'blue',
+          icon: 'mdi-adobe',
+          subtitle: 'Descripcion breve de este docto',
+          title:  'Guía de intervención Familiar PAS y CSP',
+          link :'https://onedrive.live.com/?authkey=%21AhxF5wMG%5FSJ00H0&cid=D1B73E758E4318E6&id=D1B73E758E4318E6%21704&parId=D1B73E758E4318E6%21690&o=OneUp'
+        },
+                     {
+          color: 'yellow',
+          icon: 'mdi-adobe',
+          subtitle: 'Descripcion breve de este docto',
+          title:  'Registro de Incidentes de Desprotección',
+          link :'sin link'
+        },               
+      ],
     };
   },
 };

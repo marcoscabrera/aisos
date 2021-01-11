@@ -6,12 +6,16 @@ import valoracion from './modules/valoracion/valoracion.js'
 import uivars from './modules/uivars/uivars.js'
 import seguimiento from './modules/seguimiento/seguimiento.js'
 import denuncias from './modules/denuncias/denuncias.js'
+import investigacion from './modules/investigacion/investigacion.js'
+import evidencias from './modules/evidencias/evidencias.js'
+import roles from './modules/roles/roles.js'
+import usuarios from './modules/usuarios/usuarios.js'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-   urlServidor: 'http://127.0.0.1/apialdeas'
-  // urlServidor: 'http://rebelbot.mx/apialdeas'
+ // urlServidor: 'http://127.0.0.1/apialdeas'
+  urlServidor: 'http://rebelbot.mx/apialdeas'
     
   },
   mutations: {
@@ -19,6 +23,6 @@ export default new Vuex.Store({
   actions: {
   },
   modules: {
-    incidentes,valoracion,uivars,seguimiento,denuncias
+    usuarios, roles,incidentes,valoracion,uivars,seguimiento,denuncias,investigacion,evidencias
   }
 })

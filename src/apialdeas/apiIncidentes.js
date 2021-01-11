@@ -89,6 +89,22 @@ export default {
     
         return api.axiosget(endpoint);
 
+     },
+
+     realizarCierre(parametros, store){
+
+       
+        let predicado = "/api/v0/cierre";
+
+        let apix = store.state.urlServidor;
+    
+        let endpoint = apix + predicado;
+    
+            console.log("valor del endpoint " + endpoint);
+             console.log("valor del parametros" + parametros);
+    
+        return api.axiosput(endpoint, parametros);
+
      }
 
     

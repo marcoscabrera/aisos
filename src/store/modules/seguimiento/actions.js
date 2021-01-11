@@ -80,6 +80,12 @@ action_documentos_docto   ( context , valor ) {
 
     action_plan_docto     ( context , valor ) {
         context.commit('mutation_seguimiento_plan_docto',valor);
-        }
+        },
+    
+    action_protocolosos     ( context , valor ) {
+            context.commit('mutation_seguimiento_protocolosos',valor);
+            }
+
+        
 
  }

@@ -3,9 +3,14 @@
     <v-textarea
       filled
       name="input-7-4"
-      label="MEDIDAS DE PROTECCIÓN INMEDIATA (500 PALABRAS)"
+      :label="mensaje"
       :value="texto"
       @input="asignarValor($event)"
+
+       auto-grow
+       :error-messages="errores"
+
+    
     >
     </v-textarea>
   </v-col>
@@ -21,12 +26,42 @@ export default {
     asignarValor(evento){
       console.log(evento);
       this.$store.dispatch('setear_medidasproteccion',evento)
-    }
+     let cuantos = this.cuentaPalabras(evento);
+     let m1 = "HA EXCEDIDO EL NUMERO MAXIMO DE PALABRAS PERMITIDAS =";
+     cuantos >250 ? this.errores = m1 :
+     this.errores ='' 
+
+    },
+        asignarValorx(evento){
+    
+     this.$store.dispatch('action_textovi',evento);
+     let cuantos = this.cuentaPalabras(evento);
+     let m1 = "HA EXCEDIDO EL NUMERO MAXIMO DE PALABRAS PERMITIDAS =";
+     cuantos >250 ? this.errores = m1 :
+     this.errores ='' 
+
+    },
+    cuentaPalabras(texto) {
+
+      let numeroPalabras = texto.split(" ");
+      let cuantos = numeroPalabras.length;
+
+      let m= `MEDIDAS DE PROTECCIÓN INMEDIATA  PALABRAS #${cuantos}`;
+         
+      this.mensaje = m;
+
+      
+      return cuantos;
+    },
+
   },
 
   data() {
     return {
       medidasproteccion: '',
+      mensaje :'MEDIDAS DE PROTECCIÓN INMEDIATA (250 PALABRAS)',
+      errores:'',
+      numeroPalabras : 0
     };
   },
 };

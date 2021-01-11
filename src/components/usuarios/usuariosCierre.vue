@@ -13,7 +13,7 @@
         <v-dialog v-model="dialog" max-width="500px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on"
-              >+ Autor</v-btn
+              >+ Agregar Testigo</v-btn
             >
           </template>
           <v-card>
@@ -36,7 +36,7 @@
                     <v-select
                      
                       v-model="editedItem.cargo"
-                      :items="cargos"
+                      :items="itemsCargos"
                       label="Cargo"
                       dense
                     >
@@ -60,7 +60,8 @@
       <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
     </template>
     <template v-slot:no-data>
-      <v-btn color="primary" @click="initialize">Reset</v-btn>
+     <!-- <v-btn color="primary" @click="initialize">Reset</v-btn>
+     -->
     </template>
   </v-data-table>
 </template>
@@ -75,8 +76,9 @@ export default {
   data: () => ({
     usuarios :[],
     dialog: false,
-    cargos: ["puesto en Aldeas 1", "puesto en Aldeas 2", "cargo en ALDEAS SOS"],
-    roles: ["PFN", "PFL", "PL", "ELPI"],
+   itemsCargos: ["COLABORADOR SOS", "CUIDADORA DE ATENCION DIRECTA",
+       "NIÑA O NIÑO PARTICIPANTE" ,"PERSONA EXTERNA","OTRO"] ,
+        roles: ["PFN", "PFL", "PL", "ELPI"],
     headers: [
       {
         text: "id",

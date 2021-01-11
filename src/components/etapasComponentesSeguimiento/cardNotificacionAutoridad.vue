@@ -21,7 +21,6 @@
                 
                 directorio="/uploads/seguimiento"
                 :HayArchivo ="sihayarchivo"
-                
                 :nombreArchivo = "nombreDelArchivo"
                 :incidenteid ="incidenteId"
                 :archivoId="archivoId"

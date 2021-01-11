@@ -74,6 +74,11 @@ export default {
             setear_testigos(context, valor) { 
           context.commit("seteartestigos", valor);
   }, 
+
+
+  action_textocierre(context, valor) { 
+        context.commit("setear_textocierre", valor);
+}, 
               
 /*
 */

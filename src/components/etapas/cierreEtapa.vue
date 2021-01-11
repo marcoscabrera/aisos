@@ -4,7 +4,16 @@
 
     <v-row>
       <v-col cols="12" xs="12" md="6">
-        <v-label filled> FOLIO # {{folio}} </v-label>
+         <v-text-field
+          id="labelFolio"
+          class="cssnuevo"
+          :value="generarFolio"
+          label="FOLIO"
+          filled
+          disabled
+          background-color="#87CEFA"
+          >
+         </v-text-field>
       </v-col>
 
       <!--  <v-col cols="12" xs="12" md="6">
@@ -72,8 +81,9 @@
           filled
           name="input-7-7"
           label=" DECLARATORIA (250 PALABRAS) "
-      
+           v-model="texto"
            :placeholder ="place" 
+           @input="asignarEvento($event)"
         >
         </v-textarea>
       </v-col>
@@ -266,7 +276,7 @@
           :loading="loading"
           :disabled="loading"
           color="green"
-          @click="guardar__iraDashboard"
+          @click="cerrarIncidente"
           block
         >
           <v-icon right dark> mdi-check </v-icon>
@@ -289,7 +299,18 @@ export default {
     usuariosCierre,
     cardDocumentoEnCierre },
 
+  computed: {
+    generarFolio() {
+      return "Folio # " + this.folio; 
+    }
+  },
+
   methods: {
+
+      asignarEvento(evenot){
+        this.$store.dispatch("action_textocierre",evenot)
+
+      },
       
       cargarDocumento(idDocto){
 
@@ -471,6 +492,28 @@ export default {
       this.$router.push("/dashboard");
     },
 
+    cerrarIncidente(){
+
+      let id = this.incidenteid;
+      
+      let parametros   = {
+            
+            id: id,
+            textocierre: this.$store.state.incidentes.etapainicial_textocierre
+
+      };
+
+      let p = apiIncidentes.realizarCierre(parametros,this.$store);
+
+       p
+      .then( response => {
+        console.log("respuesta despues del cierre.");
+         console.log(JSON.stringify(response.data))
+         } )
+      .catch( error => { console.log(JSON.stringify(error.data))});
+
+    },
+
     seleccionar(valor) {
       if (valor == "adulto") {
         this.adulto = true;
@@ -497,6 +540,7 @@ export default {
   data() {
     return {
 
+      texto: '',
 
       verNotificacionAutoridad : false,
 

@@ -74,7 +74,10 @@ export default {
         state.etapainicial_testigos = testigos;
     },               
          
-     
+    setear_textocierre(state, testigos) { 
+        state.etapainicial_textocierre = testigos;
+    },               
+         
 
 
 

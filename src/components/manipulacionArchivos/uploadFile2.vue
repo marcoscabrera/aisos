@@ -59,15 +59,15 @@ export default {
 
   props : {
 
-    archivoId :  {type:String ,defautl: '0'},
-    incidenteid : {type: String , default : '0'},
-    directorio : { type: String , default : ''},
-    nombreArchivo :{ type :String , default :'' },
+    archivoId         : {type:String ,defautl: '0'},
+    incidenteid       : {type: String , default : '0'},
+    directorio        : { type: String , default : ''},
+    nombreArchivo     : { type :String , default :'' },
     action_a_Ejecutar : { type:String, default :''},
-    modulo :{  type:String},
-    campoState : { type:String},
-    datosDelArchivo : {type:Array},
-    HayArchivo : {Type: Boolean}
+    modulo            : {  type:String},
+    campoState        : { type:String},
+    datosDelArchivo   : {type:Array},
+    HayArchivo        : {Type: Boolean}
     
 
   },

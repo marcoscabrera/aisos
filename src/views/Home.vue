@@ -1,12 +1,13 @@
 <template>
   <v-container>
     <v-row>
-      <v-col></v-col>
-      <v-col>
-        <h2>Prototipo version 0.0.1</h2>
+      <v-col cols="12" xs="12" sm="12" md="2"></v-col>
+      <v-col  cols="12" xs="12" sm="12" md="8">
+        <h2 class="text-center">Plataforma virtual de Protección infantil ver 0.0.1</h2>
       </v-col>
-      <v-col></v-col>
+      <v-col  cols="12" xs="12" sm="12" md="2"></v-col>
     </v-row>
+
     <v-row>
       <v-col></v-col>
       <v-col>
@@ -19,9 +20,11 @@
     </v-row>
 
     <v-row>
-      <v-col></v-col>
-      <v-col>Alcances</v-col>
-      <v-col></v-col>
+      <v-col cols="12" xs="12" sm="12" md="2"></v-col>
+      <v-col  cols="12" xs="12" sm="12" md="8">
+        <h2 class="text-center">  </h2>
+      </v-col>
+      <v-col  cols="12" xs="12" sm="12" md="2"></v-col>
     </v-row>
 
     <v-row>

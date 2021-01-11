@@ -1,20 +1,60 @@
 <template>
   <v-container name="denuncialegal">
-    <FoliosComponente folio="0001"
-    foliodenuncia ='00002'>
+    <!-- pediente la fecha -->
+    <FoliosComponente :folio="folio"
+    :foliodenuncia ='denuncia.foliodenuncia'
+    tipofolio="DENUNCIA">
     </FoliosComponente>
 
-    <ConsensoComponente></ConsensoComponente>
+  <!--  
+          consensoArchivo_id:'',
+      consensoArchivo_nombreArchivo :'',
+      consensoArchivo_sihayarchivo : false -->
+    <v-row>
+      <v-col>
+
+      </v-col>
+      <v-col>
+        <barraDocumentos :files="files">
+
+        </barraDocumentos>
+      </v-col>
+    </v-row>
+    <ConsensoComponente
+          :valorcombo = "denuncia.consenso"  
+          :incidenteId ="denuncia.incidenteid"
+          :archivoId ="consensoArchivo_id"   
+          action_plan="action_consensodocto"   
+          :nombreDelArchivo="consensoArchivo_nombreArchivo"
+          :sihayarchivo="consensoArchivo_sihayarchivo"
+    ></ConsensoComponente> 
 
     <br/>
-     <SoporteLegalComponente></SoporteLegalComponente>
+     <SoporteLegalComponente
+       :valorComboAsesorDurante="denuncia.soportedurante"
+       :valorComboAsesorAntes="denuncia.soporteantes"
+       :valorComboAsesorContacto="denuncia.soportecontacto"
+     
+     ></SoporteLegalComponente>
     <br />
-    <SoporteEmocionalComponente></SoporteEmocionalComponente>
+    <SoporteEmocionalComponente
+       :valorComboAsesorDurante="denuncia.soporteemocionaldurante"
+       :valorComboAsesorAntes="denuncia.soporteemocionalantes"
+       :valorComboAsesorContacto="denuncia.soporteemocionalcontacto"
+    ></SoporteEmocionalComponente>
     <br />
-    <MedidasDisciplinariasComponente></MedidasDisciplinariasComponente>
+
+    <MedidasDisciplinariasComponente
+          :valorcombo = "denuncia.medidasd"  
+          :incidenteId ="denuncia.incidenteid"
+          :archivoId ="medidasArchivo_id"   
+          :nombreDelArchivo="medidasArchivo_nombreArchivo"
+          :sihayarchivo="medidasArchivo_sihayarchivo"
+    ></MedidasDisciplinariasComponente>
 
     <br />
-    <TextoAcercaDeLasMedidas></TextoAcercaDeLasMedidas>
+    <TextoAcercaDeLasMedidas
+    :texto="denuncia.medidastexto"></TextoAcercaDeLasMedidas>
 
     <br />
     <v-row>
@@ -36,7 +76,7 @@
           :loading="loading"
           :disabled="loading"
           color="red"
-          @click="guardar__iraDashboard"
+       
           block
         >
           <v-icon right dark> mdi-close </v-icon>
@@ -49,7 +89,7 @@
           :loading="loading"
           :disabled="loading"
           color="green"
-          @click="guardar__iraDashboard"
+          @click="guardarDenuncia"
           block
         >
           <v-icon right dark> mdi-check </v-icon>
@@ -64,14 +104,15 @@
 import apiIncidentes from "@/apialdeas/apiIncidentes.js";
 import apiDenuncias from "@/apialdeas/apiDenuncias.js";
 import FoliosComponente  from "./componentesDenunciaLegal/FoliosComponente.vue";
+import barraDocumentos  from "@/components/barradocumentos/barraDocumentos.vue";
 
 export default {
 
   components : {
-    FoliosComponente,
+    FoliosComponente,barraDocumentos,
     ConsensoComponente : () => import('./componentesDenunciaLegal/ConsensoComponente.vue'),
     SoporteLegalComponente  : () => import('./componentesDenunciaLegal/SoporteLegalComponente.vue'),
-    SoporteEmocionalComponente : () => import('./componentesDenunciaLegal/SoporteLegalComponente.vue'),
+    SoporteEmocionalComponente : () => import('./componentesDenunciaLegal/SoporteEmocionalComponente.vue'),
     MedidasDisciplinariasComponente : () => import('./componentesDenunciaLegal/MedidasDisciplinariasComponente.vue'),
     TextoAcercaDeLasMedidas : () => import('./componentesDenunciaLegal/TextoAcercaDeLasMedidas.vue')
 },
@@ -82,7 +123,34 @@ export default {
 
       folio :'',
       foliodenuncia :'',
-      denuncia :[]
+      denuncia :[],
+
+      consensoArchivo_id:'',
+      consensoArchivo_nombreArchivo :'',
+      consensoArchivo_sihayarchivo : false,
+
+      medidasArchivo_id: '',
+      medidasArchivo_nombreArchivo :'',
+      medidasArchivo_sihayarchivo: false,
+
+                files: [
+        {
+          color: 'blue',
+          icon: 'mdi-adobe',
+          subtitle: 'Descripcion breve de este docto',
+          title: 'Manual de investigación interna',
+          link :'https://onedrive.live.com/?authkey=%21AhxF5wMG%5FSJ00H0&cid=D1B73E758E4318E6&id=D1B73E758E4318E6%21718&parId=D1B73E758E4318E6%21690&o=OneUp'
+        },
+        {
+          color: 'blue',
+          icon: 'mdi-adobe',
+          subtitle: 'Descripcion breve de este docto',
+          title: 'Herramientas para investigacion interna',
+          link :'https://onedrive.live.com/?authkey=%21AhxF5wMG%5FSJ00H0&cid=D1B73E758E4318E6&id=D1B73E758E4318E6%21709&parId=D1B73E758E4318E6%21690&o=OneUp'
+        },
+       
+      ],
+  
     };
   },
 
@@ -92,7 +160,7 @@ export default {
       apiIncidentes.hola();
     },
     asignarVariables(datos){
-
+  this.$store.dispatch('action_id',datos.id);
   this.$store.dispatch('action_incidenteid',datos.incidenteid);
   this.$store.dispatch('action_foliodenuncia',datos.foliodenuncia);
   this.$store.dispatch('action_consenso',datos.consenso);
@@ -110,6 +178,66 @@ export default {
   this.$store.dispatch('action_fechaUpdate',datos.fechaUpdate);
   this.$store.dispatch('action_estado',datos.estado);
     },
+    guardarDenuncia(){
+
+       let denunciaObj = this.$store.state.denuncias;
+
+
+
+       let parametros = {
+
+          id : denunciaObj.denuncialegal_id,
+
+          incidenteid: denunciaObj.denuncialegal_incidenteid,
+
+          foliodenuncia: denunciaObj.denuncialegal_foliodenuncia,
+
+          consenso: denunciaObj.denuncialegal_consenso,
+
+          consensodocto: denunciaObj.denuncialegal_consensodocto,
+
+          soportecontacto: denunciaObj.denuncialegal_soportecontacto,
+
+          soporteantes: denunciaObj.denuncialegal_soporteantes,
+
+          soportedurante: denunciaObj.denuncialegal_soportedurante,
+
+          soporteemocionalcontacto: denunciaObj.denuncialegal_soporteemocionalcontacto,
+
+          soporteemocionalantes: denunciaObj.denuncialegal_soporteemocionalantes,
+
+          soporteemocionaldurante: denunciaObj.denuncialegal_soporteemocionaldurante,
+
+          medidasd: denunciaObj.denuncialegal_medidasd,
+
+          medidasd_docto: denunciaObj.denuncialegal_medidasd_docto,
+
+          medidastexto: denunciaObj.denuncialegal_medidastexto,
+
+          fechaCreacion: denunciaObj.denuncialegal_fechaCreacion,
+
+          fechaUpdate: denunciaObj.denuncialegal_fechaUpdate,
+
+          estado: denunciaObj.denuncialegal_estado
+                  
+
+       };
+       
+       let guardar  = apiDenuncias.update__denuncialegal(parametros, this.$store);
+
+       guardar.then(
+         response=>{
+
+           console.log(JSON.stringify(response.data));
+
+         }
+       ).catch(
+         error=> {
+           console.log(error);
+         }
+       );
+       
+    },
     cargarDenuncia(){
       let denunciaId = this.$route.params.denunciaId;
       
@@ -121,7 +249,20 @@ export default {
         console.log(JSON.stringify(response.data));
         this.folio = response.data[0]["folio"];
         this.denuncia=response.data[0];
-        this.asignarVariables(this.denuncia);
+        
+      this.consensoArchivo_id= this.denuncia.consensoArchivo.id;
+      this.consensoArchivo_nombreArchivo =this.denuncia.consensoArchivo.nombreOriginal;
+      this.consensoArchivo_sihayarchivo=  this.denuncia.consensoArchivo.hayArchivo;
+
+      this.medidasArchivo_id= this.denuncia.medidasArchivo.id;
+      this.medidasArchivo_nombreArchivo =this.denuncia.medidasArchivo.nombreOriginal;
+      this.medidasArchivo_sihayarchivo=  this.denuncia.medidasArchivo.hayArchivo;
+
+
+        console.log("valor de nombre archivo consensodocto" +this.denuncia.consensoArchivo.nombreOriginal);
+       console.log("valor de nombre archivo medidas" +this.denuncia.medidasArchivo.nombreOriginal);
+       
+       this.asignarVariables(this.denuncia);
       })
       .catch( error => {
         console.log(error);

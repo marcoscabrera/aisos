@@ -4,11 +4,23 @@
 
     <v-row>
       <v-col cols="12" xs="12" md="6">
-        <v-label filled> FOLIO # {{ folio }} </v-label>
-      </v-col>
+          <v-text-field
+          id="labelFolio"
+          class="cssnuevo"
+           :value="generarFolio"
+            label="FOLIO"
+            filled
+            disabled
+            background-color="#87CEFA"
+            
+          >
+        
+          </v-text-field>
+         </v-col>
 
       <v-col cols="12" xs="12" md="6">
-        <barraDocumentosVue></barraDocumentosVue>
+        <barraDocumentosVue class="elevado"
+        :files="files"></barraDocumentosVue>
       </v-col>
     </v-row>
 
@@ -66,7 +78,9 @@
     </v-row>
 
     <v-row>
-      <textareaTestigos :texto="testigos"></textareaTestigos>
+      <textareaTestigos 
+     
+      :texto="testigos"></textareaTestigos>
     </v-row>
 
     <v-row>
@@ -97,12 +111,13 @@
         </v-btn>
       </v-col>
       <v-col cols="12" xs="12" sm="12" md="4">
-        <v-btn
+        <v-btn v-if="verBotonera"
           :loading="loadingGuardar"
           :disabled="loadingGuardar"
           color="green"
-          @click="nuevo_incidente"
+          @click="guardar_incidente"
           block
+          
         >
           <v-icon right dark> mdi-check </v-icon>
           <v-spacer></v-spacer>
@@ -140,6 +155,12 @@ export default {
     cardPerfilVictima,
     textareaMedidasProteccion,
     textareaTestigos,
+  },
+
+  computed: {
+    generarFolio() {
+      return "Folio # " + this.folio; 
+    }
   },
 
   methods: {
@@ -296,6 +317,7 @@ const  {
     },
 
     guardar_incidente() {
+       console.log(" *** en guardar_incidente ");
       console.log(" valor de this.modo : " + this.modo);
       if (this.modo == "nuevo") {
         this.nuevo_incidente();
@@ -310,6 +332,20 @@ const  {
       var a = respuesta.data;
      
       this.folio = a[0]["folio"];
+       /***************************************
+       * para no grabar uno nuevo
+       * 
+       *************************************/
+       
+        if (this.folio != "Pendiente"){
+          
+         this.modo = "update";
+         this.verBotonera=false;
+         console.log("folio :" + this.folio);
+         console.log("modo :" + this.modo);
+
+        }
+       /************************************* */
       this.date = a[0]["fechaAlta"];
       this.programaSeleccionado = a[0]["programa"];
      
@@ -340,6 +376,13 @@ const  {
       this.testigos = a[0]["testigos"];
 
      this.incidenteconfirmado = a[0]["incidenteconfirmado"];
+
+
+     console.log("que variable es files : ") ;
+
+     let x = typeof this.files;
+
+     console.log(x);
 
       
    
@@ -393,6 +436,7 @@ console.log( " perfil recibeayuda " + this.recibeayuda) ;
 
   data() {
     return {
+      verBotonera:true,
       vercomboniveluno: false,
       vercomboniveldos: false,
       paadultocolaborador: '',
@@ -434,7 +478,7 @@ console.log( " perfil recibeayuda " + this.recibeayuda) ;
       nnjs: false,
 
       nnje: false,
-      folio: "000-nan-000",
+      folio: "Pendiente",
 
       involucrados: "",
 
@@ -467,8 +511,53 @@ console.log( " perfil recibeayuda " + this.recibeayuda) ;
       date: new Date().toISOString().substr(0, 10),
 
       menu2: false,
+          files: [
+        {
+          color: 'blue',
+          icon: 'mdi-adobe',
+          subtitle: 'Descripcion breve de este docto',
+          title: 'Politica de Proteccion Infantil',
+          link :'https://onedrive.live.com/?authkey=%21AhxF5wMG%5FSJ00H0&cid=D1B73E758E4318E6&id=D1B73E758E4318E6%21703&parId=D1B73E758E4318E6%21690&o=OneUp'
+        },
+        {
+          color: 'blue',
+          icon: 'mdi-adobe',
+          subtitle: 'Descripcion breve de este docto',
+          title: 'Código de Conducta',
+          link :'https://onedrive.live.com/?authkey=%21AhxF5wMG%5FSJ00H0&cid=D1B73E758E4318E6&id=D1B73E758E4318E6%21709&parId=D1B73E758E4318E6%21690&o=OneUp'
+        },
+        {
+          color: 'blue',
+          icon: 'mdi-adobe',
+          subtitle: 'Descripcion breve de este docto',
+          title: 'Directorio de Emergencia',
+          link : ''
+        },
+        {
+          color: 'blue',
+          icon: 'mdi-adobe',
+          subtitle: 'Descripcion breve de este docto',
+          title: 'Violentometro',
+          link :'https://onedrive.live.com/?authkey=%21AhxF5wMG%5FSJ00H0&cid=D1B73E758E4318E6&id=D1B73E758E4318E6%21707&parId=D1B73E758E4318E6%21690&o=OneUp'
+        },
+      ],
     };
   },
 };
 </script>
+<style scoped>
+
+ .cssnuevo{
+
+  
+    font-size: large;
+    font-weight: bold;
+    
+  }
+
+  .elevado{
+    z-index: 100;
+  }
+
+</style>
 
