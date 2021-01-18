@@ -156,8 +156,33 @@ export default {
   },
 
   methods: {
-
     solicitudImpresion(){
+
+
+      // 
+          console.log(" Permiso IMPRESIONVALORACIONINTEGRAL  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.IMPRESIONVALORACIONINTEGRAL)             
+     if (this.$store.state.usuarios.usuarios_usuariologueado_rol.IMPRESIONVALORACIONINTEGRAL=='SI'){
+
+       //NOTA:
+       /*
+        AQUI VA EL CODIGO PARA REALIZAR LA IMPRESION .
+       
+       */
+     }else {
+
+        let idRecuperado = this.$route.params.id;
+        this.$router.push({
+          name: "PermisoImpresion",
+          params: { incidenteId: idRecuperado },
+        });
+
+
+     }//termina if del pedido
+    },
+
+    solicitudImpresion2(){
+      //este fue el primero
+
       let idRecuperado = this.$route.params.id;
  
       this.$router.push({
@@ -298,6 +323,10 @@ export default {
 
     actualizarValoracion() {
 
+     console.log(" Permiso EDITARANTESDECIERREDELAVALORACIONINTEGRAL  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARANTESDECIERREDELAVALORACIONINTEGRAL)             
+     if (this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARANTESDECIERREDELAVALORACIONINTEGRAL=='SI'){
+
+
       const {
        // etapavaloracion_incidenteid,
        // etapavaloracion_fechacreacion,
@@ -355,10 +384,22 @@ export default {
             'tipoderespuesta'       => $datos['tipoderespuesta'],
             'medidasintegrales'     => $datos['medidasintegrales'],
             'activo'                => $datos['activo']*/
+     }//termina if
     },
   },
   created() {
-    this.cargarValoracionIntegral();
+    let rolActual = this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARANTESDECIERREDELAVALORACIONINTEGRAL;
+    
+    if (rolActual == "SI"){
+      this.cargarValoracionIntegral();
+    }else {
+      
+      //aqui tengo que poner una notificacion de que no hay autorizacion.
+      this.$store.push('/notificacionnoautorizado');
+
+    }
+
+  
   },
   data() {
     return {

@@ -11,11 +11,11 @@ import evidencias from './modules/evidencias/evidencias.js'
 import roles from './modules/roles/roles.js'
 import usuarios from './modules/usuarios/usuarios.js'
 Vue.use(Vuex)
-
-export default new Vuex.Store({
+//export default new Vuex.Store
+const store =  new Vuex.Store({
   state: {
- // urlServidor: 'http://127.0.0.1/apialdeas'
-  urlServidor: 'http://rebelbot.mx/apialdeas'
+  // urlServidor: 'http://127.0.0.1/apialdeas'
+  urlServidor: 'https://aldeasinfantiles.mx/apialdeas'
     
   },
   mutations: {
@@ -26,3 +26,5 @@ export default new Vuex.Store({
     usuarios, roles,incidentes,valoracion,uivars,seguimiento,denuncias,investigacion,evidencias
   }
 })
+
+export default store;

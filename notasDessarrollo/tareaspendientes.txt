@@ -1,0 +1,18 @@
+--implementacion Login y rol
+
+--traer solo los reportes de incidente que le correspondan  al usuario.
+
+--parametros para algunas variables de la UI ( longitude de los
+textos) 
+
+--INCIDENTES-- Agregar al dashboard icono para mostrar si esta abierto o no 
+el incidente.
+
+
+-- impresion de doctos
+-- envio de correos  (notificaciones)
+-- permisos de doctos
+-- cambio de ui en catalogos cambiar delete por switch
+-- integracion de conciencia y prevencion .
+--componente de documentos de ayuda --convertirlo en dinamico --
+--hacer repositorio para api y para frontend

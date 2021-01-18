@@ -3,7 +3,7 @@ import mutations from './mutations.js';
  
  export default { 
  
-     state : {                             programas_id: null  
+     state : {                             programas_id: null  ,
 programas_programa: null  ,
 programas_abreviatura: null  ,
 programas_prefijofolio: null  ,

@@ -13,7 +13,7 @@
     loading-text="Cargando... por favor sea paciente"
   >
     <template v-slot:item.activo="{ item }">
-      <v-simple-checkbox v-model="item.activo" disabled></v-simple-checkbox>
+      <v-simple-checkbox v-model="item.activo" enabled></v-simple-checkbox>
     </template>
 
     <template v-slot:expanded-item="{ headers, item }">
@@ -33,7 +33,7 @@
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
 
-        <v-btn color="primary" dark class="mb-2" @click="irADenuncias">
+        <v-btn color="primary"  v-if="puedeCrearUnNuevoIncidente" dark class="mb-2" @click="irADenuncias">
           Nuevo Incidente
         </v-btn>
       </v-toolbar>
@@ -86,7 +86,8 @@
     </template>
 
     <template v-slot:item.etapauno="{ item }">
-      <v-btn
+      <v-btn 
+    
         x-small
         fab
         :class="item.etapauno"
@@ -100,7 +101,8 @@
     </template>
 
     <template v-slot:item.etapados="{ item }">
-      <v-btn
+      <v-btn 
+     
         :class="item.etapados"
         x-small
         fab
@@ -113,7 +115,8 @@
     </template>
 
     <template v-slot:item.etapatres="{ item }">
-      <v-btn
+      <v-btn  
+     
         :class="item.etapatres"
         x-small
         fab
@@ -126,7 +129,8 @@
     </template>
 
     <template v-slot:item.etapacuatro="{ item }">
-      <v-btn
+      <v-btn 
+     
         :class="item.etapacuatro"
         x-small
         fab
@@ -141,6 +145,7 @@
     <!-- etapas -->
     <template v-slot:item.actions="{ item }">
       <v-btn
+      
         x-small
         fab
         :color="colorvi"
@@ -183,6 +188,13 @@
 import apiIncidentes from "@/apialdeas/apiIncidentes.js";
 export default {
   data: () => ({
+
+    puedeCrearUnNuevoIncidente  :  false,
+    puedeVerValoracionInicial  :  false,
+    puedeverValoracionIntegral  :  false ,
+    puedeVerSeguimiento  :  false ,
+    puedeVerCierre :  false,
+
     colorvi: "yellow",
     colorvintegral: "yellow",
     colors: "yellow",
@@ -257,9 +269,41 @@ export default {
   },
 
   methods: {
+    verificarPermisos() {
+    
+    let permisosDeRol = this.$store.state.usuarios.usuarios_usuariologueado_rol;
+    console.log( permisosDeRol.ALTADEVALORACIONINTEGRAL);
+    console.log(permisosDeRol.VISUALIZACIONVALORACIONINICIAL);
+    console.log(permisosDeRol.VISUALIZACIONVALORACIONINTEGRAL);
+    console.log(permisosDeRol.VISUALIZACIONDESEGUIMIENTO);
+    console.log(permisosDeRol.VISUALIZACIONDECIERRE);
+    
+    console.log( this.puedeCrearUnNuevoIncidente);
+    console.log( this.puedeVerValoracionInicial);
+    console.log(this.puedeverValoracionIntegral);
+    console.log(this.puedeVerSeguimiento);
+    console.log(this.puedeVerCierre);
+    permisosDeRol.ALTADEVALORACIONINTEGRAL == "SI" ?  this.puedeCrearUnNuevoIncidente = true : this.puedeCrearUnNuevoIncidente = false;
+   
+                  
+    permisosDeRol.VISUALIZACIONVALORACIONINICIAL == "SI" ?  this.puedeVerValoracionInicial = true : this.puedeVerValoracionInicial = false;
+ 
+    permisosDeRol.VISUALIZACIONVALORACIONINTEGRAL == "SI" ?  this.puedeverValoracionIntegral = true : this.puedeverValoracionIntegral = false;
+ 
+
+    permisosDeRol.VISUALIZACIONDESEGUIMIENTO == "SI" ?  this.puedeVerSeguimiento = true : this.puedeVerSeguimiento = false;
+
+    permisosDeRol.VISUALIZACIONDECIERRE == "SI" ?  this.puedeVerCierre = true : this.puedeVerCierre = false;
+    console.log( this.puedeCrearUnNuevoIncidente);
+    console.log( this.puedeVerValoracionInicial);
+    console.log(this.puedeverValoracionIntegral);
+    console.log(this.puedeVerSeguimiento);
+    console.log(this.puedeVerCierre);
+
+    },
     ir_a_respuesta(valor) {
       /* 
-              "DENUNCIA PENAL",
+        "DENUNCIA PENAL",
         "INVESTIGACION INTERNA",
         "ABORDAJE INTERNO", */
 
@@ -290,22 +334,42 @@ export default {
       this.$router.push(ruta);
     },
     irAValoracionInicial(ruta) {
-      console.log("is a visitar " + ruta);
-      let r = "/denuncias/" + ruta;
-      console.log(r);
-      // named route
-      this.$router.push({ name: "DenunciasDetalle", params: { id: ruta } });
-    },
+
+      if(   this.puedeVerValoracionInicial  != false){
+        console.log("is a visitar " + ruta);
+          let r = "/denuncias/" + ruta;
+          console.log(r);
+          // named route
+          this.$router.push({ name: "DenunciasDetalle", params: { id: ruta } });
+
+      }
+ 
+      },
     irAValoracionIntegral(id) {
+
+       if(   this.puedeverValoracionIntegral  != false){
+            this.$router.push({ name: "ValoracionIntegral", params: { id: id } });
+       }
+
+
       // named route
-      this.$router.push({ name: "ValoracionIntegral", params: { id: id } });
-    },
+        },
     irASeguimiento(id) {
-      this.$router.push({ name: "Seguimiento", params: { id: id } });
+
+      if(   this.puedeVerSeguimiento  != false){
+            this.$router.push({ name: "Seguimiento", params: { id: id } });
+       }
+
+    
     },
 
     irACierre(id) {
-      this.$router.push({ name: "Cierre", params: { incidenteId: id } });
+
+            if(   this.puedeVerCierre  != false){
+            this.$router.push({ name: "Cierre", params: { incidenteId: id } });
+       }
+
+    
     },
     irADenuncias() {
       this.$router.push("/denuncias");
@@ -326,7 +390,9 @@ export default {
 
           this.incidentes = response.data;
           this.cargandoDatos = false; //termina la animacion de la tabla loading
-        })
+          // ser verifican los permisos del usuario 
+          this.verificarPermisos();
+    })
         .catch((error) => {
           console.log(error.data);
           this.cargandoDatos = false; //termina la animacion de la tabla loading

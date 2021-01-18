@@ -38,6 +38,12 @@ export default {
  action_usuarios_activo ( context , valor ) { 
                          context.commit('mutation_usuarios_activo',valor)  
                         
-  }  
- ,
-                                                                           }
+  } ,
+  
+  action_usuarios_usuariologueado( context , valor ) { 
+    context.commit('mutation_usuariologueado',valor)  
+   },
+   action_usuarios_usuariologueado_rol( context , valor ) { 
+    context.commit('mutation_usuariologueado_rol',valor)  
+   }
+}

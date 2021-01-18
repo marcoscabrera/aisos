@@ -3,7 +3,7 @@ export default {
                                                 action_id ( context , valor ) { 
                          context.commit('mutation_id',valor)  
                         
-  }  
+  }  ,
  
  action_programa ( context , valor ) { 
                          context.commit('mutation_programa',valor)  

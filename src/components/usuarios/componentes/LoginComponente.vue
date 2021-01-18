@@ -1,9 +1,10 @@
+import apiUsuarios from '@/apialdeas/apiUsuarios.js';
 <template>
   <v-container name="x">
     <v-row>
       <v-col cols="12" xs="12" md="3"> </v-col>
       <v-col cols="12"  xs="12" md="6" >
-        <v-card height="100%" outlined>
+       <v-card height="100%" outlined>
                 <v-img
                 height="250"
                 src="https://www.aldeasinfantiles.org.mx/getmedia/51757cf7-a274-4bdc-b552-4304db77c698/logo-aldeas-mxg"
@@ -27,14 +28,28 @@
           <v-list-item></v-list-item>
 
           <v-list-item>
-            <v-text-field v-model="email" label="Email"></v-text-field>
+            <v-text-field v-model="email" label="Email"
+            @input="limpiarResponse"></v-text-field>
           </v-list-item>
 
           <v-list-item>
-            <v-text-field v-model="password" label="Password"></v-text-field>
+            <v-text-field v-model="pass" label="Password"
+            @input="limpiarResponse"></v-text-field>
           </v-list-item>
 
-          <v-list-item>{{response}}</v-list-item>
+          <v-list-item>
+
+            <v-alert v-if="verError"
+              dense
+              outlined
+              type="error"
+            >
+                 {{response}}
+              
+           </v-alert>
+
+
+          </v-list-item>
           <v-card-actions>
             <v-btn
               mall
@@ -42,7 +57,7 @@
               dark
               block
               :loading="loading"
-              @click="acuerdo"
+              @click="getPerfil"
             >Iniciar Sesion</v-btn>
           </v-card-actions>
           <!--<v-card-actions>
@@ -80,23 +95,27 @@
 </template>
 
 <script>
-import axios from "axios";
+import apiUsuarios from '@/apialdeas/apiUsuarios.js';
+
+import controlDeSesion from '@/sesion/controlDeSesion.js';
+
 
 export default {
   data: function () {
     return {
+      apiUsuarios,
       conectarA: null,
 
       email: null,
 
-      password: null,
+      pass: null,
 
       response: null,
-
       usuarioId: null,
-
       usuario: [],
       loading: false,
+
+      verError : false
     };
   },
 
@@ -116,6 +135,21 @@ export default {
   
 
   methods: {
+    
+    mostrarMenuLateral(){
+
+      let usurio = this.$store.state.usuarios.usuarios_usuariologueado;
+      console.log(" usurio : " + usurio.id);
+      usurio.id == "" ? this.$store.dispatch('actions_uuivars_puedevermenulateral',false) : this.$store.dispatch('actions_uuivars_puedevermenulateral',TextTrackCueList);
+      
+     
+    
+
+    },
+    limpiarResponse(){
+      this.response="";
+      this.verError= false;
+    },
     acuerdo() {
         
         this.$router.push('Acuerdo');
@@ -128,139 +162,62 @@ export default {
       this.$router.push("/usuarios/crearusuario");
     },
 
-    getPerfil: function () {
-      var token = this.$store.state.tokenUsuario;
+    asignarValoresDeUsuarios(response){
 
-      var urlServidor = this.$store.state.urlServidor;
+       this.$store.dispatch('action_usuarios_usuariologueado',response.data["usuario"]);
+       this.$store.dispatch('action_usuarios_usuariologueado_rol',response.data["rol"]);
+      
+      //revisar la variables para mostrar el menu latreral
+      this.mostrarMenuLateral();
+       //this.mandamos a mostrar el acuerdo
+       this.acuerdo();
+       
+    },
 
-      var idusuario = this.$store.state.idUsuario;
+    errorEnLogin() {
 
-      var urlapi = urlServidor + "/api/v1/perfil/" + idusuario;
+      console.log("error en login ");
 
-      console.log("valor de urlapi : " + urlapi);
-
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
-      axios.defaults.withCredentials = true;
-
-      axios
-        .get(urlapi)
-        .then((response) => {
-          console.log(" perfil " + JSON.stringify(response));
-        })
-        .catch((error) => {
-          console.log("Error : " + JSON.stringify(error));
-        });
-    }, // termina getPerfil
-
-    loguearUsuarioEnAPI: function () {
-      this.loading = true;
-
-      if (this.email.length == 0 || this.email.length < 10) {
-        this.response = "Olvidaste escribir tu email o es demasiado corto";
-
-        return;
-      }
+      this.loading = false ;
+      this.response ="No existe el usuario o tus credenciales son incorrenctas.";
+      this.verError= true;
 
     
 
-      var apidir = this.$store.state.urlServidor + "/api/v1/login";
+     
+    } ,
 
-      axios
-        .post(
-          apidir,
-          {
-            email: this.email,
+    getPerfil () {
+      
+      this.loading = true ;
+     let promesa =  controlDeSesion.loginUsuario(this.email, this.pass, this.$store);
 
-            password: this.password,
+      promesa
+     .then( response => {
+        console.log(JSON.stringify(response.data));
+        console.log("mensaje : " + response.data["msg"]);
+        console.log("usuario : " + response.data["usuario"]["id"]);
+        console.log("roles : " + response.data["rol"]);
 
-            device_name: "browser",
-          },
-          {
-            headers: {
-              "X-Requested-With": "XMLHttpRequest",
-            },
-            withCredentials: true,
-          }
-        )
-        .then((response) => {
-          this.response = response;
+        let msg =  response.data["msg"] ;
 
-          if (response.status === 404) {
-            console.log(response.message);
+        msg =="Datos del registro" ? this.asignarValoresDeUsuarios(response) :this.errorEnLogin();
+      
+         this.loading = false ;
+       
+        }
+      )
+     .catch( error => { 
+       console.log(JSON.stringify(error.data));
 
-            this.loading = false;
+        this.errorEnLogin() 
 
-            return;
-          }
+       });
 
-          //si tiene exito
-          console.log("valor del token obtenido : " + response.data.data.token);
 
-          this.$store.dispatch("setarTokenUsuario", response.data.data.token);
+    }, // termina getPerfil
 
-          this.$store.dispatch("setearIdUsuario", response.data.data.id);
-
-          //this.$store.dispatch('setearUrlServidor',this.conectarA);
-
-          this.$store.dispatch("setearEmailUsuario", this.email);
-
-          this.$store.dispatch("setearPasswordUsuario", this.password);
-
-          this.$store.dispatch("setearNombreUsuario", response.data.data.name);
-
-          this.$store.dispatch("setearLogueado", true);
-          //------------------------------------------------------
-          // activando algos menus
-          //------------------------------------------------------
-          let usuariodios = response.data.data.level_access;
-
-          if (usuariodios == "root") {
-            this.$store.state.verusuarios = true;
-            this.$store.state.verdirecciones = true;
-            this.$store.state.versucursales = true;
-            this.$store.state.verproducto = true;
-            this.$store.state.verpedidos = true;
-            this.$store.state.verpagos = true;
-            this.$store.state.vermonitor = true;
-          }
-
-          if (usuariodios == "USUARIOAPP") {
-            this.$store.state.verusuarios = false;
-            this.$store.state.verdirecciones = false;
-            this.$store.state.versucursales = false;
-            this.$store.state.verproducto = false;
-            this.$store.state.verpedidos = false;
-            this.$store.state.verpagos = false;
-            this.$store.state.vermonitor = false;
-          }
-
-          //this.$router.push('/pedidos');
-
-          this.$router.push("/usuarios/usuarioapp");
-
-          //------------------------------------------------------
-          //guardando algunos datos en localStorage
-          //------------------------------------------------------
-
-          /*localStorage.setItem("idusuario", response.data.data.id);
-
-					localStorage.setItem("tokenusuario", response.data.data.token);
-
-					console.log("grabando servidor en localStorage : " +  this.conectarA);
-					localStorage.setItem("servidor", this.conectarA);*/
-        })
-        .catch((error) => {
-          this.loading = false;
-          if (error.status === 404) {
-            console.log(" error " + error.message);
-          }
-
-          this.response = error.message;
-
-          console.log("msg" + JSON.stringify(error));
-        });
-    },
+    
   },
 };
 </script>

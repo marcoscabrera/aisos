@@ -250,7 +250,7 @@
           :loading="loading"
           :disabled="loading"
           color="primary"
-          @click="loader = 'loading'"
+          @click="PermisoImpresion"
           block
         >
           <v-icon right dark> mdi-printer </v-icon>
@@ -307,6 +307,25 @@ export default {
 
   methods: {
 
+  
+         PermisoImpresion(){
+             // 
+      console.log(" Permiso IMPRESIONDECIERRE  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.IMPRESIONDECIERRE)             
+     if (this.$store.state.usuarios.usuarios_usuariologueado_rol.IMPRESIONDECIERRE=='SI'){
+    // impreseion 
+     }else {
+
+          
+        let idRecuperado = this.$route.params.id;
+        this.$router.push({
+          name: "PermisoImpresion",
+          params: { incidenteId: idRecuperado },
+        });
+
+
+     }
+ 
+      },
       asignarEvento(evenot){
         this.$store.dispatch("action_textocierre",evenot)
 
@@ -494,6 +513,8 @@ export default {
 
     cerrarIncidente(){
 
+      
+      //****************************** */
       let id = this.incidenteid;
       
       let parametros   = {
@@ -512,7 +533,9 @@ export default {
          } )
       .catch( error => { console.log(JSON.stringify(error.data))});
 
-    },
+      /************************************************************ */
+
+    }, //termina cerrar incidenten
 
     seleccionar(valor) {
       if (valor == "adulto") {

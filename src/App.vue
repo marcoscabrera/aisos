@@ -21,7 +21,7 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item @click="irADashboard">
+        <v-list-item @click="irADashboard" v-if="this.$store.state.uivars.uivars_puedevermenulateral">
           <v-list-item-action>
             <v-icon> mdi-view-dashboard-variant </v-icon>
           </v-list-item-action>
@@ -39,7 +39,7 @@
           </v-list-item-content>
         </v-list-item> -->
 
-        <v-list-item @click="irAConciencia">
+        <v-list-item @click="irAConciencia" v-if="this.$store.state.uivars.uivars_puedevermenulateral">
           <v-list-item-action>
             <v-icon> mdi-alarm-panel-outline </v-icon>
           </v-list-item-action>
@@ -48,7 +48,7 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item @click="irAEstadisticas">
+        <v-list-item @click="irAEstadisticas" v-if="this.$store.state.uivars.uivars_puedevermenulateral">
           <v-list-item-action>
             <v-icon> mdi-chart-bar </v-icon>
           </v-list-item-action>
@@ -57,7 +57,7 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item @click="irAconfiguracion">
+        <v-list-item @click="irAconfiguracion" v-if="this.$store.state.uivars.uivars_puedevermenulaterall">
           <v-list-item-action>
             <v-icon> mdi-application-cog </v-icon>
           </v-list-item-action>
@@ -66,7 +66,7 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item>
+        <v-list-item  @click="cerrarSesion">
           <v-list-item-action>
             <v-icon> mdi-logout </v-icon>
           </v-list-item-action>
@@ -105,9 +105,43 @@ export default {
 
   data: () => ({
     drawer: false,
+    puedeCrearCatalogos: false,
+    puedevermenulateral :false
   }),
-
+  mounted () {
+    this.mostrarMenuLateral();
+  },
   methods: {
+
+    mostrarMenuLateral(){
+
+      let usurio = this.$store.state.usuarios.usuarios_usuariologueado;
+      usurio == "" ?  this.puedevermenulateral = false : this.puedevermenulateral = <i class="fas fa-truck-container    "></i>;
+   
+   
+
+    },
+        verificarPermisos() {
+    
+    let permisosDeRol = this.$store.state.usuarios.usuarios_usuariologueado_rol;
+    console.log( permisosDeRol.ALTADECATALOGOS);
+  
+    
+   
+    permisosDeRol.ALTADECATALOGOS == "SI" ?  this.puedeCrearCatalogos = true : this.puedeCrearCatalogos = false;
+   
+      
+
+    },
+    cerrarSesion(){
+
+       this.$store.dispatch('action_usuarios_usuariologueado',null);
+       this.$store.dispatch('action_usuarios_usuariologueado_rol',null);
+
+ 
+        this.$router.push("/login");
+
+    },
     irAconfiguracion() {
       this.$router.push("/configuracion");
     },

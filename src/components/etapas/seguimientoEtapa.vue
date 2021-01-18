@@ -209,7 +209,7 @@ SE CUENTA CON EL LLENADO DEL ACTA DE VALORACION DEL/DE LOS INCIDENTES
           :loading="loading"
           :disabled="loading"
           color="primary"
-          @click="loader = 'loading'"
+          @click="PermisoImpresion"
           block
         >
           <v-icon right dark> mdi-printer </v-icon>
@@ -277,8 +277,30 @@ export default {
   },
 
   methods: {
+    PermisoImpresion(){
+             // 
+      console.log(" Permiso IMPRESIONDESEGUIMIENTO  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.IMPRESIONDESEGUIMIENTO)             
+     if (this.$store.state.usuarios.usuarios_usuariologueado_rol.IMPRESIONDESEGUIMIENTO=='SI'){
+    // impreseion 
+     }else {
+
+          
+        let idRecuperado = this.$route.params.id;
+        this.$router.push({
+          name: "PermisoImpresion",
+          params: { incidenteId: idRecuperado },
+        });
+
+
+     }
+    },
     guardarSeguimiento(){
 
+          // 
+          console.log(" Permiso EDITARDESEGUIMIENTO  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARDESEGUIMIENTO)             
+     if (this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARDESEGUIMIENTO=='SI'){
+
+     
        this.loading = true;
       //incidenteIdPE,
 
@@ -342,7 +364,7 @@ export default {
             this.loading = false;
         }
       );
-
+     }//cierra el if del permiso EDITARDESEGUIMIENTO
     },
     guardar__iraDashboard() {
       this.$router.push("/dashboard");

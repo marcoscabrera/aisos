@@ -12,6 +12,9 @@ import mutations from './mutations.js';
         usuarios_programa: null  ,
         usuarios_fechaCreacion: null  ,
         usuarios_activo: null  ,
+        usuarios_usuariologueado : [],
+        usuarios_usuariologueado_rol : [],
+        
               },
          mutations,
          actions 

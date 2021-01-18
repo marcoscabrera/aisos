@@ -166,12 +166,27 @@ export default {
   methods: {
 
     solicitudImpresion(){
-      let idRecuperado = this.$route.params.id;
- 
-             this.$router.push({
+
+
+      // 
+          console.log(" Permiso IMPRESIONVALORACIONINICIAL  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.IMPRESIONVALORACIONINICIAL)             
+     if (this.$store.state.usuarios.usuarios_usuariologueado_rol.IMPRESIONVALORACIONINICIAL=='SI'){
+
+       //NOTA:
+       /*
+        AQUI VA EL CODIGO PARA REALIZAR LA IMPRESION .
+       
+       */
+     }else {
+
+        let idRecuperado = this.$route.params.id;
+        this.$router.push({
           name: "PermisoImpresion",
           params: { incidenteId: idRecuperado },
         });
+
+
+     }//termina if del pedido
     },
     guardar__iraDashboard() {
       this.$router.push("/dashboard");
@@ -212,6 +227,10 @@ export default {
   
   },
     nuevo_incidente() {
+      console.log(" Permiso ALTADEVALORACIONINICIAL  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.ALTADEVALORACIONINICIAL)             
+     if (this.$store.state.usuarios.usuarios_usuariologueado_rol.ALTADEVALORACIONINICIAL=='SI'){
+           
+     
 
       this.loadingGuardar = true;
     
@@ -311,13 +330,17 @@ const  {
         console.log(error.data);
         this.loadingGuardar = false;
       });
+
+       }// termina if de permiso
     }, //termina nuevo_incidente
     update_incidente() {
       console.log("update");
     },
 
     guardar_incidente() {
-       console.log(" *** en guardar_incidente ");
+
+
+      console.log(" *** en guardar_incidente ");
       console.log(" valor de this.modo : " + this.modo);
       if (this.modo == "nuevo") {
         this.nuevo_incidente();

@@ -48,22 +48,30 @@
 </template>
 
 <script>
-    export default {
 
+//Este componente nos permite desplegar una lista de documentos
+//Dichos documentos asesoran al usuario para que puede llenar adecuadamente
+//el formulario en el que se encuentre.
+//Se muestra en las pantallas de Valoracion inicial,Valoracion integral etc
+    export default {
+      name: "BarraDocumentos",
+ 
          props: {
+           //El objeto que alberga la lista de documentos
           files : Object
         },
    
 
       methods :{
-
-
+        //@vuese
+        //Este metodo recibe de parametro una cadena y es
+        //usado cuando se da click en el documento
+        //@arg Link : String 
         mostrarLink(link){
-            
-            //
-           // let a = "https://onedrive.live.com/?authkey=%21AhxF5wMG%5FSJ00H0&cid=D1B73E758E4318E6&id=D1B73E758E4318E6%21703&parId=D1B73E758E4318E6%21690&o=OneUp";
-                 
-                 window.open(link, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400"); 
+        //@vuese
+        //se ejecuta cuando se hace click en un documento de la lista
+              
+         window.open(link, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400"); 
         }
       },
 

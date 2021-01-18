@@ -17,11 +17,17 @@ export default {
   name: "cardConfiguracion",
 
   props: {
+    //Es la ruta a donde se desea navegar
     ruta: String,
+    //Nombre que se despliega en el componente
     titulo: String,
   },
 
   methods: {
+    //@vuese
+    //se dispara cuando se hace click en el boton
+    // y navega a  la ruta que se  tenga en el
+    // props ruta.
     irALaRuta() {
       let rutalocal = "/" + this.ruta;
 

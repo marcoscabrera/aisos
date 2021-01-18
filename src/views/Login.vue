@@ -5,10 +5,16 @@
 <script>
 
 import LoginComponente from '@/components/usuarios/componentes/LoginComponente.vue';
-
+import controlDeSesion from '@/sesion/controlDeSesion.js';
     export default {
 
-        components :{ LoginComponente }
+        components :{ LoginComponente },
+        data() {
+            return {
+               controlDeSesion
+            }
+        },
+
         
     }
 </script>

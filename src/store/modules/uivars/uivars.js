@@ -5,7 +5,8 @@ export default {
 
 state: {
 
-    uivar_esincidente: false
+    uivar_esincidente: false,
+    uivars_puedevermenulateral : false,
 
 },
 mutations,

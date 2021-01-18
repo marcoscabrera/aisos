@@ -1,9 +1,9 @@
 export default { 
  
-                                                action_id ( context , valor ) { 
-                         context.commit('mutation_id',valor)  
-                        
-  }  
+ action_id ( context , valor ) { 
+ context.commit('mutation_id',valor)  
+                     
+ },  
  
  action_nombrecargo ( context , valor ) { 
                          context.commit('mutation_nombrecargo',valor)  

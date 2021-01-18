@@ -32,4 +32,11 @@ export default {
               state.usuarios_activo   = valor 
             
  },
-                                                                           }
+ mutation_usuariologueado(state, valor){
+      state.usuarios_usuariologueado   = valor 
+ },
+
+ mutation_usuariologueado_rol(state, valor){
+     state.usuarios_usuariologueado_rol   = valor 
+},
+}

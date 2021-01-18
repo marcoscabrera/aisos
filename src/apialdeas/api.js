@@ -1,9 +1,16 @@
+// --- INVALID - this is ignored by JSDOC ---
+// API JS es el archivo base para las llamdas a la API
+// a traves de la libreria AXIOS
+// @param {number} input any number
+// @returns {number} that number, plus one.
 import axios from "axios";
 
 export default {
 
     name: "api",
-
+// --- INVALID - this is ignored by JSDOC ---
+// Esta funcion realizar el GET a la API
+// @param {string} el endpoint al cual sera la solicitud HTTP
     axiosget(endpoint) {
         return new Promise((resolve, reject) => {
             axios
