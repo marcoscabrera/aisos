@@ -1,4 +1,3 @@
-import apiUsuarios from '@/apialdeas/apiUsuarios.js';
 <template>
   <v-container name="x">
     <v-row>
@@ -140,7 +139,7 @@ export default {
 
       let usurio = this.$store.state.usuarios.usuarios_usuariologueado;
       console.log(" usurio : " + usurio.id);
-      usurio.id == "" ? this.$store.dispatch('actions_uuivars_puedevermenulateral',false) : this.$store.dispatch('actions_uuivars_puedevermenulateral',TextTrackCueList);
+      usurio.id == "" ? this.$store.dispatch('actions_uuivars_puedevermenulateral',false) : this.$store.dispatch('actions_uuivars_puedevermenulateral',true);
       
      
     

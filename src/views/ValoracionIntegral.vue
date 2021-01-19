@@ -6,6 +6,8 @@
 </template>
 <script>
 import valoracionIntegralEtapa from "@/components/etapas/valoracionIntegralEtapa.vue";
+import controlDeSesion from '@/sesion/controlDeSesion.js';
+
 export default {
   name: "Denuncias",
 
@@ -16,13 +18,14 @@ export default {
   },
 
   methods: {
-    saludo() {
-      console.log("saludos estas en valoracion inicial");
-    },
+    permiso() {
+      if (controlDeSesion.tienePermisoParaAcceder("VISUALIZACIONVALORACIONINTEGRAL", this.$store) == false ){
+          this.$router.push("/notificaionnoautorizado");
+      }
+    }
   },
-
-  mounted() {
-    this.saludo();
+  mounted () {
+    this.permiso();
   },
 };
 </script>

@@ -27,6 +27,19 @@ export default {
 
    return api.axiosget(endpoint);
 
+  },
+  tienePermisoParaAcceder(permiso, store){
+
+    console.log("permiso :" + permiso);
+    console.log("permiso del rol:" + store.usuarios.usuarios_usuariologueado_rol[permiso]);
+
+    if (store.usuarios.usuarios_usuariologueado_rol[permiso]=="SI"){
+
+       return true;
+    }else {
+      return false;
+    }
+
   }
 
 

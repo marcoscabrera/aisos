@@ -265,6 +265,7 @@ export default {
           this.$store.dispatch('action_confirmaincidente',this.confirmaincidente);   
           
           this.folio = response.data[0]["folio"];
+          console.log("valor del folio:" + this.folio);
           
          this.confirmaincidente == "SI ES UN INCIDENTE" ?
          this.verBotonera =true : this.confirmaincidente == "En Proceso de Valoracion"

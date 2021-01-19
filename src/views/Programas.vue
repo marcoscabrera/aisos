@@ -7,10 +7,22 @@
 
 <script>
 import crudProgramas from "@/components/catalogos/crudProgramas.vue";
+import controlDeSesion from '@/sesion/controlDeSesion.js';
+
 export default {
   name: "Programas",
   components: {
     crudProgramas,
+  },
+  methods: {
+    permiso() {
+      if (controlDeSesion.tienePermisoParaAcceder("ALTADECATALOGOS", this.$store) == false ){
+          this.$router.push("/notificaionnoautorizado");
+      }
+    }
+  },
+  mounted () {
+    this.permiso();
   },
 };
 </script>

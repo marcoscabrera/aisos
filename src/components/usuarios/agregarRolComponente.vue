@@ -264,6 +264,20 @@ this.$store.dispatch('action_roles_activo',true);
       console.log(response.data["id"]);
       this.RolId = response.data["id"];
       console.log(" Valor de RolId : " +  this.RolId);
+       
+       //actualizando el rol del usuario logueado .
+       let idRolCargado = this.$store.state.usuarios.usuarios_usuariologueado_rol.id;
+        
+       let  rolCargado = apiRoles.cargar__roles(idRolCargado, this.$state);
+        rolCargado
+       .then( response => {
+          console.log(JSON.stringify(response.data));
+          //actualizamos los permisos del rol que tiene el usuario que esta 
+          //logueado actualmente
+          this.$store.dispatch('action_usuarios_usuariologueado_rol', response.data[0]);
+       } )
+       .catch( error => { console.log(JSON.stringify(error.data))});
+
       } )
     .catch( error => { console.log(JSON.stringify(error.data))});
 

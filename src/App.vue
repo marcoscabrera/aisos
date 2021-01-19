@@ -57,7 +57,7 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item @click="irAconfiguracion" v-if="this.$store.state.uivars.uivars_puedevermenulaterall">
+        <v-list-item @click="irAconfiguracion" v-if="this.$store.state.uivars.uivars_puedevermenulateral">
           <v-list-item-action>
             <v-icon> mdi-application-cog </v-icon>
           </v-list-item-action>
@@ -137,8 +137,7 @@ export default {
 
        this.$store.dispatch('action_usuarios_usuariologueado',null);
        this.$store.dispatch('action_usuarios_usuariologueado_rol',null);
-
- 
+        this.$store.dispatch('actions_uuivars_puedevermenulateral',false);
         this.$router.push("/login");
 
     },

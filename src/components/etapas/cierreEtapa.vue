@@ -380,15 +380,15 @@ export default {
                nombreOriginal :  nombreoriginal  };
 
 
-                arrayDeRegreso = tempArray;
-                 console.log("probando los valores recibidos ==> nombreOriginal : " + arrayDeRegreso.nombreOriginal);
+             arrayDeRegreso = tempArray;
+             console.log("probando los valores recibidos ==> nombreOriginal : " + arrayDeRegreso.nombreOriginal);
              console.log("probando los valores recibidos ==> id : " + arrayDeRegreso.id);
                
-                console.log("  *** * * * * * *");
-                console.table(arrayDeRegreso);
-                console.log("  *** * * * * * *");
+             console.log("  *** * * * * * *");
+             console.table(arrayDeRegreso);
+             console.log("  *** * * * * * *");
                    
-                  return arrayDeRegreso;
+             return arrayDeRegreso;
 
             /* arrayDeRegreso['hayArchivo']= true;
              arrayDeRegreso['id']= JSON.stringify(response.data[0]['id']);
@@ -407,6 +407,11 @@ export default {
 
    async cargarDatos(){
       
+     // VISUALIZACIONDECIERRE
+       console.log(" Permiso VISUALIZACIONDECIERRE  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.VISUALIZACIONDECIERRE)             
+        if (this.$store.state.usuarios.usuarios_usuariologueado_rol.VISUALIZACIONDECIERRE=='SI'){
+   
+      /*********************************************** */
      //obtenenemos el 
       let incidenteId = this.$route.params.incidenteId;
 
@@ -496,15 +501,13 @@ export default {
         error =>{
           console.log(error);
         }
-      )
+      );
 
-/*
-      datos.then( response => {
-        console.log(JSON.stringify(response.data));
-      }).catch(error => {
-        console.log(JSON.stringify(error.data));
-      });*/
+        }else {
+          this.$router.push("/notificacionnoautorizado");
+        }//termina visualizacion de cierre
 
+      /****************************************************** */
 
     },
     guardar__iraDashboard() {
@@ -513,6 +516,10 @@ export default {
 
     cerrarIncidente(){
 
+               // 
+      console.log(" Permiso EDICIONDECIERRE  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.EDICIONDECIERRE)             
+     if (this.$store.state.usuarios.usuarios_usuariologueado_rol.EDICIONDECIERRE=='SI'){
+   
       
       //****************************** */
       let id = this.incidenteid;
@@ -534,7 +541,7 @@ export default {
       .catch( error => { console.log(JSON.stringify(error.data))});
 
       /************************************************************ */
-
+     }//cierra if permiso
     }, //termina cerrar incidenten
 
     seleccionar(valor) {
