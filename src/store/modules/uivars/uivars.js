@@ -7,6 +7,7 @@ state: {
 
     uivar_esincidente: false,
     uivars_puedevermenulateral : false,
+    uivars_hayUnUsuarioLogueado : false,
 
 },
 mutations,

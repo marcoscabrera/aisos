@@ -379,9 +379,9 @@ export default {
     },
     initialize() {
       this.cargandoDatos = true; //esto activa la animacion de loading de la tabla
-
+      let usuarioLogueadoID = this.$store.state.usuarios.usuarios_usuariologueado.id;
       let getIncidentes = apiIncidentes.recuperarTodosLosIncidentes(
-        this.$store
+        usuarioLogueadoID ,this.$store
       );
 
       getIncidentes

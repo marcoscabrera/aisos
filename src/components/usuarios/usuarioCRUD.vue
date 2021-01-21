@@ -148,7 +148,9 @@ export default {
         this.$store.dispatch('action_usuario_id',item.id);
         this.$store.dispatch('action_usuarios_activo', activoTemp);
         this.$store.dispatch('action_usuarios_nombre', response.data[0]['nombre']);
-        this.$store.dispatch('action_usuarios_email', response.data[0]['email']);
+        this.$store.dispatch('action_usuarios_password', response.data[0]['password']);
+       
+       this.$store.dispatch('action_usuarios_email', response.data[0]['email']);
         this.$store.dispatch('action_usuarios_rol', response.data[0]['rol']);
         this.$store.dispatch('action_usuarios_programa', response.data[0]['programa']);
         this.$router.push('Nuevousuario'); } )

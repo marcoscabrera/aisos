@@ -87,6 +87,7 @@
       <!-- Provides the application the proper gutter -->
       <v-container fluid>
         <!-- If using vue-router -->
+        <DatosDelUsuarioComponente v-if="this.$store.state.uivars.uivars_hayUnUsuarioLogueado==true"></DatosDelUsuarioComponente>
         <router-view></router-view>
       </v-container>
     </v-main>
@@ -98,10 +99,13 @@
 </template>
 
 <script>
+import DatosDelUsuarioComponente from '@/components/usuarios/componentes/DatosDelUsuarioComponente.vue';
 export default {
   name: "App",
 
-  components: {},
+  components: {
+    DatosDelUsuarioComponente
+  },
 
   data: () => ({
     drawer: false,
@@ -138,6 +142,8 @@ export default {
        this.$store.dispatch('action_usuarios_usuariologueado',null);
        this.$store.dispatch('action_usuarios_usuariologueado_rol',null);
         this.$store.dispatch('actions_uuivars_puedevermenulateral',false);
+         this.$store.dispatch('actions_uivars_hayUnUsuarioLogueado',false);
+        
         this.$router.push("/login");
 
     },

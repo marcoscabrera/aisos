@@ -31,9 +31,9 @@ export default {
   tienePermisoParaAcceder(permiso, store){
 
     console.log("permiso :" + permiso);
-    console.log("permiso del rol:" + store.usuarios.usuarios_usuariologueado_rol[permiso]);
+    console.log("permiso del rol:" + store.state.usuarios.usuarios_usuariologueado_rol[permiso]);
 
-    if (store.usuarios.usuarios_usuariologueado_rol[permiso]=="SI"){
+    if (store.state.usuarios.usuarios_usuariologueado_rol[permiso]=="SI"){
 
        return true;
     }else {

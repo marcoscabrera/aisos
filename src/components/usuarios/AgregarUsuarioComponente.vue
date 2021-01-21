@@ -262,7 +262,8 @@ export default {
             console.log(index);
             return item.programa;
           });
-        
+          
+          this.itemsProgramas.push("TODOS");
           this.cargarRoles();
       
 
@@ -336,7 +337,7 @@ export default {
 
       this.loading=true;
 
-        
+      console.log(" **** valro de usuario a editar = " +  this.$store.state.usuarios.usuarios_id);
       let parametros = {
         id :  this.$store.state.usuarios.usuarios_id,
         nombre:      this.$store.state.usuarios.usuarios_nombre,
@@ -349,9 +350,14 @@ export default {
       } ;
     
     console.log(" cual es el valor del usuarios_activo : " +  this.$store.state.usuarios.usuarios_activo);
+    
+    this.$store.state.usuarios.usuarios_activo
+
+    console.log(" this.UsuarioId :  " + this.UsuarioId)
+
     let promesa ;
 
-    this.UsuarioId == 0 ? promesa = apiUsuarios.nuevo__usuarios(parametros,this.$store) :
+     this.$store.state.usuarios.usuarios_id == 0 ? promesa = apiUsuarios.nuevo__usuarios(parametros,this.$store) :
     promesa =apiUsuarios.update__usuarios(parametros,this.$store) ;
 
 

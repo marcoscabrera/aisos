@@ -32,8 +32,19 @@ export default {
   },
   methods: {
     async cargarProgramas() {
-      let promesa = apiProgramas.cargar__todo__los__programas(this.$store);
+      
+      //verficamos el rol del usuariologueado, si el rol es ==0 
+      //cargamos todos los programas
+      // si el rol no es cero se carga el programa segun el id
 
+      let programaid = this.$store.state.usuarios.usuarios_usuariologueado.programa;
+      let promesa = Promise;
+
+      programaid == 0 ?   promesa = apiProgramas.cargar__todo__los__programas(this.$store):
+       promesa = apiProgramas.cargar__programas(programaid, this.$store);
+
+
+     
       promesa
         .then((response) => {
           console.log(response.data);

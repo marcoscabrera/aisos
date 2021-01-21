@@ -12,6 +12,7 @@ export default {
               state.usuarios_email   = valor 
             
  },
+ 
  mutation_usuarios_password( state, valor) {   
               state.usuarios_password   = valor 
             

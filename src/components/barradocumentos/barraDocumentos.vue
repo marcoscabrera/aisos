@@ -12,11 +12,6 @@
       subheader
       two-line
     >
- 
-
-  
-      
-
       <v-list-item @click="mostrarLink(file.link)"
         v-for="file in files"
         :key="file.title"

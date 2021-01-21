@@ -201,7 +201,8 @@ export default {
         let msg =  response.data["msg"] ;
 
         msg =="Datos del registro" ? this.asignarValoresDeUsuarios(response) :this.errorEnLogin();
-      
+          
+          this.$store.dispatch('actions_uivars_hayUnUsuarioLogueado',true);
          this.loading = false ;
        
         }

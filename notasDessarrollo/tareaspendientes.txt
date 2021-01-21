@@ -1,18 +1,41 @@
---implementacion Login y rol
+TAREAS PENDIENTES DESARROLLO PLATAFORMA
 
---traer solo los reportes de incidente que le correspondan  al usuario.
+1.-Integracion de los permisos del usuarios de acuerdo a su 
+   rol a la interfaz de usuarios de la plataforma 
+   avance : 40% 
+   tiempo estimado para terminar :  2 dias 
 
---parametros para algunas variables de la UI ( longitude de los
-textos) 
+2.-Implementancion de panel de control para parametros de la interfaz de usuarios
+   (numero de palabras en determinados campos)
+   avance: 0%
+   tiempo estimado para terminar :  2 dias 
 
---INCIDENTES-- Agregar al dashboard icono para mostrar si esta abierto o no 
-el incidente.
+3.-Implementacion del modulo de Estadisticas
+   avance 0%
+   tiempo estimado para terminar :  2 dias 
 
+4.-Implementacion de los modulos de conciencia y prevencion 
+   avance 30%
+   tiempo estimado para terminar :  2 dias 
 
+5.-Implementacion del modulo de envio de notificacion por correo 
+   avance 0%
+   tiempo estimado para terminar :  2 dias 
+
+6.-Repositorios para Frontend y backend
+  avance 50%
+  tiempo estimado para terminar :  2 dias 
+
+7.-Implemetacion de tareas con Documentos
 -- impresion de doctos
--- envio de correos  (notificaciones)
 -- permisos de doctos
--- cambio de ui en catalogos cambiar delete por switch
--- integracion de conciencia y prevencion .
---componente de documentos de ayuda --convertirlo en dinamico --
---hacer repositorio para api y para frontend
+--componente de documentos de ayuda
+  avance 30%
+  tiempo estimado para terminar :  4 dias 
+
+  total de dias : 16 dias para cierre aprox
+
+
+
+
+

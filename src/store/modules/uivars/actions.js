@@ -9,5 +9,10 @@ export default {
 
         context.commit("mmutation_uivars_puedevermenulateral",valor);
     },
+
     
+    actions_uivars_hayUnUsuarioLogueado(context,valor){
+
+        context.commit("mmutation_uivars_hayUnUsuarioLogueado",valor);
+    },
 }

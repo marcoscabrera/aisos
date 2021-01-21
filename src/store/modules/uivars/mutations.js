@@ -11,7 +11,11 @@ export default {
 
         state.uivars_puedevermenulateral= valor;
 
-    }
-
+    },
     
+    mmutation_uivars_hayUnUsuarioLogueado(state,valor){
+
+        state.uivars_hayUnUsuarioLogueado= valor;
+
+    },
 }

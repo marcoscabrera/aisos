@@ -1,5 +1,5 @@
 export default { 
- 
+  
     action_usuarios_id ( context , valor ) { 
                          context.commit('mutation_usuarios_id',valor)  
                         
@@ -15,6 +15,7 @@ export default {
                         
   }  
  ,
+
  action_usuarios_password ( context , valor ) { 
                          context.commit('mutation_usuarios_password',valor)  
                         

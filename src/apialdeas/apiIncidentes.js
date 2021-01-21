@@ -32,9 +32,9 @@ export default {
 
     },
 
-    recuperarTodosLosIncidentes(store) {
+    recuperarTodosLosIncidentes(usuarioLogueadoID,store) {
 
-    let predicado = '/api/v0/incidentes';
+    let predicado = '/api/v0/incidentes/'+ usuarioLogueadoID+'/incidentes';
 
     let apix = store.state.urlServidor;
 
