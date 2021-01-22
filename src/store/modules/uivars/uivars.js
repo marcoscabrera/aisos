@@ -2,7 +2,7 @@
 import mutations from './mutations.js';
 import actions from './actions.js';
 export default {
-
+//para consultar iconos.
 state: {
 
     uivar_esincidente: false,
