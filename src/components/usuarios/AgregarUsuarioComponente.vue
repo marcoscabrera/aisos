@@ -161,7 +161,7 @@
         <v-row>
             <v-col>
                 <v-switch
-                  :value="this.$store.state.usuarios.usuarios_activo"
+                  :input-value="this.$store.state.usuarios.usuarios_activo==1 ? true : false"
                   class="mx-2"
                   label="Activo "
                 

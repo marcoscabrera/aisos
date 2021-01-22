@@ -16,16 +16,27 @@
 
       </v-toolbar>
     </template>
-    <template v-slot:item.actions="{ item }">
-      <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
-      <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+    <template v-slot:item.actions_editar="{ item }">
+      <v-btn color="primary" dark dense @click="editItem(item)">
+      <v-icon small class="mr-2" > mdi-pencil </v-icon>
+      Editar
+      </v-btn>
     </template>
-        <template v-slot:item.activo="{ item }">
+    <template v-slot:item.actions_activar="{ item }">
+        <v-switch
+                  :input-value="item.activo==1 ? true : false"
+                  class="mx-2"
+                  color="green"
+                  @change="activar($event,item)"
+        ></v-switch>
+     </template>
+     
+   <!--  <template v-slot:item.activo="{ item }">
       <v-icon color="green" v-if="item.activo == 1">
         mdi-checkbox-marked-circle
       </v-icon>
       <v-icon color="red" v-if="item.activo == 0">mdi-close-circle </v-icon>
-    </template>
+    </template> -->
     <template v-slot:no-data>
       <v-btn color="primary" @click="initialize">No hay Usuarios</v-btn>
     </template>
@@ -64,9 +75,10 @@ export default {
        { text: "Programa", value: "programa" },
        //{ text: "Cargo", value: "cargo" },
        { text: "Rol", value: "rol" },
-       { text: "Activo", value: "activo" },
+     
 
-      { text: "acciones", value: "actions", sortable: false },
+      { text: "Edicion", value: "actions_editar", sortable: false },
+      { text: "Activa", value: "actions_activar", sortable: false },
     ],
    
     editedIndex: -1,
@@ -101,6 +113,32 @@ export default {
   },
 
   methods: {
+    activar(event,item) {
+      
+      console.log("valor de event " + event);
+
+      let valorActivo = 0;
+
+      event == 1? valorActivo =1 :  valorActivo =0;
+
+       let parametros = {
+        id :  item.id,
+        nombre:      item.nombre,
+        email: item.email,
+        password: item.password,
+        rol: item.rol,
+        programa: item.programa,
+        activo: valorActivo,
+
+      } ;
+
+      let promesa = apiUsuarios.update__usuarios(parametros,this.$store);
+       promesa
+      .then( response => { console.log(JSON.stringify(response.data))} )
+      .catch( error => { console.log(JSON.stringify(error.data))});
+      
+
+    } ,
     initialize() {
      this.poblarGrid();
     },

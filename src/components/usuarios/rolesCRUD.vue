@@ -29,10 +29,22 @@
 
    
 
-    <template v-slot:item.actions="{ item }">
-      <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
-      <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+    <template v-slot:item.actions_editar="{ item }">
+      <v-btn color="primary" dark dense @click="editItem(item)">
+      <v-icon small class="mr-2" > mdi-pencil </v-icon>
+      Editar
+      </v-btn>
     </template>
+
+    <template v-slot:item.actions_activar="{ item }">
+        <v-switch
+                  :input-value="item.ACTIVO==1 ? true : false"
+                  class="mx-2"
+                  color="green"
+                  @change="activar($event,item)"
+        ></v-switch>
+     </template>
+
     <template v-slot:no-data>
       <v-btn color="primary" @click="initialize">No existen Roles</v-btn>
     </template>
@@ -54,8 +66,10 @@ export default {
         value: "id",
       },
       { text: "Rol", value: "NOMBREDELROL" },
-      { text: "Activo", value: "ACTIVO" },
-      { text: "acciones", value: "actions", sortable: false },
+      { text: "Edicion", value: "actions_editar", sortable: false },
+      { text: "Activa", value: "actions_activar", sortable: false },
+
+   
     ],
     editedIndex: -1,
     editedItem: {
@@ -83,7 +97,85 @@ export default {
   },
 
   methods: {
+activar(event,item) {
+      
+      console.log("valor de event " + event);
 
+      let valorActivo = 0;
+
+      event == 1? valorActivo =1 :  valorActivo =0;
+
+       let parametros = {
+        id :  item.id,
+        NOMBREDELROL:      item.NOMBREDELROL,
+        ALTADECATALOGOS: item.ALTADECATALOGOS,
+        BAJADECATALOGOS: item.BAJADECATALOGOS,
+        MODIFICACIOnDECATALOGOS: item.MODIFICACIOnDECATALOGOS,
+        ALTADEUSUARIOS: item.ALTADEUSUARIOS,
+        BAJADEUSUARIOS: item.BAJADEUSUARIOS,
+        MODIFICACIONDEUSUARIOS: item.MODIFICACIONDEUSUARIOS,
+        ALTADEROL: item.ALTADEROL,
+        BAJADEROL: item.BAJADEROL,
+        MODIFICACIONDEROL: item.MODIFICACIONDEROL,
+        ALTADEVALORACIONINICIAL: item.ALTADEVALORACIONINICIAL,
+        MODIFICACIONREAPERTURAVALORACIONINICIAL: item.MODIFICACIONREAPERTURAVALORACIONINICIAL,
+        EDITARANTESDECIERREDELAVALORACIONINICIAL: item.EDITARANTESDECIERREDELAVALORACIONINICIAL,
+        BAJAVALORACIONINICIAL: item.BAJAVALORACIONINICIAL,
+        IMPRESIONVALORACIONINICIAL: item.IMPRESIONVALORACIONINICIAL,
+        VISUALIZACIONVALORACIONINICIAL: item.VISUALIZACIONVALORACIONINICIAL,
+        ALTADEVALORACIONINTEGRAL: item.ALTADEVALORACIONINTEGRAL,
+        MODIFICACIONREAPERTURAVALORACIONINTEGRAL: item.MODIFICACIONREAPERTURAVALORACIONINTEGRAL,
+        EDITARANTESDECIERREDELAVALORACIONINTEGRAL: item.EDITARANTESDECIERREDELAVALORACIONINTEGRAL,
+        BAJAVALORACIONINTEGRAL: item.BAJAVALORACIONINTEGRAL,
+        IMPRESIONVALORACIONINTEGRAL: item.IMPRESIONVALORACIONINTEGRAL,
+        VISUALIZACIONVALORACIONINTEGRAL: item.VISUALIZACIONVALORACIONINTEGRAL,
+        ALTADESEGUIMIENTO: item.ALTADESEGUIMIENTO,
+        MODIFICACIONDESEGUIMIENTO: item.MODIFICACIONDESEGUIMIENTO,
+        EDITARDESEGUIMIENTO: item.EDITARDESEGUIMIENTO,
+        BAJADESEGUIMIENTO: item.BAJADESEGUIMIENTO,
+        IMPRESIONDESEGUIMIENTO: item.IMPRESIONDESEGUIMIENTO,
+        VISUALIZACIONDESEGUIMIENTO: item.VISUALIZACIONDESEGUIMIENTO,
+        ALTADECIERRE: item.ALTADECIERRE,
+        MODIFICACIONDECIERRE: item.MODIFICACIONDECIERRE,
+        EDICIONDECIERRE: item.EDICIONDECIERRE,
+        BAJADECIERRE: item.BAJADECIERRE,
+        IMPRESIONDECIERRE: item.IMPRESIONDECIERRE,
+        VISUALIZACIONDECIERRE: item.VISUALIZACIONDECIERRE,
+        ALTADENUNCIA: item.ALTADENUNCIA,
+        MODIFCACIONDENUNCIA: item.MODIFCACIONDENUNCIA,
+        EDICIONDENUNCIA: item.EDICIONDENUNCIA,
+        BAJADENUNCIA: item.BAJADENUNCIA,
+        IMPRESIONDENUNCIA: item.IMPRESIONDENUNCIA,
+        VISUALIZACIONDENUNCIA: item.VISUALIZACIONDENUNCIA,
+        ALTAINVESTIGACION: item.ALTAINVESTIGACION,
+        MODIFICACIONINVESTIGACION: item.MODIFICACIONINVESTIGACION,
+        EDICIONINVESTIGACION: item.EDICIONINVESTIGACION,
+        BAJAINVESTIGACION: item.BAJAINVESTIGACION,
+        IMPRESIONINVESTIGACION: item.IMPRESIONINVESTIGACION,
+        VISUALIZACIONINVESTIGACION: item.VISUALIZACIONINVESTIGACION ,
+        ALTAEVIDENCIA: item.ALTAEVIDENCIA,
+        MODIFCACIONEVIDENCIA: item.MODIFCACIONEVIDENCIA,
+        EDICIONEVIDENCIA: item.EDICIONEVIDENCIA,
+        BAJAEVIDENCIA: item.BAJAEVIDENCIA,
+        IMPRESIONEVIDENCIA: item.IMPRESIONEVIDENCIA,
+        VISUALIZACIONEVIDENCIA: item.VISUALIZACIONEVIDENCIA,
+        ALTADEARCHIVOS: item.ALTADEARCHIVOS,
+        MODIFICACIONARCHIVOS: item.MODIFICACIONARCHIVOS,
+        IMPRESIONARCHIVOS: item.IMPRESIONARCHIVOS,
+        VISUALIZACIONARCHIVOS: item.VISUALIZACIONARCHIVOS,
+        ACTIVO: valorActivo,
+
+      } ;
+
+   
+
+      let promesa = apiRoles.update__roles(parametros,this.$store);
+       promesa
+      .then( response => { console.log(JSON.stringify(response.data))} )
+      .catch( error => { console.log(JSON.stringify(error.data))});
+      
+
+    } ,
    async poblarGrid(){
 
         let TodosLosroles = apiRoles.cargar__todos_los_roles(this.$store);

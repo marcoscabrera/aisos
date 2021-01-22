@@ -18,16 +18,16 @@
         <PanelInvestigacionComponentes></PanelInvestigacionComponentes>
         <PanelArchivosComponentes></PanelArchivosComponentes>
         <PanelEvidenciaComponentes></PanelEvidenciaComponentes>
-        <v-row>
+        <!-- <v-row>
             <v-col>
                 <v-switch
-                  :v-model="this.$store.state.roles.roles_ACTIVO"
+                  :v-model="this.$store.state.roles.roles_ACTIVO=='1' ? true :false"
                   class="mx-2"
                   label="Activo "
                   @change="asignarValorInput($event)"
                 ></v-switch>
             </v-col>
-        </v-row>
+        </v-row> -->
       </v-container>
     </v-card-text>
 
