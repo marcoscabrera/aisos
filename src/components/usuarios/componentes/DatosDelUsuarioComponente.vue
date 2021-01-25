@@ -12,7 +12,7 @@ import controlDeSesion from '@/sesion/controlDeSesion.js';
       mdi-account-circle
     </v-icon>
    {{this.$store.state.usuarios.usuarios_usuariologueado.nombre}} - <strong>
-     Programa :</strong> 
+     Programa : {{this.$store.state.usuarios.usuarios_usuariologueado.programa}}</strong> 
      <strong>
    Rol:
    </strong>

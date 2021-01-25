@@ -6,7 +6,6 @@
       </h2>
     </v-row>
     <v-row>
-      <v-col></v-col>
       <v-col>
         <p class="text-center">
 
@@ -16,7 +15,7 @@
           El folio de tu reporte es <strong>{{folio}}</strong>
         </p>
       </v-col>
-      <v-col></v-col>
+      
     </v-row>
 
     <v-row>

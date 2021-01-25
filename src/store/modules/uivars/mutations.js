@@ -18,4 +18,32 @@ export default {
         state.uivars_hayUnUsuarioLogueado= valor;
 
     },
+
+    mutation_uivars_error_seleccionarPrograma(state,valor){
+
+        state.uivars_error_seleccionarPrograma= valor;
+
+    },
+    mutation_uivars_error_seleccionarFecha(state,valor){
+
+        state.uivars_error_seleccionarFecha= valor;
+    },
+
+    mutation_uivars_error_textAreaInvolucrados(state,valor){
+        state.uivars_error_textAreaInvolucrados= valor;
+    },
+
+    mutation_uivars_error_textDenunciante(state,valor){
+        state.uivars_error_textDenunciante= valor;
+    },
+
+    mutation_uivars_error_comboboxCargos(state,valor){
+
+        state.uivars_error_comboboxCargos= valor;
+    },
+
+    mutation_uivars_error_textareaRegistros(state,valor) {
+
+        state.uivars_error_textareaRegistros= valor;
+    },
 }

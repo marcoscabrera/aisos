@@ -1,6 +1,22 @@
 <template>
   <v-container>
-    <h2>Cierre</h2>
+
+    <v-row>
+        <v-col>
+           <h2>Cierre</h2>
+        </v-col>
+        <v-col>
+
+
+            <BarraDeNavegacion
+             activo_ri="1"
+             activo_vi="1"
+             activo_s="1"
+             activo_c="0"
+             ></BarraDeNavegacion>
+
+        </v-col>
+    </v-row>
 
     <v-row>
       <v-col cols="12" xs="12" md="6">

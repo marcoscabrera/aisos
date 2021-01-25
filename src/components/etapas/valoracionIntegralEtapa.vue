@@ -1,6 +1,21 @@
 <template>
   <v-container>
-    <h2>Valoracion Integral</h2>
+    <v-row>
+        <v-col>
+           <h2>Valoracion Integral</h2>
+        </v-col>
+        <v-col>
+
+
+            <BarraDeNavegacion
+             activo_ri="1"
+             activo_vi="0"
+             activo_s="1"
+             activo_c="1"
+             ></BarraDeNavegacion>
+
+        </v-col>
+    </v-row>
 
     <v-row>
       <v-col cols="12" xs="12" md="6">
@@ -124,6 +139,8 @@
   </v-container>
 </template>
 <script>
+import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
+
 import barraDocumentosVue from "../barradocumentos/barraDocumentos.vue";
 import apiValoracion from "@/apialdeas/apiValoracion.js";
 import apiArchivos from "@/apialdeas/apiArchivos.js";
@@ -147,7 +164,7 @@ export default {
     cardNivelIncidente,
     cardConfirmacion,
     cardTipoCaso,
-    cardTipoRespuesta,
+    cardTipoRespuesta,BarraDeNavegacion
   },
   computed: {
     generarFolio() {

@@ -2,11 +2,11 @@
   <v-container name="contenedornotificacion">
     <v-row>
       <h2 class="text-center">
-        <v-col> Gracias, los datos se han actualizado</v-col>
+        <v-col> </v-col>
       </h2>
     </v-row>
     <v-row>
-      <v-col></v-col>
+      
       <v-col>
    
      <v-alert
@@ -21,7 +21,7 @@
           Reporte # <strong>{{folio}}</strong>
         </p> -->
       </v-col>
-      <v-col></v-col>
+      
     </v-row>
 
     <v-row>

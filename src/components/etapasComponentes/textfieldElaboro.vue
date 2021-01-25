@@ -3,6 +3,11 @@
     <v-text-field label="DENUNCIANTE" :value="quienelaboro"
      filled
      @input="asignarValor($event)"> </v-text-field>
+
+     <v-alert v-if="this.$store.state.uivars.uivars_error_textDenunciante" type="error">
+      Este Campo no debe de ir vacio 
+    </v-alert>
+
   </v-col>
 </template>
 <script>
@@ -21,6 +26,11 @@ export default {
     asignarValor(valor){
       //console.log("valor de elaboro en componente" + valor);
       this.$store.dispatch('setear_Elaboro',valor);
+     
+      valor.length > 0 ?
+      this.$store.dispatch('actions_uivars_error_textDenunciante',false): 
+      this.$store.dispatch('actions_uivars_error_textDenunciante',true)
+      
       //console.log("valor de elaboro en state" + this.$store.state.incidentes.etapainicial_elaboro);
     }
 

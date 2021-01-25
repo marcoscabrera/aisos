@@ -1,6 +1,22 @@
 <template>
   <v-container name="investigacion">
     <!-- pediente la fecha -->
+        <v-row>
+        <v-col>
+           <h2>Denuncia Legal</h2>
+        </v-col>
+        <v-col>
+
+
+            <BarraDeNavegacion
+             activo_ri="true"
+             activo_vi="true"
+             activo_s="true"
+             activo_c="true"
+             ></BarraDeNavegacion>
+
+        </v-col>
+    </v-row>
     <FoliosComponente
       :folio="investigacion.folio"
       :foliodenuncia="investigacion.folioinvestigacion"

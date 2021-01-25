@@ -1,6 +1,23 @@
 <template>
   <v-container>
-    <h2>Valoracion Inicial</h2>
+
+    <v-row>
+        <v-col>
+           <h2>Reporte Inicial</h2>
+        </v-col>
+        <v-col>
+
+            <BarraDeNavegacion
+             activo_ri="0"
+             activo_vi="1"
+             activo_s="1"
+             activo_c="1"
+             >
+             </BarraDeNavegacion>
+
+        </v-col>
+    </v-row>
+   
 
     <v-row>
       <v-col cols="12" xs="12" md="6">
@@ -25,7 +42,8 @@
     </v-row>
 
     <v-row>
-      <comboboxProgramaSeleccionado :programa="programaSeleccionado"></comboboxProgramaSeleccionado>
+      <comboboxProgramaSeleccionado :programa="programaSeleccionado"
+      :error_programa="error_programa"></comboboxProgramaSeleccionado>
       <calendario :fecha="date"></calendario>
     </v-row>
 
@@ -84,6 +102,18 @@
     </v-row>
 
     <v-row>
+      <v-col>
+        <v-alert v-if="this.errores>0" type="error">
+           Al parecer le hacen falta datos.
+        </v-alert>     
+      </v-col>
+    </v-row>
+
+    
+
+    <v-row>
+
+
       <v-col cols="12" xs="12" sm="12" md="4">
         <v-btn
           :loading="loading"
@@ -141,6 +171,9 @@ import esunincidente from "@/components/etapasComponentes/esunincidente.vue";
 import cardPerfilVictima from "@/components/etapasComponentes/cardPerfilVictima.vue";
 import textareaMedidasProteccion from "@/components/etapasComponentes/textareaMedidasProteccion.vue";
 import textareaTestigos from "@/components/etapasComponentes/textareaTestigos.vue";
+import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
+import validacionReporteInicial from   "@/components/etapas/validaciones/validacionReporteInicial.js";
+//import valoracionIntegralEtapa from '@/components/etapas/valoracionIntegralEtapa.vue';
 export default {
   components: {
     barraDocumentosVue,
@@ -155,6 +188,8 @@ export default {
     cardPerfilVictima,
     textareaMedidasProteccion,
     textareaTestigos,
+    BarraDeNavegacion
+
   },
 
   computed: {
@@ -164,6 +199,7 @@ export default {
   },
 
   methods: {
+ 
 
     solicitudImpresion(){
 
@@ -226,13 +262,90 @@ export default {
      
   
   },
-    nuevo_incidente() {
-      console.log(" Permiso ALTADEVALORACIONINICIAL  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.ALTADEVALORACIONINICIAL)             
-     if (this.$store.state.usuarios.usuarios_usuariologueado_rol.ALTADEVALORACIONINICIAL=='SI'){
-           
-     
+    validacion_sePuedeCapturar(){
 
-      this.loadingGuardar = true;
+      this.errores = 0;
+  
+   /*
+   ,
+         
+         
+         
+         
+         
+          etapainicial_perfildelagresor,
+          etapainicial_paadultocolaborador,
+          etapainicial_paadultocolaboradortipo,
+          etapainicial_perfilvictima,
+          etapainicial_recibeayuda,
+          etapainicial_medidasproteccion,
+          etapainicial_incidenteconfirmado,
+          etapainicial_testigos
+   
+   
+   */
+    const  { 
+          etapainicial_programa,
+          etapainicial_fecha ,
+          etapainicial_involucrados,
+          etapainicial_elaboro,
+           etapainicial_cargos,
+            etapainicial_registrohechos,
+             etapainicial_perfildelagresor,
+           } =this.$store.state.incidentes;
+
+   let r =  validacionReporteInicial.existeInformacionParaCapturar(etapainicial_programa);
+   this.$store.dispatch('actions_uivars_error_seleccionarPrograma',r);
+    this.validarCaptura(r);
+
+    r= validacionReporteInicial.existeInformacionParaCapturar(etapainicial_fecha);
+   this.$store.dispatch('actions_uivars_error_seleccionarFecha',r);
+    this.validarCaptura(r);
+
+    r= validacionReporteInicial.existeInformacionParaCapturar(etapainicial_involucrados);
+    this.$store.dispatch('actions_uivars_error_textAreaInvolucrados',r);
+    this.validarCaptura(r); 
+
+    r= validacionReporteInicial.existeInformacionParaCapturar(etapainicial_elaboro);
+    this.$store.dispatch('actions_uivars_error_textDenunciante',r);
+    this.validarCaptura(r); 
+
+    r = validacionReporteInicial.existeInformacionParaCapturar(etapainicial_cargos);
+    this.$store.dispatch('actions_uivars_error_comboboxCargos',r);
+    this.validarCaptura(r); 
+
+
+    r = validacionReporteInicial.existeInformacionParaCapturar( etapainicial_registrohechos);
+    this.$store.dispatch('actions_uivars_error_textareaRegistros',r);
+    this.validarCaptura(r); 
+
+
+     r = validacionReporteInicial.existeInformacionParaCapturar( etapainicial_perfildelagresor);
+    this.$store.dispatch('actions_uivars_error_cardPerfilAgresor',r);
+    this.validarCaptura(r);
+
+
+
+
+
+
+    return this.errores;
+
+    },
+    validarCaptura(valor){
+
+      let suma=0 ;
+      valor== false ? suma=0 : suma=1;
+
+      this.errores = this.errores + suma;
+
+
+    },
+    revisarErrores(){
+      
+    },
+    guardar_nuevoIncidente(){
+this.loadingGuardar = true;
     
 
 const  { 
@@ -252,9 +365,12 @@ const  {
       etapainicial_testigos} =this.$store.state.incidentes;
      
       /* usuario creador es el usuario logueado. */
-      var usuarioCreador = "1";
+      var usuarioCreador =this.$store.state.usuarios.usuarios_usuariologueado.id;
       var etapa = 1;
-
+      /* ======================================== */
+      
+   
+      /*==========================================*/
       var parametros = {
         programa: etapainicial_programa,
         fechaAlta:etapainicial_fecha,
@@ -315,6 +431,9 @@ const  {
         this.folio = a["folio"];
 
         this.verBotonImpresion = false;
+        
+        //limpiar variables globales de incidente
+        validacionReporteInicial.inicializarValoresDeIncidente(this.$store);
          /*
         this.$router.push({
           name: "DenunciasDetalle",
@@ -331,8 +450,22 @@ const  {
         this.loadingGuardar = false;
       });
 
+    }, //termina funcion
+    nuevo_incidente() {
+      console.log(" Permiso ALTADEVALORACIONINICIAL  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.ALTADEVALORACIONINICIAL)             
+     if (this.$store.state.usuarios.usuarios_usuariologueado_rol.ALTADEVALORACIONINICIAL=='SI'){
+           
+     
+      this.validacion_sePuedeCapturar();
+      
+      this.errores>0 ? this.revisarErrores() : this.guardar_nuevoIncidente();
+
+      
+
        }// termina if de permiso
     }, //termina nuevo_incidente
+
+
     update_incidente() {
       console.log("update");
     },
@@ -459,6 +592,8 @@ console.log( " perfil recibeayuda " + this.recibeayuda) ;
 
   data() {
     return {
+      errores : 0 , 
+      error_programa : false,
       verBotonera:true,
       vercomboniveluno: false,
       vercomboniveldos: false,

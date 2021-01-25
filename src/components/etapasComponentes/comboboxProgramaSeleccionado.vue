@@ -11,6 +11,11 @@ import apiProgramas from '@/apialdeas/apiProgramas.js';
       @change="asignarValor($event)"
     >
     </v-select>
+
+     <v-alert v-if="this.$store.state.uivars.uivars_error_seleccionarPrograma" type="error">
+      Debe de escoger un Programa.
+    </v-alert>
+
   </v-col>
 </template>
 
@@ -19,7 +24,16 @@ import apiProgramas from "@/apialdeas/apiProgramas.js";
 export default {
   name: "comboProgramaSeleccionado",
 
-  props: ["programa"],
+  computed : {
+       
+       getError(){
+
+         return this.$store.state.uivars.error_seleccionarPrograma ;
+       }
+
+  },
+
+  props: ["programa","error_programa"],
   data() {
     return {
       programaSeleccionado: "",
@@ -39,11 +53,14 @@ export default {
 
       let programaid = this.$store.state.usuarios.usuarios_usuariologueado.programa;
       let promesa = Promise;
+      
+      
 
-      programaid == 0 ?   promesa = apiProgramas.cargar__todo__los__programas(this.$store):
-       promesa = apiProgramas.cargar__programas(programaid, this.$store);
+      programaid == 'TODOS' ?   promesa = apiProgramas.cargar__todo__los__programas(this.$store):
+       this.itemsUnidades.push(programaid)   ;
 
-
+        
+      if (this.itemUnidades.length>0) return;
      
       promesa
         .then((response) => {
@@ -74,7 +91,8 @@ export default {
       console.log(evento);
       /*almacenamos en variable global */
       this.$store.dispatch("setear_programa", evento);
-
+      this.$store.dispatch('actions_uivars_error_seleccionarPrograma',false);
+      
       console.log(
         "valor de etapainicial_programa  " +
           this.$store.state.incidentes.etapainicial_programa

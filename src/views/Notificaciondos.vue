@@ -6,7 +6,7 @@
       </h2>
     </v-row>
     <v-row>
-      <v-col></v-col>
+    
       <v-col>
         <p class="text-center" v-if="esIncidente=='SI ES INCIDENTE'">
 
@@ -21,7 +21,7 @@
           Reporte # <strong>{{folio}}</strong>
         </p>
       </v-col>
-      <v-col></v-col>
+      
     </v-row>
 
     <v-row>

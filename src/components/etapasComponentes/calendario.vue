@@ -21,6 +21,9 @@
       </template>
       <v-date-picker v-model="date" @input="asignarFecha($event)"></v-date-picker>
     </v-menu>
+      <v-alert v-if="this.$store.state.uivars.uivars_error_seleccionarFecha" type="error">
+      Debe de escoger una Fecha.
+    </v-alert>
   </v-col>
 </template>
 <script>
@@ -44,6 +47,8 @@ export default {
       
       
       this.$store.dispatch('setear_FechaInicial',evento);
+
+      this.$store.dispatch('actions_uivars_error_seleccionarFecha',false);
 
       console.log("valor de la fecha : " + this.$store.state.incidentes.etapainicial_fecha);
 

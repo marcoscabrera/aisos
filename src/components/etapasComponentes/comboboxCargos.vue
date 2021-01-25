@@ -10,6 +10,10 @@
       @change="asignarValor($event)"
     >
     </v-select>
+
+     <v-alert v-if="this.$store.state.uivars.uivars_error_comboboxCargos" type="error">
+     Debe de seleccionar un cargo
+    </v-alert>
   </v-col>
 </template>
 <script>
@@ -56,6 +60,9 @@ export default {
     asignarValor(evento) {
       console.log("cargo : " + evento);
       this.$store.dispatch("setear_cargos", evento);
+
+      this.$store.dispatch("actions_uivars_error_comboboxCargos", false);
+      
       console.log(
         "cargo en state : " + this.$store.state.incidentes.etapainicial_cargos
       );
