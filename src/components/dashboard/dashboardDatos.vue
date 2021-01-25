@@ -94,7 +94,7 @@
         :color="item.coloretapauno"
         dark
         @click="irAValoracionInicial(item.id)"
-      >
+      >RI
         <!-- <v-icon>mdi-file-document</v-icon>
        --></v-btn
       >
@@ -110,7 +110,7 @@
         dark
         @click="irAValoracionIntegral(item.id)"
       >
-        .</v-btn
+        VI</v-btn
       >
     </template>
 
@@ -124,7 +124,7 @@
         dark
         @click="irASeguimiento(item.id)"
       >
-        .</v-btn
+        S</v-btn
       >
     </template>
 
@@ -138,7 +138,7 @@
         dark
         @click="irACierre(item.id)"
       >
-        .</v-btn
+        C</v-btn
       >
     </template>
 
