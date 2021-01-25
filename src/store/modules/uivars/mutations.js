@@ -46,4 +46,16 @@ export default {
 
         state.uivars_error_textareaRegistros= valor;
     },
+
+    mutation_uivars_error_comboPerfilvictima(state,valor) {
+
+        state.uivars_error_comboPerfilvictima= valor;
+    },
+
+    mutation_uivars_error_comboRecibeAyuda(state,valor) {
+
+        state.uivars_error_comboRecibeAyuda= valor;
+    },
+
+  
 }

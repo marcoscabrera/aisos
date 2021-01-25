@@ -14,6 +14,12 @@
             @change="cambioEnPerfil($event)"
           >
           </v-select>
+
+        <v-alert v-if="this.$store.state.uivars.actions_uivars_error_comboPerfilvictima" type="error">
+         Debe de escoger una opcion   
+        </v-alert>
+
+
         </v-col>
 
         <v-col cols="12" xs="12" sm="12" md="6">
@@ -27,6 +33,10 @@
              @change="cambioEnRecibeAyuda($event)"
           >
           </v-select>
+
+          <v-alert v-if="this.$store.state.uivars.actions_uivars_error_comboRecibeAyuda" type="error">
+             Debe de escoger una opcion   
+          </v-alert>
         </v-col>
       </v-row>
     </v-card-text>
@@ -46,11 +56,15 @@ export default {
     };
   },
   methods: {
+    //   actions_uivars_error_comboRecibeAyuda
+    //actions_uivars_error_comboPerfilvictima
     cambioEnPerfil(evento) {
      this.$store.dispatch('setear_perfilvictima',evento);
+     this.$store.dispatch('actions_uivars_error_comboPerfilvictima',false);
     },
     cambioEnRecibeAyuda(evento){
       this.$store.dispatch('setear_recibeayuda', evento);
+      this.$store.dispatch('actions_uivars_error_comboRecibeAyuda',false);
     }
   },
 };

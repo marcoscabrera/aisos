@@ -46,4 +46,15 @@ export default {
         context.commit("mutation_uivars_error_textareaRegistros",valor);
     },
 
+    actions_uivars_error_comboPerfilvictima(context,valor){
+
+        context.commit("mutation_uivars_error_comboPerfilvictima",valor);
+    },
+    actions_uivars_error_comboRecibeAyuda(context,valor){
+
+        context.commit("mutation_uivars_error_comboRecibeAyuda",valor);
+    },
+ 
+
+
 }

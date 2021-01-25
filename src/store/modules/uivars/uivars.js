@@ -16,6 +16,9 @@ state: {
     uivars_error_textDenunciante : false,
     uivars_error_comboboxCargos : false,
     uivars_error_textareaRegistros : false,
+
+    actions_uivars_error_comboPerfilvictima : false,
+    actions_uivars_error_comboRecibeAyuda : false
    
 
 },

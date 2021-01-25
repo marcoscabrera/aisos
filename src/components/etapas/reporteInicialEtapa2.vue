@@ -277,6 +277,7 @@ export default {
           etapainicial_paadultocolaborador,
           etapainicial_paadultocolaboradortipo,
           etapainicial_perfilvictima,
+
           etapainicial_recibeayuda,
           etapainicial_medidasproteccion,
           etapainicial_incidenteconfirmado,
@@ -291,7 +292,8 @@ export default {
           etapainicial_elaboro,
            etapainicial_cargos,
             etapainicial_registrohechos,
-             etapainicial_perfildelagresor,
+            etapainicial_perfilvictima,
+              etapainicial_recibeayuda,
            } =this.$store.state.incidentes;
 
    let r =  validacionReporteInicial.existeInformacionParaCapturar(etapainicial_programa);
@@ -319,12 +321,16 @@ export default {
     this.$store.dispatch('actions_uivars_error_textareaRegistros',r);
     this.validarCaptura(r); 
 
-
-     r = validacionReporteInicial.existeInformacionParaCapturar( etapainicial_perfildelagresor);
-    this.$store.dispatch('actions_uivars_error_cardPerfilAgresor',r);
+     r = validacionReporteInicial.existeInformacionParaCapturar(  etapainicial_perfilvictima,);
+    this.$store.dispatch('actions_uivars_error_comboPerfilvictima',r);
     this.validarCaptura(r);
 
-
+     r = validacionReporteInicial.existeInformacionParaCapturar(  etapainicial_recibeayuda,);
+    this.$store.dispatch('actions_uivars_error_comboRecibeAyuda',r);
+    this.validarCaptura(r);
+    
+  
+        
 
 
 
