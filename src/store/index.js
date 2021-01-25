@@ -16,7 +16,7 @@ Vue.use(Vuex)
 const store =  new Vuex.Store({
   state: {
  //urlServidor: 'http://127.0.0.1/apialdeas'
-  urlServidor: 'https://api.aldeasinfantiles.mx/apialdeas'
+   urlServidor: 'https://api.aldeasinfantiles.mx/apialdeas'
  // urlServidor :'http://rebelbot.mx/apialdeas'
     
   },

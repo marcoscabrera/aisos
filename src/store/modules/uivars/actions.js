@@ -54,7 +54,24 @@ export default {
 
         context.commit("mutation_uivars_error_comboRecibeAyuda",valor);
     },
- 
 
+    
+ 
+    actions_uivars_error_textareaMedidas(context,valor){
+
+        context.commit("mutation_uivars_error_textareaMedidas",valor);
+    },
+
+    actions_uivars_error_comboesunincidente(context,valor){
+
+        context.commit("mutation_uivars_error_comboesunincidente",valor);
+    },
+
+    actions_uivars_error_textareaTestigos(context,valor){
+
+        context.commit("mutation_uivars_error_textareaTestigos",valor);
+    },
+
+   
 
 }

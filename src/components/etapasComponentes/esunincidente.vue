@@ -16,6 +16,13 @@
             @change="asignarValor($event)"
           >
           </v-select>
+
+
+            <v-alert v-if="this.$store.state.uivars.uivars_error_comboesunincidente" type="error">
+             Debe de seleccionar una opción
+           </v-alert>
+
+
         </v-col>
       </v-row>
     </v-card-text>
@@ -28,6 +35,8 @@ export default {
   methods : {
     asignarValor(event) {
       this.$store.dispatch('setear_incidenteconfirmado',event);
+      this.$store.dispatch('actions_uivars_error_comboesunincidente',false);
+      
     }
   },
   data() {

@@ -15,7 +15,7 @@
           >
           </v-select>
 
-        <v-alert v-if="this.$store.state.uivars.actions_uivars_error_comboPerfilvictima" type="error">
+        <v-alert v-if="this.$store.state.uivars.uivars_error_comboPerfilvictima" type="error">
          Debe de escoger una opcion   
         </v-alert>
 
@@ -34,7 +34,7 @@
           >
           </v-select>
 
-          <v-alert v-if="this.$store.state.uivars.actions_uivars_error_comboRecibeAyuda" type="error">
+          <v-alert v-if="this.$store.state.uivars.uivars_error_comboRecibeAyuda" type="error">
              Debe de escoger una opcion   
           </v-alert>
         </v-col>

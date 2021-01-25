@@ -17,9 +17,13 @@ state: {
     uivars_error_comboboxCargos : false,
     uivars_error_textareaRegistros : false,
 
-    actions_uivars_error_comboPerfilvictima : false,
-    actions_uivars_error_comboRecibeAyuda : false
-   
+    uivars_error_comboPerfilvictima : false,
+    uivars_error_comboRecibeAyuda : false,
+
+    uivars_error_textareaMedidas : false,
+    uivars_error_comboesunincidente : false,
+    uivars_error_textareaTestigos :false
+    
 
 },
 mutations,

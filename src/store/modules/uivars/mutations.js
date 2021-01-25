@@ -57,5 +57,23 @@ export default {
         state.uivars_error_comboRecibeAyuda= valor;
     },
 
+    mutation_uivars_error_textareaMedidas(state,valor){
+
+        state.uivars_error_textareaMedidas= valor;
+
+    },
+
+    mutation_uivars_error_comboesunincidente( state,valor){
+
+        state.uivars_error_comboesunincidente= valor;
+
+    },
+
+    mutation_uivars_error_textareaTestigos( state,valor){
+
+        state.uivars_error_textareaTestigos= valor;
+
+    },
+
   
 }
