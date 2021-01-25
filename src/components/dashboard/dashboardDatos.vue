@@ -152,7 +152,7 @@
         dark
         @click="irAValoracionInicial(item.id)"
       >
-        .</v-btn
+        RI</v-btn
       >
       <v-btn
         :v-if="item.etapados"
@@ -160,7 +160,7 @@
         fab
         :color="colorvintegral"
         @click="irAValoracionIntegral(item.id)"
-        >.</v-btn
+        >VI</v-btn
       >
       <v-btn
         :v-if="item.etapatres"
@@ -168,7 +168,7 @@
         fab
         :color="colors"
         @click="irA('/seguimiento')"
-        >.</v-btn
+        >S</v-btn
       >
       <v-btn
         :v-if="item.etapacuatro"
@@ -176,7 +176,7 @@
         fab
         :color="colorc"
         @click="irACierre(item.id)"
-        >.</v-btn
+        >C</v-btn
       >
     </template>
   </v-data-table>
@@ -228,7 +228,7 @@ export default {
       { text: "Respuesta", value: "tipoderespuesta" },
       { text: "Hechos", value: "data-table-expand" },
       // { text: "Activo", value: "activo" },
-      { text: "V Inicial", value: "etapauno" },
+      { text: "R Inicial", value: "etapauno" },
       { text: "V Integral", value: "etapados" },
       { text: "Seguimiento", value: "etapatres" },
       { text: "Cierre", value: "etapacuatro" },
