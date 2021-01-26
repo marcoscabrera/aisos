@@ -15,6 +15,12 @@
             filled
             @change="asignarValor($event)"
           ></v-select>
+
+        <v-alert v-if="this.$store.state.uivars.uivars_error_cardNivelIncidente" type="error">
+           Debe de seleccionar una opcion.
+        </v-alert>
+
+        
         </v-col>
       </v-row>
     </v-card-text>
@@ -30,6 +36,8 @@ export default {
 
     asignarValor(evento){
       this.$store.dispatch('action_niveldelincidente',evento);
+
+      this.$store.dispatch('actions_uivars_error_cardNivelIncidente',false);
     }
 
   },

@@ -10,7 +10,28 @@ export default {
         return respuesta;
 
     },
+    
+    existeInformacionParaCapturar_y_mayor_a(campo,longitud){
+        
 
+        console.log("valor del campo a validar :" + campo );
+        let respuesta = false;
+        console.log("valor de longitud de campo :" + campo.length );
+        campo.length > longitud ? respuesta =false : respuesta = true;
+        console.log(respuesta);
+        return respuesta;
+
+    },
+    existeInformacionParaCapturar_y_no_es_esta(campo,esta){
+        
+
+        console.log("valor del campo a validar :" + campo );
+        let respuesta = false;
+        campo == esta ? respuesta =true : respuesta = false;
+        console.log(respuesta);
+        return respuesta;
+
+    },
     inicializarValoresDeIncidente(store){
 
         store.dispatch('setear_Incidente','');

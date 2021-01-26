@@ -15,6 +15,11 @@
             @change="asignarValor($event)"
           >
           </v-select>
+
+         <v-alert v-if="this.$store.state.uivars.uivars_error_cardConfirmacion" type="error">
+           Debe de confirmar si es un incidente o no .
+        </v-alert>
+
         </v-col>
       </v-row>
     </v-card-text>
@@ -26,7 +31,10 @@ export default {
   props:['confirmacion'],
   methods :{
     asignarValor(event){
+
       this.$store.dispatch('action_confirmaincidente',event);
+
+      this.$store.dispatch('actions_uivars_error_cardConfirmacion',false);
 
       /* aplicacion de operador ternario */
       /* #ternario #if */

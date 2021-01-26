@@ -2,10 +2,10 @@
   <v-container name="investigacion">
     <!-- pediente la fecha -->
         <v-row>
-        <v-col>
+        <v-col cols="12" xs="12" sm="6" md="6">
            <h2>Denuncia Legal</h2>
         </v-col>
-        <v-col>
+        <v-col cols="12" xs="12" sm="6" md="6">
 
 
             <BarraDeNavegacion

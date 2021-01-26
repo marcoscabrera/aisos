@@ -1,10 +1,10 @@
 <template>
   <v-container>
     <v-row>
-        <v-col>
+        <v-col cols="12" xs="12" sm="6" md="6">
            <h2>Valoracion Integral</h2>
         </v-col>
-        <v-col>
+        <v-col cols="12" xs="12" sm="6" md="6">
 
 
             <BarraDeNavegacion
@@ -22,14 +22,13 @@
         <v-text-field
           id="labelFolio"
           class="cssnuevo"
-           :value="generarFolio"
-            label="FOLIO"
+            :label="generarFolio"
             filled
             disabled
             background-color="#87CEFA"
             
           >
-        
+            
           </v-text-field>
       </v-col>
 
@@ -123,7 +122,7 @@
         </v-btn>
       </v-col>
       <v-col v-if="this.verBotonera" cols="12" xs="12" sm="12" md="4">
-        <v-btn 
+        <v-btn v-if="this.estadoDeValoracion == 'cerrado'? false : true"
           :loading="loading"
           :disabled="loading"
           color="green"
@@ -153,6 +152,7 @@ import cardConfirmacion from "../etapasComponentesValoracion/cardConfirmacion.vu
 import cardTipoCaso from "../etapasComponentesValoracion/cardTipoCaso.vue";
 import cardTipoRespuesta from "../etapasComponentesValoracion/cardTipoRespuesta.vue";
 //import cardMedidasIntegrales from "../etapasComponentesValoracion/cardMedidasIntegrales.vue";
+import validacionReporteInicial from   "@/components/etapas/validaciones/validacionReporteInicial.js";
 
 //import medidasCrud from "@/components/seguimiento/medidasCrud.vue";
 export default {
@@ -166,6 +166,8 @@ export default {
     cardTipoCaso,
     cardTipoRespuesta,BarraDeNavegacion
   },
+
+
   computed: {
     generarFolio() {
       return "Folio # " + this.folio; 
@@ -173,6 +175,106 @@ export default {
   },
 
   methods: {
+
+    revisarErrores(){
+
+    },
+
+    validacion_sePuedeCapturar(){
+
+        this.errores = 0;
+
+      
+      this.$store.state.uivars.uivar_esincidente == false ?  this.validacionAntesDeConfirmacion() : this.validacionGeneral();
+      
+      return   this.errores;
+
+
+   
+    },
+       validarCaptura(valor){
+
+      let suma=0 ;
+      valor== false ? suma=0 : suma=1;
+
+      this.errores = this.errores + suma;
+
+
+    },
+    validacionGeneral(){
+
+      console.log("===================");
+       const {  
+        etapavaloracion_textovi, 
+        etapavaloracion_confirmaincidente,
+        etapavaloracion_tipologiadelincidente, 
+        etapavaloracion_niveldelincidente,
+        etapavaloracion_tipodecaso,
+        etapavaloracion_tipoderespuesta,
+        etapavaloracion_medidasintegrales
+      } = this.$store.state.valoracion;
+
+
+       let r =  validacionReporteInicial.existeInformacionParaCapturar_y_mayor_a(etapavaloracion_textovi,20);
+       this.$store.dispatch('actions_uivars_error_textareaValoracion',r);
+       this.validarCaptura(r);
+
+        r =  validacionReporteInicial.existeInformacionParaCapturar_y_no_es_esta(etapavaloracion_confirmaincidente,"En Proceso de Valoracion");
+       this.$store.dispatch('actions_uivars_error_cardConfirmacion',r);
+       this.validarCaptura(r);
+
+        console.log(" valor de etapavaloracion_tipologiadelincidente " + etapavaloracion_tipologiadelincidente);
+
+       r =  validacionReporteInicial.existeInformacionParaCapturar_y_mayor_a(etapavaloracion_tipologiadelincidente,5);
+       this.$store.dispatch('action_uivars_error_cardTipologia',r);
+       this.validarCaptura(r);  
+
+       r =  validacionReporteInicial.existeInformacionParaCapturar_y_mayor_a(etapavaloracion_niveldelincidente,5);
+       this.$store.dispatch('actions_uivars_error_cardNivelIncidente',r);
+       this.validarCaptura(r);  
+
+
+        console.log(" valor de etapavaloracion_tipodecaso " + etapavaloracion_tipodecaso);
+       
+       r =  validacionReporteInicial.existeInformacionParaCapturar_y_mayor_a(etapavaloracion_tipodecaso,5);
+       this.$store.dispatch('actions_uivars_error_cardTipoCaso',r);
+       this.validarCaptura(r);  
+    
+      console.log(" valor de etapavaloracion_tipoderespuesta " + etapavaloracion_tipoderespuesta);
+
+       r =  validacionReporteInicial.existeInformacionParaCapturar_y_no_es_esta(etapavaloracion_tipoderespuesta,"En Proceso de Valoracion");
+       this.$store.dispatch('actions_uivars_error_cardTipoRespuesta',r);
+       this.validarCaptura(r);  
+
+       console.log(" valor de etapavaloracion_medidasintegrales " + etapavaloracion_medidasintegrales);
+
+       r =  validacionReporteInicial.existeInformacionParaCapturar(etapavaloracion_medidasintegrales);
+       this.$store.dispatch('actions_uivars_error_cardMedidasIntegrales',r);
+       this.validarCaptura(r);  
+      return this.errores;
+
+    },
+    validacionAntesDeConfirmacion(){
+
+     
+       const {  
+        etapavaloracion_textovi, 
+        etapavaloracion_confirmaincidente, 
+      } = this.$store.state.valoracion;
+
+
+       let r =  validacionReporteInicial.existeInformacionParaCapturar_y_mayor_a(etapavaloracion_textovi,20);
+       this.$store.dispatch('actions_uivars_error_textareaValoracion',r);
+       this.validarCaptura(r);
+
+        r =  validacionReporteInicial.existeInformacionParaCapturar_y_no_es_esta(etapavaloracion_confirmaincidente,"En Proceso de Valoracion");
+       this.$store.dispatch('actions_uivars_error_cardConfirmacion',r);
+       this.validarCaptura(r);
+
+     
+
+       return this.errores;
+    },
     solicitudImpresion(){
 
 
@@ -247,6 +349,7 @@ export default {
     },
 
    async cargarValoracionIntegral() {
+
       let idx = this.$route.params.id;
       console.log("valor de incidenteid " + idx);
       let res = apiValoracion.recuperarUnaValoracion(idx, this.$store);
@@ -258,6 +361,9 @@ export default {
           console.log("Datos de la valoracionIntegral ");
           console.log(JSON.stringify(response.data));
 
+          this.folio = response.data[0]["folio"];
+          console.log(">>>>>>>valor del folio:" + this.folio);
+          this.estadoDeValoracion = response.data[0]["estado"];
           console.log("valor de id : ");
 
           console.log(response.data[0]["id"]);
@@ -281,8 +387,7 @@ export default {
           this.confirmaincidente = response.data[0]["confirmaincidente"];
           this.$store.dispatch('action_confirmaincidente',this.confirmaincidente);   
           
-          this.folio = response.data[0]["folio"];
-          console.log("valor del folio:" + this.folio);
+        
           
          this.confirmaincidente == "SI ES UN INCIDENTE" ?
          this.verBotonera =true : this.confirmaincidente == "En Proceso de Valoracion"
@@ -326,6 +431,7 @@ export default {
           
           console.log(JSON.stringify(response.data));
           this.datosDelArchivo = response.data;
+          this.planycronograma = id;
           this.nombreDelArchivo = JSON.stringify(response.data[0]['nombreOriginal']);
           console.log(" nombreOriginal :" + this.nombreDelArchivo);
           this.hayPlan =true;
@@ -339,13 +445,18 @@ export default {
 
     },
 
-    actualizarValoracion() {
-
-     console.log(" Permiso EDITARANTESDECIERREDELAVALORACIONINTEGRAL  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARANTESDECIERREDELAVALORACIONINTEGRAL)             
-     if (this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARANTESDECIERREDELAVALORACIONINTEGRAL=='SI'){
 
 
-      const {
+    ejecutar_actualizaValoracion(){
+
+
+      this.validacionGeneral();
+
+      console.log("<<<<< valor de this.errores en ejecutat_actualizavaloracon : >>>> " + this.errores)
+
+      if (this.errores>0) return;
+
+       const {
        // etapavaloracion_incidenteid,
        // etapavaloracion_fechacreacion,
        // etapavaloracion_fechaupdate,
@@ -370,6 +481,7 @@ export default {
         confirmaincidente: etapavaloracion_confirmaincidente,
         tipoderespuesta: etapavaloracion_tipoderespuesta,
         medidasintegrales:  etapavaloracion_medidasintegrales,
+        estado : 'cerrado'
       };
 
       console.log(parmetros);
@@ -391,17 +503,20 @@ export default {
         .catch((error) => {
           console.log(error.data);
         });
-      /*
-      'fechacreacion'         => $datos['fechacreacion'],
-            'fechaupdate'           => $datos['fechaupdate'],
-            'textovi'               => $datos['textovi'],
-            'tipologiadelincidente' => $datos['tipologiadelincidente'],
-            'niveldelincidente'     => $datos['niveldelincidente'],
-            'tipodecaso'            => $datos['tipodecaso'],
-            'confirmaincidente'     => $datos['confirmaincidente'],
-            'tipoderespuesta'       => $datos['tipoderespuesta'],
-            'medidasintegrales'     => $datos['medidasintegrales'],
-            'activo'                => $datos['activo']*/
+
+
+
+    },
+
+    actualizarValoracion() {
+
+     console.log(" Permiso EDITARANTESDECIERREDELAVALORACIONINTEGRAL  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARANTESDECIERREDELAVALORACIONINTEGRAL)             
+     if (this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARANTESDECIERREDELAVALORACIONINTEGRAL=='SI'){
+
+      this.validacion_sePuedeCapturar();
+
+        this.errores>0 ? this.revisarErrores() : this.ejecutar_actualizaValoracion();
+
      }//termina if
     },
   },
@@ -413,7 +528,7 @@ export default {
     }else {
       
       //aqui tengo que poner una notificacion de que no hay autorizacion.
-      this.$store.push('/notificacionnoautorizado');
+      this.$router.push('/notificacionnoautorizado');
 
     }
 
@@ -421,7 +536,8 @@ export default {
   },
   data() {
     return {
-
+      estadoDeValoracion: '',
+      errores : 0,
       verBotonera : true,
       nombreDelArchivo : '',
       datosDelArchivo : null,

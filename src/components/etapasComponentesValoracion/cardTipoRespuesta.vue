@@ -19,6 +19,9 @@
             @change="asignarValor($event)"
           >
           </v-select>
+        <v-alert v-if="this.$store.state.uivars.uivars_error_cardTipoRespuesta" type="error">
+           Debe de seleccionar una opcion.
+        </v-alert>
 
           <!--<v-btn color="blue" v-if="verBotonInvI" @click="irAInvestigacion">
             Investigacion Interna
@@ -37,6 +40,9 @@ export default {
       asignarValor(event) {
 
         this.$store.dispatch('action_tipoderespuesta',event);
+        this.$store.dispatch('actions_uivars_error_cardTipoRespuesta',false);
+
+        
 
       }
   },

@@ -16,7 +16,7 @@
               </component>     -->  
           
             <uploadFile2 
-            
+             :mostrarMensajeValidacion ="this.$store.state.uivars.uivars_error_cardMedidasIntegrales"
              directorio="/uploads/medidasintegrales"
              :HayArchivo ="sihayarchivo"
              :datosDelArchivo = "objetoDatosArchivo"
@@ -27,7 +27,9 @@
                       modulo="valoracion"
                       campoState="etapavaloracion_medidasintegrales">
               </uploadFile2> 
-     
+
+      
+
         </v-col>
       </v-row>
     </v-card-text>

@@ -22,8 +22,18 @@ state: {
 
     uivars_error_textareaMedidas : false,
     uivars_error_comboesunincidente : false,
-    uivars_error_textareaTestigos :false
+    uivars_error_textareaTestigos :false,
+
+    /////////////////////////////////////////////////////
+   
+    uivars_error_textareaValoracion : false,
+    uivars_error_cardConfirmacion : false,
+    uivars_error_cardTipologia: false,
+    uivars_error_cardNivelIncidente :false,
+    uivars_error_cardTipoCaso :false,
+    uivars_error_cardTipoRespuesta :false,
     
+    uivars_error_cardMedidasIntegrales:false,
 
 },
 mutations,

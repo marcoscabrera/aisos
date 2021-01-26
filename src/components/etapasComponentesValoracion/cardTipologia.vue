@@ -15,6 +15,12 @@
             @change="asignarValor($event)"
           >
           </v-select>
+
+         <v-alert v-if="this.$store.state.uivars.uivars_error_cardTipologia" type="error">
+           Debe de seleccionar una opcion.
+        </v-alert>
+
+
         </v-col>
       </v-row>
     </v-card-text>
@@ -31,6 +37,7 @@ export default {
       asignarValor(event){
 
         this.$store.dispatch('action_tipologiadelincidente',event);
+         this.$store.dispatch('action_uivars_error_cardTipologia',false);
       }
 
   },

@@ -75,5 +75,40 @@ export default {
 
     },
 
+    mutation_uivars_error_textareaValoracion(state,valor){
+
+        state.uivars_error_textareaValoracion= valor;
+    },
+    
+    mutation_uivars_error_cardConfirmacion(state,valor){
+
+        state.uivars_error_cardConfirmacion= valor;
+    },
+    
+    mutation_uivars_error_cardTipologia(state,valor){
+
+        state.uivars_error_cardTipologia= valor;
+    },
+
+    mutation_uivars_error_cardNivelIncidente(state,valor){
+
+        state.uivars_error_cardNivelIncidente = valor;
+    },
+
+    mutation_uivars_error_cardTipoCaso(state,valor){
+
+        state.uivars_error_cardTipoCaso = valor;
+    },
+    
+    mutation_uivars_error_cardTipoRespuesta(state,valor){
+
+        state.uivars_error_cardTipoRespuesta = valor;
+    },
+
+    mutation_uivars_error_cardMedidasIntegrales(state,valor){
+
+        state.uivars_error_cardMedidasIntegrales = valor;
+    },
+
   
 }

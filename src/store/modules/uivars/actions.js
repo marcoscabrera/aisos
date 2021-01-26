@@ -72,6 +72,44 @@ export default {
         context.commit("mutation_uivars_error_textareaTestigos",valor);
     },
 
-   
+    //////////////////////////////////
+
+
+
+    actions_uivars_error_textareaValoracion(context,valor){
+
+        context.commit("mutation_uivars_error_textareaValoracion",valor);
+    },
+
+    actions_uivars_error_cardConfirmacion(context,valor){
+
+        context.commit("mutation_uivars_error_cardConfirmacion",valor);
+    },
+    
+    action_uivars_error_cardTipologia(context,valor){
+
+        context.commit("mutation_uivars_error_cardTipologia",valor);
+    },
+
+    actions_uivars_error_cardNivelIncidente(context,valor){
+
+        context.commit("mutation_uivars_error_cardNivelIncidente",valor);
+    },
+
+    
+    actions_uivars_error_cardTipoCaso(context,valor){
+
+        context.commit("mutation_uivars_error_cardTipoCaso",valor);
+    },
+    
+    
+    actions_uivars_error_cardTipoRespuesta(context,valor){
+
+        context.commit("mutation_uivars_error_cardTipoRespuesta",valor);
+    },
+    actions_uivars_error_cardMedidasIntegrales(context,valor){
+
+        context.commit("mutation_uivars_error_cardMedidasIntegrales",valor);
+    },
 
 }

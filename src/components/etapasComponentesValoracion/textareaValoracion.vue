@@ -11,6 +11,10 @@
       
     >
     </v-textarea>
+
+         <v-alert v-if="this.$store.state.uivars.uivars_error_textareaValoracion" type="error">
+      Este Campo no debe de ir vacio y no debe de exceder el numero maximo de palabras
+    </v-alert>
   </v-col>
 </template>
 <script>
@@ -39,6 +43,12 @@ export default {
      let m1 = "HA EXCEDIDO EL NUMERO MAXIMO DE PALABRAS PERMITIDAS =";
      cuantos >250 ? this.errores = m1 :
      this.errores ='' 
+
+     
+     this.errores.length>0 ?  //tal vez deberia cerciorarme que el texto existe
+     this.$store.dispatch('actions_uivars_error_textareaValoracion',true):
+     this.$store.dispatch('actions_uivars_error_textareaValoracion',false);
+
 
     },
     cuentaPalabras(texto) {

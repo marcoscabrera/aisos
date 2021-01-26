@@ -1,7 +1,9 @@
 <template>
   <div>
     <v-bottom-navigation v-if="HayArchivo == true" >
-                <v-btn value="favorites">
+                <v-btn value="favorites"
+                  @click="verArchivo"
+                 >
                   <span>{{ nombreArchivo }}</span>
 
                   <v-icon color="green" :large="largo">mdi-file-document</v-icon>
@@ -44,6 +46,10 @@
       {{ message }}
     </v-alert>
 
+    <v-alert v-if="mostrarMensajeValidacion" type="error">
+      Este campo no debe ir vacio
+    </v-alert>
+
    
 
   
@@ -52,6 +58,7 @@
 <script>
 // basado en este .
 import UploadService from "./UploadFilesService";
+
 
 export default {
   name: "uploadFile2",
@@ -67,8 +74,8 @@ export default {
     modulo            : {  type:String},
     campoState        : { type:String},
     datosDelArchivo   : {type:Array},
-    HayArchivo        : {Type: Boolean}
-    
+    HayArchivo        : {Type: Boolean},
+    mostrarMensajeValidacion : {Type: Boolean,default :false}
 
   },
   data() {
@@ -130,6 +137,36 @@ export default {
 
   methods: {
 
+    verArchivo(){
+      //debemos checar si pueden ver archivos o no . 
+
+     UploadService.getFiles(this.archivoId, this.$store.state)
+     .then(
+       response => {
+       
+
+         let directorio = response.data[0]['directorio'];
+
+        let ni =response.data[0]['nombreinterno'];
+
+         
+
+          let link =  this.$store.state.urlServidor + directorio + '/'+ ni;
+          
+          console.log("link generado " + link);
+   })
+     .catch(
+       error => { console.log(error)}
+     );
+  
+
+    console.log(" fileinfos : " + this.fileInfos);
+
+      
+
+
+    },
+
     recuperandoELIncidenteId() {
 
       let incidenteID = this.$route.params.id;
@@ -149,12 +186,16 @@ export default {
 
 
 
-           UploadService.getFiles(archivoIdABuscar, this.$store.state).then(response => {
+       UploadService.getFiles(archivoIdABuscar, this.$store.state).then(response => {
       // this.fileInfos = response.data;
         
           console.log("datos recuperados del archivo en cuestion ");
       
           console.log(JSON.stringify(response.data));
+          
+          this.fileInfos=response.data[0];
+
+          console.log(" fileinfos : " + this.fileInfos);
 
           this.elArchivo =response.data[0]['nombreOriginal'];
 
@@ -257,6 +298,9 @@ export default {
            console.log(">>>>>>>>>>>>>>> ");
 
           this.message = response.data.message;
+
+          //ocultamos en teoria mensaje de falta campo.
+          this.mostrarMensajeValidacion=false;
 
           return UploadService.getFiles(response.data.idRegistro, this.$store.state );
           

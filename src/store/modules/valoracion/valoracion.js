@@ -5,7 +5,6 @@ import actions from './actions.js';
 export default {
 
     state :{
-
         etapavaloracion_ : '',
         etapavaloracion_incidenteid: '',
         etapavaloracion_fechacreacion: '',
