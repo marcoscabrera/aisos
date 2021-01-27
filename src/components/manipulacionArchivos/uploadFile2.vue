@@ -145,15 +145,20 @@ export default {
        response => {
        
 
-         let directorio = response.data[0]['directorio'];
+        let directorio = response.data[0]['directorio'];
 
         let ni =response.data[0]['nombreinterno'];
 
-         
-
-          let link =  this.$store.state.urlServidor + directorio + '/'+ ni;
+        let link =  this.$store.state.urlServidor + directorio + '/'+ ni;
           
-          console.log("link generado " + link);
+
+        this.$store.dispatch("actions_uivars_docto_a_ver",link);
+        this.$store.dispatch("actions_uivars_ir_origen_que_solicito_docto",this.$router.currentRoute.path)
+        console.log("link generado " + link);
+
+        this.$router.push({name: "VisorPDF"});
+
+          
    })
      .catch(
        error => { console.log(error)}

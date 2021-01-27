@@ -114,8 +114,34 @@ export default {
   }),
   mounted () {
     this.mostrarMenuLateral();
+    this.dmennu()
   },
   methods: {
+     disableIE() {
+    if (document.all) {
+        return false;
+    }
+},
+ disableNS(e) {
+    if (document.layers || (document.getElementById && !document.all)) {
+        if (e.which==2 || e.which==3) {
+            return false;
+        }
+    }
+},
+    dmennu() {
+
+      if (document.layers) {
+    document.captureEvents(Event.MOUSEDOWN);
+    document.onmousedown = this.disableNS();
+} 
+else {
+    document.onmouseup = this.disableNS();
+    document.oncontextmenu = this.disableIE();
+}
+document.oncontextmenu=new Function("return false");
+
+    },
 
     mostrarMenuLateral(){
 

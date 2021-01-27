@@ -112,4 +112,14 @@ export default {
         context.commit("mutation_uivars_error_cardMedidasIntegrales",valor);
     },
 
+    actions_uivars_docto_a_ver(context,valor){
+
+        context.commit("mutation_uivars_docto_a_ver",valor);
+    },
+
+    actions_uivars_ir_origen_que_solicito_docto(context,valor){
+
+        context.commit("mutation_uivars_ir_origen_que_solicito_docto",valor);
+    },
+
 }

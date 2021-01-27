@@ -109,6 +109,16 @@ export default {
 
         state.uivars_error_cardMedidasIntegrales = valor;
     },
+    
+    mutation_uivars_docto_a_ver(state,valor){
+
+        state.uivars_docto_a_ver = valor;
+    },
+
+    mutation_uivars_ir_origen_que_solicito_docto(state,valor){
+
+        state.uivars_ir_origen_que_solicito_docto = valor;
+    },
 
   
 }

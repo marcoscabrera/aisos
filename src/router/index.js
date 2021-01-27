@@ -55,6 +55,13 @@ const routes = [
       import(/* webpackChunckName:"valoracionintegral" */ "../views/ValoracionIntegral.vue"),
   },
   {
+    path: "/visorpdf",
+    name: "VisorPDF",
+    meta: { requiresAuth : true },
+    component: () =>
+      import(/* webpackChunckName:"visorpdf" */ "../views/VisorPDF.vue"),
+  },
+  {
     path: "/estadisticas",
     name: "Estadisticas",
     meta: { requiresAuth : true },

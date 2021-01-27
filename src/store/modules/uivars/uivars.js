@@ -35,6 +35,10 @@ state: {
     
     uivars_error_cardMedidasIntegrales:false,
 
+    uivars_docto_a_ver : '',
+
+     uivars_ir_origen_que_solicito_docto :''
+
 },
 mutations,
 actions
