@@ -234,19 +234,19 @@ export default {
        this.validarCaptura(r);  
 
 
-        console.log(" valor de etapavaloracion_tipodecaso " + etapavaloracion_tipodecaso);
+        //console.log(" valor de etapavaloracion_tipodecaso " + etapavaloracion_tipodecaso);
        
        r =  validacionReporteInicial.existeInformacionParaCapturar_y_mayor_a(etapavaloracion_tipodecaso,5);
        this.$store.dispatch('actions_uivars_error_cardTipoCaso',r);
        this.validarCaptura(r);  
     
-      console.log(" valor de etapavaloracion_tipoderespuesta " + etapavaloracion_tipoderespuesta);
+     // console.log(" valor de etapavaloracion_tipoderespuesta " + etapavaloracion_tipoderespuesta);
 
        r =  validacionReporteInicial.existeInformacionParaCapturar_y_no_es_esta(etapavaloracion_tipoderespuesta,"En Proceso de Valoracion");
        this.$store.dispatch('actions_uivars_error_cardTipoRespuesta',r);
        this.validarCaptura(r);  
 
-       console.log(" valor de etapavaloracion_medidasintegrales " + etapavaloracion_medidasintegrales);
+     //  console.log(" valor de etapavaloracion_medidasintegrales " + etapavaloracion_medidasintegrales);
 
        r =  validacionReporteInicial.existeInformacionParaCapturar(etapavaloracion_medidasintegrales);
        this.$store.dispatch('actions_uivars_error_cardMedidasIntegrales',r);

@@ -30,6 +30,7 @@
         <v-file-input
           show-size
           label="Adjunta tu documento"
+          :accept="tipoDeArchivo"
           @change="selectFile"
         ></v-file-input>
       </v-col>
@@ -66,16 +67,17 @@ export default {
 
   props : {
 
-    archivoId         : {type:String ,defautl: '0'},
-    incidenteid       : {type: String , default : '0'},
-    directorio        : { type: String , default : ''},
-    nombreArchivo     : { type :String , default :'' },
-    action_a_Ejecutar : { type:String, default :''},
-    modulo            : {  type:String},
-    campoState        : { type:String},
+    archivoId         : {type:String , default :'0'},
+    incidenteid       : {type:String , default :'0'},
+    directorio        : {type:String , default :''},
+    nombreArchivo     : {type:String , default :'' },
+    action_a_Ejecutar : {type:String,  default :''},
+    modulo            : {type:String},
+    campoState        : {type:String},
     datosDelArchivo   : {type:Array},
-    HayArchivo        : {Type: Boolean},
-    mostrarMensajeValidacion : {Type: Boolean,default :false}
+    HayArchivo        : {type:Boolean},
+    mostrarMensajeValidacion : {Type: Boolean,default :false},
+    tipoDeArchivo :{ type:String ,}
 
   },
   data() {
@@ -154,7 +156,7 @@ export default {
 
         this.$store.dispatch("actions_uivars_docto_a_ver",link);
         this.$store.dispatch("actions_uivars_ir_origen_que_solicito_docto",this.$router.currentRoute.path)
-        console.log("link generado " + link);
+        //console.log("link generado " + link);
 
         this.$router.push({name: "VisorPDF"});
 
@@ -165,7 +167,7 @@ export default {
      );
   
 
-    console.log(" fileinfos : " + this.fileInfos);
+    //console.log(" fileinfos : " + this.fileInfos);
 
       
 

@@ -23,6 +23,7 @@
              :nombreArchivo = "nombreDelArchivo"
                       :incidenteid ="incidenteId"
                       :archivoId="archivoId"
+                      tipoDeArchivo="*.pdf"
                       action_a_Ejecutar="action_medidasintegrales"
                       modulo="valoracion"
                       campoState="etapavaloracion_medidasintegrales">
@@ -84,10 +85,11 @@ export default {
 
   
   asignarValor(event){
-    console.log(event);
+    //console.log(event);
   
-    console.log("valor de a en medidas: " + this.files[0].name);
+   // console.log("valor de a en medidas: " + this.files[0].name);
     this.$store.dispatch('action_medidasintegrales',this.files[0].name);
+    return event;
   },
 
   },

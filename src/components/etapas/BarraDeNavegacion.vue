@@ -6,7 +6,7 @@
                   dark
                   small
                   color="primary"
-                  :loading="loading_dashboard"
+                  
                   @click="IR_a_RUTA"
                 >
                   <v-icon dark>
@@ -20,7 +20,7 @@
                   dark
                   small
                   color="primary"
-                  :loading="loading_ri"
+                 
                   @click="IR_a_ri"
                 > RI
                 </v-btn>                  
@@ -29,7 +29,7 @@
                   fab
                   dark
                   small
-                   :loading="loading_vi"
+                  
                   color="primary"
                   @click="IR_a_vi"
                 > VI
@@ -40,7 +40,7 @@
                   dark
                   small
                   color="primary"
-                   :loading="loading_s"
+                 
                   @click="ir_al_seguimiento"
                 >
                     S
@@ -50,7 +50,7 @@
                   fab
                   dark
                   small
-                  :loading="loading_c"
+                 
                   color="primary"
                   @click="ir_al_cierre">
                     C

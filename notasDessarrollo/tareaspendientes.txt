@@ -2,8 +2,8 @@ TAREAS PENDIENTES DESARROLLO PLATAFORMA
 
 1.-Integracion de los permisos del usuarios de acuerdo a su 
    rol a la interfaz de usuarios de la plataforma 
-   avance : 40% 
-   tiempo estimado para terminar :  2 dias 
+   avance : 80% 
+   tiempo estimado para terminar :  1 dias 
 
 2.-Implementancion de panel de control para parametros de la interfaz de usuarios
    (numero de palabras en determinados campos)
@@ -23,8 +23,8 @@ TAREAS PENDIENTES DESARROLLO PLATAFORMA
    tiempo estimado para terminar :  2 dias 
 
 6.-Repositorios para Frontend y backend
-  avance 50%
-  tiempo estimado para terminar :  2 dias 
+  avance 100%
+ 
 
 7.-Implemetacion de tareas con Documentos
 -- impresion de doctos
