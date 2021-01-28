@@ -120,5 +120,10 @@ export default {
         state.uivars_ir_origen_que_solicito_docto = valor;
     },
 
+    mutation_uivars_tipo_conciencia_o_prevencion(state,valor){
+
+        state.uivars_tipo_conciencia_o_prevencion = valor;
+    },
+
   
 }

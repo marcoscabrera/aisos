@@ -37,7 +37,11 @@ state: {
 
     uivars_docto_a_ver : '',
 
-     uivars_ir_origen_que_solicito_docto :''
+     uivars_ir_origen_que_solicito_docto :'',
+
+     /////////////////////////////////////////////
+
+     uivars_tipo_conciencia_o_prevencion : ''
 
 },
 mutations,

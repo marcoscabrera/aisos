@@ -4,7 +4,8 @@
       filled
       name="input-7-4"
       :label="mensaje"
-      :value="texto"
+      :value='this.$store.state.conciencia.conciencia_estatus' 
+              
       @input="asignarValor($event)"
       auto-grow
       :error-messages="errores"
@@ -22,17 +23,12 @@ export default {
   methods: {
     asignarValor(evento) {
       console.log(evento);
-      this.$store.dispatch("setear_testigos", evento);
+      this.$store.dispatch('action_conciencia_estatus',evento );
       let cuantos = this.cuentaPalabras(evento);
       let m1 = "HA EXCEDIDO EL NUMERO MAXIMO DE PALABRAS PERMITIDAS =";
       cuantos > 250 ? (this.errores = m1) : (this.errores = "");
     },
-    asignarValorx(evento) {
-      this.$store.dispatch("action_textovi", evento);
-      let cuantos = this.cuentaPalabras(evento);
-      let m1 = "HA EXCEDIDO EL NUMERO MAXIMO DE PALABRAS PERMITIDAS =";
-      cuantos > 250 ? (this.errores = m1) : (this.errores = "");
-    },
+
     cuentaPalabras(texto) {
       let numeroPalabras = texto.split(" ");
       let cuantos = numeroPalabras.length;

@@ -27,11 +27,26 @@ const routes = [
       import(/* webpackChunckName:"dashboard" */ "../views/Dasboard.vue"),
   },
   {
-    path: "/conciencia",
+    path: "/conciencia/:tipo",
     name: "Conciencia",
     meta: { requiresAuth : true },
     component: () =>
-      import(/* webpackChunckName:"conciencia" */ "../views/Conciencia.vue"),
+      import(/* webpackChunckName:"conciencia" */ "../views/Conciencia2.vue"),
+  },
+        
+  {
+    path: "/prevencion",
+    name: "Prevencion",
+    meta: { requiresAuth : true },
+    component: () =>
+      import(/* webpackChunckName:"prevencion" */ "../views/Conciencia2.vue"),
+  },
+   {
+    path: "/nuevaconciencia",
+    name: "Nuevoconciencia",
+   
+    component: () =>
+      import(/* webpackChunckName:"nuevaconciencia" */ "../components/conciencia/Nuevoconciencia.vue"),
   },
   {
     path: "/denuncias",
@@ -200,14 +215,7 @@ const routes = [
     component: () =>
       import(/* webpackChunckName:"denuncialegal" */ "../views/InvestigacionInterna.vue"),
   },
-      
-  {
-    path: "/prevencion",
-    name: "Prevencion",
-    meta: { requiresAuth : true },
-    component: () =>
-      import(/* webpackChunckName:"prevencion" */ "../views/Prevencion.vue"),
-  },
+
   {
     path: "/evidencias/:incidenteId",
     name: "Evidencias",
@@ -259,7 +267,7 @@ router.beforeEach(  (to, from , next ) => {
 
     let lusuario = usuario.length;
 
-    console.log("valor usuario "+ lusuario);
+    console.log("valor usuario en router.beforeEach"+ lusuario);
       
     if (usuario == 0){
       next({

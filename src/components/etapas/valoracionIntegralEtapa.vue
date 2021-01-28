@@ -411,7 +411,8 @@ export default {
           //console.log("valor de planycronograma : " +  this.planycronograma  );
            //this.planycronograma.length>3 ?  this.hayPlan   = true :false;
           // this.plan =true;
-          
+          console.log("typeof idarchivo");
+            console.log(typeof idarchivo);
           idarchivo == '0'? this.planycronograma = '0':  this.descargarDatosDelArchivo(idarchivo, this.$store.state);
 
 
@@ -423,13 +424,13 @@ export default {
      
     async descargarDatosDelArchivo(id, state){
 
-      console.log(" dentro de descargarDatosDelArchivo => id = " + id);
+    //  console.log(" dentro de descargarDatosDelArchivo => id = " + id);
           
      let archivo =   apiArchivos.conseguirArchivo(id,state);
 
      archivo.then( response => {
           
-          console.log(JSON.stringify(response.data));
+        //  console.log(JSON.stringify(response.data));
           this.datosDelArchivo = response.data;
           this.planycronograma = id;
           this.nombreDelArchivo = JSON.stringify(response.data[0]['nombreOriginal']);
@@ -452,7 +453,7 @@ export default {
 
       this.validacionGeneral();
 
-      console.log("<<<<< valor de this.errores en ejecutat_actualizavaloracon : >>>> " + this.errores)
+    //  console.log("<<<<< valor de this.errores en ejecutat_actualizavaloracon : >>>> " + this.errores)
 
       if (this.errores>0) return;
 
@@ -490,9 +491,9 @@ export default {
 
       update
         .then((response) => {
-          console.log(JSON.stringify(response.data));
+         // console.log(JSON.stringify(response.data));
          // let ruta =`/notificaciondos/${this.incidenteid}/${this.folio}/${etapavaloracion_confirmaincidente}`;
-
+         typeof response;
          // this.$router.push(ruta);
           this.$router.push({
           name: "Notificaciondos",

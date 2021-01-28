@@ -6,8 +6,7 @@
         <v-col cols="12" xs="12" sm="6" md="6"> </v-col>
         <v-col cols="12" xs="12" sm="6" md="6">
           <v-select
-            :value="confirmacion"
-            :item-value="confirmacion"
+            :item-value="this.$store.state.conciencia.conciencia_clasificacion"
             :items="itemsOpciones"
             label="ESTATUS"
             dense
@@ -21,25 +20,24 @@
   </v-card>
 </template>
 <script>
-/* NOTA :  */
+/* NOTA :
+
+
+     <!--:value='this.$store.state.conciencia.conciencia_clasificacion' 
+             -->*/
 export default {
   props: ["confirmacion"],
   methods: {
     asignarValor(event) {
-      this.$store.dispatch("action_confirmaincidente", event);
-
-      /* aplicacion de operador ternario */
-      /* #ternario #if */
-      event == "SI ES UN INCIDENTE"
-        ? this.$store.dispatch("actions_uivars_esincidente", true)
-        : this.$store.dispatch("actions_uivars_esincidente", false);
-    },
+       this.$store.dispatch('action_conciencia_clasificacion',event );  
+   }
   },
   data() {
     return {
-      noesincidente: "",
+     
       itemsOpciones: ["SI", "NO", "PENDIENTE"],
-    };
-  },
-};
+    }
+  }
+}
+
 </script>

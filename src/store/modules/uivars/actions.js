@@ -122,4 +122,9 @@ export default {
         context.commit("mutation_uivars_ir_origen_que_solicito_docto",valor);
     },
 
+    actions_uivars_tipo_conciencia_o_prevencion(context,valor){
+
+        context.commit("mutation_uivars_tipo_conciencia_o_prevencion",valor);
+    },
+
 }

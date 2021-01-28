@@ -47,6 +47,14 @@
             <v-list-item-title> Conciencia </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item @click="irAPrevencion" v-if="this.$store.state.uivars.uivars_puedevermenulateral">
+          <v-list-item-action>
+            <v-icon> mdi-alarm-panel-outline </v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title> Prevencion </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
 
         <v-list-item @click="irAEstadisticas" v-if="this.$store.state.uivars.uivars_puedevermenulateral">
           <v-list-item-action>
@@ -117,32 +125,7 @@ export default {
     this.dmennu()
   },
   methods: {
-     disableIE() {
-    if (document.all) {
-        return false;
-    }
-},
- disableNS(e) {
-    if (document.layers || (document.getElementById && !document.all)) {
-        if (e.which==2 || e.which==3) {
-            return false;
-        }
-    }
-},
-    dmennu() {
-
-      if (document.layers) {
-    document.captureEvents(Event.MOUSEDOWN);
-    document.onmousedown = this.disableNS();
-} 
-else {
-    document.onmouseup = this.disableNS();
-    document.oncontextmenu = this.disableIE();
-}
-document.oncontextmenu=new Function("return false");
-
-    },
-
+ 
     mostrarMenuLateral(){
 
       let usurio = this.$store.state.usuarios.usuarios_usuariologueado;
@@ -183,7 +166,11 @@ document.oncontextmenu=new Function("return false");
       this.$router.push("/denuncias");
     },
     irAConciencia() {
-      this.$router.push("/conciencia");
+      this.$router.push({ name : 'Conciencia' , params:{ tipo:'c' }});
+    },
+    irAPrevencion() {
+     this.$router.push({ name : 'Prevencion' , params:{ tipo:'p' }});
+  
     },
     irAEstadisticas() {
       this.$router.push("/estadisticas");
