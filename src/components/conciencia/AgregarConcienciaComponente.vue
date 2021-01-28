@@ -294,7 +294,7 @@ this.$store.dispatch('action_conciencia_tipo', response.data[0]['tipo']);
         estatus :  this.$store.state.conciencia.conciencia_estatus,
         clasificacion :  this.$store.state.conciencia.conciencia_clasificacion,
         activo :  "1",
-        tipo :  tipoagrabar,
+        tipo : tipoagrabar,
 
 
       } ;

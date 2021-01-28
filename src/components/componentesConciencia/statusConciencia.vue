@@ -33,7 +33,7 @@ export default {
       let numeroPalabras = texto.split(" ");
       let cuantos = numeroPalabras.length;
 
-      let m = `ESTATUS CONCIENCIA  PALABRAS #${cuantos}`;
+      let m = `ESTATUS   PALABRAS #${cuantos}`;
 
       this.mensaje = m;
 
@@ -44,7 +44,7 @@ export default {
   data() {
     return {
       medidasproteccion: "",
-      mensaje: "ESTATUS CONCIENCIA (250 PALABRAS)",
+      mensaje: "ESTATUS  (250 PALABRAS)",
       errores: "",
       numeroPalabras: 0,
     };

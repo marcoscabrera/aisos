@@ -7,7 +7,7 @@
   >
     <template v-slot:top>
       <v-toolbar flat color="white">
-        <v-toolbar-title>Catalogo de conciencia</v-toolbar-title>
+        <v-toolbar-title>{{tipo}}</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
             <v-btn color="primary" dark class="mb-2" @click="agregarNuevoConciencia"
@@ -117,7 +117,29 @@ export default {
          TodosLosConciencia
         .then( response => { 
           console.log(JSON.stringify(response.data));
-          this.conciencia = response.data;
+
+          let contenedor =response.data;
+
+          if (this.tipo=="Conciencia"){
+          this.conciencia =contenedor.map((c,index ) => {
+             typeof index;
+             if (c.tipo=='Conciencia') return c;
+
+         });
+
+          }else{
+            
+          this.conciencia =contenedor.map((c,index ) => {
+              typeof index;
+             if (c.tipo=='Prevencion') return c;
+
+         });
+          }
+         
+
+
+          this.$store.dispatch('actions_uivars_tipo_conciencia_o_prevencion', this.tipo);
+
         } )
         .catch( error => { console.log(JSON.stringify(error.data))});
     },
