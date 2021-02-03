@@ -19,7 +19,8 @@
             <v-col cols="12" xs="12" sm="6" md="6">
              <!-- aqui va fileupload -->
                 <uploadFile2 
-                
+                 :mostrarMensajeValidacion ="this.$store.state.uivars.uivars_error_seguimiento_seguimiento_actavaloracion_docto"
+          
                 directorio="/uploads/seguimiento"
                 :HayArchivo ="sihayarchivo"
                 

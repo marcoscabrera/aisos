@@ -134,7 +134,7 @@
 
     <v-row>
       <cardNotificacionPFN
-
+      
        :incidenteId ="incidenteIdPE"
 
         :archivoId ="seguimiento.notificacionpfn_docto"

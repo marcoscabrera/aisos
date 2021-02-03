@@ -37,12 +37,22 @@ export default {
   
         console.log("existeInformacionParaCapturar_y_no_es_cero >>valor del campo a validar :" + campo );
         console.log("existeInformacionParaCapturar_y_no_es_cero >>tipo de variable :" + typeof campo );
-        let respuesta = false;
+        console.log("longitud del campo  :" + campo.length );
+        
+        let campo_sin_comillas = campo.replace('"','');
         let campo_a_numerico  ;
-       if ( campo.length> 1 ) return  false;
-         campo_a_numerico = parseInt(campo);
+
+        campo_a_numerico = parseInt(campo_sin_comillas);
+
+        console.log("valor del campo_a_numerico  :" + campo_a_numerico );
+
+     
+        let respuesta = false;
+       
+      
+        
         console.log("existeInformacionParaCapturar_y_no_es_cero >>campo a numerico ;: " + campo_a_numerico);
-        isNaN(campo_a_numerico) == true ? respuesta =true : respuesta = false;
+        campo_a_numerico == 0 ? respuesta =true : respuesta = false;
         console.log(respuesta);
         return respuesta;
 

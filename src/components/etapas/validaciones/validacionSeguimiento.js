@@ -20,6 +20,18 @@ validacion_sePuedeCapturar(store){
  
  seguimiento_plan , 
  seguimiento_documentos_docto , 
+
+ seguimiento_notificaciondif_docto , 
+ 
+ seguimiento_notificacionautoridad_docto , 
+ 
+ seguimiento_notificacionpfn_docto , 
+ 
+ seguimiento_notificaciodenunciante_docto , 
+ 
+ seguimiento_actavaloracion_docto , 
+ 
+ seguimiento_planrecuperacion_docto,
  /*
  seguimiento_documentos , 
  
@@ -39,19 +51,10 @@ validacion_sePuedeCapturar(store){
  
 
  
- seguimiento_notificaciondif_docto , 
- 
- seguimiento_notificacionautoridad_docto , 
- 
- seguimiento_notificacionpfn_docto , 
- 
- seguimiento_notificaciodenunciante_docto , 
- 
- seguimiento_actavaloracion_docto , 
+
  
  seguimiento_protocolosos , 
- 
- seguimiento_planrecuperacion_docto , */
+  , */
  
 
      
@@ -71,6 +74,30 @@ validacion_sePuedeCapturar(store){
    this.validarCaptura(r);
    r = validacionReporteInicial.existeInformacionParaCapturar_y_no_es_cero(seguimiento_documentos_docto); 
    store.dispatch('actions_uivars_error_seguimiento_seguimiento_documentos_docto',r);   
+   this.validarCaptura(r);
+
+   r = validacionReporteInicial.existeInformacionParaCapturar_y_no_es_cero(seguimiento_plan_docto); 
+   store.dispatch('actions_uivars_error_seguimiento_seguimiento_plan_docto',r);   
+   this.validarCaptura(r);
+
+ r = validacionReporteInicial.existeInformacionParaCapturar_y_no_es_cero(seguimiento_notificaciondif_docto); 
+   store.dispatch('actions_uivars_error_seguimiento_seguimiento_notificaciondif_docto',r);   
+   this.validarCaptura(r);
+ r = validacionReporteInicial.existeInformacionParaCapturar_y_no_es_cero(seguimiento_notificacionautoridad_docto); 
+   store.dispatch('actions_uivars_error_seguimiento_seguimiento_notificacionautoridad_docto',r);   
+   this.validarCaptura(r);
+ r = validacionReporteInicial.existeInformacionParaCapturar_y_no_es_cero(seguimiento_notificacionpfn_docto); 
+   store.dispatch('actions_uivars_error_seguimiento_seguimiento_notificacionpfn_docto',r);   
+   this.validarCaptura(r);
+ r = validacionReporteInicial.existeInformacionParaCapturar_y_no_es_cero(seguimiento_notificaciodenunciante_docto); 
+   store.dispatch('actions_uivars_error_seguimiento_seguimiento_notificaciodenunciante_docto',r);   
+   this.validarCaptura(r);
+ r = validacionReporteInicial.existeInformacionParaCapturar_y_no_es_cero(seguimiento_actavaloracion_docto); 
+   store.dispatch('actions_uivars_error_seguimiento_seguimiento_actavaloracion_docto',r);   
+   this.validarCaptura(r);
+
+ r = validacionReporteInicial.existeInformacionParaCapturar_y_no_es_cero(seguimiento_planrecuperacion_docto); 
+   store.dispatch('actions_uivars_error_seguimiento_seguimiento_planrecuperacion_docto',r);   
    this.validarCaptura(r);
    /*
  r = validacionReporteInicial.existeInformacionParaCapturar(seguimiento_documentos); 
@@ -94,31 +121,11 @@ validacion_sePuedeCapturar(store){
  r = validacionReporteInicial.existeInformacionParaCapturar(seguimiento_planrecuperacion); 
    store.dispatch('actions_uivars_error_seguimiento_seguimiento_planrecuperacion',r);   
    this.validarCaptura(r);
- r = validacionReporteInicial.existeInformacionParaCapturar(seguimiento_plan_docto); 
-   store.dispatch('actions_uivars_error_seguimiento_seguimiento_plan_docto',r);   
-   this.validarCaptura(r);
 
- r = validacionReporteInicial.existeInformacionParaCapturar(seguimiento_notificaciondif_docto); 
-   store.dispatch('actions_uivars_error_seguimiento_seguimiento_notificaciondif_docto',r);   
-   this.validarCaptura(r);
- r = validacionReporteInicial.existeInformacionParaCapturar(seguimiento_notificacionautoridad_docto); 
-   store.dispatch('actions_uivars_error_seguimiento_seguimiento_notificacionautoridad_docto',r);   
-   this.validarCaptura(r);
- r = validacionReporteInicial.existeInformacionParaCapturar(seguimiento_notificacionpfn_docto); 
-   store.dispatch('actions_uivars_error_seguimiento_seguimiento_notificacionpfn_docto',r);   
-   this.validarCaptura(r);
- r = validacionReporteInicial.existeInformacionParaCapturar(seguimiento_notificaciodenunciante_docto); 
-   store.dispatch('actions_uivars_error_seguimiento_seguimiento_notificaciodenunciante_docto',r);   
-   this.validarCaptura(r);
- r = validacionReporteInicial.existeInformacionParaCapturar(seguimiento_actavaloracion_docto); 
-   store.dispatch('actions_uivars_error_seguimiento_seguimiento_actavaloracion_docto',r);   
-   this.validarCaptura(r);
- r = validacionReporteInicial.existeInformacionParaCapturar(seguimiento_protocolosos); 
+    r = validacionReporteInicial.existeInformacionParaCapturar(seguimiento_protocolosos); 
    store.dispatch('actions_uivars_error_seguimiento_seguimiento_protocolosos',r);   
    this.validarCaptura(r);
- r = validacionReporteInicial.existeInformacionParaCapturar(seguimiento_planrecuperacion_docto); 
-   store.dispatch('actions_uivars_error_seguimiento_seguimiento_planrecuperacion_docto',r);   
-   this.validarCaptura(r);*/
+   */
 
 
    console.log(" valor de this.errores en seguimiento despues de validar : " + this.errores);
