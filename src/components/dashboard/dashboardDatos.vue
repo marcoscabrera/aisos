@@ -33,6 +33,14 @@
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
 
+        <v-btn color="primary"   dark class="mb-2" @click="togglecols">
+          <v-icon>
+            mdi-toggle-switch
+          </v-icon>
+        </v-btn>
+
+       <v-divider class="mx-4" inset vertical></v-divider>
+
         <v-btn color="primary"  v-if="puedeCrearUnNuevoIncidente" dark class="mb-2" @click="irADenuncias">
           Nuevo Incidente
         </v-btn>
@@ -44,7 +52,9 @@
     <template v-slot:item.fechaAlta="{ item }">
       {{ item.fechaAlta | quitarCeros }}
     </template>
-    <template v-slot:item.incidenteconfirmado="{ item }">
+      
+
+    <template v-if="ocultar" v-slot:item.incidenteconfirmado="{ item }">
       <v-icon color="red" v-if="item.incidenteconfirmado == 'SI'">
         mdi-checkbox-marked-circle</v-icon
       >
@@ -57,7 +67,7 @@
     </template>
 
     <!-- confirmaciones -->
-    <template v-slot:item.confirmaincidente="{ item }">
+    <template  v-if="ocultar" v-slot:item.confirmaincidente="{ item }">
       <v-icon color="red" v-if="item.confirmaincidentenumerico == 2">
         mdi-checkbox-marked-circle</v-icon
       >
@@ -208,7 +218,7 @@ import validacionSeguimiento from '@/components/etapas/validaciones/validacionSe
 
 export default {
   data: () => ({
-
+    ocultar : false,
     puedeCrearUnNuevoIncidente  :  false,
     puedeVerValoracionInicial  :  false,
     puedeverValoracionIntegral  :  false ,
@@ -228,7 +238,32 @@ export default {
     dialog: false,
     expanded: [],
     singleExpand: false,
+    
+    headers2: [
+      /* {
+        text: "id",
+        align: "start",
+        sortable: false,
+        value: "id",
+      },*/
+      {
+        text: "Folio",
+        value: "folio",
+      },
+      //{ text: "Programa", value: "programa" },
+      { text: "Fecha", value: "fechaAlta" },
 
+
+      { text: "Respuesta", value: "tipoderespuesta" },
+      //{ text: "Hechos", value: "data-table-expand" },
+      // { text: "Activo", value: "activo" },
+      { text: "Estado", value: "estado" },
+      { text: "R Inicial", value: "etapauno" },
+      { text: "V Integral", value: "etapados" },
+      { text: "Seguimiento", value: "etapatres" },
+      { text: "Cierre", value: "etapacuatro" },
+      //{ text: "Etapas", value: "actions", sortable: false },
+    ],
     headers: [
       /* {
         text: "id",
@@ -290,6 +325,11 @@ export default {
   },
 
   methods: {
+    togglecols(){
+       
+       this.ocultar == false ? this.ocultar=true : this.ocultar=false;
+
+    },
     verificarPermisos() {
     
     let permisosDeRol = this.$store.state.usuarios.usuarios_usuariologueado_rol;
