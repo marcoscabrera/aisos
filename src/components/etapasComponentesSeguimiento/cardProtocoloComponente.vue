@@ -46,7 +46,7 @@
             }
         },
     props: {
-        valorCombo: {
+        valorcombo: {
             type: String,
             default: ''
         },

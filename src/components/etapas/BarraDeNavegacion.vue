@@ -1,5 +1,5 @@
 <template>
-         <v-div>
+         <div>
                 <v-btn 
                   class="mx-2"
                   fab
@@ -55,7 +55,7 @@
                   @click="ir_al_cierre">
                     C
                 </v-btn>
-        </v-div>  
+        </div>  
 </template>
 
 <script>

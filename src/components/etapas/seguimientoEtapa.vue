@@ -204,7 +204,7 @@ SE CUENTA CON EL LLENADO DEL ACTA DE VALORACION DEL/DE LOS INCIDENTES
     <!-- =============================================== -->
     <v-row>
         <cardProtocoloComponente v-if="verDenuncia_o_investigacion"
-        valorCombo="SI"
+         :valorcombo="seguimiento.protocolosos"
         :esDenuncia="esDenuncia"
         :incidenteId="incidenteId"
         :textoRespuesta="tipoderespuesta">
@@ -364,7 +364,8 @@ export default {
             notificaciodenunciante_docto : this.$store.state.seguimiento.seguimiento_notificaciodenunciante_docto, 
             actavaloracion_docto        : this.$store.state.seguimiento.seguimiento_actavaloracion_docto, 
             planrecuperacion_docto      : this.$store.state.seguimiento.seguimiento_planrecuperacion_docto, 
-            plan_docto  : this.$store.state.seguimiento.seguimiento_plan_docto
+            plan_docto  : this.$store.state.seguimiento.seguimiento_plan_docto,
+            protocolosos : this.$store.state.seguimiento.seguimiento_protocolosos
 
      };
 

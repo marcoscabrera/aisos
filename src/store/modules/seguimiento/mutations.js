@@ -73,6 +73,7 @@ mutation_seguimiento_planrecuperacion_docto     ( state, valor) {
 mutation_seguimiento_plan_docto     ( state, valor) {
     state.seguimiento_plan_docto=valor;
 },
+
 mutation_seguimiento_protocolosos( state, valor) {
     state.seguimiento_protocolosos    =valor;
 },

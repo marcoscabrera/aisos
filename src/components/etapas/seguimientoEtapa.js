@@ -24,7 +24,9 @@ export default {
             console.log('datos.seguimiento_incidenteid   ');
             console.log(datos.incidenteid) ;
 
-
+            console.log("atos.protocolosos : " + datos.incidenteid) ;
+            let datos_protocolosos = JSON.stringify(datos.protocolosos) ;
+            store.dispatch('action_protocolosos'    ,  datos_protocolosos );
 
            let datos_incidenteid = JSON.stringify(datos.incidenteid);
            let datos_status = JSON.stringify(datos.status) ;
@@ -76,8 +78,7 @@ export default {
             store.dispatch('action_planrecuperacion_docto'    ,  datos_planrecuperacion_docto) ;
             store.dispatch('action_plan_docto'    ,  datos_plan_docto );
 
-            let datos_protocolosos = JSON.stringify(datos.protocolosos) ;
-            store.dispatch('action_protocolosos'    ,  datos_protocolosos );
+           
 
     }
   /*
