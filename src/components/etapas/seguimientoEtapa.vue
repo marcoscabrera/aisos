@@ -266,7 +266,8 @@ import seguimientoEtapa from '@/components/etapas/seguimientoEtapa.js'
 import apiArchivos from '@/apialdeas/apiArchivos.js';
 import cardProtocoloComponente  from  '@/components/etapasComponentesSeguimiento/cardProtocoloComponente.vue'
 import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
-
+/* importar en el componente , antes del export defaiñt*/
+import validacionSeguimiento from "@/components/etapas/validaciones/validacionSeguimiento.js";
 
 export default {
   components: {     
@@ -291,6 +292,9 @@ export default {
   },
 
   methods: {
+
+   
+    /*===== termina validacion ====*/
     PermisoImpresion(){
              // 
       console.log(" Permiso IMPRESIONDESEGUIMIENTO  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.IMPRESIONDESEGUIMIENTO)             
@@ -308,8 +312,10 @@ export default {
 
      }
     },
-    guardarSeguimiento(){
-
+    revisarErrrores(){
+      console.log(" Revisar Errores ");
+    },
+    guardarRegistro() {
           // 
           console.log(" Permiso EDITARDESEGUIMIENTO  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARDESEGUIMIENTO)             
      if (this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARDESEGUIMIENTO=='SI'){
@@ -378,7 +384,17 @@ export default {
             this.loading = false;
         }
       );
-     }//cierra el if del permiso EDITARDESEGUIMIENTO
+    }//cierra el if del permiso EDITARDESEGUIMIENTO
+
+    },
+
+    guardarSeguimiento(){
+       
+       let resultadoValidacion = validacionSeguimiento.validacion_sePuedeCapturar(this.$store);
+
+       resultadoValidacion > 0 ? this.revisarErrrores() : this.guardarRegistro();
+
+     
     },
     guardar__iraDashboard() {
       this.$router.push("/dashboard");
@@ -605,7 +621,7 @@ export default {
 
   data() {
     return {
-
+      errores : 0,
       tipoderespuesta : '',
       esDenuncia : false,
       verDenuncia_o_investigacion : false,

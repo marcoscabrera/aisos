@@ -16,6 +16,41 @@
 
       </v-toolbar>
     </template>
+
+    <!-- clasificacion -->
+  
+      <template v-slot:item.clasificacion="{ item }">
+
+          <v-chip v-if="item.clasificacion=='NO'"
+            color="red"
+          >NO</v-chip>
+          
+          <v-chip v-if="item.clasificacion=='Pendiente'"
+            color="yellow"
+          >Pendiente</v-chip>
+          
+          <v-chip v-if="item.clasificacion=='SI'"
+            color="green"
+          >SI</v-chip>
+
+     </template>
+
+    <!-- estatus del plan  -->
+    <template v-slot:item.estatusplan="{ item }">
+
+          <v-chip v-if="item.estatusplan=='Pendiente'"
+            color="red"
+          >Pendiente</v-chip>
+          
+          <v-chip v-if="item.estatusplan=='En Proceso'"
+            color="yellow"
+          >En Proceso</v-chip>
+          
+          <v-chip v-if="item.estatusplan=='Terminado'"
+            color="green"
+          >Terminado</v-chip>
+
+     </template>
     <template v-slot:item.actions_editar="{ item }">
       <v-btn color="primary" dark dense @click="editItem(item)">
       <v-icon small class="mr-2" > mdi-pencil </v-icon>
@@ -64,7 +99,8 @@ export default {
         { text: 'id', value: 'id' },
         { text: 'estatus', value: 'estatus' },
         { text: 'clasificacion', value: 'clasificacion' },
-        { text: 'activo', value: 'activo' },
+        { text: 'Estado del Plan', value: 'estatusplan' },
+        //{ text: 'activo', value: 'activo' },
 //{ text: 'tipo', value: 'tipo' },
 
        
@@ -110,9 +146,28 @@ export default {
     initialize() {
      this.poblarGrid();
     },
+      
+      esConciencia(registro){
+        console.log("registro " + registro);
+        return registro.tipo=="Conciencia";
+
+      },
+       esPrevencion(registro){
+
+        return registro.tipo=="Prevencion";
+
+      },
+
        async poblarGrid(){
 
-        let TodosLosConciencia = apiConciencia.cargar__todos__los__conciencia(this.$store);
+         this.tipo = this.$store.state.uivars.uivars_tipo_conciencia_o_prevencion;
+
+         console.log("valor de this.tipo en asyn poblarGrid " + this.tipo);
+
+         var t = this.tipo.toLowerCase()
+
+                                                
+         let TodosLosConciencia = apiConciencia.cargar__todos__los__conciencia(this.$store);
 
          TodosLosConciencia
         .then( response => { 
@@ -120,44 +175,39 @@ export default {
 
           let contenedor =response.data;
 
-          if (this.tipo=="Conciencia"){
-          this.conciencia =contenedor.map((c,index ) => {
-             typeof index;
-             if (c.tipo=='Conciencia') return c;
+           console.log("valor de t  " + t);
 
-         });
-
-          }else{
-            
-          this.conciencia =contenedor.map((c,index ) => {
-              typeof index;
-             if (c.tipo=='Prevencion') return c;
-
-         });
-          }
-         
-
-
-          this.$store.dispatch('actions_uivars_tipo_conciencia_o_prevencion', this.tipo);
+          t=='conciencia' ? this.conciencia = contenedor.filter(this.esConciencia):this.conciencia = contenedor.filter(this.esPrevencion);
+  
+         this.$store.dispatch('actions_uivars_tipo_conciencia_o_prevencion', this.tipo);
 
         } )
         .catch( error => { console.log(JSON.stringify(error.data))});
     },
 
+    inicializando_uivar_errors_A_false(){
+   let r= false;
+   this.$store.dispatch('actions_uivars_error_conciencia_estatus',r);   
+   this.$store.dispatch('actions_uivars_error_conciencia_clasificacion',r);   
+   this.$store.dispatch('actions_uivars_error_conciencia_docto',r);   
+   this.$store.dispatch('actions_uivars_error_conciencia_estatusplan',r);   
+
+
+
+    },
+
      agregarNuevoConciencia(){
 
       console.log("agregando nuevo conciencia");
-
       this.inicializando_vuex_valores();
-
+      this.inicializando_uivar_errors_A_false();
       this.$router.push('/nuevaconciencia');
 
    },
-    inicializando_vuex_valores(){
 
+    inicializando_vuex_valores(){
       this.$store.dispatch('action_conciencia_id',0);
       this.$store.dispatch('action_conciencia_activo','');
-     
       this.$store.dispatch('action_conciencia_estatus', '');
       this.$store.dispatch('action_conciencia_clasificacion', '');
       this.$store.dispatch('action_conciencia_activo', '');
@@ -180,31 +230,21 @@ export default {
          console.log(JSON.stringify(response.data[0]));
        
          let activoTemp = true;
-
          response.data[0]["activo"]== 1 ? activoTemp = true : activoTemp= false;
+         this.$store.dispatch('action_conciencia_id',item.id);
+         this.$store.dispatch('action_conciencia_activo', activoTemp);
 
-        
-            
-        this.$store.dispatch('action_conciencia_id',item.id);
-        this.$store.dispatch('action_conciencia_activo', activoTemp);
-
-
-        this.$store.dispatch('action_conciencia_id', response.data[0]['id']);
-this.$store.dispatch('action_conciencia_estatus', response.data[0]['estatus']);
-this.$store.dispatch('action_conciencia_clasificacion', response.data[0]['clasificacion']);
-this.$store.dispatch('action_conciencia_activo', response.data[0]['activo']);
-this.$store.dispatch('action_conciencia_tipo', response.data[0]['tipo']);
-
-
-     
-
-        
-        this.$router.push('Nuevoconciencia'); //agregar ruta en vue router
-
+         this.$store.dispatch('action_conciencia_estatus', response.data[0]['estatus']);
+         this.$store.dispatch('action_conciencia_clasificacion', response.data[0]['clasificacion']);
+        //this.$store.dispatch('action_conciencia_activo', response.data[0]['activo']);
+         this.$store.dispatch('action_conciencia_tipo', response.data[0]['tipo']);
+         this.$store.dispatch('action_conciencia_docto', response.data[0]['docto']);
+         this.$store.dispatch('action_conciencia_estatusplan', response.data[0]['estatusplan']);
+    
+      this.$router.push('/nuevaconciencia'); //agregar ruta en vue router
        })
        .catch( error => { console.log(JSON.stringify(error.data))});
-
-  
+ 
 
     },
 

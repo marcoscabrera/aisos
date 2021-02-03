@@ -18,7 +18,8 @@
             <v-col cols="12" xs="12" sm="6" md="6">
 
                 <uploadFile2 
-                
+                  :mostrarMensajeValidacion ="this.$store.state.uivars.uivars_error_seguimiento_seguimiento_documentos_docto"
+          
                 directorio="/uploads/seguimiento"
                 :HayArchivo ="sihayarchivo"
                 

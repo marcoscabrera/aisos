@@ -85,6 +85,24 @@
       </v-btn>
     </template>
 
+  <template v-slot:item.estado="{ item }">
+      <v-btn x-small fab v-if="item.estado == 'abierto'" color="red" dark dense>
+       .
+      </v-btn>
+
+      <v-btn
+        v-else
+        x-small
+        color="green"
+        dark
+        fab
+        dense
+       
+      >
+      .
+      </v-btn>
+    </template>
+
     <template v-slot:item.etapauno="{ item }">
       <v-btn 
     
@@ -186,6 +204,8 @@
 
 <script>
 import apiIncidentes from "@/apialdeas/apiIncidentes.js";
+import validacionSeguimiento from '@/components/etapas/validaciones/validacionSeguimiento.js';
+
 export default {
   data: () => ({
 
@@ -226,8 +246,9 @@ export default {
       { text: "Confirmacion", value: "confirmaincidente" },
 
       { text: "Respuesta", value: "tipoderespuesta" },
-      { text: "Hechos", value: "data-table-expand" },
+      //{ text: "Hechos", value: "data-table-expand" },
       // { text: "Activo", value: "activo" },
+      { text: "Estado", value: "estado" },
       { text: "R Inicial", value: "etapauno" },
       { text: "V Integral", value: "etapados" },
       { text: "Seguimiento", value: "etapatres" },
@@ -277,12 +298,12 @@ export default {
     console.log(permisosDeRol.VISUALIZACIONVALORACIONINTEGRAL);
     console.log(permisosDeRol.VISUALIZACIONDESEGUIMIENTO);
     console.log(permisosDeRol.VISUALIZACIONDECIERRE);
-    
     console.log( this.puedeCrearUnNuevoIncidente);
     console.log( this.puedeVerValoracionInicial);
     console.log(this.puedeverValoracionIntegral);
     console.log(this.puedeVerSeguimiento);
     console.log(this.puedeVerCierre);
+    
     permisosDeRol.ALTADEVALORACIONINTEGRAL == "SI" ?  this.puedeCrearUnNuevoIncidente = true : this.puedeCrearUnNuevoIncidente = false;
    
                   
@@ -355,7 +376,7 @@ export default {
       // named route
         },
     irASeguimiento(id) {
-
+         validacionSeguimiento.inicializar_captura_De_errores(this.$store);
       if(   this.puedeVerSeguimiento  != false){
             this.$router.push({ name: "Seguimiento", params: { id: id } });
        }

@@ -2,9 +2,9 @@ import api from './api.js';
 
 export default {
 
-    nuevo__conciencia(parametros,store){
+    nuevo__parametros(parametros,store){
 
-    let predicado = "/api/v0/conciencia";
+    let predicado = "/api/v0/parametros";
 
     let apix = store.state.urlServidor;
 
@@ -14,8 +14,8 @@ export default {
     return api.axiospost(endpoint, parametros);
     },
 
-    cargar__todos__los__conciencia(store){
-        let predicado = "/api/v0/conciencia";
+    cargar__todos__los__parametros(store){
+        let predicado = "/api/v0/parametros";
         
 
         let apix = store.state.urlServidor;
@@ -26,24 +26,10 @@ export default {
     
         return api.axiosget(endpoint);
     },
-        cargar__todos__los__conciencia_de_tipo(tipo,store){
 
-        let predicado = "/api/v0/conciencia/"+ tipo+"/todos";
-        
+    cargar__parametros(id ,store){
 
-        let apix = store.state.urlServidor;
-    
-        let endpoint = apix + predicado;
-    
-        console.log("valor del endpoint cargar__todos__los__conciencia_de_tipo : " + endpoint);
-    
-        return api.axiosget(endpoint);
-    },
-
-
-    cargar__conciencia(id ,store){
-
-        let predicado = "/api/v0/conciencia/" + id;
+        let predicado = "/api/v0/parametros/" + id;
         
 
         let apix = store.state.urlServidor;
@@ -58,9 +44,9 @@ export default {
 
     },
 
-    update__conciencia(parametros,store){
+    update__parametros(parametros,store){
 
-        let predicado = "/api/v0/conciencia";
+        let predicado = "/api/v0/parametros";
 
         let apix = store.state.urlServidor;
     
@@ -73,9 +59,9 @@ export default {
 
     },
 
-    Delete__conciencia(id,store){
+    Delete__parametros(id,store){
 
-        let predicado = "/api/v0/conciencia/" + id;
+        let predicado = "/api/v0/parametros/" + id;
         let apix = store.state.urlServidor;
     
         let endpoint = apix + predicado;

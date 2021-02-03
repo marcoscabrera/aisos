@@ -8,6 +8,11 @@
           @input="asignarValor($event)"
         >
         </v-textarea>
+
+    <v-alert v-if="this.$store.state.uivars.uivars_error_seguimiento_seguimiento_status" type="error">
+     Este Campo no debe de ir vacio y no debe de exceder el numero maximo de palabras
+
+    </v-alert>
 </v-col>
 </template>
 
@@ -23,6 +28,7 @@
              asignarValor(evento){
     
              this.$store.dispatch('action_status',evento);
+             this.$store.dispatch('actions_uivars_error_seguimiento_seguimiento_status',false)
 
 
          }

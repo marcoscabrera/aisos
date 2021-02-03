@@ -20,4 +20,14 @@ export default {
               state.conciencia_tipo = valor 
             
  },
+
+ mutation_conciencia_docto( state, valor) {   
+  state.conciencia_docto = valor 
+
+},
+
+mutation_conciencia_estatusplan( state, valor) {   
+  state.conciencia_estatusplan = valor 
+
+},
                                                                            }

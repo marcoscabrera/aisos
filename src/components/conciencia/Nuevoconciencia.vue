@@ -3,6 +3,7 @@
 </template>
 
 <script>
+
 import AgregarConcienciaComponente from '@/components/conciencia/AgregarConcienciaComponente.vue';
 
     export default {

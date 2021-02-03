@@ -14,26 +14,21 @@ TAREAS PENDIENTES DESARROLLO PLATAFORMA
    avance 0%
    tiempo estimado para terminar :  2 dias 
 
-4.-Implementacion de los modulos de conciencia y prevencion 
-   avance 30%
-   tiempo estimado para terminar :  2 dias 
 
-5.-Implementacion del modulo de envio de notificacion por correo 
+4.-Implementacion del modulo de envio de notificacion por correo 
    avance 0%
+   -- autorizazion de los permisos
    tiempo estimado para terminar :  2 dias 
-
-6.-Repositorios para Frontend y backend
-  avance 100%
  
-
-7.-Implemetacion de tareas con Documentos
--- impresion de doctos
+5.-Implemetacion de tareas con Documentos
+-- impresion de doctos --taylor 
 -- permisos de doctos
 --componente de documentos de ayuda
-  avance 30%
+  avance 50%
   tiempo estimado para terminar :  4 dias 
+6.- validaciones.
 
-  total de dias : 16 dias para cierre aprox
+  total de dias :11 dias para cierre aprox
 
 
 

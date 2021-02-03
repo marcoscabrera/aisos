@@ -1,7 +1,9 @@
 import Vue from "vue";
+
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-import store from "@/store/index.js";
+
+//import store from '@/store/index.js';
 
 
 Vue.use(VueRouter);
@@ -33,18 +35,25 @@ const routes = [
     component: () =>
       import(/* webpackChunckName:"conciencia" */ "../views/Conciencia2.vue"),
   },
-        
+ 
   {
-    path: "/prevencion",
+    path: "/parametros",
+    name: "Parametros",
+    meta: { requiresAuth : true },
+    component: () =>
+      import(/* webpackChunckName:"parametros" */ "../views/Parametros.vue"),
+  },
+  {
+    path: "/prevencion/:tipo",
     name: "Prevencion",
     meta: { requiresAuth : true },
     component: () =>
-      import(/* webpackChunckName:"prevencion" */ "../views/Conciencia2.vue"),
+      import(/* webpackChunckName:"prevencion" */ "../views/Prevencion2.vue"),
   },
    {
     path: "/nuevaconciencia",
     name: "Nuevoconciencia",
-   
+    meta: { requiresAuth : true },
     component: () =>
       import(/* webpackChunckName:"nuevaconciencia" */ "../components/conciencia/Nuevoconciencia.vue"),
   },
@@ -121,7 +130,7 @@ const routes = [
   {
     path: "/acuerdo",
     name: "Acuerdo",
-    meta: { requiresAuth : true },
+   // meta: { requiresAuth : true },
     component: () =>
       import(/* webpackChunckName:"acuerdo" */ "../views/Acuerdo.vue"),
   },
@@ -256,32 +265,7 @@ const routes = [
 ];
 
 const router = new VueRouter({
-  routes,
+  routes
 });
-router.beforeEach(  (to, from , next ) => {
 
-  if (to.meta.requiresAuth) {
-       
-   
-    let usuario =store.state.usuarios.usuarios_usuariologueado;
-
-    let lusuario = usuario.length;
-
-    console.log("valor usuario en router.beforeEach"+ lusuario);
-      
-    if (usuario == 0){
-      next({
-        name:"Login"
-      });
-    }else {
-      next();
-    }
-
-
-  }else {
-
-    next();
-  }
-
-});
 export default router;

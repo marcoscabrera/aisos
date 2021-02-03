@@ -125,5 +125,113 @@ export default {
         state.uivars_tipo_conciencia_o_prevencion = valor;
     },
 
+    mutation_uivars_error_DocuementoConciencian(state,valor){
+
+        state.uivars_error_DocuementoConciencia = valor;
+    },
+    
+
+    //////conciencia ////////////
+    mutation_uivars_error_conciencia_estatus(state,valor){
+
+        state.uivars_error_conciencia_estatus = valor;
+    },
+    mutation_uivars_error_conciencia_clasificacion(state,valor){
+
+        state.uivars_error_conciencia_clasificacion = valor;
+    },
+    mutation_uivars_conciencia_docto(state,valor){
+
+        state.uivars_error_conciencia_docto = valor;
+    },
+    mutation_uivars_error_conciencia_estatusplan(state,valor){
+
+        state.uivars_error_conciencia_estatusplan = valor;
+    },
+
+    ///////////////////////////////
+    ///seguimiento////////////////
+
+    mutation_uivars_error_seguimiento_seguimiento_id(state,valor){  
+        
+        state.uivars_error_seguimiento_seguimiento_id = valor;  
+        },
+ mutation_uivars_error_seguimiento_seguimiento_incidenteid(state,valor){  
+         
+        state.uivars_error_seguimiento_seguimiento_incidenteid = valor;  
+        },
+ mutation_uivars_error_seguimiento_seguimiento_status(state,valor){  
+         
+        state.uivars_error_seguimiento_seguimiento_status = valor;  
+        },
+ mutation_uivars_error_seguimiento_seguimiento_plan(state,valor){  
+         
+        state.uivars_error_seguimiento_seguimiento_plan = valor;  
+        },
+ mutation_uivars_error_seguimiento_seguimiento_documentos(state,valor){  
+         
+        state.uivars_error_seguimiento_seguimiento_documentos = valor;  
+        },
+ mutation_uivars_error_seguimiento_seguimiento_notificaciondif(state,valor){  
+         
+        state.uivars_error_seguimiento_seguimiento_notificaciondif = valor;  
+        },
+ mutation_uivars_error_seguimiento_seguimiento_notificacionautoridad(state,valor){  
+         
+        state.uivars_error_seguimiento_seguimiento_notificacionautoridad = valor;  
+        },
+ mutation_uivars_error_seguimiento_seguimiento_notificacionpfn(state,valor){  
+         
+        state.uivars_error_seguimiento_seguimiento_notificacionpfn = valor;  
+        },
+ mutation_uivars_error_seguimiento_seguimiento_notificaciodenunciante(state,valor){  
+         
+        state.uivars_error_seguimiento_seguimiento_notificaciodenunciante = valor;  
+        },
+ mutation_uivars_error_seguimiento_seguimiento_actavaloracion(state,valor){  
+         
+        state.uivars_error_seguimiento_seguimiento_actavaloracion = valor;  
+        },
+ mutation_uivars_error_seguimiento_seguimiento_planrecuperacion(state,valor){  
+         
+        state.uivars_error_seguimiento_seguimiento_planrecuperacion = valor;  
+        },
+ mutation_uivars_error_seguimiento_seguimiento_plan_docto(state,valor){  
+         
+        state.uivars_error_seguimiento_seguimiento_plan_docto = valor;  
+        },
+ mutation_uivars_error_seguimiento_seguimiento_documentos_docto(state,valor){  
+         
+        state.uivars_error_seguimiento_seguimiento_documentos_docto = valor;  
+        },
+ mutation_uivars_error_seguimiento_seguimiento_notificaciondif_docto(state,valor){  
+         
+        state.uivars_error_seguimiento_seguimiento_notificaciondif_docto = valor;  
+        },
+ mutation_uivars_error_seguimiento_seguimiento_notificacionautoridad_docto(state,valor){  
+         
+        state.uivars_error_seguimiento_seguimiento_notificacionautoridad_docto = valor;  
+        },
+ mutation_uivars_error_seguimiento_seguimiento_notificacionpfn_docto(state,valor){  
+         
+        state.uivars_error_seguimiento_seguimiento_notificacionpfn_docto = valor;  
+        },
+ mutation_uivars_error_seguimiento_seguimiento_notificaciodenunciante_docto(state,valor){  
+         
+        state.uivars_error_seguimiento_seguimiento_notificaciodenunciante_docto = valor;  
+        },
+ mutation_uivars_error_seguimiento_seguimiento_actavaloracion_docto(state,valor){  
+         
+        state.uivars_error_seguimiento_seguimiento_actavaloracion_docto = valor;  
+        },
+ mutation_uivars_error_seguimiento_seguimiento_protocolosos(state,valor){  
+         
+        state.uivars_error_seguimiento_seguimiento_protocolosos = valor;  
+        },
+ mutation_uivars_error_seguimiento_seguimiento_planrecuperacion_docto(state,valor){  
+         
+        state.uivars_error_seguimiento_seguimiento_planrecuperacion_docto = valor;  
+        },
+
   
 }

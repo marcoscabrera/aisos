@@ -308,6 +308,7 @@ export default {
 
           //ocultamos en teoria mensaje de falta campo.
           this.mostrarMensajeValidacion=false;
+         // this.$store.dispatch(,)
 
           return UploadService.getFiles(response.data.idRegistro, this.$store.state );
           

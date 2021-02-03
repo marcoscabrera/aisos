@@ -35,13 +35,71 @@ state: {
     
     uivars_error_cardMedidasIntegrales:false,
 
+
+    //////////// errorees de conciencia ////////
+
+    uivars_error_conciencia_estatus:false,
+    uivars_error_conciencia_clasificacion:false,
+    uivars_error_conciencia_activo:false,
+    uivars_error_conciencia_tipo:false,
+    uivars_error_conciencia_docto:false,
+    uivars_error_conciencia_estatusplan:false,
+
+
+    //////////////////////////////////7//////////
+
     uivars_docto_a_ver : '',
 
      uivars_ir_origen_que_solicito_docto :'',
 
      /////////////////////////////////////////////
 
-     uivars_tipo_conciencia_o_prevencion : ''
+     uivars_tipo_conciencia_o_prevencion : '',
+
+     uivars_error_DocuementoConciencia : '',
+
+     //////errorees de seguimiento//////////////
+
+     uivars_error_seguimiento_seguimiento_id:false, 
+
+uivars_error_seguimiento_seguimiento_incidenteid:false, 
+
+uivars_error_seguimiento_seguimiento_status:false, 
+
+uivars_error_seguimiento_seguimiento_plan:false, 
+
+uivars_error_seguimiento_seguimiento_documentos:false, 
+
+uivars_error_seguimiento_seguimiento_notificaciondif:false, 
+
+uivars_error_seguimiento_seguimiento_notificacionautoridad:false, 
+
+uivars_error_seguimiento_seguimiento_notificacionpfn:false, 
+
+uivars_error_seguimiento_seguimiento_notificaciodenunciante:false, 
+
+uivars_error_seguimiento_seguimiento_actavaloracion:false, 
+
+uivars_error_seguimiento_seguimiento_planrecuperacion:false, 
+
+uivars_error_seguimiento_seguimiento_plan_docto:false, 
+
+uivars_error_seguimiento_seguimiento_documentos_docto:false, 
+
+uivars_error_seguimiento_seguimiento_notificaciondif_docto:false, 
+
+uivars_error_seguimiento_seguimiento_notificacionautoridad_docto:false, 
+
+uivars_error_seguimiento_seguimiento_notificacionpfn_docto:false, 
+
+uivars_error_seguimiento_seguimiento_notificaciodenunciante_docto:false, 
+
+uivars_error_seguimiento_seguimiento_actavaloracion_docto:false, 
+
+uivars_error_seguimiento_seguimiento_protocolosos:false, 
+
+uivars_error_seguimiento_seguimiento_planrecuperacion_docto:false, 
+
 
 },
 mutations,

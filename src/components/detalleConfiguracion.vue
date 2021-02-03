@@ -22,6 +22,12 @@
 
       <cardConfiguracion titulo="Cargos SOS" ruta="cargos"> </cardConfiguracion>
     </v-row>
+    <v-row>
+      <cardConfiguracion
+        titulo="Parametros"
+        ruta="parametros"
+      ></cardConfiguracion>
+    </v-row>
 
     <!--<v-row>
       <cardConfiguracion titulo="Parentescos" ruta="parentesco">

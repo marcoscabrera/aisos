@@ -122,7 +122,7 @@ export default {
   }),
   mounted () {
     this.mostrarMenuLateral();
-    this.dmennu()
+   
   },
   methods: {
  
@@ -166,9 +166,11 @@ export default {
       this.$router.push("/denuncias");
     },
     irAConciencia() {
+       this.$store.dispatch('actions_uivars_tipo_conciencia_o_prevencion', 'conciencia');
       this.$router.push({ name : 'Conciencia' , params:{ tipo:'c' }});
     },
     irAPrevencion() {
+     this.$store.dispatch('actions_uivars_tipo_conciencia_o_prevencion', 'prevencion');
      this.$router.push({ name : 'Prevencion' , params:{ tipo:'p' }});
   
     },

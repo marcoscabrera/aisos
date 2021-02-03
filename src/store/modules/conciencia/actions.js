@@ -1,6 +1,6 @@
 export default { 
  
-    action_conciencia_id ( context , valor ) { 
+ action_conciencia_id ( context , valor ) { 
                          context.commit('mutation_conciencia_id',valor)  
                         
   }  ,
@@ -23,6 +23,18 @@ export default {
  action_conciencia_tipo ( context , valor ) { 
                          context.commit('mutation_conciencia_tipo',valor)  
                         
-  }  
+  }  ,
+
+  action_conciencia_docto( context , valor ) { 
+    context.commit('mutation_conciencia_docto',valor)  
+   
+}  ,
+
+
+action_conciencia_estatusplan( context , valor ) { 
+  context.commit('mutation_conciencia_estatusplan',valor)  
+ 
+}  
+
  ,
                                                                            }

@@ -32,6 +32,21 @@ export default {
         return respuesta;
 
     },
+    existeInformacionParaCapturar_y_no_es_cero(campo){
+        
+  
+        console.log("existeInformacionParaCapturar_y_no_es_cero >>valor del campo a validar :" + campo );
+        console.log("existeInformacionParaCapturar_y_no_es_cero >>tipo de variable :" + typeof campo );
+        let respuesta = false;
+        let campo_a_numerico  ;
+       if ( campo.length> 1 ) return  false;
+         campo_a_numerico = parseInt(campo);
+        console.log("existeInformacionParaCapturar_y_no_es_cero >>campo a numerico ;: " + campo_a_numerico);
+        isNaN(campo_a_numerico) == true ? respuesta =true : respuesta = false;
+        console.log(respuesta);
+        return respuesta;
+
+    },
     inicializarValoresDeIncidente(store){
 
         store.dispatch('setear_Incidente','');

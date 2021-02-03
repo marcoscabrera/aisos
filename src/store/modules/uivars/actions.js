@@ -127,4 +127,119 @@ export default {
         context.commit("mutation_uivars_tipo_conciencia_o_prevencion",valor);
     },
 
+    actions_uivars_error_DocuementoConciencia(context,valor){
+
+        context.commit("mutation_uivars_error_DocuementoConciencian",valor);
+    },
+
+
+
+
+
+    actions_uivars_error_conciencia_estatus(context,valor){
+
+        context.commit("mutation_uivars_error_conciencia_estatus",valor);
+    },
+    actions_uivars_error_conciencia_clasificacion(context,valor){
+
+        context.commit("mutation_uivars_error_conciencia_clasificacion",valor);
+    },
+    actions_actions_uivars_error_conciencia_activo(context,valor){
+
+        context.commit("mutation_uivars_error_conciencia_activo",valor);
+    },
+    actions_uivars_error_conciencia_tipo(context,valor){
+
+        context.commit("mutation_uivars_error_conciencia_tipo",valor);
+    },
+    actions_uivars_error_conciencia_docto(context,valor){
+
+        context.commit("mutation_uivars_conciencia_docto",valor);
+    },
+    actions_uivars_error_conciencia_estatusplan(context,valor){
+
+        context.commit("mutation_uivars_error_conciencia_estatusplan",valor);
+    },
+
+    /************* actiones seguiemientos ********* */
+    actions_uivars_error_seguimiento_seguimiento_id(context,valor){ 
+     
+        context.commit('mutation_uivars_error_seguimiento_seguimiento_id',valor); 
+        },
+    actions_uivars_error_seguimiento_seguimiento_incidenteid(context,valor){ 
+        
+        context.commit('mutation_uivars_error_seguimiento_seguimiento_incidenteid',valor); 
+        },
+    actions_uivars_error_seguimiento_seguimiento_status(context,valor){ 
+        
+        context.commit('mutation_uivars_error_seguimiento_seguimiento_status',valor); 
+        },
+    actions_uivars_error_seguimiento_seguimiento_plan(context,valor){ 
+        
+        context.commit('mutation_uivars_error_seguimiento_seguimiento_plan',valor); 
+        },
+    actions_uivars_error_seguimiento_seguimiento_documentos(context,valor){ 
+        
+        context.commit('mutation_uivars_error_seguimiento_seguimiento_documentos',valor); 
+        },
+    actions_uivars_error_seguimiento_seguimiento_notificaciondif(context,valor){ 
+        
+        context.commit('mutation_uivars_error_seguimiento_seguimiento_notificaciondif',valor); 
+        },
+    actions_uivars_error_seguimiento_seguimiento_notificacionautoridad(context,valor){ 
+        
+        context.commit('mutation_uivars_error_seguimiento_seguimiento_notificacionautoridad',valor); 
+        },
+    actions_uivars_error_seguimiento_seguimiento_notificacionpfn(context,valor){ 
+        
+        context.commit('mutation_uivars_error_seguimiento_seguimiento_notificacionpfn',valor); 
+        },
+    actions_uivars_error_seguimiento_seguimiento_notificaciodenunciante(context,valor){ 
+        
+        context.commit('mutation_uivars_error_seguimiento_seguimiento_notificaciodenunciante',valor); 
+        },
+    actions_uivars_error_seguimiento_seguimiento_actavaloracion(context,valor){ 
+        
+        context.commit('mutation_uivars_error_seguimiento_seguimiento_actavaloracion',valor); 
+        },
+    actions_uivars_error_seguimiento_seguimiento_planrecuperacion(context,valor){ 
+        
+        context.commit('mutation_uivars_error_seguimiento_seguimiento_planrecuperacion',valor); 
+        },
+    actions_uivars_error_seguimiento_seguimiento_plan_docto(context,valor){ 
+        
+        context.commit('mutation_uivars_error_seguimiento_seguimiento_plan_docto',valor); 
+        },
+    actions_uivars_error_seguimiento_seguimiento_documentos_docto(context,valor){ 
+        
+        context.commit('mutation_uivars_error_seguimiento_seguimiento_documentos_docto',valor); 
+        },
+    actions_uivars_error_seguimiento_seguimiento_notificaciondif_docto(context,valor){ 
+        
+        context.commit('mutation_uivars_error_seguimiento_seguimiento_notificaciondif_docto',valor); 
+        },
+    actions_uivars_error_seguimiento_seguimiento_notificacionautoridad_docto(context,valor){ 
+        
+        context.commit('mutation_uivars_error_seguimiento_seguimiento_notificacionautoridad_docto',valor); 
+        },
+    actions_uivars_error_seguimiento_seguimiento_notificacionpfn_docto(context,valor){ 
+        
+        context.commit('mutation_uivars_error_seguimiento_seguimiento_notificacionpfn_docto',valor); 
+        },
+    actions_uivars_error_seguimiento_seguimiento_notificaciodenunciante_docto(context,valor){ 
+        
+        context.commit('mutation_uivars_error_seguimiento_seguimiento_notificaciodenunciante_docto',valor); 
+        },
+    actions_uivars_error_seguimiento_seguimiento_actavaloracion_docto(context,valor){ 
+        
+        context.commit('mutation_uivars_error_seguimiento_seguimiento_actavaloracion_docto',valor); 
+        },
+    actions_uivars_error_seguimiento_seguimiento_protocolosos(context,valor){ 
+        
+        context.commit('mutation_uivars_error_seguimiento_seguimiento_protocolosos',valor); 
+        },
+    actions_uivars_error_seguimiento_seguimiento_planrecuperacion_docto(context,valor){ 
+        
+        context.commit('mutation_uivars_error_seguimiento_seguimiento_planrecuperacion_docto',valor); 
+        },
 }
