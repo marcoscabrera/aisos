@@ -234,9 +234,11 @@ this.$store.dispatch('action_conciencia_tipo', response.data[0]['tipo']);
       } ;
     
     console.log(" cual es el valor del conciencia_activo : " +  this.$store.state.conciencia.conciencia_activo);
+      console.log(" cual es el valor del this.ConcienciaID : " +   this.ConcienciaId);
+  
     let promesa ;
-
-    this.ConcienciaId == 0 ? promesa = apiConciencia.nuevo__conciencia(parametros,this.$store) :
+    let idc =  this.$store.state.conciencia.conciencia_id;
+    idc == 0 ? promesa = apiConciencia.nuevo__conciencia(parametros,this.$store) :
     promesa =apiConciencia.update__conciencia(parametros,this.$store) ;
 
 

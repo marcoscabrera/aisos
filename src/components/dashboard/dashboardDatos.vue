@@ -54,7 +54,7 @@
     </template>
       
 
-    <template v-if="ocultar" v-slot:item.incidenteconfirmado="{ item }">
+    <template v-slot:item.incidenteconfirmado="{ item }">
       <v-icon color="red" v-if="item.incidenteconfirmado == 'SI'">
         mdi-checkbox-marked-circle</v-icon
       >
@@ -67,7 +67,7 @@
     </template>
 
     <!-- confirmaciones -->
-    <template  v-if="ocultar" v-slot:item.confirmaincidente="{ item }">
+    <template   v-slot:item.confirmaincidente="{ item }">
       <v-icon color="red" v-if="item.confirmaincidentenumerico == 2">
         mdi-checkbox-marked-circle</v-icon
       >
@@ -238,7 +238,8 @@ export default {
     dialog: false,
     expanded: [],
     singleExpand: false,
-    
+    headers :[],
+
     headers2: [
       /* {
         text: "id",
@@ -264,7 +265,7 @@ export default {
       { text: "Cierre", value: "etapacuatro" },
       //{ text: "Etapas", value: "actions", sortable: false },
     ],
-    headers: [
+    headers1: [
       /* {
         text: "id",
         align: "start",
@@ -328,6 +329,8 @@ export default {
     togglecols(){
        
        this.ocultar == false ? this.ocultar=true : this.ocultar=false;
+
+       this.ocultar ==true ? this.headers= this.headers2 : this.headers =this.headers1;
 
     },
     verificarPermisos() {
@@ -450,6 +453,8 @@ export default {
           console.log(JSON.stringify(response.data));
 
           this.incidentes = response.data;
+          this.ocultar ==false? this.headers =this.headers2 : this.headers= this.headers1;
+         
           this.cargandoDatos = false; //termina la animacion de la tabla loading
           // ser verifican los permisos del usuario 
           this.verificarPermisos();
