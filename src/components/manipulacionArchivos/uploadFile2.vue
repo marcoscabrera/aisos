@@ -30,6 +30,7 @@
         <v-file-input
           show-size
           label="Adjunta tu documento"
+          :rules ="rules"
           :accept="tipoDeArchivo"
           @change="selectFile"
         ></v-file-input>
@@ -77,7 +78,7 @@ export default {
     datosDelArchivo   : {type:Array},
     HayArchivo        : {type:Boolean},
     mostrarMensajeValidacion : {Type: Boolean,default :false},
-    tipoDeArchivo :{ type:String ,}
+    tipoDeArchivo :{ type:String ,default :'application/pdf'}
 
   },
   data() {
@@ -91,8 +92,10 @@ export default {
 
       elArchivo :  '',
 
-      fileInfos: []
+      fileInfos: [],
 
+      rules :[ (value) => value.type != 'aplication/pdf' || 'EL formato de archivo no esta permitido'
+      ]
     };
   },
   

@@ -2,10 +2,10 @@
   <v-row>
     <v-col cols="12" xs="12" sm="6" md="12">
       <v-card>
-        <v-card-title>Numero Whatsapp</v-card-title>
-        <v-card-text>numero para dar soporte por whatsapp</v-card-text>
+        <v-card-title>Imagen en login</v-card-title>
+        <v-card-text>Direccion de la imagen que se mostrara en login</v-card-text>
         <v-list-item>
-          <v-text-field v-model="numerow" label="numero para whatsapp"></v-text-field>
+          <v-text-field v-model="imagenEnLogin" label="direccion de imagen"></v-text-field>
         </v-list-item>
         <v-card-actions>
           <v-btn
@@ -13,7 +13,7 @@
             block
             :loading="loading"
             :disabled="loading"
-            @click="guardarParametro('numerow',numerow)"
+            @click="guardarParametro('imagenEnLogin',imagenEnLogin)"
           >guardar</v-btn>
         </v-card-actions>
       </v-card>
@@ -102,11 +102,11 @@ export default {
     },
 
     cargarParametros() {
-      var az = apiParametros.getParametro("numerow", this.$store);
+      var az = apiParametros.getParametro("imagenEnLogin", this.$store);
       az.then((response) => {
         console.log(response.data.valor);
 
-        this.numerow = response.data.valor;
+        this.imagenEnLogin = response.data.valor;
       }).catch((error) => {
         console.log(error);
       });

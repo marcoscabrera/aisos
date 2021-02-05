@@ -6,8 +6,8 @@
        <v-card height="100%" outlined>
                 <v-img
                 height="250"
-                src="https://www.aldeasinfantiles.org.mx/getmedia/51757cf7-a274-4bdc-b552-4304db77c698/logo-aldeas-mxg"
-                ></v-img>
+               
+                :src="this.$store.state.uivars.uivars_imagenLogin"      ></v-img>
           <v-list-item two-line>
             <v-list-item-content>
               <div class="overline mb-4">Login de Usuario</div>
@@ -27,8 +27,12 @@
           <v-list-item></v-list-item>
 
           <v-list-item>
-            <v-text-field v-model="email" label="Email"
-            @input="limpiarResponse"></v-text-field>
+            <v-text-field
+             v-model="email"
+              label="Email"
+              :rules="emailRules"
+            @input="limpiarResponse">
+            </v-text-field>
           </v-list-item>
 
           <v-list-item>
@@ -94,6 +98,8 @@
 </template>
 
 <script>
+// //https://www.aldeasinfantiles.org.mx/getmedia/51757cf7-a274-4bdc-b552-4304db77c698/logo-aldeas-mxg
+          
 import apiUsuarios from '@/apialdeas/apiUsuarios.js';
 
 import controlDeSesion from '@/sesion/controlDeSesion.js';
@@ -113,13 +119,16 @@ export default {
       usuarioId: null,
       usuario: [],
       loading: false,
-
-      verError : false
+      imagenLogin :'',
+      verError : false,
+        emailRules: [ 
+        v => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail debe de ser valido'
+      ]
     };
   },
 
   mounted: function () {
-    console.log("Component loginUsuario montado");
+
   },
 
   watch: {

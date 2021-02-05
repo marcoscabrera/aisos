@@ -347,7 +347,7 @@ export default {
       */
      
      let parametros = {
-                  incidenteid :  this.incidenteIdPE,        
+            incidenteid :  this.incidenteIdPE,        
             status  : this.$store.state.seguimiento.seguimiento_status,            
             plan      : this.$store.state.seguimiento.seguimiento_plan,             
             documentos   : this.$store.state.seguimiento.seguimiento_documentos,           
@@ -439,8 +439,10 @@ export default {
        lo debemos de buscar en la tabla de idseguimiento
 
       */
+     
       let id = this.$route.params.id;
       this.incidenteIdPE = id;
+
       console.log("valor de id en seguimiento " + id);
 
       let  datos = seguimientoEtapa.cargarDatosSeguimiento(id,this.$store);

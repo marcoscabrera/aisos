@@ -148,7 +148,7 @@
         :class="item.etapatres"
         x-small
         fab
-        :color="item.coloretapatres"
+        :color="item.estadoseguimiento=='cerrado' ? 'green' : 'yellow'"
         dark
         @click="irASeguimiento(item.id)"
       >
@@ -421,6 +421,7 @@ export default {
     irASeguimiento(id) {
          validacionSeguimiento.inicializar_captura_De_errores(this.$store);
       if(   this.puedeVerSeguimiento  != false){
+            console.log(" valor de id :  " + id);
             this.$router.push({ name: "Seguimiento", params: { id: id } });
        }
 

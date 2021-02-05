@@ -108,6 +108,9 @@
 
 <script>
 import DatosDelUsuarioComponente from '@/components/usuarios/componentes/DatosDelUsuarioComponente.vue';
+import apiParametros from '@/apialdeas/apiParametros.js';
+
+
 export default {
   name: "App",
 
@@ -118,13 +121,30 @@ export default {
   data: () => ({
     drawer: false,
     puedeCrearCatalogos: false,
-    puedevermenulateral :false
+    puedevermenulateral :false,
+    imagenLogin: '',
   }),
   mounted () {
+     this.cargarLosParametros();
     this.mostrarMenuLateral();
    
   },
   methods: {
+
+    async cargarLosParametros() {
+
+      let p = apiParametros.cargar__todos__los__parametros(this.$store);
+      
+       p
+      .then( response => { console.log(JSON.stringify(response.data));
+            
+            console.log( response.data[4]['valor'] );
+            this.$store.dispatch('actions_uivars_parametro_imagenLogin', response.data[4]['valor']);
+            
+     
+     } )
+      .catch( error => { console.log(JSON.stringify(error.data))});
+   },
  
     mostrarMenuLateral(){
 

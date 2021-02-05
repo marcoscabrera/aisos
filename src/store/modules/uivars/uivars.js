@@ -4,7 +4,14 @@ import actions from './actions.js';
 export default {
 //para consultar iconos.
 state: {
+    
+    ///////////// parametros   /////////
+    
+    uivars_parametros : [],
 
+    uivars_parametro_imagenLogin :'',
+
+    ///////////////////////
     uivar_esincidente: false,
     uivars_puedevermenulateral : false,
     uivars_hayUnUsuarioLogueado : false,

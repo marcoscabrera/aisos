@@ -233,5 +233,18 @@ export default {
         state.uivars_error_seguimiento_seguimiento_planrecuperacion_docto = valor;  
         },
 
+        /////paramteors
+
+        mutation_uivars_parametros(state,valor){  
+         
+            state.uivars_parametros = valor;  
+            },
+
+            mutation_uivars_imagenLogin(state,valor){  
+         
+            state.uivars_imagenLogin = valor;  
+            
+        },
+
   
 }

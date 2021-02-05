@@ -1,5 +1,19 @@
 export default {
 
+
+     ////paramtros
+
+     actions_uivars_parametros(context,valor){
+
+        context.commit("mutation_uivars_parametros",valor);
+    },
+
+    actions_uivars_parametro_imagenLogin(context,valor){
+
+        context.commit("mutation_uivars_imagenLogin",valor);
+    },
+
+
     actions_uivars_esincidente(context,valor){
 
         context.commit("mmutation_uivars_esincidente",valor);
