@@ -256,4 +256,15 @@ export default {
         
         context.commit('mutation_uivars_error_seguimiento_seguimiento_planrecuperacion_docto',valor); 
         },
+
+    actions_uivars_error_incidente_textocierre(context,valor){ 
+        
+        context.commit('mutation_uivars_error_incidente_textocierre',valor); 
+        },
+
+        actions_uivars_cuantosTestigos(context,valor){ 
+        
+            context.commit('mutation_uivars_cuantosTestigos',valor); 
+        },
+        
 }

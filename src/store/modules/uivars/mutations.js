@@ -246,5 +246,19 @@ export default {
             
         },
 
+        // cierer
+
+        mutation_uivars_error_incidente_textocierre(state,valor){  
+         
+            state.uivars_error_incidente_textocierre = valor;  
+            
+        },
+
+        mutation_uivars_cuantosTestigos(state,valor){  
+         
+            state.uivars_cuantosTestigos = valor;  
+            
+        },
+
   
 }

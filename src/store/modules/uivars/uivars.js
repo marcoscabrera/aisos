@@ -107,6 +107,13 @@ uivars_error_seguimiento_seguimiento_protocolosos:false,
 
 uivars_error_seguimiento_seguimiento_planrecuperacion_docto:false, 
 
+////cierre
+
+
+uivars_error_incidente_textocierre : false,
+
+uivars_cuantosTestigos : 0,
+
 
 },
 mutations,

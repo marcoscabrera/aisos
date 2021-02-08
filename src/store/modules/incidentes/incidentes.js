@@ -28,9 +28,12 @@ export default {
         etapainicial_medidasproteccion: '',
         etapainicial_incidenteconfirmado: '',
         etapainicial_testigos: '',
-        etapainicial_incidente : ''
-     
+        etapainicial_incidente : '',
 
+        // cierre
+        etapacierre_textocierre : '',
+     
+        etapainicial_textocierre : '',
 
     },
 

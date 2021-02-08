@@ -102,6 +102,9 @@
            @input="asignarEvento($event)"
         >
         </v-textarea>
+      <v-alert v-if="this.$store.state.uivars.uivars_error_incidente_textocierre" type="error">
+      Este Campo no debe de ir vacio y no debe de exceder el numero maximo de palabras
+     </v-alert>
       </v-col>
     </v-row>
 
@@ -250,6 +253,10 @@
                           </usuariosCierre>
         </v-card-text>
       </v-card>
+
+     <v-alert v-if="faltanTestigos" type="error">
+      Se debe de agregar al menos un testigo 
+     </v-alert>
     </v-row>
 
     <br />
@@ -288,7 +295,7 @@
         </v-btn>
       </v-col>
       <v-col cols="12" xs="12" sm="12" md="4">
-        <v-btn
+        <v-btn v-if ="mostarBotonDeCierre"
           :loading="loading"
           :disabled="loading"
           color="green"
@@ -324,6 +331,8 @@ export default {
   methods: {
 
   
+
+  
          PermisoImpresion(){
              // 
       console.log(" Permiso IMPRESIONDECIERRE  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.IMPRESIONDECIERRE)             
@@ -344,6 +353,7 @@ export default {
       },
       asignarEvento(evenot){
         this.$store.dispatch("action_textocierre",evenot)
+        this.$store.dispatch("actions_uivars_error_incidente_textocierre",false);
 
       },
       
@@ -442,11 +452,20 @@ export default {
           
           console.log(response.data);
           this.folio = response.data[0]["folio"];
-          this.programa= response.data[0]["programa"];
+          this.programa= response.data[0]["nombrePrograma"];
           this.elaboro= response.data[0]["elaboro"];
           this.cargo= response.data[0]["cargousuario"];
 
           this.testigos= response.data[0]["testigos"];
+        
+         this.texto = response.data[0]['textocierre'];
+         this.cerrado = response.data[0]['estadoIncidente'];
+         console.log("cerrado ======>> " + this.cerrado );
+
+        
+        
+        this.cerrado=='cerrado' ? this.mostarBotonDeCierre = false : this.mostarBotonDeCierre =true ;
+
 
         
        
@@ -530,9 +549,45 @@ export default {
       this.$router.push("/dashboard");
     },
 
-    cerrarIncidente(){
+    validarCierre () {
 
-               // 
+      ///validamos que haya testigos 
+      let res = false;
+      let r1 = 0;
+      let rc = this.$store.state.uivars.uivars_cuantosTestigos;
+      rc > 0 ? r1 = 0 : r1= 1 ;
+
+      if (r1 == 1){
+          this.faltanTestigos =true;
+      }
+      //--------------------------------
+
+
+      let t =  this.$store.state.incidentes.etapainicial_textocierre.length;
+      console.log(" valor de texto cierere : " + t);
+
+      let rc2 = 0;
+      
+      t > 20 ? rc2=0 : rc2=1;
+
+      t > 0 ? this.$store.dispatch('actions_uivars_error_incidente_textocierre', false) 
+      : this.$store.dispatch('actions_uivars_error_incidente_textocierre', true);
+      
+      console.log(" r1 " + r1);
+
+      console.log(" rc2 " + rc2);
+
+      let suma = r1 + rc2 ;
+
+      suma == 0  ? res = true : res= false;
+
+      return res;
+      
+    },
+
+    realizarElCierre(){
+
+                     // 
       console.log(" Permiso EDICIONDECIERRE  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.EDICIONDECIERRE)             
      if (this.$store.state.usuarios.usuarios_usuariologueado_rol.EDICIONDECIERRE=='SI'){
    
@@ -553,11 +608,30 @@ export default {
       .then( response => {
         console.log("respuesta despues del cierre.");
          console.log(JSON.stringify(response.data))
+         console.log(response.data[0]['msg']);
          } )
       .catch( error => { console.log(JSON.stringify(error.data))});
 
       /************************************************************ */
      }//cierra if permiso
+
+    },//cierra la funcion 
+
+    revisarErrores() {
+
+      console.log("valida el cierre");
+
+    },//termina cierre
+
+    cerrarIncidente(){
+     
+      let res = this.validarCierre();
+
+    
+
+      res ==true ? this.realizarElCierre()  :   this.revisarErrores() ;
+      
+
     }, //termina cerrar incidenten
 
     seleccionar(valor) {
@@ -585,6 +659,12 @@ export default {
 
   data() {
     return {
+
+      mostarBotonDeCierre : true,
+
+      cerrado : '',
+
+      faltanTestigos : false,
 
       texto: '',
 

@@ -141,6 +141,10 @@ export default {
       testigos.then(
         response => {
             this.usuarios = response.data;
+
+            let cuantosUsuarios = this.usuarios.length;
+
+            this.$store.dispatch('actions_uivars_cuantosTestigos',cuantosUsuarios);
         }
       ).catch(
         error=>{
