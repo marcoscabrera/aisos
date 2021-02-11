@@ -18,6 +18,7 @@
         <PanelInvestigacionComponentes></PanelInvestigacionComponentes>
         <PanelArchivosComponentes></PanelArchivosComponentes>
         <PanelEvidenciaComponentes></PanelEvidenciaComponentes>
+        <PanelRecibirCorreos></PanelRecibirCorreos>
         <!-- <v-row>
             <v-col>
                 <v-switch
@@ -61,6 +62,8 @@ import PanelInvestigacionComponentes from  '@/components/usuarios/componentes/Pa
 import PanelArchivosComponentes from  '@/components/usuarios/componentes/PanelArchivosComponentes.vue'
 import NombreRolComponentes from '@/components/usuarios/componentes/NombreRolComponentes.vue'
 import PanelEvidenciaComponentes from '@/components/usuarios/componentes/PanelEvidenciaComponentes.vue'
+import PanelRecibirCorreos from '@/components/usuarios/componentes/PanelRecibirCorreos.vue'
+
 //import valoracionIntegralEtapa from '@/components/etapas/valoracionIntegralEtapa.vue';
     
 
@@ -80,7 +83,8 @@ export default {
     PanelInvestigacionComponentes,
     PanelArchivosComponentes,
     PanelEvidenciaComponentes,
-    NombreRolComponentes
+    NombreRolComponentes,
+    PanelRecibirCorreos
   
   },
 
@@ -167,6 +171,7 @@ this.$store.dispatch('action_ALTADEARCHIVOS','NO');
 this.$store.dispatch('action_MODIFICACIONARCHIVOS','NO');
 this.$store.dispatch('action_IMPRESIONARCHIVOS','NO');
 this.$store.dispatch('action_VISUALIZACIONARCHIVOS','NO');
+this.$store.dispatch('action_roles_RECIBECORREOS','NO');
 this.$store.dispatch('action_roles_activo',true);
 },
 
@@ -247,7 +252,8 @@ this.$store.dispatch('action_roles_activo',true);
         MODIFICACIONARCHIVOS: this.$store.state.roles.roles_MODIFICACIONARCHIVOS,
         IMPRESIONARCHIVOS: this.$store.state.roles.roles_IMPRESIONARCHIVOS,
         VISUALIZACIONARCHIVOS: this.$store.state.roles.roles_VISUALIZACIONARCHIVOS,
-        ACTIVO: this.$store.state.roles.roles_ACTIVO,
+       RECIBECORREOS :this.$store.state.roles.roles_RECIBECORREOS,
+       ACTIVO: this.$store.state.roles.roles_ACTIVO,
 
       } ;
     

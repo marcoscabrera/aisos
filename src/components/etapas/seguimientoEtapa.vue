@@ -390,11 +390,12 @@ export default {
     },
 
     guardarSeguimiento(){
-       
-       let resultadoValidacion = validacionSeguimiento.validacion_sePuedeCapturar(this.$store);
+       typeof validacionSeguimiento;
+      /* let resultadoValidacion = validacionSeguimiento.validacion_sePuedeCapturar(this.$store);
 
        resultadoValidacion > 0 ? this.revisarErrrores() : this.guardarRegistro();
-
+*/
+       this.guardarRegistro();
      
     },
     guardar__iraDashboard() {

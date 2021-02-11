@@ -260,4 +260,9 @@ context.commit('mutation_MODIFICACIOnDECATALOGOS',valor)
  action_roles_activo( context , valor ) { 
   context.commit('mutation_roles_activo',valor)}  
   ,
+  action_roles_RECIBECORREOS( context , valor ) { 
+    context.commit('mutation_roles_RECIBECORREOS',valor)}  
+    ,
+  
+  
    }

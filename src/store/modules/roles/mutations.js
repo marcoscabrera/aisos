@@ -234,4 +234,9 @@ export default {
   state.roles_ACTIVO   = valor 
 
 },
-                                                                           }
+
+
+mutation_roles_RECIBECORREOS( state, valor) {   
+  state.roles_RECIBECORREOS   = valor 
+
+},                                                                           }
