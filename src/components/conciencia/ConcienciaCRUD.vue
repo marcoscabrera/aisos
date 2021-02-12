@@ -98,7 +98,7 @@ export default {
 
         { text: 'id', value: 'id' },
         { text: 'estatus', value: 'estatus' },
-        { text: 'clasificacion', value: 'clasificacion' },
+       // { text: 'clasificacion', value: 'clasificacion' },
         { text: 'Estado del Plan', value: 'estatusplan' },
         //{ text: 'activo', value: 'activo' },
 //{ text: 'tipo', value: 'tipo' },

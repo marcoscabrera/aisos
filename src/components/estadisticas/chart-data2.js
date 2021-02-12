@@ -65,6 +65,31 @@ FF COMITAN
             '#47b784',
           ],
           borderWidth: 3
+        },
+        { // another line graph
+          label: 'Incidentes Pendientes',
+          data: [3,10,7, 5, 3, 15, 5, 14],
+          backgroundColor: [
+            '#FFFF00', // Green
+            '#FFFF00',
+            '#FFFF00',
+            '#FFFF00',
+            '#FFFF00',
+            '#FFFF00',
+            '#FFFF00',
+            '#FFFF00'
+          ],
+          borderColor: [
+            '#FFFF00',
+            '#FFFF00',
+            '#FFFF00',
+            '#FFFF00',
+            '#FFFF00',
+            '#FFFF00',
+            '#FFFF00',
+            '#FFFF00',
+          ],
+          borderWidth: 3
         }
       ]
     },

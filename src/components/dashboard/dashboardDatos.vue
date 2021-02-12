@@ -180,7 +180,7 @@
         dark
         @click="irAValoracionInicial(item.id)"
       >
-        RI</v-btn
+        vI</v-btn
       >
       <v-btn
         :v-if="item.etapados"
@@ -259,7 +259,7 @@ export default {
       //{ text: "Hechos", value: "data-table-expand" },
       // { text: "Activo", value: "activo" },
       { text: "Estado", value: "estado" },
-      { text: "R Inicial", value: "etapauno" },
+      { text: "V Inicial", value: "etapauno" },
       { text: "V Integral", value: "etapados" },
       { text: "Seguimiento", value: "etapatres" },
       { text: "Cierre", value: "etapacuatro" },

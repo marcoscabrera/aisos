@@ -8,7 +8,7 @@
       <!-- <v-list-item-title class="subheadline">
           {{titulo}}
         </v-list-item-title> -->
-        <v-list-item-subtitle class="text-center"><strong>{{titulo}}</strong></v-list-item-subtitle>
+        <v-list-item-subtitle class="text-center"><strong>Total por Respuesta</strong></v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
 
@@ -18,7 +18,7 @@
            align="center"
           cols="12"
         >
-         <canvas :id="identificador">
+         <canvas id="identificador_respuesta">
 
          </canvas>
         </v-col>
@@ -26,7 +26,7 @@
       </v-row>
       <v-row>
         <v-col>
-          <p class="text-center">Abiertos  <strong> {{abierto}}</strong> - Cerrados <strong> {{cerrado}}</strong> - Pendientes <strong> {{pendiente}}</strong>
+         <p class="text-center">Denuncia  <strong> 10 </strong> - I. Interna  <strong> 5 </strong> - Abordaja <strong> 9</strong> 
           </p>
         </v-col>
       </v-row>
@@ -57,40 +57,57 @@ import planetChartData from './chart-data.js';
             cerrado : {
                 type: Number,
                 default: 0
-            },
-            pendiente : {
-                type: Number,
-                default: 0
             }
         },
-
+/*
+	red: 'rgb(255, 99, 132)',
+	orange: 'rgb(255, 159, 64)',
+	yellow: 'rgb(255, 205, 86)',
+	green: 'rgb(75, 192, 192)',
+	blue: 'rgb(54, 162, 235)',
+	purple: 'rgb(153, 102, 255)',
+	grey: 'rgb(201, 203, 207)'
+ */
         mounted () {
-   this.createChart(this.identificador);
+   this.createChart('identificador_respuesta');
 },
+/*
+
+	red: 'rgb(255, 99, 132)',
+	orange: 'rgb(255, 159, 64)',
+	yellow: 'rgb(255, 205, 86)',
+	green: 'rgb(75, 192, 192)',
+	blue: 'rgb(54, 162, 235)',
+	purple: 'rgb(153, 102, 255)',
+	grey: 'rgb(201, 203, 207)',
+
+
+*/
 data() {
   return {
     planetChartData: planetChartData,
     datax : {
     datasets: [{
-      label: this.titulo,
-        data: [this.abierto, this.cerrado,this.pendiente],
+      label: 'Tipos de Respuesta',
+        data: [10, 5,9],
         backgroundColor : [
-          "#FF0000",
-          "#00FF00",
-          '#FFFF00'],
+          "rgb(255, 205, 86)",
+          "rgb(255, 99, 132)",
+          "rgb(54, 162, 235)"],
         borderColor: [
           "#CDA776",
           "#989898",
-          "#989898"
+          "#CDA776",
+          
         ],
         borderWidth: [1, 1]
     }],
 
     // These labels appear in the legend and in the tooltips when hovering different arcs
     labels: [
-        'Abiertos',
-        'Cerrados',
-        'Pendientes'
+        'Denuncia #10',
+        'Investigacion Interna #5',
+        'Abordaje Interno #9'
       
     ]
 } ,//termina datax

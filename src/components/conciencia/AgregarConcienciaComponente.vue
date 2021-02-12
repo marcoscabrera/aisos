@@ -3,8 +3,8 @@
 <v-container name="concienciacontainer">
 <h2></h2>
     <statusConciencia></statusConciencia>
-    <componentecardclasificacionplan></componentecardclasificacionplan>
-    <br />
+   <!-- <componentecardclasificacionplan></componentecardclasificacionplan>
+   --> <br />
     <componenteDocumentoConciencia></componenteDocumentoConciencia>
 
      <DocuementoConciencia
@@ -33,7 +33,7 @@ import eventBus from "@/eventBus.js";
 
 import apiConciencia from '@/apialdeas/apiConciencia.js';
 import statusConciencia from "@/components/componentesConciencia/statusConciencia.vue";
-import componentecardclasificacionplan from "@/components/componentesConciencia/componente-card-clasificacion-plan.vue";
+//import componentecardclasificacionplan from "@/components/componentesConciencia/componente-card-clasificacion-plan.vue";
 import DocuementoConciencia from "@/components/componentesConciencia/DocuementoConciencia.vue";
 import validacionReporteInicial from   "@/components/etapas/validaciones/validacionReporteInicial.js";
 
@@ -45,7 +45,8 @@ export default {
 
   components: {
 
-    componentecardclasificacionplan,statusConciencia,DocuementoConciencia
+    //componentecardclasificacionplan,
+    statusConciencia,DocuementoConciencia
 
   },
 
@@ -81,7 +82,7 @@ validacion_sePuedeCapturar(){
  
       conciencia_estatus , 
  
-      conciencia_clasificacion , 
+      //conciencia_clasificacion , 
 
       conciencia_docto,
      
@@ -99,9 +100,9 @@ validacion_sePuedeCapturar(){
    this.$store.dispatch('actions_uivars_error_conciencia_estatus',r);   
    this.validarCaptura(r);
 
- r = validacionReporteInicial.existeInformacionParaCapturar(conciencia_clasificacion); 
+/* r = validacionReporteInicial.existeInformacionParaCapturar(conciencia_clasificacion); 
    this.$store.dispatch('actions_uivars_error_conciencia_clasificacion',r);   
-   this.validarCaptura(r);
+   this.validarCaptura(r);*/
 
  r = validacionReporteInicial.existeInformacionParaCapturar(conciencia_docto); 
    this.$store.dispatch('actions_uivars_error_conciencia_docto',r);   
@@ -159,7 +160,7 @@ validacion_sePuedeCapturar(){
 
     this.$store.dispatch('action_conciencia_id', response.data[0]['id']);
     this.$store.dispatch('action_conciencia_estatus', response.data[0]['estatus']);
-    this.$store.dispatch('action_conciencia_clasificacion', response.data[0]['clasificacion']);
+   // this.$store.dispatch('action_conciencia_clasificacion', response.data[0]['clasificacion']);
     this.$store.dispatch('action_conciencia_activo', response.data[0]['activo']);
     this.$store.dispatch('action_conciencia_tipo', response.data[0]['tipo']);
     this.$store.dispatch('action_conciencia_docto', response.data[0]['docto']);
@@ -192,7 +193,7 @@ this.$store.dispatch('action_conciencia_tipo', response.data[0]['tipo']);
       this.$store.dispatch('action_conciencia_activo','');
      
       this.$store.dispatch('action_conciencia_estatus', '');
-      this.$store.dispatch('action_conciencia_clasificacion', '');
+     // this.$store.dispatch('action_conciencia_clasificacion', '');
       this.$store.dispatch('action_conciencia_activo', '');
       this.$store.dispatch('action_conciencia_tipo', '');
       this.$store.dispatch('action_conciencia_docto', '');
@@ -224,7 +225,7 @@ this.$store.dispatch('action_conciencia_tipo', response.data[0]['tipo']);
        
          id :  this.$store.state.conciencia.conciencia_id,
         estatus :  this.$store.state.conciencia.conciencia_estatus,
-        clasificacion :  this.$store.state.conciencia.conciencia_clasificacion,
+        clasificacion : 'NO', //this.$store.state.conciencia.conciencia_clasificacion,
         docto :  this.$store.state.conciencia.conciencia_docto,
         estatusplan :this.$store.state.conciencia.conciencia_estatusplan,
         activo :  "1",
