@@ -8,6 +8,8 @@
     <ComponenteDatosIncidentesVarios></ComponenteDatosIncidentesVarios>
    <ComponenteTotalesSuma></ComponenteTotalesSuma>
     <ComponenteBarStack></ComponenteBarStack>
+    <ComponenteVictimasTotales></ComponenteVictimasTotales>
+    <ComponenteBarStackVictimas></ComponenteBarStackVictimas>
   </v-container>
 </template>
 <script>
@@ -20,6 +22,8 @@ import ComponenteChartjs  from '@/components/estadisticas/ComponenteChartjs.vue'
 import ComponenteTotal from '@/components/estadisticas/ComponenteTotal.vue';
 import ComponenteBarStack from '@/components/estadisticas/ComponenteBarStack.vue';
 import ComponenteTotalesSuma from '@/components/estadisticas/ComponenteTotalesSuma.vue';
+import ComponenteVictimasTotales from '@/components/estadisticas/ComponenteVictimasTotales.vue';
+import ComponenteBarStackVictimas from '@/components/estadisticas/ComponenteBarStackVictimas.vue';
 
 export default {
   name: "Estadisticas",
@@ -31,7 +35,7 @@ export default {
 
     ComponenteIncidentesProgramas,ComponenteSelectorFechas
     ,ComponenteDatosIncidentesVarios,ComponenteChartjs,ComponenteTotal
-    ,ComponenteBarStack,ComponenteTotalesSuma
+    ,ComponenteBarStack,ComponenteTotalesSuma,ComponenteVictimasTotales,ComponenteBarStackVictimas
 
   } ,
 
