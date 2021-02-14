@@ -256,7 +256,7 @@ export default {
     },
     validacionAntesDeConfirmacion(){
 
-     
+       this.errores =0;
        const {  
         etapavaloracion_textovi, 
         etapavaloracion_confirmaincidente, 
@@ -271,9 +271,22 @@ export default {
        this.$store.dispatch('actions_uivars_error_cardConfirmacion',r);
        this.validarCaptura(r);
 
-     
+       
 
-       return this.errores;
+       if  (this.errores== 0) {
+            
+            if(etapavaloracion_confirmaincidente=='NO ES UN INCIDENTE'){
+              console.log(".");
+            }else {
+
+                 return true;
+
+            }
+            
+        
+       }else{
+         return false;
+       }
     },
     solicitudImpresion(){
 
@@ -446,7 +459,47 @@ export default {
 
     },
 
+    ejecutar_b(){
 
+        console.log(".");
+      /*var parmetros = {
+        //'fechacreacion'         : $datos['fechacreacion'],
+        // 'fechaupdate'           : $datos['fechaupdate'],
+        id: this.id,
+        incidenteid: this.incidenteid,
+        textovi: etapavaloracion_textovi,
+        tipologiadelincidente:etapavaloracion_tipologiadelincidente,
+        niveldelincidente: etapavaloracion_niveldelincidente,
+        tipodecaso: etapavaloracion_tipodecaso,
+        confirmaincidente: etapavaloracion_confirmaincidente,
+        tipoderespuesta: etapavaloracion_tipoderespuesta,
+        medidasintegrales:  etapavaloracion_medidasintegrales,
+        estado : 'cerrado'
+      };
+
+      console.log(parmetros);
+
+      let update = apiValoracion.updateValoracion(parmetros, this.$store);
+
+      update
+        .then((response) => {
+         // console.log(JSON.stringify(response.data));
+         // let ruta =`/notificaciondos/${this.incidenteid}/${this.folio}/${etapavaloracion_confirmaincidente}`;
+         typeof response;
+         // this.$router.push(ruta);
+          this.$router.push({
+          name: "Notificaciondos",
+          params: { incidenteId:  this.incidenteid, folio:this.folio,esincidente :etapavaloracion_confirmaincidente },
+        });
+
+        })
+        .catch((error) => {
+          console.log(error.data);
+        });
+
+*/
+
+    },
 
     ejecutar_actualizaValoracion(){
 
@@ -508,13 +561,18 @@ export default {
 
 
     },
-
+    
     actualizarValoracion() {
+
+     
 
      console.log(" Permiso EDITARANTESDECIERREDELAVALORACIONINTEGRAL  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARANTESDECIERREDELAVALORACIONINTEGRAL)             
      if (this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARANTESDECIERREDELAVALORACIONINTEGRAL=='SI'){
 
-      this.validacion_sePuedeCapturar();
+
+        this.actualizarValoracion()
+       
+        this.validacion_sePuedeCapturar();
 
         this.errores>0 ? this.revisarErrores() : this.ejecutar_actualizaValoracion();
 

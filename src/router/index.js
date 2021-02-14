@@ -93,6 +93,13 @@ const routes = [
       import(/* webpackChunckName:"estadisticas" */ "../views/Estadisticas.vue"),
   },
   {
+    path: "/estadisticas2",
+    name: "Estadisticas2",
+    meta: { requiresAuth : true },
+    component: () =>
+      import(/* webpackChunckName:"estadisticas" */ "../views/Estadisticas2.vue"),
+  },
+  {
     path: "/configuracion",
     name: "Configuracion",
     meta: { requiresAuth : true },
