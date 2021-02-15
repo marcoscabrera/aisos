@@ -15,11 +15,11 @@
          <p class="text-center"  v-else>
 
          Se ha notificado a los miembros del comite de proteccion infantil via correo que 
-         este reporte ha sido valorado como <strong>"No Incidente".</strong>
+         este reporte ha sido valorado como <strong>"Incidente".</strong>
         </p>      
-        <p>
-         <!-- Reporte # <strong>{{folio}}</strong> -->
-        </p>
+        <!--<p>
+          Reporte # <strong>{{folio}}</strong>
+        </p> -->
       </v-col>
       
     </v-row>

@@ -58,7 +58,7 @@ export default {
          
       this.mensaje = m;
 
-      console.log(this.mensaje);
+      //console.log(this.mensaje);
       
       return cuantos;
     },

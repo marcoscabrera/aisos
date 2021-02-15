@@ -122,9 +122,8 @@
         :color="item.coloretapauno"
         dark
         @click="irAValoracionInicial(item.id)"
-      >RI
-        <!-- <v-icon>mdi-file-document</v-icon>
-       --></v-btn
+      >VI
+        </v-btn
       >
     </template>
 
@@ -148,12 +147,11 @@
         :class="item.etapatres"
         x-small
         fab
-        :color="item.estadoseguimiento=='cerrado' ? 'green' : 'yellow'"
+        :color="item.coloretapatres"
         dark
         @click="irASeguimiento(item.id)"
       >
-        S</v-btn
-      >
+        S</v-btn >
     </template>
 
     <template v-slot:item.etapacuatro="{ item }">
@@ -285,7 +283,7 @@ export default {
       //{ text: "Hechos", value: "data-table-expand" },
       // { text: "Activo", value: "activo" },
       { text: "Estado", value: "estado" },
-      { text: "R Inicial", value: "etapauno" },
+      { text: "V Inicial", value: "etapauno" },
       { text: "V Integral", value: "etapados" },
       { text: "Seguimiento", value: "etapatres" },
       { text: "Cierre", value: "etapacuatro" },
@@ -451,7 +449,7 @@ export default {
 
       getIncidentes
         .then((response) => {
-          console.log(JSON.stringify(response.data));
+          //console.table(response.data);
 
           this.incidentes = response.data;
           this.ocultar ==false? this.headers =this.headers2 : this.headers= this.headers1;

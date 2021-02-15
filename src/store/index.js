@@ -21,7 +21,7 @@ const store =  new Vuex.Store({
 //urlServidor: 'https://api.aldeasinfantiles.mx/apialdeas'
 
 urlServidor : 'https://apialdeasrebelbotdemo.azurewebsites.net',
- // urlServidor :'http://rebelbot.mx/apialdeas'
+// urlServidor :'http://rebelbot.mx/apialdeas'
 //    
   },
   mutations: {

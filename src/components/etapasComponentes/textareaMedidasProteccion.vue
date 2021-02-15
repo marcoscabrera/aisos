@@ -29,7 +29,7 @@ export default {
 
   methods:  {
     asignarValor(evento){
-      console.log(evento);
+     // console.log(evento);
       this.$store.dispatch('setear_medidasproteccion',evento)
      let cuantos = this.cuentaPalabras(evento);
      let m1 = "HA EXCEDIDO EL NUMERO MAXIMO DE PALABRAS PERMITIDAS =";

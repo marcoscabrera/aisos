@@ -37,7 +37,7 @@
       </v-col>
 
       <v-col cols="4" class="pl-2">
-        <v-btn color="success" dark small @click="upload">
+        <v-btn v-if="MostrarBotonDeSubir" color="success" dark small @click="upload">
           Subir
           <v-icon right dark>mdi-cloud-upload</v-icon>
         </v-btn>
@@ -83,6 +83,7 @@ export default {
   },
   data() {
     return {
+      MostrarBotonDeSubir :true,
       largo :true,
       recienSubido : '0',
       sihayarchivo : false,
@@ -311,6 +312,7 @@ export default {
 
           //ocultamos en teoria mensaje de falta campo.
           this.mostrarMensajeValidacion=false;
+          this.MostrarBotonDeSubir =false;
          // this.$store.dispatch(,)
 
           return UploadService.getFiles(response.data.idRegistro, this.$store.state );

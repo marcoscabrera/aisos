@@ -47,8 +47,46 @@
     <!-- =============================================== -->
 
     <v-row>
-      <cardConfirmacion :confirmacion="confirmaincidente"></cardConfirmacion>
+        <v-card width="100%" v-if="ocultarConfirmacion">
+    <v-card-title> ¿SE CONFIRMA QUE EL EVENTO ES UN INCIDENTE ? </v-card-title>
+    <v-card-text>
+      <v-row>
+        <v-col cols="12" xs="12" sm="6" md="6">
+          <v-btn color="green" dark dense block
+          @click="confirmacionIclick('NO ES UN INCIDENTE')">
+            No es un incidente     
+          </v-btn>    
+        
+        </v-col>
+        <v-col cols="12" xs="12" sm="6" md="6">
+
+           <v-btn color="red" dark dense block
+           @click="confirmacionIclick('SI ES UN INCIDENTE')">
+           Si es un incidente     
+          </v-btn>  
+        <!--  <v-select
+            :value="confirmacion"
+            :item-value="confirmacion"
+            :items="itemsOpciones"
+            label="CONFIRMAR INCIDENTE"
+            dense
+            filled
+            @change="asignarValor($event)"
+          >
+          </v-select> -->
+
+         <v-alert v-if="this.$store.state.uivars.uivars_error_cardConfirmacion" type="error">
+           Debe de confirmar si es un incidente o no .
+        </v-alert>
+
+        </v-col>
+      </v-row>
+    </v-card-text>
+  </v-card>
     </v-row>
+    <!--<v-row>
+      <cardConfirmacion :confirmacion="confirmaincidente"></cardConfirmacion>
+    </v-row> -->
     <!-- =============================================== -->
     <br />
     <v-row v-if="this.$store.state.uivars.uivar_esincidente">
@@ -94,7 +132,7 @@
        :nombreDelArchivo    ="nombreDelArchivo"></cardMedidasIntegrales>
     </v-row>
 
-    <v-row >
+    <v-row v-if="mostrarLaBotonera">
       <v-col cols="12" xs="12" sm="12" md="4">
         <v-btn
           :loading="loading"
@@ -148,13 +186,15 @@ import textareaValoracion from "@/components/etapasComponentesValoracion/textare
 import cardTipologia from "@/components/etapasComponentesValoracion/cardTipologia.vue";
 
 import cardNivelIncidente from "@/components/etapasComponentesValoracion/cardNivelIncidente.vue";
-import cardConfirmacion from "../etapasComponentesValoracion/cardConfirmacion.vue";
+//import cardConfirmacion from "../etapasComponentesValoracion/cardConfirmacion.vue";
 import cardTipoCaso from "../etapasComponentesValoracion/cardTipoCaso.vue";
 import cardTipoRespuesta from "../etapasComponentesValoracion/cardTipoRespuesta.vue";
 //import cardMedidasIntegrales from "../etapasComponentesValoracion/cardMedidasIntegrales.vue";
 import validacionReporteInicial from   "@/components/etapas/validaciones/validacionReporteInicial.js";
-
+//import ComponenteConfirmacionIncidente from   "../etapasComponentesValoracion/ComponenteConfirmacionIncidente.vue";
 //import medidasCrud from "@/components/seguimiento/medidasCrud.vue";
+import validacionArchivo from  "@/components/etapas/validaciones/validacionArchivos.js";
+
 export default {
   components: {
     barraDocumentosVue,
@@ -162,9 +202,10 @@ export default {
     textareaValoracion,
     cardTipologia,
     cardNivelIncidente,
-    cardConfirmacion,
+    //cardConfirmacion,
     cardTipoCaso,
-    cardTipoRespuesta,BarraDeNavegacion
+    cardTipoRespuesta,BarraDeNavegacion,
+   // ComponenteConfirmacionIncidente
   },
 
 
@@ -176,26 +217,91 @@ export default {
 
   methods: {
 
-    revisarErrores(){
+    guardar_noesunincidente(){
+       
+             var parmetros = {
+      
+        id: this.id,
+        incidenteid: this.incidenteid,
+        textovi: this.$store.state.valoracion.etapavaloracion_textovi,
+        tipologiadelincidente:'0',
+        niveldelincidente: '0',
+        tipodecaso: '0',
+        confirmaincidente: 'NO ES UN INCIDENTE',
+        tipoderespuesta: '0',
+        medidasintegrales:  '0',
+        estado : ''
+      };
+
+      console.log(parmetros);
+
+      let update = apiValoracion.updateValoracion(parmetros, this.$store);
+
+      update
+        .then((response) => {
+         // console.log(JSON.stringify(response.data));
+         // let ruta =`/notificaciondos/${this.incidenteid}/${this.folio}/${etapavaloracion_confirmaincidente}`;
+         console.log(JSON.stringify(response.data));
+         // this.$router.push(ruta);
+         
+          this.$router.push({
+          name: "Notificaciondos",
+          params: { incidenteId:  this.incidenteid,
+           folio:this.folio,
+           esincidente :this.$store.state.valoracion.etapavaloracion_confirmaincidente },
+        });
+
+        })
+        .catch((error) => {
+          console.log(error.data);
+        });
+
+
+
+        //////////////////////////////////////////////
+
+    },
+    proceso_seguir_Porque_Es_un_incidente(){
+     
+
+       this.ocultarConfirmacion= false ;
+       this.mostrarLaBotonera = true ;
+
+       this.$store.dispatch("actions_uivars_esincidente",true);
+
 
     },
 
-    validacion_sePuedeCapturar(){
 
-        this.errores = 0;
 
+    confirmacionIclick(valor){
+     
+      const {  
+        etapavaloracion_textovi 
+      } = this.$store.state.valoracion;
+
+
+       let r =  validacionReporteInicial.existeInformacionParaCapturar_y_mayor_a(etapavaloracion_textovi,20);
+       this.$store.dispatch('actions_uivars_error_textareaValoracion',r);
       
-      this.$store.state.uivars.uivar_esincidente == false ?  this.validacionAntesDeConfirmacion() : this.validacionGeneral();
+        if( r == true) return;
+        
+        /////////////////////////////////////////////
+        
+             
+     valor == 'NO ES UN INCIDENTE' ? this.guardar_noesunincidente() 
+     : this.proceso_seguir_Porque_Es_un_incidente();
+
+    } ,
+
+
+
+   validarCaptura(valor){
       
-      return   this.errores;
-
-
-   
-    },
-       validarCaptura(valor){
-
+      console.log("valor en validarCaptura : " + valor);
       let suma=0 ;
       valor== false ? suma=0 : suma=1;
+      console.log("suma en validarCaptura : " + suma);
 
       this.errores = this.errores + suma;
 
@@ -203,10 +309,12 @@ export default {
     },
     validacionGeneral(){
 
+      this.errores=0;
+
       console.log("===================");
        const {  
         etapavaloracion_textovi, 
-        etapavaloracion_confirmaincidente,
+        //etapavaloracion_confirmaincidente,
         etapavaloracion_tipologiadelincidente, 
         etapavaloracion_niveldelincidente,
         etapavaloracion_tipodecaso,
@@ -219,75 +327,46 @@ export default {
        this.$store.dispatch('actions_uivars_error_textareaValoracion',r);
        this.validarCaptura(r);
 
-        r =  validacionReporteInicial.existeInformacionParaCapturar_y_no_es_esta(etapavaloracion_confirmaincidente,"En Proceso de Valoracion");
+       /* r =  validacionReporteInicial.existeInformacionParaCapturar_y_no_es_esta(etapavaloracion_confirmaincidente,"En Proceso de Valoracion");
        this.$store.dispatch('actions_uivars_error_cardConfirmacion',r);
-       this.validarCaptura(r);
+       this.validarCaptura(r);*/
 
-        console.log(" valor de etapavaloracion_tipologiadelincidente " + etapavaloracion_tipologiadelincidente);
+        //console.log(" valor de etapavaloracion_tipologiadelincidente " + etapavaloracion_tipologiadelincidente);
 
        r =  validacionReporteInicial.existeInformacionParaCapturar_y_mayor_a(etapavaloracion_tipologiadelincidente,5);
        this.$store.dispatch('action_uivars_error_cardTipologia',r);
        this.validarCaptura(r);  
+    
+      //  console.log(" valor de etapavaloracion_tipologiadelincidente " + etapavaloracion_niveldelincidente);
 
        r =  validacionReporteInicial.existeInformacionParaCapturar_y_mayor_a(etapavaloracion_niveldelincidente,5);
        this.$store.dispatch('actions_uivars_error_cardNivelIncidente',r);
        this.validarCaptura(r);  
 
 
-        //console.log(" valor de etapavaloracion_tipodecaso " + etapavaloracion_tipodecaso);
+      //  console.log(" valor de etapavaloracion_tipodecaso " + etapavaloracion_tipodecaso);
        
        r =  validacionReporteInicial.existeInformacionParaCapturar_y_mayor_a(etapavaloracion_tipodecaso,5);
        this.$store.dispatch('actions_uivars_error_cardTipoCaso',r);
        this.validarCaptura(r);  
     
-     // console.log(" valor de etapavaloracion_tipoderespuesta " + etapavaloracion_tipoderespuesta);
+//console.log(" valor de etapavaloracion_tipoderespuesta " + etapavaloracion_tipoderespuesta);
 
        r =  validacionReporteInicial.existeInformacionParaCapturar_y_no_es_esta(etapavaloracion_tipoderespuesta,"En Proceso de Valoracion");
        this.$store.dispatch('actions_uivars_error_cardTipoRespuesta',r);
        this.validarCaptura(r);  
 
-     //  console.log(" valor de etapavaloracion_medidasintegrales " + etapavaloracion_medidasintegrales);
+       //console.log(" valor de etapavaloracion_medidasintegrales " + etapavaloracion_medidasintegrales);
 
-       r =  validacionReporteInicial.existeInformacionParaCapturar(etapavaloracion_medidasintegrales);
+       r =  validacionReporteInicial.existeInformacionParaCapturar_y_no_es_cero(etapavaloracion_medidasintegrales);
        this.$store.dispatch('actions_uivars_error_cardMedidasIntegrales',r);
        this.validarCaptura(r);  
+                                                                 
+       validacionArchivo.valida_si_hay_un_valor_distinto_de_cero(etapavaloracion_medidasintegrales,this.$store);
       return this.errores;
 
     },
-    validacionAntesDeConfirmacion(){
 
-       this.errores =0;
-       const {  
-        etapavaloracion_textovi, 
-        etapavaloracion_confirmaincidente, 
-      } = this.$store.state.valoracion;
-
-
-       let r =  validacionReporteInicial.existeInformacionParaCapturar_y_mayor_a(etapavaloracion_textovi,20);
-       this.$store.dispatch('actions_uivars_error_textareaValoracion',r);
-       this.validarCaptura(r);
-
-        r =  validacionReporteInicial.existeInformacionParaCapturar_y_no_es_esta(etapavaloracion_confirmaincidente,"En Proceso de Valoracion");
-       this.$store.dispatch('actions_uivars_error_cardConfirmacion',r);
-       this.validarCaptura(r);
-
-       
-
-       if  (this.errores== 0) {
-            
-            if(etapavaloracion_confirmaincidente=='NO ES UN INCIDENTE'){
-              console.log(".");
-            }else {
-
-                 return true;
-
-            }
-            
-        
-       }else{
-         return false;
-       }
-    },
     solicitudImpresion(){
 
 
@@ -406,6 +485,28 @@ export default {
          this.verBotonera =true : this.confirmaincidente == "En Proceso de Valoracion"
           ? this.verBotonera = true: this.verBotonera = false;
 
+          //////////////////////////////////////////////////////////////////
+          // si el inicedente no ha sido confirmado segiuomos mostradno
+          // la botonera de confirmacion
+          //////////////////////////////////////////////////////////////////
+          
+          let estado = response.data[0]["estado"];
+
+          console.log(" ========== estado  > " + estado );
+          
+
+          
+          this.confirmaincidente == 'En Proceso de Valoracion' ?
+          this.ocultarConfirmacion == true : this.ocultarConfirmacion=false;
+
+          this.confirmaincidente == 'En Proceso de Valoracion' ?
+          this.mostrarLaBotonera == false : this.mostrarLaBotonera=true;
+
+          
+          //////////////////////////////////////////////////////////////////////////
+
+
+
         // this.$store.dispatch("actions_uivars_esincidente",false) ;  
 
          this.confirmaincidente == "SI ES UN INCIDENTE" ?
@@ -421,6 +522,8 @@ export default {
           /*-------------*/
           let idarchivo = '';
           idarchivo = response.data[0]["medidasintegrales"];
+          this.$store.dispatch('action_medidasintegrales',idarchivo);   
+
           //console.log("valor de planycronograma : " +  this.planycronograma  );
            //this.planycronograma.length>3 ?  this.hayPlan   = true :false;
           // this.plan =true;
@@ -462,42 +565,6 @@ export default {
     ejecutar_b(){
 
         console.log(".");
-      /*var parmetros = {
-        //'fechacreacion'         : $datos['fechacreacion'],
-        // 'fechaupdate'           : $datos['fechaupdate'],
-        id: this.id,
-        incidenteid: this.incidenteid,
-        textovi: etapavaloracion_textovi,
-        tipologiadelincidente:etapavaloracion_tipologiadelincidente,
-        niveldelincidente: etapavaloracion_niveldelincidente,
-        tipodecaso: etapavaloracion_tipodecaso,
-        confirmaincidente: etapavaloracion_confirmaincidente,
-        tipoderespuesta: etapavaloracion_tipoderespuesta,
-        medidasintegrales:  etapavaloracion_medidasintegrales,
-        estado : 'cerrado'
-      };
-
-      console.log(parmetros);
-
-      let update = apiValoracion.updateValoracion(parmetros, this.$store);
-
-      update
-        .then((response) => {
-         // console.log(JSON.stringify(response.data));
-         // let ruta =`/notificaciondos/${this.incidenteid}/${this.folio}/${etapavaloracion_confirmaincidente}`;
-         typeof response;
-         // this.$router.push(ruta);
-          this.$router.push({
-          name: "Notificaciondos",
-          params: { incidenteId:  this.incidenteid, folio:this.folio,esincidente :etapavaloracion_confirmaincidente },
-        });
-
-        })
-        .catch((error) => {
-          console.log(error.data);
-        });
-
-*/
 
     },
 
@@ -507,6 +574,7 @@ export default {
       this.validacionGeneral();
 
     //  console.log("<<<<< valor de this.errores en ejecutat_actualizavaloracon : >>>> " + this.errores)
+      console.log("valor de this.errores en ejecutar_actualizaValoracion " + this.errores);
 
       if (this.errores>0) return;
 
@@ -532,7 +600,7 @@ export default {
         tipologiadelincidente:etapavaloracion_tipologiadelincidente,
         niveldelincidente: etapavaloracion_niveldelincidente,
         tipodecaso: etapavaloracion_tipodecaso,
-        confirmaincidente: etapavaloracion_confirmaincidente,
+        confirmaincidente: "SI ES UN INCIDENTE",
         tipoderespuesta: etapavaloracion_tipoderespuesta,
         medidasintegrales:  etapavaloracion_medidasintegrales,
         estado : 'cerrado'
@@ -549,7 +617,7 @@ export default {
          typeof response;
          // this.$router.push(ruta);
           this.$router.push({
-          name: "Notificaciondos",
+          name: "Notificaciontres",
           params: { incidenteId:  this.incidenteid, folio:this.folio,esincidente :etapavaloracion_confirmaincidente },
         });
 
@@ -564,21 +632,17 @@ export default {
     
     actualizarValoracion() {
 
-     
-
      console.log(" Permiso EDITARANTESDECIERREDELAVALORACIONINTEGRAL  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARANTESDECIERREDELAVALORACIONINTEGRAL)             
-     if (this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARANTESDECIERREDELAVALORACIONINTEGRAL=='SI'){
 
+  if (this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARANTESDECIERREDELAVALORACIONINTEGRAL=='SI'){
 
-        this.actualizarValoracion()
-       
-        this.validacion_sePuedeCapturar();
-
-        this.errores>0 ? this.revisarErrores() : this.ejecutar_actualizaValoracion();
+        this.ejecutar_actualizaValoracion();
 
      }//termina if
-    },
+
+    }
   },
+
   created() {
     let rolActual = this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARANTESDECIERREDELAVALORACIONINTEGRAL;
     
@@ -595,6 +659,9 @@ export default {
   },
   data() {
     return {
+      mostrarLaBotonera :false,
+      ocultarConfirmacion: true,
+      confirmacionDeIncidente : this.$store.state.uivars.actions_uivars_esincidente,
       estadoDeValoracion: '',
       errores : 0,
       verBotonera : true,
