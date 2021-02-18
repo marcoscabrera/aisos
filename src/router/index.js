@@ -1,9 +1,8 @@
 import Vue from "vue";
-
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 
-//import store from '@/store/index.js';
+
 
 
 Vue.use(VueRouter);
@@ -83,7 +82,7 @@ const routes = [
     name: "VisorPDF",
     meta: { requiresAuth : true },
     component: () =>
-      import(/* webpackChunckName:"visorpdf" */ "../views/VisorPDF.vue"),
+      import(/* webpackChunckName:"visorpdf2" */ "../views/VisorPDF.vue"),
   },
   {
     path: "/estadisticas",
@@ -211,6 +210,19 @@ const routes = [
     component: () =>
       import(/* webpackChunckName:"notificaciondos" */ "../views/Notificaciondos.vue"),
   },
+  {
+    path: "/notificaciontres/:incidenteId/:folio/:esincidente",
+    name: "Notificaciontres",
+    component: () =>
+      import(/* webpackChunckName:"notificaciontres" */ "../views/Notificaciontres.vue"),
+  },
+  {
+    path: "/notificacioncuatro/:incidenteId/:folio/:esincidente",
+    name: "Notificacioncuatro",
+    component: () =>
+      import(/* webpackChunckName:"notificacioncuatro" */ "../views/Notificacioncuatro.vue"),
+  },
+ 
   {
     path: "/notificacionnoautorizado",
     name: "NotificacionNoAutorizado",

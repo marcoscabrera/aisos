@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-bottom-navigation v-if="HayArchivo == true" >
-                <v-btn value="favorites"
+                <v-btn 
                   @click="verArchivo"
                  >
                   <span>{{ nombreArchivo }}</span>
@@ -30,7 +30,7 @@
         <v-file-input
           show-size
           label="Adjunta tu documento"
-          :rules ="rules"
+          
           :accept="tipoDeArchivo"
           @change="selectFile"
         ></v-file-input>
@@ -160,7 +160,7 @@ export default {
 
         this.$store.dispatch("actions_uivars_docto_a_ver",link);
         this.$store.dispatch("actions_uivars_ir_origen_que_solicito_docto",this.$router.currentRoute.path)
-        //console.log("link generado " + link);
+       // console.log("link generado " + link);
 
         this.$router.push({name: "VisorPDF"});
 

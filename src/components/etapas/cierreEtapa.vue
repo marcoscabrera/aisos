@@ -262,7 +262,13 @@
     <br />
 
     <!-- =============================================== -->
-
+     <v-row v-if="mostrarAlerta">
+       <v-col>
+         <v-alert type="warning"   >
+            Todavia no es posible realizar el cierre de este procedimiento de Desprotección Infantil
+         </v-alert>
+       </v-col>
+     </v-row>
     <!-- =============================================== -->
     <br />
     <!-- =============================================== -->
@@ -270,8 +276,7 @@
     <v-row>
       <v-col cols="12" xs="12" sm="12" md="4">
         <v-btn
-          :loading="loading"
-          :disabled="loading"
+         
           color="primary"
           @click="PermisoImpresion"
           block
@@ -283,8 +288,7 @@
       </v-col>
       <v-col cols="12" xs="12" sm="12" md="4">
         <v-btn
-          :loading="loading"
-          :disabled="loading"
+       
           color="red"
           @click="guardar__iraDashboard"
           block
@@ -451,6 +455,7 @@ export default {
         response=>{ 
           
           console.log(response.data);
+          this.ESTADODELSEGUIMIENTO =response.data[0]["estadoseguimiento"];
           this.folio = response.data[0]["folio"];
           this.programa= response.data[0]["nombrePrograma"];
           this.elaboro= response.data[0]["elaboro"];
@@ -608,9 +613,32 @@ export default {
       .then( response => {
         console.log("respuesta despues del cierre.");
          console.log(JSON.stringify(response.data))
-         console.log(response.data[0]['msg']);
+         console.log(response.data['msg']);
+         let respuesta = response.data['msg'];
+         console.log("Respuesta msg " + respuesta);
+
+        if (respuesta== "ok"){
+
+          //nos lleva a notificacion de cierre.
+
+         this.loading= false ;
+         
+         this.$router.push({
+          name: "Notificacioncuatro",
+          params: { incidenteId:  this.incidenteid,folio:this.folio },
+        });
+       
+       
+
+        }else{
+            this.loading= false ;
+           return;
+
+        }
          } )
-      .catch( error => { console.log(JSON.stringify(error.data))});
+      .catch( error => { 
+          this.loading= false ;
+        console.log(JSON.stringify(error.data))});
 
       /************************************************************ */
      }//cierra if permiso
@@ -618,18 +646,27 @@ export default {
     },//cierra la funcion 
 
     revisarErrores() {
-
+      this.loading= false ;
       console.log("valida el cierre");
 
     },//termina cierre
 
     cerrarIncidente(){
-     
+      console.log(this.mostrarAlerta);
+      this.mostrarAlerta=false;
+       console.log(this.mostrarAlerta);
+      if(this.ESTADODELSEGUIMIENTO=='abierto'){
+          this.mostrarAlerta=true;
+           console.log(this.mostrarAlerta);
+      }else{
+
+      this.loading= true ;
       let res = this.validarCierre();
+      res ==true ? this.realizarElCierre()  :   this.revisarErrores() ;    
+      
+      
+      }
 
-    
-
-      res ==true ? this.realizarElCierre()  :   this.revisarErrores() ;
       
 
     }, //termina cerrar incidenten
@@ -659,6 +696,9 @@ export default {
 
   data() {
     return {
+
+      ESTADODELSEGUIMIENTO : '',
+      mostrarAlerta:false,
 
       mostarBotonDeCierre : true,
 

@@ -1,19 +1,18 @@
 <template>
  <v-container name ="visor">
-    <!-- <PDFDocument :link="src"/> -->
-    <!--<PdfViewer :link="src"/> -->
-  <!--  <PDFV2 :link="src"/>  -->
-<prueba></prueba>
+
+     <cp></cp> 
+
  </v-container>
 </template>
 
 <script>
-///import PdfViewer from '@/components/manipulacionArchivos/PdfViewer.vue';
-//import PdfViewer from '@/components/manipulacionArchivos/PdfViewer.vue';
-//import  PDFV2 from '@/components/manipulacionArchivos/PDFV2.vue'; 
-import  prueba from '@/components/manipulacionArchivos/prueba.vue'; 
 
-    export default {
+//import  prueba from '@/components/manipulacionArchivos/prueba.vue'; 
+//import ComponentePDFvuever from  '@/components/manipulacionArchivos/ComponentePDFvuever.vue';
+ import cp from  '@/components/manipulacionArchivos/cp.vue';
+ 
+ export default {
 
         data() {
             return {
@@ -21,18 +20,19 @@ import  prueba from '@/components/manipulacionArchivos/prueba.vue';
             }
         },
 
-        components :{
-            prueba
+        components :{ cp
+          // prueba
                //PDFDocument
            // PDFV2,
-             //PdfViewer ,
+           // PdfViewer ,
        
         },
 
         methods: {
             cargarDocto() {
-                 
-                 this.src = this.$store.state.uivars.uivars_docto_a_ver ;
+                
+                console.log("montnado el contro");
+                this.src = this.$store.state.uivars.uivars_docto_a_ver ;
                 console.log("================");
                 console.log(this.src);
                 console.log("================");

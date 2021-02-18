@@ -10,7 +10,7 @@
         </v-list-item-title>
         <v-list-item-subtitle><strong></strong></v-list-item-subtitle>
       </v-list-item-content>
-    </v-list-item>-->
+    </v-list-item>
 
        <canvas id="planet-chart">
 

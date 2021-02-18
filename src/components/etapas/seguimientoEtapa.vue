@@ -394,7 +394,8 @@ export default {
       /* let resultadoValidacion = validacionSeguimiento.validacion_sePuedeCapturar(this.$store);
 
        resultadoValidacion > 0 ? this.revisarErrrores() : this.guardarRegistro();
-*/
+*/     
+       validacionSeguimiento.validacion_sePuedeCapturar(this.$store);
        this.guardarRegistro();
      
     },
