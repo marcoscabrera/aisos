@@ -22,6 +22,9 @@ const store =  new Vuex.Store({
 
 urlServidor : 'https://apialdeasrebelbotdemo.azurewebsites.net',
 // urlServidor :'http://rebelbot.mx/apialdeas'
+
+//Esta es una nueva configuracion y se esta probando.
+
 //    
   },
   mutations: {
