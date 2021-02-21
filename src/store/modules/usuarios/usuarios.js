@@ -14,6 +14,8 @@ import mutations from './mutations.js';
         usuarios_activo: null  ,
         usuarios_usuariologueado : [],
         usuarios_usuariologueado_rol : [],
+
+        usuarios_tokenUsuario :null,
         
               },
          mutations,

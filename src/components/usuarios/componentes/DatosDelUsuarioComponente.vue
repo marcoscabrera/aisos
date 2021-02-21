@@ -1,4 +1,4 @@
-import controlDeSesion from '@/sesion/controlDeSesion.js';
+
 <template>
   <v-banner
     single-line
@@ -32,19 +32,16 @@ import controlDeSesion from '@/sesion/controlDeSesion.js';
 
 
 <script>
+//import controlDeSesion from '@/sesion/controlDeSesion.js';
 
-
+import controlDeSesion from '@/sesion/controlDeSesion.js';
 export default {
  
  methods: {
    cerrarSesion(){
+    
 
-       this.$store.dispatch('action_usuarios_usuariologueado',null);
-       this.$store.dispatch('action_usuarios_usuariologueado_rol',null);
-       this.$store.dispatch('actions_uuivars_puedevermenulateral',false);
-       this.$store.dispatch('actions_uivars_hayUnUsuarioLogueado',false);
-        
-      this.$router.push("/login");
+      controlDeSesion.cerrarSesion(this.$store,this.$router);
 
     },
  },

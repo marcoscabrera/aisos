@@ -109,7 +109,8 @@
 <script>
 import DatosDelUsuarioComponente from '@/components/usuarios/componentes/DatosDelUsuarioComponente.vue';
 import apiParametros from '@/apialdeas/apiParametros.js';
-
+import controlDeSesion   from '@/sesion/controlDeSesion.js';
+import variablesLocales from '@/store/variablesLocales.js';
 
 export default {
   name: "App",
@@ -125,11 +126,17 @@ export default {
     imagenLogin: '',
   }),
   mounted () {
+    this.crearToken();
      this.cargarLosParametros();
     this.mostrarMenuLateral();
    
   },
   methods: {
+    crearToken(){
+       variablesLocales.setearToken('xxxx');
+      variablesLocales.setUsuarioId('');
+     
+    },
 
     async cargarLosParametros() {
 
@@ -168,12 +175,10 @@ export default {
     },
     cerrarSesion(){
 
-       this.$store.dispatch('action_usuarios_usuariologueado',null);
-       this.$store.dispatch('action_usuarios_usuariologueado_rol',null);
-        this.$store.dispatch('actions_uuivars_puedevermenulateral',false);
-         this.$store.dispatch('actions_uivars_hayUnUsuarioLogueado',false);
-        
-        this.$router.push("/login");
+
+
+        controlDeSesion.cerrarSesion(this.$store,this.$router);
+
 
     },
     irAconfiguracion() {

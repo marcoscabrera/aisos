@@ -1,4 +1,10 @@
 export default { 
+
+     mutation_usuarios_tokenUsuario(state, valor) {
+       
+          state.usuarios_tokenUsuario = valor;
+
+     },
  
     mutation_usuarios_id( state, valor) {   
               state.usuarios_id   = valor 

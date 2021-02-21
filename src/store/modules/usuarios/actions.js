@@ -1,4 +1,12 @@
 export default { 
+
+
+  action_usuarios_tokenUsuario (context , valor) {
+
+    
+    context.commit('mutation_usuarios_tokenUsuario',valor)  
+
+  },
   
     action_usuarios_id ( context , valor ) { 
                          context.commit('mutation_usuarios_id',valor)  

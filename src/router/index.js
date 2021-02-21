@@ -2,6 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 
+import variablesLocales from '@/store/variablesLocales.js';
+
 
 
 
@@ -136,6 +138,7 @@ const routes = [
   {
     path: "/acuerdo",
     name: "Acuerdo",
+    meta: { requiresAuth : true },
    // meta: { requiresAuth : true },
     component: () =>
       import(/* webpackChunckName:"acuerdo" */ "../views/Acuerdo.vue"),
@@ -201,12 +204,14 @@ const routes = [
    {
     path: "/notificacionuno/:incidenteId/:folio",
     name: "Notificacionuno",
+    meta: { requiresAuth : true },
     component: () =>
       import(/* webpackChunckName:"notificacionuno" */ "../views/Notificacionuno.vue"),
   },
    {
     path: "/notificaciondos/:incidenteId/:folio/:esincidente",
     name: "Notificaciondos",
+    meta: { requiresAuth : true },
     component: () =>
       import(/* webpackChunckName:"notificaciondos" */ "../views/Notificaciondos.vue"),
   },
@@ -219,6 +224,7 @@ const routes = [
   {
     path: "/notificacioncuatro/:incidenteId/:folio/:esincidente",
     name: "Notificacioncuatro",
+    meta: { requiresAuth : true },
     component: () =>
       import(/* webpackChunckName:"notificacioncuatro" */ "../views/Notificacioncuatro.vue"),
   },
@@ -226,6 +232,7 @@ const routes = [
   {
     path: "/notificacionnoautorizado",
     name: "NotificacionNoAutorizado",
+  
     component: () =>
       import(/* webpackChunckName:"notificacionnoautorizado" */ "../views/Notificacion_noautorizado.vue"),
   },
@@ -275,6 +282,7 @@ const routes = [
   {
     path: "/about",
     name: "About",
+    
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
@@ -285,6 +293,31 @@ const routes = [
 
 const router = new VueRouter({
   routes
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+
+   let id = variablesLocales.getUsuarioId();
+
+    console.log (" valor de id router beforeEach  : " + id);
+
+   if ( id == 0) { 
+
+      next({
+        name: "Login"
+      });
+
+    }else {
+      next();
+    }
+
+
+
+
+  } else {
+    next();
+  }
 });
 
 export default router;

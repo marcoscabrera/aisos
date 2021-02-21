@@ -1,5 +1,5 @@
 import api from '@/apialdeas/api.js'
-
+import variablesLocales from '@/store/variablesLocales.js';
 export default {
 
    hayUnUsuarioLogueado (ruta) {
@@ -40,7 +40,21 @@ export default {
       return false;
     }
 
-  }
+  },
+
+
+  cerrarSesion(store,router){
+
+    store.dispatch('action_usuarios_usuariologueado',null);
+    store.dispatch('action_usuarios_usuariologueado_rol',null);
+    store.dispatch('actions_uuivars_puedevermenulateral',false);
+    store.dispatch('actions_uivars_hayUnUsuarioLogueado',false);
+    variablesLocales.setearToken('');
+    variablesLocales.setUsuarioId('');
+    
+    router.push("/login");
+
+ },
 
 
 

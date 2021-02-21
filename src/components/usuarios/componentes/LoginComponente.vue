@@ -104,6 +104,9 @@ import apiUsuarios from '@/apialdeas/apiUsuarios.js';
 
 import controlDeSesion from '@/sesion/controlDeSesion.js';
 
+import variablesLocales from '@/store/variablesLocales.js';
+
+
 
 export default {
   data: function () {
@@ -129,6 +132,8 @@ export default {
 
   mounted: function () {
 
+  //  this.crearToken();
+     
   },
 
   watch: {
@@ -143,7 +148,7 @@ export default {
   
 
   methods: {
-    
+
     mostrarMenuLateral(){
 
       let usurio = this.$store.state.usuarios.usuarios_usuariologueado;
@@ -174,7 +179,9 @@ export default {
 
        this.$store.dispatch('action_usuarios_usuariologueado',response.data["usuario"]);
        this.$store.dispatch('action_usuarios_usuariologueado_rol',response.data["rol"]);
-      
+       this.$store.dispatch('action_usuarios_tokenUsuario', response.data["token"]);
+        variablesLocales.setearToken(response.data["token"]);
+        variablesLocales.setUsuarioId(response.data["usuario"]["id"]);
       //revisar la variables para mostrar el menu latreral
       this.mostrarMenuLateral();
        //this.mandamos a mostrar el acuerdo
@@ -202,22 +209,26 @@ export default {
 
       promesa
      .then( response => {
-        console.log(JSON.stringify(response.data));
+       try {
+        //console.log(JSON.stringify(response.data));
         console.log("mensaje : " + response.data["msg"]);
         console.log("usuario : " + response.data["usuario"]["id"]);
         console.log("roles : " + response.data["rol"]);
 
         let msg =  response.data["msg"] ;
-
+              
         msg =="Datos del registro" ? this.asignarValoresDeUsuarios(response) :this.errorEnLogin();
           
-          this.$store.dispatch('actions_uivars_hayUnUsuarioLogueado',true);
+        this.$store.dispatch('actions_uivars_hayUnUsuarioLogueado',true);
          this.loading = false ;
-       
+       }catch(error){
+
+         console.log(error);
+       }
         }
       )
      .catch( error => { 
-       console.log(JSON.stringify(error.data));
+       console.log(JSON.stringify(error));
 
         this.errorEnLogin() 
 

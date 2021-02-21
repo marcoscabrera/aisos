@@ -4,15 +4,30 @@
 // @param {number} input any number
 // @returns {number} that number, plus one.
 import axios from "axios";
+import variablesLocales from '@/store/variablesLocales.js';
 
 export default {
 
     name: "api",
+
+    inicializarAxios(store) {
+        const token = store.state.usuarios.usuarios_tokenUsuario;
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        axios.defaults.withCredentials = true;
+      },
+      inicializarAxiosLS() {
+        const token = variablesLocales.getToken();
+        console.log("valor de token " + token);
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        axios.defaults.withCredentials = false;
+      },
 // --- INVALID - this is ignored by JSDOC ---
 // Esta funcion realizar el GET a la API
 // @param {string} el endpoint al cual sera la solicitud HTTP
     axiosget(endpoint) {
+        this.inicializarAxiosLS();
         return new Promise((resolve, reject) => {
+          
             axios
                 .get(endpoint)
                 .then((response) => {
@@ -29,6 +44,7 @@ export default {
     }, //termina axiosget
 
   axiospost(endpoint, params) {
+    this.inicializarAxiosLS();
     return new Promise((resolve, reject) => {
       axios
         .post(endpoint, params)
@@ -47,6 +63,7 @@ export default {
   }, //termina axiopost2
 
     axiosput(endpoint, params) {
+        this.inicializarAxiosLS();
         return new Promise((resolve, reject) => {
             axios
                 .put(endpoint, params)
@@ -64,6 +81,7 @@ export default {
     }, //termina axiopost2
 
     axiosdelete(endpoint) {
+      this.inicializarAxiosLS();
       return new Promise((resolve, reject) => {
           axios
               .delete(endpoint)
