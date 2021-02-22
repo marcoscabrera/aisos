@@ -5,7 +5,12 @@ export default{
 
         state.etapavaloracion_incidenteid = valor;
     },
- 
+    
+    mutation_medidasintegrales_docto(state, valor) { 
+
+        state.etapavaloracion_medidasintegrales_docto = valor;
+    },
+    
     mutation_fechacreacion(state, valor) { 
 
         state.etapavaloracion_fechacreacion = valor;

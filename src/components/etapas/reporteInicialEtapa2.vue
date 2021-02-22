@@ -101,6 +101,8 @@
       :texto="testigos"></textareaTestigos>
     </v-row>
 
+
+
     <v-row>
       <v-col>
         <v-alert v-if="this.errores>0" type="error">
@@ -174,6 +176,9 @@ import textareaTestigos from "@/components/etapasComponentes/textareaTestigos.vu
 import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
 import validacionReporteInicial from   "@/components/etapas/validaciones/validacionReporteInicial.js";
 //import valoracionIntegralEtapa from '@/components/etapas/valoracionIntegralEtapa.vue';
+import impresiones_etapauno from '@/components/etapas/impresiones/impresiones_etapauno.js';
+
+
 export default {
   components: {
     barraDocumentosVue,
@@ -189,6 +194,7 @@ export default {
     textareaMedidasProteccion,
     textareaTestigos,
     BarraDeNavegacion
+   
 
   },
 
@@ -200,7 +206,29 @@ export default {
 
   methods: {
    
+    setearValores_para_impresion(){
+   
 
+      let datos =[];
+      datos.folio = this.folio;
+      datos.programa= this.programaSeleccionado;
+      datos.fecha= this.date;
+      datos.involucrados=  this.involucrados;
+      datos.Elaboro= this.elaboro ;
+      datos.cargos=this.cargo;
+      datos.RegistroHechos= this.registrohechos;
+      datos.perfildelagresor= this.perfildelagresor;
+      datos.paadultocolaborador=this.paadultocolaborador;
+       datos.paadultocolaboradortipo=this.paadultocolaboradortipo;
+       datos.perfilvictima= this.perfilvictima ;
+      datos.recibeayuda=  this.recibeayuda ;
+      datos.medidasproteccion=  this.medidasproteccion ;
+      datos.incidenteconfirmado=  this.incidenteconfirmado ;
+      datos.testigos= this.testigos;
+
+
+     impresiones_etapauno.setearValores(datos, this.$store);
+    },
     solicitudImpresion(){
 
 
@@ -211,8 +239,20 @@ export default {
        //NOTA:
        /*
         AQUI VA EL CODIGO PARA REALIZAR LA IMPRESION .
-       
-       */
+         */
+
+        ///////////////////////////////////////
+        // seteamos los valores a iutlizar 
+        ////////////////////////////////////////
+        this.setearValores_para_impresion();
+        ////////////////////////////////////
+   this.$router.push({
+          name: "ReporteImpresion"
+        });
+
+     
+
+
      }else {
 
         let idRecuperado = this.$route.params.id;

@@ -366,6 +366,10 @@ export default {
       return this.errores;
 
     },
+    setearValores_para_impresion(){
+
+      console.log("xx");
+    },
 
     solicitudImpresion(){
 
@@ -379,6 +383,18 @@ export default {
         AQUI VA EL CODIGO PARA REALIZAR LA IMPRESION .
        
        */
+        
+        //
+
+        ///////////////////////////////////////
+        // seteamos los valores a iutlizar 
+        ////////////////////////////////////////
+        this.setearValores_para_impresion();
+        ////////////////////////////////////
+   this.$router.push({
+          name: "ReporteImpresionValoracion"
+        });
+
      }else {
 
         let idRecuperado = this.$route.params.id;
@@ -455,6 +471,9 @@ export default {
 
           this.folio = response.data[0]["folio"];
           console.log(">>>>>>>valor del folio:" + this.folio);
+           this.$store.dispatch('action_folio', this.folio);
+
+
           this.estadoDeValoracion = response.data[0]["estado"];
           console.log("valor de id : ");
 
@@ -550,6 +569,9 @@ export default {
           this.datosDelArchivo = response.data;
           this.planycronograma = id;
           this.nombreDelArchivo = JSON.stringify(response.data[0]['nombreOriginal']);
+
+          // nombre del archivo original para impresion
+          this.$stores.dispatch('etapavaloracion_medidasintegrales_docto', this.nombreDelArchivo);
           console.log(" nombreOriginal :" + this.nombreDelArchivo);
           this.hayPlan =true;
 

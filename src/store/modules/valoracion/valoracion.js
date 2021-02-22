@@ -16,6 +16,8 @@ export default {
         etapavaloracion_confirmaincidente: '',
         etapavaloracion_tipoderespuesta: '',
         etapavaloracion_medidasintegrales: '',
+        
+        etapavaloracion_medidasintegrales_docto : '',
         etapavaloracion_activo: ''
     },
     mutations,

@@ -3,6 +3,11 @@ export default {
     action_incidenteid( context, valor) {
         context.commit("mutation_incidenteid", valor);
       }, //termina acccion 
+
+      action_medidasintegrales_docto( context, valor) {
+        context.commit("mutation_medidasintegrales_docto", valor);
+      }, //termina acccion 
+
    
       action_fechacreacion( context, valor) {
         context.commit("mutation_fechacreacion", valor);

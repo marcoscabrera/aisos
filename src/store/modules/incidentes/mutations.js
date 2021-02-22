@@ -6,6 +6,17 @@ export default {
         state.etapainicial_incidente = incidente;
     },
 
+    setearetapainicia_testigoscierre(state,valor){
+        state.etapainicia_testigoscierre = valor;
+    },
+
+
+    setear_folio (state,valor){
+
+        state.etapainicial_folio = valor;
+
+    },
+
     setearPrograma(state, programa) { 
         console.log("en mutation  setearPrograma " + programa);
         state.etapainicial_programa = programa;

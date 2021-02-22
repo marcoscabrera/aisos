@@ -84,7 +84,35 @@ action_documentos_docto   ( context , valor ) {
     
     action_protocolosos     ( context , valor ) {
             context.commit('mutation_seguimiento_protocolosos',valor);
-            }
+            },
+
+    
+            action_seguimiento_planrecuperacion_docto_nombre( context , valor ) {
+            context.commit('mutation_seguimiento_planrecuperacion_docto_nombre',valor);
+            },
+            action_seguimiento_actavaloracion_docto_nombre( context , valor ) {
+            context.commit('mutation_seguimiento_actavaloracion_docto_nombre',valor);
+            },
+
+            action_seguimiento_notificaciodenunciante_docto_nombre( context , valor ) {
+            context.commit('mutation_seguimiento_notificaciodenunciante_docto_nombre',valor);
+            },
+
+            action_seguimiento_plan_docto_nombre( context , valor ) {
+            context.commit('mutation_seguimiento_plan_docto_nombre',valor);
+            },
+            action_seguimiento_documentos_docto_nombre( context , valor ) {
+            context.commit('mutation_seguimiento_documentos_docto_nombre',valor);
+            },
+            action_seguimiento_notificaciondif_docto_nombre( context , valor ) {
+            context.commit('mutation_seguimiento_notificaciondif_docto_nombre',valor);
+            },
+            action_seguimiento_notificacionautoridad_docto_nombre( context , valor ) {
+            context.commit('mutation_seguimiento_notificacionautoridad_docto_nombre',valor);
+            },
+            action_seguimiento_notificacionpfn_docto_nombre( context , valor ) {
+            context.commit('mutation_seguimiento_notificacionpfn_docto_nombre',valor);
+            },
 
         
 

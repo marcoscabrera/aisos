@@ -457,15 +457,26 @@ export default {
           console.log(response.data);
           this.ESTADODELSEGUIMIENTO =response.data[0]["estadoseguimiento"];
           this.folio = response.data[0]["folio"];
+           //setear el valor del filio para reporte de impresion 
+          this.$store.dispatch("action_folio",this.folio);
           this.programa= response.data[0]["nombrePrograma"];
+
           this.elaboro= response.data[0]["elaboro"];
+           this.$store.dispatch("setear_Elaboro", this.elaboro);
+         
           this.cargo= response.data[0]["cargousuario"];
+           this.$store.dispatch("setear_cargos",this.cargo);
 
           this.testigos= response.data[0]["testigos"];
+          
+           this.$store.dispatch("action_etapainicial_testigoscierre",this.testigos);
         
-         this.texto = response.data[0]['textocierre'];
-         this.cerrado = response.data[0]['estadoIncidente'];
-         console.log("cerrado ======>> " + this.cerrado );
+          this.texto = response.data[0]['textocierre']; 
+          this.$store.dispatch("action_textocierre",this.texto);
+          
+
+          this.cerrado = response.data[0]['estadoIncidente'];
+          console.log("cerrado ======>> " + this.cerrado );
 
         
         
@@ -492,6 +503,8 @@ export default {
          this.Archivo_notificacionPlan.nombreInterno =response.data[0]['Archivo_planrecuperacion_nombreinterno'];
          this.Archivo_notificacionPlan.directorio =response.data[0]['Archivo_planrecuperacion_directorio'];
          this.Archivo_notificacionPlan.ext = response.data[0]['Archivo_planrecuperacion_ext'];
+ //'this.$store.dispatch('action_seguimiento_plan_docto_nombre', this.data_plan_docto['nombreOriginal']);
+          this.$store.dispatch('action_seguimiento_planrecuperacion_docto_nombre',  this.Archivo_notificacionPlan.nombreOriginal);
 
 
        
@@ -502,6 +515,7 @@ export default {
          this.Archivo_notificacionValoracion.directorio =response.data[0]['Archivo_actavaloracion_directorio'];
          this.Archivo_notificacionValoracion.ext = response.data[0]['Archivo_actavaloracion_ext'];
 
+        this.$store.dispatch('action_seguimiento_actavaloracion_docto_nombre', this.Archivo_notificacionValoracion.nombreOriginal);
 
     
          this.Archivo_notificacionDenunciante.nombreOriginal =response.data[0]['Archivo_notificaciondenunciante_nombreOriginal'];
@@ -510,7 +524,8 @@ export default {
          this.Archivo_notificacionDenunciante.nombreInterno =response.data[0]['Archivo_notificaciondenunciante_nombreinterno'];
          this.Archivo_notificacionDenunciante.directorio =response.data[0]['Archivo_notificaciondenunciante_directorio'];
          this.Archivo_notificacionDenunciante.ext = response.data[0]['Archivo_notificaciondenunciante_ext'];
-          
+         this.$store.dispatch('action_seguimiento_notificaciodenunciante_docto_nombre',  this.Archivo_notificacionDenunciante.nombreOriginal);
+
 
          this.Archivo_notificaciondif.nombreOriginal =response.data[0]['Archivo_notificaciondif_nombreOriginal'];
          this.Archivo_notificaciondif.id =response.data[0]['Archivo_notificaciondif_id'];
@@ -518,6 +533,7 @@ export default {
          this.Archivo_notificaciondif.nombreInterno =response.data[0]['Archivo_notificaciondif_nombreinterno'];
          this.Archivo_notificaciondif.directorio =response.data[0]['Archivo_notificaciondif_directorio'];
          this.Archivo_notificaciondif.ext = response.data[0]['Archivo_notificaciondif_ext'];
+         this.$store.dispatch('action_seguimiento_notificaciondif_docto_nombre', this.Archivo_notificaciondif.nombreOriginal);
 
 
          this.Archivo_notificacionAutoridad.nombreOriginal =response.data[0]['Archivo_notificacionautoridad_nombreOriginal'];
@@ -526,6 +542,9 @@ export default {
          this.Archivo_notificacionAutoridad.nombreInterno =response.data[0]['Archivo_notificacionautoridad_nombreinterno'];
          this.Archivo_notificacionAutoridad.directorio =response.data[0]['Archivo_notificacionutoridad_directorio'];
          this.Archivo_notificacionAutoridad.ext = response.data[0]['Archivo_notificacionautoridad_ext'];
+
+          this.$store.dispatch('action_seguimiento_notificacionautoridad_docto_nombre', this.Archivo_notificacionAutoridad.nombreOriginal);
+
         
 
          this.Archivo_notificacionPFN.nombreOriginal =response.data[0]['Archivo_notificacionPFN_nombreOriginal'];
@@ -534,7 +553,8 @@ export default {
          this.Archivo_notificacionPFN.nombreInterno =response.data[0]['Archivo_notificacionPFN_nombreinterno'];
          this.Archivo_notificacionPFN.directorio =response.data[0]['notificacionutoridad_directorio'];
          this.Archivo_notificacionPFN.ext = response.data[0]['Archivo_notificacionPFN_ext'];
-  
+         this.$store.dispatch('action_seguimiento_notificacionpfn_docto_nombre', this.Archivo_notificacionPFN.nombreOriginal);
+
 
            }
       ).catch(

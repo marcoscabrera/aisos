@@ -293,6 +293,10 @@ export default {
 
   methods: {
 
+    setearValores_para_impresion(){
+     console.log('.');
+    },
+
    
     /*===== termina validacion ====*/
     PermisoImpresion(){
@@ -300,6 +304,18 @@ export default {
       console.log(" Permiso IMPRESIONDESEGUIMIENTO  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.IMPRESIONDESEGUIMIENTO)             
      if (this.$store.state.usuarios.usuarios_usuariologueado_rol.IMPRESIONDESEGUIMIENTO=='SI'){
     // impreseion 
+
+        ///////////////////////////////////////
+        // seteamos los valores a iutlizar 
+        ////////////////////////////////////////
+        this.setearValores_para_impresion();
+        ////////////////////////////////////////
+        
+         this.$router.push({
+          name: "ReporteImpresionSeguimiento"
+        });
+
+
      }else {
 
           
@@ -452,6 +468,8 @@ export default {
       datos.then( response => {
 
       this.folio = response.data[0]["folio"];
+      //setear el valor del filio para reporte de impresion 
+      this.$store.dispatch("action_folio",this.folio);
       
       this.incidenteId =response.data[0]["incidenteid"];
       /* *******************************************************/
@@ -474,9 +492,9 @@ export default {
 
       seguimientoEtapa.asignarVariablesGLobales( this.seguimiento ,this.$store );
 
-      /******************** */
+      /******************** 
 
-    
+       */
 
        /******************
 
@@ -509,7 +527,9 @@ export default {
            //console.log("archivo_plan_docto :" + JSON.stringify(response.data));
 
            this.data_plan_docto = this.checkArray(  response.data[0]);
-
+          
+          this.$store.dispatch('action_seguimiento_plan_docto_nombre', this.data_plan_docto['nombreOriginal']);
+ 
          }
        ).catch(
          error=> {
@@ -522,7 +542,9 @@ export default {
            //console.log("archivo_planrecuperacion_docto :" + JSON.stringify(response.data));
           // this.data_planrecuperacion_docto = response.data[0];
             this.data_planrecuperacion_docto = this.checkArray(   response.data[0] );
-         }
+             this.$store.dispatch('action_seguimiento_planrecuperacion_docto_nombre', this.data_planrecuperacion_docto['nombreOriginal']);
+
+        }
        ).catch(
          error=> {
            console.log(" error " + JSON.stringify(error.data));
@@ -535,6 +557,8 @@ export default {
         // this.data_notificacionpfn_docto = response.data[0];
           this.data_notificacionpfn_docto  =  this.checkArray(  response.data[0] );
          
+           this.$store.dispatch('action_seguimiento_notificacionpfn_docto_nombre', this.data_notificacionpfn_docto['nombreOriginal']);
+
          }
        ).catch(
          error=> {
@@ -547,7 +571,8 @@ export default {
           // console.log("archivo_notificaciondif_docto :" + JSON.stringify(response.data));
         //  this.data_notificaciondif_docto =response.data[0];
          this.data_notificaciondif_docto =  this.checkArray(   response.data[0] );
-        
+         this.$store.dispatch('action_seguimiento_notificaciondif_docto_nombre', this.data_notificaciondif_docto['nombreOriginal']);
+
         }
        ).catch(
          error=> {
@@ -560,7 +585,10 @@ export default {
          //  console.log("archivo_notificacionautoridad_docto :" + JSON.stringify(response.data));
          //this.data_notificacionautoridad_docto = response.data[0];
             this.data_notificacionautoridad_docto =this.checkArray(   response.data[0] );
-         }
+               this.$store.dispatch('action_seguimiento_notificacionautoridad_docto_nombre', this.data_notificacionautoridad_docto['nombreOriginal']);
+
+        
+       }
        ).catch(
          error=> {
            console.log(" error " + JSON.stringify(error.data));
@@ -572,7 +600,8 @@ export default {
          //  console.log("archivo_notificaciondenunciante_docto :" + JSON.stringify(response.data));
       // this.data_notificaciondenunciante_docto = response.data[0];
          this.data_notificaciondenunciante_docto = this.checkArray(  response.data[0] );
-       
+          this.$store.dispatch('action_seguimiento_notificaciodenunciante_docto_nombre', this.data_notificaciondenunciante_docto['nombreOriginal']);
+
        }
        ).catch(
          error=> {
@@ -586,7 +615,8 @@ export default {
      
           // this.data_documento_docto= response.data[0];
              this.data_documento_docto =  this.checkArray(   response.data[0] );
-      
+              this.$store.dispatch('action_seguimiento_documentos_docto_nombre', this.data_documento_docto['nombreOriginal']);
+
       }
        ).catch(
          error=> {
@@ -600,6 +630,8 @@ export default {
          
         // this.data_actavaloracion_docto = response.data[0];
             this.data_actavaloracion_docto = this.checkArray(  response.data[0] );
+              this.$store.dispatch('action_seguimiento_actavaloracion_docto_nombre', this.data_actavaloracion_docto['nombreOriginal']);
+
         }
        ).catch(
          error=> {

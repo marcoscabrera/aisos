@@ -79,6 +79,15 @@ export default {
   action_textocierre(context, valor) { 
         context.commit("setear_textocierre", valor);
 }, 
+
+
+action_folio(context, valor){
+        context.commit("setear_folio", valor);  
+},
+action_etapainicial_testigoscierre( context,valor ){
+       context.commit("setearetapainicia_testigoscierre",valor);
+}
+
               
 /*
 */

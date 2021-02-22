@@ -7,7 +7,7 @@ export default {
     state: {
 
       
-     
+        etapainicial_folio: '',
         etapainicial_programa: '',
    
         etapainicial_fecha: '',
@@ -34,6 +34,7 @@ export default {
         etapacierre_textocierre : '',
      
         etapainicial_textocierre : '',
+        etapainicia_testigoscierre : [],
 
     },
 

@@ -151,6 +151,34 @@ const routes = [
       import(/* webpackChunckName:"login" */ "../views/Login.vue"),
   },
   {
+    path: "/reporteparaimprimir",
+    name: "ReporteImpresion",
+    meta: { requiresAuth : true },
+    component: () =>
+      import(/* webpackChunckName:"reporteparaimprimir" */ "../views/ReporteImpresion.vue"),
+  },
+  {
+    path: "/reporteparaimprimirvaloracion",
+    name: "ReporteImpresionValoracion",
+    meta: { requiresAuth : true },
+    component: () =>
+      import(/* webpackChunckName:"reporteparaimprimirvaloracion" */ "../views/ReporteVintegral.vue"),
+  },
+  {
+    path: "/reporteparaimprimircierre",
+    name: "ReporteImpresionCierre",
+    meta: { requiresAuth : true },
+    component: () =>
+      import(/* webpackChunckName:"reporteparaimprimircierre" */ "../views/ReporteCierre.vue"),
+  },
+  {
+    path: "/reporteparaimprimirseguimiento",
+    name: "ReporteImpresionSeguimiento",
+    meta: { requiresAuth : true },
+    component: () =>
+      import(/* webpackChunckName:"reporteparaimprimirseguimiento" */ "../views/ReporteSeguimiento.vue"),
+  },
+  {
     path: "/criterios",
     name: "Criterios",
     meta: { requiresAuth : true },
