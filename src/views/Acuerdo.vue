@@ -94,14 +94,13 @@ Procederemos a efectuar las verificaciones de antecedentes suficientes para dete
 </template>
 
 <script>
+import controlDeSesion from '@/sesion/controlDeSesion.js';
+ 
     export default {
 
         methods: {
             cancelar() {
-             this.$store.dispatch('action_usuarios_usuariologueado',null);
-             this.$store.dispatch('action_usuarios_usuariologueado_rol',null);
- 
-                this.$router.push('Login');
+ controlDeSesion.cerrarSesion(this.$store,this.$router);
             },
             aceptar() {
                 this.$router.push('Dashboard');

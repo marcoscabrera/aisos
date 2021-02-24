@@ -95,7 +95,7 @@
       <!-- Provides the application the proper gutter -->
       <v-container fluid>
         <!-- If using vue-router -->
-        <DatosDelUsuarioComponente v-if="this.$store.state.uivars.uivars_hayUnUsuarioLogueado==true"></DatosDelUsuarioComponente>
+        <DatosDelUsuarioComponente v-if="this.$store.state.uivars.uivars_hayUnUsuarioLogueado"></DatosDelUsuarioComponente>
         <router-view></router-view>
       </v-container>
     </v-main>

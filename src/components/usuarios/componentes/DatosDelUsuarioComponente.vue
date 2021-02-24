@@ -35,6 +35,7 @@
 //import controlDeSesion from '@/sesion/controlDeSesion.js';
 
 import controlDeSesion from '@/sesion/controlDeSesion.js';
+  
 export default {
  
  methods: {
