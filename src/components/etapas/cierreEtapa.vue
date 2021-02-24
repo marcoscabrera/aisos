@@ -342,6 +342,12 @@ export default {
       console.log(" Permiso IMPRESIONDECIERRE  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.IMPRESIONDECIERRE)             
      if (this.$store.state.usuarios.usuarios_usuariologueado_rol.IMPRESIONDECIERRE=='SI'){
     // impreseion 
+
+            
+         this.$router.push({
+          name: "ReporteImpresionCierre"
+        });
+
      }else {
 
           
@@ -444,6 +450,8 @@ export default {
       /*********************************************** */
      //obtenenemos el 
       let incidenteId = this.$route.params.incidenteId;
+
+      this.$store.dispatch("setear_incidente", this.incidenteId);
 
       this.incidenteid = incidenteId;
 

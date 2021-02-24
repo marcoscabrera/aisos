@@ -7,7 +7,7 @@ export default {
     },
 
     setearetapainicia_testigoscierre(state,valor){
-        state.etapainicia_testigoscierre = valor;
+        state.etapainicial_testigoscierre = valor;
     },
 
 
