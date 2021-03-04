@@ -171,6 +171,18 @@
           <v-spacer></v-spacer>
           Guardar
         </v-btn>
+
+       <v-btn v-if="this.verBotonera"
+          :loading="loading"
+          :disabled="loading"
+          color="green"
+          @click="actualizarValoracion"
+          block
+        >
+          <v-icon right dark> mdi-check </v-icon>
+          <v-spacer></v-spacer>
+          Modificar
+        </v-btn>
       </v-col>
     </v-row>
   </v-container>
@@ -470,6 +482,14 @@ export default {
     guardar__iraDashboard() {
       this.$router.push("/dashboard");
     },
+    
+    permisodemodificacion(){
+        
+     let valor = this.$store.state.usuarios.usuarios_usuariologueado_rol.MODIFICACIONREAPERTURAVALORACIONINICIAL;
+       console.log(" verificando permiso de modificacion con estado cerrado : valor " + valor);
+      
+     valor == "SI" ? this.verBotoneraconcierre = true : this.verBotoneraconcierre = false  ;
+    },
 
    async cargarValoracionIntegral() {
 
@@ -527,6 +547,10 @@ export default {
           let estado = response.data[0]["estado"];
 
           console.log(" ========== estado  > " + estado );
+
+          if (estado == "cerrado"){
+            this.permisodemodificacion();
+          }
           
 
           
@@ -696,6 +720,7 @@ export default {
   },
   data() {
     return {
+      verBotoneraconcierre :false,
       mostrarLaBotonera :false,
       ocultarConfirmacion: true,
       confirmacionDeIncidente : this.$store.state.uivars.actions_uivars_esincidente,

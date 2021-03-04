@@ -11,17 +11,21 @@
     >
       mdi-account-circle
     </v-icon>
-   {{this.$store.state.usuarios.usuarios_usuariologueado.nombre}} - <strong>
-     Programa : {{this.$store.state.usuarios.usuarios_usuariologueado.programa}}</strong> 
+     <strong>
+   {{this.$store.state.usuarios.usuarios_usuariologueado.nombre}} 
+    </strong> 
+     - {{this.programa}}
+   
+   <!--
      <strong>
    Rol:
    </strong>
    {{this.$store.state.usuarios.usuarios_usuariologueado_rol.NOMBREDELROL}}-
+   -->
   
   
-  
-    <template v-slot:actions>
-      <v-badge
+  <template v-slot:actions>
+    <!--    <v-badge
         :content="messages"
         :value="messages"
         color="green"
@@ -41,20 +45,20 @@
           mdi-newspaper-variant-multiple
         </v-icon>
       </v-badge>
+      -->
       <v-badge
-        :content="messages"
-        :value="messages"
+
         color="green"
         overlap
       >
         <v-icon large>
           mdi-cog
         </v-icon>
-      </v-badge>
+      </v-badge> 
 
 
             <!-- Actividades -->
-      <v-badge
+  <!--    <v-badge
         :content="messages"
         :value="messages"
         color="green"
@@ -68,9 +72,10 @@
           >
           Actividad
           </v-btn>
-      </v-badge>
+      </v-badge> -->
       <!-- -->
       <!-- SOlicitudes -->
+
       <v-badge
         :content="messages"
         :value="messages"
@@ -110,11 +115,24 @@ import controlDeSesion from '@/sesion/controlDeSesion.js';
 export default {
   data() {
     return {
-      messages: 2
+      messages: 0,
+      programa :''
+
     }
+  },
+
+  mounted () {
+    this.verprograma();
   },
  
  methods: {
+   verprograma(){
+  if (this.$store.state.usuarios.usuarios_usuariologueado.programa == 'TODOS'){
+    this.programa ="Equipo Nacional de Protección Infantil ";
+  }else{
+    this.programa = this.$store.state.usuarios.usuarios_usuariologueado.programa;
+  }
+   },
    ir__perfil(){
    this.$router.push({name : 'PerfilUsuario'});
    },

@@ -19,6 +19,11 @@ export default {
         context.commit("mmutation_uivars_esincidente",valor);
     },
 
+    actions_uuivars_puedever_configuracion(context,valor)
+   {
+       context.commit("mutation_uivars_puedever_configuracion",valor);
+    },
+     
     actions_uuivars_puedevermenulateral(context,valor){
 
         context.commit("mmutation_uivars_puedevermenulateral",valor);

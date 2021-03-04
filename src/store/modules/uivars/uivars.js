@@ -14,6 +14,7 @@ state: {
     ///////////////////////
     uivar_esincidente: false,
     uivars_puedevermenulateral : false,
+    uivars_puedever_configuracion : false,
     uivars_hayUnUsuarioLogueado : false,
     
     uivars_error_seleccionarPrograma:false,

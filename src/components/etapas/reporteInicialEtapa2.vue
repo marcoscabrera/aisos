@@ -155,6 +155,21 @@
           <v-spacer></v-spacer>
           Guardar
         </v-btn>
+        
+
+        <v-btn v-if="verBotoneraconcierre"
+          :loading="loadingGuardar"
+          :disabled="loadingGuardar"
+          color="green"
+          @click="guardar_incidente"
+          block
+          
+        >
+          <v-icon right dark> mdi-check </v-icon>
+          <v-spacer></v-spacer>
+          Modificar
+        </v-btn>
+
       </v-col>
     </v-row>
   </v-container>
@@ -396,6 +411,119 @@ export default {
     revisarErrores(){
       
     },
+
+    /*************** */
+
+     guardar_nuevoIncidente2(){
+this.loadingGuardar = true;
+    
+
+const  { 
+      etapainicial_programa ,
+      etapainicial_fecha ,
+      etapainicial_involucrados,
+      etapainicial_elaboro,
+      etapainicial_cargos,
+      etapainicial_registrohechos,
+      etapainicial_perfildelagresor,
+      etapainicial_paadultocolaborador,
+      etapainicial_paadultocolaboradortipo,
+      etapainicial_perfilvictima,
+      etapainicial_recibeayuda,
+      etapainicial_medidasproteccion,
+      etapainicial_incidenteconfirmado,
+      etapainicial_testigos} =this.$store.state.incidentes;
+     
+      /* usuario creador es el usuario logueado. */
+      var usuarioCreador =this.$store.state.usuarios.usuarios_usuariologueado.id;
+      var etapa = 1;
+      /* ======================================== */
+      
+   
+      /*==========================================*/
+      var parametros = {
+        id : this.id,
+        programa: etapainicial_programa,
+        fechaAlta:etapainicial_fecha,
+        fechaUpdate: etapainicial_fecha,
+        usuarioCreador: usuarioCreador,
+        involucrados: etapainicial_involucrados,
+        elaboro: etapainicial_elaboro,
+        cargousuario: etapainicial_cargos,
+        registrohechos: etapainicial_registrohechos,
+
+        perfildelagresor: etapainicial_perfildelagresor,
+
+        paadultocolaborador: etapainicial_paadultocolaborador,
+        paadultocolaboradortipo: etapainicial_paadultocolaboradortipo,
+        pafamilia: '',
+        pafamiliatipo: '',
+        adultoexterno: '',
+
+        nnj: '',
+        perfilvictima: etapainicial_perfilvictima,
+        recibeayuda: etapainicial_recibeayuda,
+        medidasproinmediatasdiatas:etapainicial_medidasproteccion,
+        incidenteconfirmado: etapainicial_incidenteconfirmado, //incidenteconfirmado,
+        testigos: etapainicial_testigos,
+        etapa: etapa,
+        etapauno: "visible",
+        etapados: "visible",
+        etapatres: "invisible",
+        etapacuatro: "invisible",
+        coloretapauno: "green",
+        coloretapados: "yellow",
+        coloretapatres: "yellow",
+        coloretapacuatro: "yellow",
+      };
+
+      console.log("== valores del incidente ==");
+      console.log(JSON.stringify(parametros));
+
+      let x = apiIncidentes.nuevoIncidente(parametros, this.$store);
+      //let x = apiIncidentes.saludo(this.$store);
+      // let x = apiIncidentes.nuevoUsuario(parametros, this.$store);
+      x.then((response) => {
+        console.log(response.data);
+        this.loadingGuardar = false;
+        //redireccionamos
+
+        let a = JSON.parse(response.data);
+
+        let atipo = typeof a;
+
+        console.log(atipo);
+        let idRecuperado = a["id"];
+
+        console.log("valor de idRecuperado  : " + idRecuperado);
+
+        this.modo = "update";
+
+        this.folio = a["folio"];
+
+        this.verBotonImpresion = false;
+        
+        //limpiar variables globales de incidente
+        validacionReporteInicial.inicializarValoresDeIncidente(this.$store);
+         /*
+        this.$router.push({
+          name: "DenunciasDetalle",
+          params: { id: idRecuperado },
+        });*/
+      
+          this.$router.push({
+          name: "Notificacionuno",
+          params: { incidenteId: idRecuperado,folio:this.folio },
+        });
+
+      }).catch((error) => {
+        console.log(error.data);
+        this.loadingGuardar = false;
+      });
+
+    },
+
+    /******************* */
     guardar_nuevoIncidente(){
 this.loadingGuardar = true;
     
@@ -519,7 +647,7 @@ const  {
 
 
     update_incidente() {
-      console.log("update");
+     
     },
 
     guardar_incidente() {
@@ -538,6 +666,18 @@ const  {
       console.log("==>asignarAVariablesValoresDeConsulta<== : ");
       //console.log(JSON.stringify(respuesta.data));
       var a = respuesta.data;
+
+      /**************+++++++++++ 
+       * si esta cerrado la etapa y se quiere modificar
+       * solo si tiene el permiso podra
+      */
+      let abierto = a[0]['coloretapauno'];
+      if (abierto == 'green'){
+         console.log(" verificando permiso de modificacion con estado cerrado");
+         this.permisodemodificacion();
+
+      }
+      /********************* */
      
       this.folio = a[0]["folio"];
        /***************************************
@@ -600,8 +740,17 @@ const  {
       this.recibeayuda = a[0]["recibeayuda"];
 
       console.log( " perfil victiam " + this.perfilvictima) ;
-console.log( " perfil recibeayuda " + this.recibeayuda) ;
+       console.log( " perfil recibeayuda " + this.recibeayuda) ;
      
+    },
+
+
+    permisodemodificacion(){
+        
+     let valor = this.$store.state.usuarios.usuarios_usuariologueado_rol.MODIFICACIONREAPERTURAVALORACIONINICIAL;
+       console.log(" verificando permiso de modificacion con estado cerrado : valor " + valor);
+      
+     valor == "SI" ? this.verBotoneraconcierre = true : this.verBotoneraconcierre = false  ;
     },
 
     escogerProcedimiento() {
@@ -644,6 +793,8 @@ console.log( " perfil recibeayuda " + this.recibeayuda) ;
 
   data() {
     return {
+      id : 0,
+      verBotoneraconcierre :false,
       errores : 0 , 
       error_programa : false,
       verBotonera:true,

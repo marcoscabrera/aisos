@@ -183,7 +183,7 @@ export default {
         variablesLocales.setearToken(response.data["token"]);
         variablesLocales.setUsuarioId(response.data["usuario"]["id"]);
       //revisar la variables para mostrar el menu latreral
-      this.mostrarMenuLateral();
+      //this.mostrarMenuLateral();
        //this.mandamos a mostrar el acuerdo
        this.acuerdo();
        

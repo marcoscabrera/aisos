@@ -12,6 +12,8 @@ export default {
         state.uivars_puedevermenulateral= valor;
 
     },
+    mutation_uivars_puedever_configuracion(state,valor){
+    state.uivars_puedever_configuracion = valor; },
     
     mmutation_uivars_hayUnUsuarioLogueado(state,valor){
 

@@ -42,9 +42,48 @@ export default {
   },
   created() {
     //this.prop_a_local();
-    this.cargarProgramas();
+    this.cargarProgramas2();
   },
   methods: {
+        async cargarProgramas2() {
+      
+      //verficamos el rol del usuariologueado, si el rol es ==0 
+      //cargamos todos los programas
+      // si el rol no es cero se carga el programa segun el id
+
+      let programaid = this.$store.state.usuarios.usuarios_usuariologueado.programa;
+      
+      
+      console.log("valor de progrma id: " + programaid);
+
+   
+
+     let promesa = apiProgramas.cargar__todo__los__programas_columna(this.$store);
+      
+ 
+
+     if ( programaid == 'TODOS') {
+          promesa
+            .then((response) => {
+            //  console.log("valor d los progrmas: " + JSON.stringify(response.data));
+              //let programs = response.data;
+
+            this.itemsUnidades = response.data;
+          
+
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+     }else{
+       this.itemsUnidades.push(programaid)   ;
+     }
+
+
+     
+      
+    },
+
     async cargarProgramas() {
       
       //verficamos el rol del usuariologueado, si el rol es ==0 
@@ -54,25 +93,27 @@ export default {
       let programaid = this.$store.state.usuarios.usuarios_usuariologueado.programa;
       let promesa = Promise;
       
-      
+      console.log("valor de progrma id: " + programaid);
 
       programaid == 'TODOS' ?   promesa = apiProgramas.cargar__todo__los__programas(this.$store):
-       this.itemsUnidades.push(programaid)   ;
+      
+      this.itemsUnidades.push(programaid)   ;
 
         
       if (this.itemUnidades.length>0) return;
      
       promesa
         .then((response) => {
-          console.log(response.data);
-          let programs = response.data;
+          console.log("valor d los progrmas: " + JSON.stringify(response.data));
+          //let programs = response.data;
 
-          this.itemsUnidades = programs.map((program, index) => {
-            console.log(index);
+         /* this.itemsUnidades = programs.map((program, index) => {
+             console.log(index);
+            console.log(program.abreviatur);
             return program.abreviatura;
           });
 
-          console.table(this.itemsUnidades);
+          console.table(this.itemsUnidades);*/
         })
         .catch((error) => {
           console.log(error);

@@ -65,7 +65,7 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item @click="irAconfiguracion" v-if="this.$store.state.uivars.uivars_puedevermenulateral">
+        <v-list-item @click="irAconfiguracion" v-if="this.$store.state.uivars.uivars_puedever_configuracion">
           <v-list-item-action>
             <v-icon> mdi-application-cog </v-icon>
           </v-list-item-action>

@@ -40,7 +40,20 @@ export default {
     
         return api.axiosget(endpoint);
     },
+
+    cargar__todo__los__programas_columna(store){
+
+        let predicado = "/api/v0/programascolumnas";
+        
+
+        let apix = store.state.urlServidor;
     
+        let endpoint = apix + predicado;
+    
+        console.log("valor del endpoint " + endpoint);
+    
+        return api.axiosget(endpoint);
+ },
         cargar__todo__los__programas(store){
 
         let predicado = "/api/v0/programas";
