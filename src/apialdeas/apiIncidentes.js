@@ -20,7 +20,7 @@ export default {
 
     nuevoIncidente(parametros, store) { 
 
-    let predicado = "/incidentes";
+    let predicado = "/api/v0/incidentes";
 
     let apix = store.state.urlServidor;
 

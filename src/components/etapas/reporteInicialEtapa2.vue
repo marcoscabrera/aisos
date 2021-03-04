@@ -415,7 +415,8 @@ export default {
     /*************** */
 
      guardar_nuevoIncidente2(){
-this.loadingGuardar = true;
+
+     this.loadingGuardar = true;
     
 
 const  { 
@@ -441,6 +442,9 @@ const  {
       
    
       /*==========================================*/
+      this.id = this.$route.params.id;
+      console.log(" valor del id para actualizar " + this.id);
+
       var parametros = {
         id : this.id,
         programa: etapainicial_programa,
@@ -647,6 +651,8 @@ const  {
 
 
     update_incidente() {
+
+      this.guardar_nuevoIncidente2();
      
     },
 
@@ -662,10 +668,103 @@ const  {
       }
     },
 
+    //********************************** */
+
+        asignarAVariablesValoresDeConsulta2(respuesta) {
+      console.log("==>asignarAVariablesValoresDeConsulta<== : ");
+      //console.log(JSON.stringify(respuesta.data));
+      var a = respuesta.data;
+      console.log("valor de a " + a);
+       console.log(a);
+
+      /**************+++++++++++ 
+       * si esta cerrado la etapa y se quiere modificar
+       * solo si tiene el permiso podra
+      */
+      let abierto = a.coloretapauno;
+      if (abierto == 'green'){
+         console.log(" verificando permiso de modificacion con estado cerrado");
+         this.permisodemodificacion();
+
+      }
+      /********************* */
+
+
+      let nombrePrograma = a.nombreprograma;
+      console.log("nombre programa " + nombrePrograma);
+     
+      this.folio = a.folio;
+       /***************************************
+       * para no grabar uno nuevo
+       * 
+       *************************************/
+       
+        if (this.folio != "Pendiente"){
+          
+         this.modo = "update";
+         this.verBotonera=false;
+         console.log("folio :" + this.folio);
+         console.log("modo :" + this.modo);
+
+        }
+       /************************************* */
+      this.date = a.fechaAlta;
+      this.programaSeleccionado = a.programa;
+     
+      this.involucrados = a.involucrados;
+
+     // console.log(this.involucrados);
+
+      this.elaboro = a.elaboro;
+
+      this.cargo = a.cargousuario;
+
+      this.registrohechos = a.registrohechos;
+
+      /* perfil del agresor */
+     this.perfildelagresor= a.prefildelagresor;
+     this.paadultocolaborador = a.paadultocolaborador;
+     this.paadultocolaboradortipo = a.paadultocolaboradortipo;
+
+     console.log('-----------');
+     console.log(this.perfildelagresor);
+     console.log(this.paadultocolaborador);
+     console.log(this.paadultocolaboradortipo);
+
+     
+
+      this.medidasproteccion = a.medidasproinmediatas;
+
+      this.testigos = a.testigos;
+
+     this.incidenteconfirmado = a.incidenteconfirmado;
+
+
+     console.log("que variable es files : ") ;
+
+     let x = typeof this.files;
+
+     console.log(x);
+
+      
+   
+
+      this.perfilvictima = a.perfilvictima;
+
+      this.recibeayuda = a.recibeayuda;
+
+      console.log( " perfil victiam " + this.perfilvictima) ;
+       console.log( " perfil recibeayuda " + this.recibeayuda) ;
+     
+    },
+
+   /******************************* */
     asignarAVariablesValoresDeConsulta(respuesta) {
       console.log("==>asignarAVariablesValoresDeConsulta<== : ");
       //console.log(JSON.stringify(respuesta.data));
       var a = respuesta.data;
+      console.log("valor de a " + a);
+       console.log(a);
 
       /**************+++++++++++ 
        * si esta cerrado la etapa y se quiere modificar
@@ -678,6 +777,10 @@ const  {
 
       }
       /********************* */
+
+
+      let nombrePrograma = a[0]['nombreprograma'];
+      console.log("nombre programa " + nombrePrograma);
      
       this.folio = a[0]["folio"];
        /***************************************
@@ -774,7 +877,7 @@ const  {
           console.log("recuperando los datos del incidente ");
           // console.log(JSON.stringify(response.data));
           /** */
-          this.asignarAVariablesValoresDeConsulta(response);
+          this.asignarAVariablesValoresDeConsulta2(response);
 
           this.modo = "update";
           this.verBotonImpresion = false;
@@ -793,6 +896,7 @@ const  {
 
   data() {
     return {
+      estamosActualizando: false,
       id : 0,
       verBotoneraconcierre :false,
       errores : 0 , 
