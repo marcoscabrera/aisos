@@ -1,4 +1,14 @@
 export default { 
+
+    
+    mutation_denuncialegal_consensoArchivo_nombre( state, valor) {   
+        state.denuncialegal_consensoArchivo_nombre   = valor; 
+        
+        },
+mutation_denuncialegal_medidasarchivo_nombre( state, valor) {   
+    state.denuncialegal_medidasarchivo_nombre   = valor; 
+    
+    },
  
     mutation_id( state, valor) {   
 state.denuncialegal_id   = valor; 

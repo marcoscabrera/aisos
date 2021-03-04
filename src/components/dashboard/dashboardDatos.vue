@@ -334,6 +334,8 @@ export default {
     verificarPermisos() {
     
     let permisosDeRol = this.$store.state.usuarios.usuarios_usuariologueado_rol;
+   
+    console.log(" permisosDeRol.ALTADEVALORACIONINICIAL=   " + permisosDeRol.ALTADEVALORACIONINICIAL);
     console.log( permisosDeRol.ALTADEVALORACIONINTEGRAL);
     console.log(permisosDeRol.VISUALIZACIONVALORACIONINICIAL);
     console.log(permisosDeRol.VISUALIZACIONVALORACIONINTEGRAL);
@@ -345,7 +347,10 @@ export default {
     console.log(this.puedeVerSeguimiento);
     console.log(this.puedeVerCierre);
     
-    permisosDeRol.ALTADEVALORACIONINTEGRAL == "SI" ?  this.puedeCrearUnNuevoIncidente = true : this.puedeCrearUnNuevoIncidente = false;
+    permisosDeRol.ALTADEVALORACIONINICIAL == "SI" ?  this.puedeCrearUnNuevoIncidente = true : this.puedeCrearUnNuevoIncidente = false;
+     console.log("   this.puedeCrearUnNuevoIncidente : " + this.puedeCrearUnNuevoIncidente);
+
+    //permisosDeRol.ALTADEVALORACIONINTEGRAL == "SI" ?  this.puedeCrearUnNuevoIncidente = true : this.puedeCrearUnNuevoIncidente = false;
    
                   
     permisosDeRol.VISUALIZACIONVALORACIONINICIAL == "SI" ?  this.puedeVerValoracionInicial = true : this.puedeVerValoracionInicial = false;

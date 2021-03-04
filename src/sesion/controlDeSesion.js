@@ -25,7 +25,7 @@ export default {
    
    let endpoint = apix + predicado;
 
-   return api.axiosget(endpoint);
+   return api.axiosget_sin_autorizacion(endpoint);
 
   },
   tienePermisoParaAcceder(permiso, store){

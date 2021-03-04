@@ -42,6 +42,24 @@ export default {
                 });
         });
     }, //termina axiosget
+    axiosget_sin_autorizacion(endpoint) {
+    
+      return new Promise((resolve, reject) => {
+        
+          axios
+              .get(endpoint)
+              .then((response) => {
+                  console.log("valor del data axiosget : " + response.data);
+
+                  resolve(response);
+                  //return response.data;
+              })
+              .catch((error) => {
+                  console.log(error);
+                  reject(error);
+              });
+      });
+  }, //termina axiosget
 
   axiospost(endpoint, params) {
     this.inicializarAxiosLS();

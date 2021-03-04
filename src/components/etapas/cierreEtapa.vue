@@ -320,6 +320,11 @@ import usuariosCierre from "@/components/usuarios/usuariosCierre.vue";
 import apiIncidentes from '@/apialdeas/apiIncidentes.js';
 import cardDocumentoEnCierre from '@/components/etapasComponentesCierre/cardDocumentoEnCierre.vue';
 import apiArchivos from '@/apialdeas/apiArchivos.js';
+
+
+import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
+
+
 export default {
   components: {
     //barraDocumentosVue,
@@ -349,9 +354,19 @@ export default {
         });
 
      }else {
+       /* En caso de que no se tenga permiso */
+
+      //realizamos la solicitud del permiso//
+       let idRecuperado = this.$route.params.id;
+       let usuario = this.$store.state.usuarios.usuarios_usuariologueado.id ;
+       let incidenteid =idRecuperado ;
+       let etapa="Cierre";
+       let s= this.$store;
+       solicitudPermisoImpresion.solicitudImpresion(usuario,incidenteid,etapa,s);
+       //-------------------------------------------------------------
 
           
-        let idRecuperado = this.$route.params.id;
+        //let idRecuperado = this.$route.params.id;
         this.$router.push({
           name: "PermisoImpresion",
           params: { incidenteId: idRecuperado },

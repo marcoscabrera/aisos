@@ -83,6 +83,16 @@ context.commit('mutation_fechaUpdate',valor);
 action_estado ( context , valor ) { 
 context.commit('mutation_estado',valor);  
 
-}  
+}  ,
+
+action_denuncialegal_medidasarchivo_nombre( context , valor ) { 
+context.commit('mutation_denuncialegal_medidasarchivo_nombre',valor);
+},
+
+action_denuncialegal_consensoArchivo_nombre( context , valor ) { 
+context.commit('mutation_denuncialegal_consensoArchivo_nombre',valor);
+}
 
                                }
+
+                             

@@ -178,6 +178,7 @@ import validacionReporteInicial from   "@/components/etapas/validaciones/validac
 //import valoracionIntegralEtapa from '@/components/etapas/valoracionIntegralEtapa.vue';
 import impresiones_etapauno from '@/components/etapas/impresiones/impresiones_etapauno.js';
 
+import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
 
 export default {
   components: {
@@ -254,9 +255,18 @@ export default {
 
 
      }else {
-
-        let idRecuperado = this.$route.params.id;
-        this.$router.push({
+       //realizamos la solicitud del permiso//
+       let idRecuperado = this.$route.params.id;
+       let usuario = this.$store.state.usuarios.usuarios_usuariologueado.id ;
+       let incidenteid =idRecuperado ;
+       let etapa="Valoración Inicial";
+       let s= this.$store;
+       solicitudPermisoImpresion.solicitudImpresion(usuario,incidenteid,etapa,s);
+       //-------------------------------------
+      
+      
+      //redireccionamos a pantalla
+      this.$router.push({
           name: "PermisoImpresion",
           params: { incidenteId: idRecuperado },
         });

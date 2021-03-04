@@ -46,8 +46,26 @@ export default {
   }  
  ,
  action_fechaUpdate ( context , valor ) { 
-    context.commit('mutation_fechaUpdate',valor)  
-                        
-  }  
+    context.commit('mutation_fechaUpdate',valor)} , 
+
+
+  
+    action_investigacion_evidencias( context , valor ) { 
+    context.commit('mutation_investigacion_evidencias',valor)} ,
+
+    action_investigacion_registroincidentes_docto_nombre( context , valor ) { 
+    context.commit('mutation_investigacion_registroincidentes_docto_nombre',valor)} ,
+  
+    action_investigacion_cartautorizacion_docto_nombre( context , valor ) { 
+    context.commit('mutation_investigacion_cartautorizacion_docto_nombre',valor)} ,
+   
+    action_investigacion_terminosreferencia_doctp_nombre( context , valor ) { 
+    context.commit('mutation_investigacion_terminosreferencia_doctp_nombre',valor)} ,
+   
+    action_investigacion_plan_docto_nombre( context , valor ) { 
+    context.commit('mutation_investigacion_plan_docto_nombre',valor)} ,
+   
+    action_investigacion_informe_docto_nombre( context , valor ) { 
+    context.commit('mutation_investigacion_informe_docto_nombre',valor)} ,
 
 }

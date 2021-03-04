@@ -151,11 +151,32 @@ const routes = [
       import(/* webpackChunckName:"login" */ "../views/Login.vue"),
   },
   {
+    path: "/perfilusuario",
+    name: "PerfilUsuario",
+   
+    component: () =>
+      import(/* webpackChunckName:"perfilusuario" */ "../views/PerfilUsuario.vue"),
+  },
+  {
     path: "/reporteparaimprimir",
     name: "ReporteImpresion",
     meta: { requiresAuth : true },
     component: () =>
       import(/* webpackChunckName:"reporteparaimprimir" */ "../views/ReporteImpresion.vue"),
+  },
+  {         
+    path: "/reporteparaimprimirdenuncia",
+    name: "ReporteImpresionDenuncia",
+    meta: { requiresAuth : true },
+    component: () =>
+      import(/* webpackChunckName:"reporteparaimprimirdenuncia" */ "../views/ReporteDenuncia.vue"),
+  },
+  {         
+    path: "/reporteparaimprimirinvestigacion",
+    name: "ReporteImpresionInvestigacion",
+    meta: { requiresAuth : true },
+    component: () =>
+      import(/* webpackChunckName:"reporteparaimprimirinvestigacion" */ "../views/ReporteInvestigacion.vue"),
   },
   {
     path: "/reporteparaimprimirvaloracion",

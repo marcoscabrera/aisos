@@ -11,13 +11,13 @@ import evidencias from './modules/evidencias/evidencias.js'
 import roles from './modules/roles/roles.js'
 import usuarios from './modules/usuarios/usuarios.js'
 import conciencia from './modules/conciencia/conciencia.js'
+import permisosimpresion from './modules/permisosimpresion/permisosimpresion.js'
 
 Vue.use(Vuex)
 //export default new Vuex.Store
 const store =  new Vuex.Store({
   state: {
-    
-//  urlServidor: 'http://127.0.0.1/apialdeas'
+   // urlServidor: 'http://127.0.0.1/apialdeas'
 urlServidor : 'https://apialdeasproteccioninfantil.azurewebsites.net',
 
 
@@ -36,7 +36,8 @@ urlServidor : 'https://apialdeasproteccioninfantil.azurewebsites.net',
   actions: {
   },
   modules: {
-    conciencia,usuarios, roles,incidentes,valoracion,uivars,seguimiento,denuncias,investigacion,evidencias
+    conciencia,usuarios, roles,incidentes,valoracion,uivars,seguimiento,denuncias,investigacion,evidencias,
+    permisosimpresion
   }
 })
   

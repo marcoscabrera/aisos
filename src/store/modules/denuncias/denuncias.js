@@ -21,7 +21,9 @@ denuncialegal_medidastexto: null  ,
 denuncialegal_fechaCreacion: null  ,
 denuncialegal_fechaUpdate: null  ,
 denuncialegal_estado: null  ,
-              },         
+denuncialegal_consensoArchivo_nombre :null,
+denuncialegal_medidasarchivo_nombre:null,
+          },         
                mutations, 
                actions 
    }

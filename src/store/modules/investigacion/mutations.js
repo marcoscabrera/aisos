@@ -39,4 +39,32 @@ export default {
               state.investigacion_fechaUpdate   = valor 
             
  },
+
+ 
+
+ mutation_investigacion_evidencias ( state, valor) {   
+              state.investigacion_evidencias   = valor 
+            
+ },
+
+ mutation_investigacion_registroincidentes_docto_nombre ( state, valor) {   
+              state.investigacion_registroincidentes_docto_nombre  = valor 
+            
+ },
+ mutation_investigacion_cartautorizacion_docto_nombre ( state, valor) {   
+              state.investigacion_cartautorizacion_docto_nombre   = valor 
+            
+ },
+ mutation_investigacion_terminosreferencia_doctp_nombre ( state, valor) {   
+              state.investigacion_terminosreferencia_doctp_nombre   = valor 
+            
+ },
+ mutation_investigacion_plan_docto_nombre ( state, valor) {   
+              state.investigacion_plan_docto_nombre   = valor 
+            
+ },
+ mutation_investigacion_informe_docto_nombre( state, valor) {   
+              state.investigacion_informe_docto_nombre   = valor 
+            
+ },
                                                                            }

@@ -269,6 +269,8 @@ import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
 /* importar en el componente , antes del export defaiñt*/
 import validacionSeguimiento from "@/components/etapas/validaciones/validacionSeguimiento.js";
 
+import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
+
 export default {
   components: {     
     cardProtocoloComponente,   BarraDeNavegacion,          
@@ -317,9 +319,19 @@ export default {
 
 
      }else {
+       /* En caso de que no se tenga permiso */
 
-          
-        let idRecuperado = this.$route.params.id;
+      //realizamos la solicitud del permiso//
+       let idRecuperado = this.$route.params.id;
+       let usuario = this.$store.state.usuarios.usuarios_usuariologueado.id ;
+       let incidenteid =idRecuperado ;
+       let etapa="Seguimiento";
+       let s= this.$store;
+       solicitudPermisoImpresion.solicitudImpresion(usuario,incidenteid,etapa,s);
+       //-------------------------------------------------------------
+
+       //Redireccionamos al usuario en caso de que no tenga los permisos 
+        
         this.$router.push({
           name: "PermisoImpresion",
           params: { incidenteId: idRecuperado },

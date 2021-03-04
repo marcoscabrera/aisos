@@ -113,7 +113,7 @@
           :loading="loading"
           :disabled="loading"
           color="primary"
-          @click="loader = 'loading'"
+          @click="permisoImpresion"
           block
         >
           <v-icon right dark> mdi-printer </v-icon>
@@ -152,6 +152,8 @@ import RegistroIncidenteComponente from "@/components/investigacion/componentesI
 import ArchivoImpresionComponente from "@/components/investigacion/componentesInvestigacion/ArchivoImpresionComponente.vue";
 import apiInvestigacion from "@/apialdeas/apiInvestigacion.js";
 import barraDocumentos from "@/components/barradocumentos/barraDocumentos.vue";
+
+import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
 
 export default {
   components: {
@@ -206,6 +208,37 @@ export default {
     };
   },
   methods: {
+         permisoImpresion(){
+           
+      console.log(" Permiso IMPRESIONINVESTIGACION  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.IMPRESIONINVESTIGACION)      ;
+
+     if ( this.$store.state.usuarios.usuarios_usuariologueado_rol.IMPRESIONINVESTIGACION=='SI'){
+    // impreseion 
+       
+         this.$router.push({
+          name: "ReporteImpresionInvestigacion"
+        });
+
+     }else {
+       /* En caso de que no se tenga permiso */
+
+      //realizamos la solicitud del permiso//
+       let idRecuperado = this.$route.params.id;
+       let usuario = this.$store.state.usuarios.usuarios_usuariologueado.id ;
+       let incidenteid =idRecuperado ;
+       let etapa="Investigacion Interna";
+       let s= this.$store;
+       solicitudPermisoImpresion.solicitudImpresion(usuario,incidenteid,etapa,s);
+       //-------------------------------------------------------------
+        
+        //redirrecionamos al usuario hacia la pantalla de notificacion de permisos
+        this.$router.push({
+          name: "PermisoImpresion",
+          params: { incidenteId: idRecuperado },
+        });
+    }
+
+    },
     guardar() {
       console.log(" guardar esta info");
 
@@ -266,11 +299,23 @@ export default {
         this.folioinvestigacion
       );
 
+      /*
+    action_investigacion_evidencias
+    action_investigacion_registroincidentes_docto_nombre
+    action_investigacion_cartautorizacion_docto_nombre
+    action_investigacion_terminosreferencia_doctp_nombre
+    action_investigacion_plan_docto_nombre
+  
+
+    action_investigacion_informe_docto_nombre
+ */
       (this.carta_archivoId = investigacion.cartautorizacion_doctoArchivo.id),
         (this.carta_NombreArchivo =
           investigacion.cartautorizacion_doctoArchivo.nombreOriginal),
         (this.carta_siHayArchivo =
           investigacion.cartautorizacion_doctoArchivo.hayArchivo),
+
+        this.$store.dispatch("action_investigacion_cartautorizacion_docto_nombre",this.carta_NombreArchivo);
         this.$store.dispatch(
           "action_cartautorizacion_docto",
           this.carta_archivoId
@@ -282,6 +327,9 @@ export default {
           investigacion.terminosreferencia_doctpArchivo.nombreOriginal),
         (this.terminosreferencia_siHayArchivo =
           investigacion.terminosreferencia_doctpArchivo.hayArchivo),
+
+        this.$store.dispatch("action_investigacion_terminosreferencia_doctp_nombre",this.terminosreferencia_NombreArchivo);
+     
         this.$store.dispatch(
           "action_terminosreferencia_doctp",
           this.terminosreferencia_archivoId
@@ -291,7 +339,11 @@ export default {
         (this.plan_NombreArchivo =
           investigacion.plan_docto_Archivo.nombreOriginal),
         (this.plan_siHayArchivo = investigacion.plan_docto_Archivo.hayArchivo),
+
+        this.$store.dispatch("action_investigacion_terminosreferencia_doctp_nombre",this.terminosreferencia_NombreArchivo);
         this.$store.dispatch("action_plan_docto", this.plan_archivoId);
+
+
 
       (this.informe_archivoId = investigacion.informe_docto_Archivo.id),
         (this.informe_NombreArchivo =
@@ -299,7 +351,8 @@ export default {
         (this.informe_siHayArchivo =
           investigacion.informe_docto_Archivo.hayArchivo);
 
-      this.$store.dispatch("action_informe_docto", this.informe_archivoId);
+      this.$store.dispatch("action_investigacion_informe_docto_nombre",this.this.informe_NombreArchivo);
+       this.$store.dispatch("action_informe_docto", this.informe_archivoId);
     },
 
     irAevidencias() {

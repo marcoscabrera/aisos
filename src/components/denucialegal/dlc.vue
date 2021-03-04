@@ -80,7 +80,7 @@
           :loading="loading"
           :disabled="loading"
           color="primary"
-          @click="loader = 'loading'"
+          @click="permisoImpresion"
           block
         >
           <v-icon right dark> mdi-printer </v-icon>
@@ -122,6 +122,8 @@ import apiIncidentes from "@/apialdeas/apiIncidentes.js";
 import apiDenuncias from "@/apialdeas/apiDenuncias.js";
 import FoliosComponente  from "./componentesDenunciaLegal/FoliosComponente.vue";
 import barraDocumentos  from "@/components/barradocumentos/barraDocumentos.vue";
+
+import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
 
 export default {
 
@@ -172,6 +174,43 @@ export default {
   },
 
   methods: {
+  
+     permisoImpresion(){
+           
+      console.log(" Permiso IMPRESIONDENUNCIA  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.IMPRESIONDENUNCIA)      ;
+
+     if ( this.$store.state.usuarios.usuarios_usuariologueado_rol.IMPRESIONDENUNCIA=='SI'){
+        
+         this.$router.push({
+          name: "ReporteImpresionDenuncia"
+        });
+
+
+     }else {
+       /* En caso de que no se tenga permiso */
+
+      //realizamos la solicitud del permiso//
+       let idRecuperado = this.$route.params.id;
+       let usuario = this.$store.state.usuarios.usuarios_usuariologueado.id ;
+       let incidenteid =idRecuperado ;
+       let etapa="Denuncia";
+       let s= this.$store;
+       solicitudPermisoImpresion.solicitudImpresion(usuario,incidenteid,etapa,s);
+       //-------------------------------------------------------------
+
+       
+        // redireccionamos al usurio a la pantalla de notificacion de permiso 
+        // de impresion.
+        this.$router.push({
+          name: "PermisoImpresion",
+          params: { incidenteId: idRecuperado },
+        });
+
+
+    
+    }
+
+    },
     hola() {
       console.log("montnado dlc");
       apiIncidentes.hola();
@@ -276,9 +315,14 @@ export default {
       this.medidasArchivo_sihayarchivo=  this.denuncia.medidasArchivo.hayArchivo;
 
 
-        console.log("valor de nombre archivo consensodocto" +this.denuncia.consensoArchivo.nombreOriginal);
-       console.log("valor de nombre archivo medidas" +this.denuncia.medidasArchivo.nombreOriginal);
-       
+      console.log("valor de nombre archivo consensodocto" +this.denuncia.consensoArchivo.nombreOriginal);
+      console.log("valor de nombre archivo medidas" +this.denuncia.medidasArchivo.nombreOriginal);
+         
+                               
+      this.$store.dispatch('action_denuncialegal_consensoArchivo_nombre',this.denuncia.consensoArchivo.nombreOriginal);
+      this.$store.dispatch('action_denuncialegal_medidasarchivo_nombre',this.denuncia.medidasArchivo.nombreOriginal);
+
+
        this.asignarVariables(this.denuncia);
       })
       .catch( error => {
@@ -288,7 +332,7 @@ export default {
   },
 
   mounted() {
-  //  this.hola();
+  
     this.$nextTick( function(){
       this.cargarDenuncia();
     });
