@@ -30,7 +30,7 @@
             <v-text-field
              v-model="email"
               label="Email"
-              :rules="emailRules"
+             
             @input="limpiarResponse">
             </v-text-field>
           </v-list-item>
