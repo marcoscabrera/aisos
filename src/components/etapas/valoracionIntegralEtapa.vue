@@ -172,7 +172,7 @@
           Guardar
         </v-btn>
 
-       <v-btn v-if="this.verBotonera"
+       <v-btn v-if="this.verBotoneraconcierre"
           :loading="loading"
           :disabled="loading"
           color="green"

@@ -45,16 +45,17 @@
           mdi-newspaper-variant-multiple
         </v-icon>
       </v-badge>
-      -->
+      
       <v-badge
 
         color="green"
         overlap
-      >
-        <v-icon large>
+      >-->
+        <v-icon large
+         @click="ir__perfil">
           mdi-cog
         </v-icon>
-      </v-badge> 
+    <!--  </v-badge> -->
 
 
             <!-- Actividades -->
@@ -76,7 +77,7 @@
       <!-- -->
       <!-- SOlicitudes -->
 
-      <v-badge
+      <!-- <v-badge
         :content="messages"
         :value="messages"
         color="green"
@@ -89,8 +90,8 @@
             @click="ir__perfil"
           >
           Solicitudes
-          </v-btn>
-      </v-badge>
+          </v-btn> 
+      </v-badge>-->
       <!-- -->
 
 

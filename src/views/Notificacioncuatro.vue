@@ -10,11 +10,11 @@
       <v-col>
         <p class="text-center" v-if="esIncidente=='SI ES INCIDENTE'">
 
-          Se ha notificado a los miembros del  comite de proteccion infantil via correo
+          Se ha notificado a los miembros del  comite de proteccion infantil 
         </p>
          <p class="text-center"  v-else>
 
-         Se ha notificado a los miembros del comite de proteccion infantil via correo que 
+         Se ha notificado a los miembros del comite de proteccion infantil  que 
          este incidente de desproteccion infantil ha sido cerrado.
         </p>      
         <!--<p>

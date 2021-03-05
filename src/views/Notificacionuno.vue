@@ -9,7 +9,7 @@
       <v-col>
         <p class="text-center">
 
-          Se ha notificado a los miembros del  comite de proteccion infantil via correo
+          Se ha notificado a los miembros del  comite de protección infantil 
         </p>
         <p>
           El folio de tu reporte es <strong>{{folio}}</strong>

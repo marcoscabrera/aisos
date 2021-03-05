@@ -36,8 +36,13 @@
           </v-list-item>
 
           <v-list-item>
-            <v-text-field v-model="pass" label="Password"
-            @input="limpiarResponse"></v-text-field>
+            <v-text-field v-model="pass"
+            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="show1 ? 'text' : 'password'"
+             @click:append="show1 = !show1"
+             label="Password"
+            @input="limpiarResponse">
+            </v-text-field>
           </v-list-item>
 
           <v-list-item>
@@ -113,7 +118,8 @@ export default {
     return {
       apiUsuarios,
       conectarA: null,
-
+      show1: false,
+      password: 'Password',
       email: null,
 
       pass: null,

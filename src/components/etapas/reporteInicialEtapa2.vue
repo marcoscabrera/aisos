@@ -41,7 +41,31 @@
       </v-col>
     </v-row>
 
-    <v-row>
+    <v-row v-if="estamosActualizando">
+      <v-col cols="12" x2="12" sm="6" md="6" lg="6"> 
+        <v-text-field
+          :value ="nombrePrograma"
+          label="Programa"
+          
+          readonly
+
+        ></v-text-field>
+      </v-col>
+      <v-col cols="12" x2="12" sm="6" md="6" lg="6"> 
+        <v-text-field
+          :value ="date"
+          label="Fecha"
+          prepend-icon="mdi-calendar"
+          readonly
+
+        ></v-text-field>
+      </v-col>
+
+    </v-row>
+    
+    <!-- seleccoin de programa y de fecha -->
+    <v-row v-if="mostarCalendario_y_selectorProgramas">
+
       <comboboxProgramaSeleccionado :programa="programaSeleccionado"
       :error_programa="error_programa"></comboboxProgramaSeleccionado>
       <calendario :fecha="date"></calendario>
@@ -161,7 +185,7 @@
           :loading="loadingGuardar"
           :disabled="loadingGuardar"
           color="green"
-          @click="guardar_incidente"
+          @click="update_incidente_u"
           block
           
         >
@@ -414,14 +438,13 @@ export default {
 
     /*************** */
 
-     guardar_nuevoIncidente2(){
+     update_incidente_u(){
 
      this.loadingGuardar = true;
     
 
 const  { 
-      etapainicial_programa ,
-      etapainicial_fecha ,
+     
       etapainicial_involucrados,
       etapainicial_elaboro,
       etapainicial_cargos,
@@ -436,7 +459,6 @@ const  {
       etapainicial_testigos} =this.$store.state.incidentes;
      
       /* usuario creador es el usuario logueado. */
-      var usuarioCreador =this.$store.state.usuarios.usuarios_usuariologueado.id;
       var etapa = 1;
       /* ======================================== */
       
@@ -447,10 +469,6 @@ const  {
 
       var parametros = {
         id : this.id,
-        programa: etapainicial_programa,
-        fechaAlta:etapainicial_fecha,
-        fechaUpdate: etapainicial_fecha,
-        usuarioCreador: usuarioCreador,
         involucrados: etapainicial_involucrados,
         elaboro: etapainicial_elaboro,
         cargousuario: etapainicial_cargos,
@@ -484,40 +502,27 @@ const  {
       console.log("== valores del incidente ==");
       console.log(JSON.stringify(parametros));
 
-      let x = apiIncidentes.nuevoIncidente(parametros, this.$store);
+      let x = apiIncidentes.updateIncidente(parametros, this.$store);
       //let x = apiIncidentes.saludo(this.$store);
       // let x = apiIncidentes.nuevoUsuario(parametros, this.$store);
       x.then((response) => {
+
         console.log(response.data);
+
         this.loadingGuardar = false;
         //redireccionamos
-
-        let a = JSON.parse(response.data);
-
-        let atipo = typeof a;
-
-        console.log(atipo);
-        let idRecuperado = a["id"];
-
-        console.log("valor de idRecuperado  : " + idRecuperado);
-
+       
         this.modo = "update";
-
-        this.folio = a["folio"];
+    
 
         this.verBotonImpresion = false;
         
         //limpiar variables globales de incidente
         validacionReporteInicial.inicializarValoresDeIncidente(this.$store);
-         /*
-        this.$router.push({
-          name: "DenunciasDetalle",
-          params: { id: idRecuperado },
-        });*/
-      
+
           this.$router.push({
           name: "Notificacionuno",
-          params: { incidenteId: idRecuperado,folio:this.folio },
+          params: { incidenteId:  this.id,folio:this.folio },
         });
 
       }).catch((error) => {
@@ -655,6 +660,8 @@ const  {
       this.guardar_nuevoIncidente2();
      
     },
+   
+
 
     guardar_incidente() {
 
@@ -671,6 +678,13 @@ const  {
     //********************************** */
 
         asignarAVariablesValoresDeConsulta2(respuesta) {
+    //mostramos el programa y la fecha.
+    this.estamosActualizando=true;
+    //ocultamos los programas y el seleccionador de fecha
+    this.mostarCalendario_y_selectorProgramas = false;
+
+
+
       console.log("==>asignarAVariablesValoresDeConsulta<== : ");
       //console.log(JSON.stringify(respuesta.data));
       var a = respuesta.data;
@@ -710,7 +724,12 @@ const  {
        /************************************* */
       this.date = a.fechaAlta;
       this.programaSeleccionado = a.programa;
-     
+      this.nombrePrograma = a.nombreprograma;
+      console.log("nombre programa " + this.nombrePrograma);
+      /************************ */
+
+
+
       this.involucrados = a.involucrados;
 
      // console.log(this.involucrados);
@@ -755,6 +774,8 @@ const  {
 
       console.log( " perfil victiam " + this.perfilvictima) ;
        console.log( " perfil recibeayuda " + this.recibeayuda) ;
+
+       this.setearValores_para_impresion();
      
     },
 
@@ -896,6 +917,8 @@ const  {
 
   data() {
     return {
+      mostarCalendario_y_selectorProgramas:true,
+      nombrePrograma: '',
       estamosActualizando: false,
       id : 0,
       verBotoneraconcierre :false,

@@ -32,6 +32,20 @@ export default {
 
     },
 
+    updateIncidente(parametros, store) { 
+
+        let predicado = "/api/v0/incidentes";
+    
+        let apix = store.state.urlServidor;
+    
+        let endpoint = apix + predicado;
+    
+        console.log("valor del endpoint " + endpoint);
+    
+        return api.axiosput(endpoint, parametros);
+    
+        },
+
     recuperarTodosLosIncidentes(usuarioLogueadoID,store) {
 
     let predicado = '/api/v0/incidentes/'+ usuarioLogueadoID+'/incidentes';
