@@ -217,17 +217,21 @@ export default {
       ],
       // Atención directa, 2) Soporte técnico, 3) Oficina Nacional  4) Otro
       items_opcionesperfildelagresor: [
-        "ATENCION DIRECTA",
-        "SOPORTE TÉCNICO",
-        "OFICINA NACIONAL",
-        "OTRO"
+
+        "COLABORADOR SOS",
+        "FAMILIA DE ORIGEN",
+        "ADULTO EXTERNO"
+        
       ],
       items_opcionesperfildelagresor2: [
         "NIÑOS, NIÑAS Y JOVENES SOS",
         "NIÑOS, NIÑAS Y JOVENES EXTERNOS",
       ],
 
-      items_opcioncombocolaborador: ["MAMA SOS", "PAPA SOS", "OTRO"],
+      items_opcioncombocolaborador: ["ATENCION DIRECTA",
+        "SOPORTE TÉCNICO",
+        "OFICINA NACIONAL",
+        "OTRO"],
       items_opcioncombofamiliaorigen: [
         "MAMA",
         "PAPA",
