@@ -1,30 +1,15 @@
 <template>
-  <v-container name="x">
+  <v-container fluid class="background" name="logincomponente">
     <v-row>
       <v-col cols="12" xs="12" md="3"> </v-col>
       <v-col cols="12"  xs="12" md="6" >
        <v-card height="100%" outlined>
-                <v-img
-                height="250"
-               
-                :src="this.$store.state.uivars.uivars_imagenLogin"      ></v-img>
-          <v-list-item two-line>
-            <v-list-item-content>
-              <div class="overline mb-4">Login de Usuario</div>
+             
+            <v-img
+                   src=" https://api.aldeasinfantiles.mx/apialdeas/logo.png"      >
+                   </v-img>
+          
 
-             <!--<v-card-text class="font-bold">
-                ¡Hola!, Para poder hacer uso de esta
-                herramienta te pedimos que inicies
-                sesion y en caso de no estar registrado,
-                te invitamos a registrarte.
-                ¡Muchas Gracias!
-              </v-card-text> -->
-              <v-img>
-
-              </v-img>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item></v-list-item>
 
           <v-list-item>
             <v-text-field
@@ -251,6 +236,13 @@ export default {
 };
 </script>
 <style scoped>
+.background { 
+  background: url('https://api.aldeasinfantiles.mx/apialdeas/ALDEASSOS.jpg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 .custom-loader {
   animation: loader 1s infinite;
   display: flex;

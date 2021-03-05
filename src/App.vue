@@ -2,7 +2,7 @@
   <!-- App.vue -->
 
   <v-app color="indigo">
-    <v-navigation-drawer v-model="drawer" app>
+    <v-navigation-drawer v-model="drawer" app class="barra">
       <!-- -->
       <v-list dense>
         <v-list-item two-line>
@@ -14,8 +14,8 @@
           </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title> Aldeas Infantiles </v-list-item-title>
-            <v-list-item-subtitle>
+            <v-list-item-title color="white"> Aldeas Infantiles </v-list-item-title>
+            <v-list-item-subtitle color="white">
               Sistema de registro de incidentes
             </v-list-item-subtitle>
           </v-list-item-content>
@@ -23,10 +23,10 @@
 
         <v-list-item @click="irADashboard" v-if="this.$store.state.uivars.uivars_puedevermenulateral">
           <v-list-item-action>
-            <v-icon> mdi-view-dashboard-variant </v-icon>
+            <v-icon color="white"> mdi-view-dashboard-variant </v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title> Dashboard </v-list-item-title>
+            <v-list-item-title color="white"> Dashboard </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
@@ -41,45 +41,45 @@
 
         <v-list-item @click="irAConciencia" v-if="this.$store.state.uivars.uivars_puedevermenulateral">
           <v-list-item-action>
-            <v-icon> mdi-alarm-panel-outline </v-icon>
+            <v-icon color="white"> mdi-alarm-panel-outline </v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title> Conciencia </v-list-item-title>
+            <v-list-item-title color="white"> Conciencia </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-list-item @click="irAPrevencion" v-if="this.$store.state.uivars.uivars_puedevermenulateral">
           <v-list-item-action>
-            <v-icon> mdi-alarm-panel-outline </v-icon>
+            <v-icon color="white"> mdi-alarm-panel-outline </v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title> Prevencion </v-list-item-title>
+            <v-list-item-title color="white"> Prevencion </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
         <v-list-item @click="irAEstadisticas" v-if="this.$store.state.uivars.uivars_puedevermenulateral">
           <v-list-item-action>
-            <v-icon> mdi-chart-bar </v-icon>
+            <v-icon color="white"> mdi-chart-bar </v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title> Estadisticas </v-list-item-title>
+            <v-list-item-title color="white"> Estadisticas </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
         <v-list-item @click="irAconfiguracion" v-if="this.$store.state.uivars.uivars_puedever_configuracion">
           <v-list-item-action>
-            <v-icon> mdi-application-cog </v-icon>
+            <v-icon color="white"> mdi-application-cog </v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title> Configuracion </v-list-item-title>
+            <v-list-item-title color="white"> Configuracion </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
         <v-list-item  @click="cerrarSesion">
           <v-list-item-action>
-            <v-icon> mdi-logout </v-icon>
+            <v-icon color="white"> mdi-logout </v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title> Salir </v-list-item-title>
+            <v-list-item-title color="white" > Salir </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -87,13 +87,14 @@
 
     <v-app-bar app>
       <!-- -->
-      <v-app-bar-nav-icon @click="drawer = !drawer" />
+      <v-app-bar-nav-icon color="white" @click="drawer = !drawer" />
+      <v-app-bar-title class="text-center">Plataforma interna de protección infantil SOS México</v-app-bar-title>
     </v-app-bar>
 
     <!-- Sizes your content based upon application components -->
-    <v-main>
+    <v-main class="colorazul">
       <!-- Provides the application the proper gutter -->
-      <v-container fluid>
+      <v-container fluid >
         <!-- If using vue-router -->
         <DatosDelUsuarioComponente v-if="this.$store.state.uivars.uivars_hayUnUsuarioLogueado"></DatosDelUsuarioComponente>
         <router-view></router-view>
@@ -205,3 +206,20 @@ export default {
   },
 };
 </script>
+<style scoped>
+.colorazul{
+ 
+   background-color: rgb(212,237,250) !important;
+}
+.theme--light.v-app-bar.v-toolbar.v-sheet {
+    background-color: rgb(152,198,121) !important;
+}
+.theme--light.v-navigation-drawer {
+    background-color:rgb(92,197,237) !important;
+}
+ .v-navigation-drawer__content{
+
+   color : rgb(92,197,237)
+ }
+
+</style>

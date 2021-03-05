@@ -7,18 +7,18 @@
             </v-img>
         </v-col>
         <v-col cols="12" xs="8" sm="8" md="8" lg="8">
-            <h3 class="text-center">Plataforma de Desproteccion Infantil</h3>
+            <h3 class="text-center">Plataforma de Desprotección Infantil</h3>
         </v-col>
         <v-col cols="12" xs="2"  sm="2" md="2" lg="2">
             <v-row>
-                <v-col>Fecha : </v-col>
+                <v-col>Fecha: </v-col>
             </v-row>
         </v-col>
     </v-row>
 
     <v-row>
         <v-col cols="12" xs="12"  sm="12" md="12" lg="12">
-          <p class="text-center"> Valoracion Integral </p>
+          <p class="text-center"><strong>Valoración Integral</strong></p>
          </v-col>
 
     </v-row>
@@ -38,7 +38,7 @@
     <!--   -->
       <v-row>
         <v-col cols="12" xs="12"  sm="12" md="12" lg="12">
-         <strong>Valoracion :</strong>
+         <strong>Valoración:</strong>
         </v-col>
 
     </v-row>
@@ -52,7 +52,7 @@
        <!-- es un valoracion  -->
     <v-row>
         <v-col cols="12" xs="12"  sm="12" md="12" lg="12">
-         <strong>Se confirma incidente :</strong> {{this.$store.state.valoracion.etapavaloracion_confirmaincidente}}
+         <strong>Se confirma incidente:</strong> {{this.$store.state.valoracion.etapavaloracion_confirmaincidente}}
         </v-col>
 
     </v-row>
@@ -60,34 +60,34 @@
     <!-- tipologia -->
     <v-row>
         <v-col cols="12" xs="12"  sm="12" md="12" lg="12">
-         <strong>Tipologia del Incidente : </strong>{{this.$store.state.valoracion.etapavaloracion_tipologiadelincidente}}
+         <strong>Tipologia del Incidente: </strong>{{this.$store.state.valoracion.etapavaloracion_tipologiadelincidente}}
          </v-col>
     </v-row>
 
     <!-- Nivel del incidente -->
     <v-row>
         <v-col cols="12" xs="12"  sm="12" md="12" lg="12">
-         <strong>Nivel del Incidente : </strong>{{this.$store.state.valoracion.etapavaloracion_niveldelincidente}}
+         <strong>Nivel del Incidente: </strong>{{this.$store.state.valoracion.etapavaloracion_niveldelincidente}}
          </v-col>
     </v-row>
 
     <!-- Tipo de caso -->
     <v-row>
         <v-col cols="12" xs="12"  sm="12" md="12" lg="12">
-         <strong>Tipo de caso : </strong>{{this.$store.state.valoracion.etapavaloracion_tipodecaso}}
+         <strong>Tipo de caso: </strong>{{this.$store.state.valoracion.etapavaloracion_tipodecaso}}
          </v-col>
     </v-row>
     <!-- Tipo de respuesta -->
     <v-row>
         <v-col cols="12" xs="12"  sm="12" md="12" lg="12">
-         <strong>Tipo de Respuesta : </strong>{{this.$store.state.valoracion.etapavaloracion_tipoderespuesta}}
+         <strong>Tipo de Respuesta: </strong>{{this.$store.state.valoracion.etapavaloracion_tipoderespuesta}}
          </v-col>
     </v-row>
 
     <!-- Tipo de respuesta -->
     <v-row>
         <v-col cols="12" xs="12"  sm="12" md="12" lg="12">
-         <strong>Medidas Integrales : </strong>{{this.$store.state.valoracion.etapavaloracion_medidasintegrales_docto}}
+         <strong>Medidas Integrales: </strong>{{this.$store.state.valoracion.etapavaloracion_medidasintegrales_docto}}
          </v-col>
     </v-row>
     <!--  Registro de hechos -->

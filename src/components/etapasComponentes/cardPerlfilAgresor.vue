@@ -233,8 +233,8 @@ export default {
         "OFICINA NACIONAL",
         "OTRO"],
       items_opcioncombofamiliaorigen: [
-        "MAMA",
-        "PAPA",
+        "MAMÁ",
+        "PAPÁ",
         "HERMANO",
         "PADRASTRO",
         "MADRASTRA",

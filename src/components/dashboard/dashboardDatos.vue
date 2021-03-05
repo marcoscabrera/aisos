@@ -1,6 +1,6 @@
 
   <template>
-  <v-data-table
+  <v-data-table width ="100%"
     :headers="headers"
     :items="incidentes"
     :single-expand="singleExpand"

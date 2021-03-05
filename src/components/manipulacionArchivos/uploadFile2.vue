@@ -33,6 +33,7 @@
           
           :accept="tipoDeArchivo"
           @change="selectFile"
+          @click:clear="mostrarbotonUpload"
         ></v-file-input>
       </v-col>
 
@@ -142,6 +143,12 @@ export default {
   },
 
   methods: {
+
+    mostrarbotonUpload(){
+      console.log("mostrar bton upload");
+      this.MostrarBotonDeSubir= true;
+    },
+
 
     verArchivo(){
       //debemos checar si pueden ver archivos o no . 
