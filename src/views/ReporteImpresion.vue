@@ -34,7 +34,7 @@
         :html-to-pdf-options ="htmlToPdfOptions"
     >
         <section slot="pdf-content">
-            <CuerpoReporte  name="impresiones"></CuerpoReporte>
+          <CuerpoReporte  name="impresiones"></CuerpoReporte> 
 
          </section>
         </vue-html2pdf>
