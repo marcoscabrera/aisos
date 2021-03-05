@@ -88,10 +88,13 @@
     <v-app-bar app>
       <!-- -->
       <v-app-bar-nav-icon color="white" @click="drawer = !drawer" />
-      <v-img
-      style="background-image: url('https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-light.svg'); background-position: center center;">
-
-      </v-img>
+      <a class="d-inline-block ml-0 mr-2 ml-md-2 router-link-active" href="#" >
+      <v-img max-height="50"
+         max-width="120"
+      src="https://api.aldeasinfantiles.mx/apialdeas/logo.png">
+     
+      </v-img></a>
+      <v-spacer></v-spacer>
       <v-app-bar-title class="text-center">Plataforma interna de protección infantil SOS México</v-app-bar-title>
     </v-app-bar>
 
@@ -211,12 +214,16 @@ export default {
 };
 </script>
 <style scoped>
+
+.v-app-bar-title__content{
+  color : white !important;
+}
 .colorazul{
  
    background-color: rgb(212,237,250) !important;
 }
 .theme--light.v-app-bar.v-toolbar.v-sheet {
-    background-color: rgb(152,198,121) !important;
+    background-color: rgb(0,158,224) !important;
 }
 .theme--light.v-navigation-drawer {
     background-color:rgb(92,197,237) !important;

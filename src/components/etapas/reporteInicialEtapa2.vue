@@ -14,7 +14,9 @@
              activo_c="1"
              >
              </BarraDeNavegacion>
+       <!-- import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
 
+-->
         </v-col>
     </v-row>
    

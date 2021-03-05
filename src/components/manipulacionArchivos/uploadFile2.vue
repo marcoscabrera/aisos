@@ -31,7 +31,7 @@
           show-size
           label="Adjunta tu documento"
           
-          :accept="tipoDeArchivo"
+          accept="application/pdf"
           @change="selectFile"
           @click:clear="mostrarbotonUpload"
         ></v-file-input>
@@ -95,8 +95,10 @@ export default {
       elArchivo :  '',
 
       fileInfos: [],
-
-      rules :[ (value) => value.type != 'aplication/pdf' || 'EL formato de archivo no esta permitido'
+      rules: [
+      files => !files || !files.some(file => file.size > 10_485_760) || 'El archivo debe ser menor a 10 MB!'
+    ],
+      rules2 :[ (value) => value.type != 'aplication/pdf' || 'EL formato de archivo no esta permitido'
       ]
     };
   },
