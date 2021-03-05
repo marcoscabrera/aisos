@@ -44,7 +44,13 @@ export default {
 
   data() {
     return {
-      itemsnIVELES: ["BAJO NIVEL", "ALTO NIVEL", "CRITICO"],
+      itemsnIVELES: [
+        "Comportamiento Inapropiado",
+         "Comportamiento Abusivo",
+          "Comportamiento Problemático A-N (Adulto-Niño)",
+          "Comportamiento abusivo N-N (Niño-Niño)",
+          "Crítico",
+          "De alto Perfil"]
     };
   },
 };

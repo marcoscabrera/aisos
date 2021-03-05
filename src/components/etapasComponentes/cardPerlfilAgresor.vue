@@ -215,10 +215,12 @@ export default {
         "NIÑOS, NIÑAS Y JOVENES SOS",
         "NIÑOS, NIÑAS Y JOVENES EXTERNOS",
       ],
+      // Atención directa, 2) Soporte técnico, 3) Oficina Nacional  4) Otro
       items_opcionesperfildelagresor: [
-        "COLABORADOR SOS",
-        "FAMILIA DE ORIGEN",
-        "ADULTO EXTERNO",
+        "ATENCION DIRECTA",
+        "SOPORTE TÉCNICO",
+        "OFICINA NACIONAL",
+        "OTRO"
       ],
       items_opcionesperfildelagresor2: [
         "NIÑOS, NIÑAS Y JOVENES SOS",
