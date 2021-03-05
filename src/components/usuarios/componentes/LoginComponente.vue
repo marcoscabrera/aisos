@@ -1,15 +1,17 @@
 <template>
-  <v-container fluid class="background" name="logincomponente">
+  <v-container fluid  name="logincomponente">
     <v-row>
       <v-col cols="12" xs="12" md="3"> </v-col>
       <v-col cols="12"  xs="12" md="6" >
        <v-card height="100%" outlined>
              
-            <v-img
+           <v-img
                    src=" https://api.aldeasinfantiles.mx/apialdeas/logo.png"      >
                    </v-img>
-          
-
+      <!--      <v-img
+             src="https://api.aldeasinfantiles.mx/apialdeas/ALDEASSOS.jpg" >
+                   </v-img>-->
+                   
 
           <v-list-item>
             <v-text-field

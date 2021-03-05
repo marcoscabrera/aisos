@@ -88,6 +88,10 @@
     <v-app-bar app>
       <!-- -->
       <v-app-bar-nav-icon color="white" @click="drawer = !drawer" />
+      <v-img
+      style="background-image: url('https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-light.svg'); background-position: center center;">
+
+      </v-img>
       <v-app-bar-title class="text-center">Plataforma interna de protección infantil SOS México</v-app-bar-title>
     </v-app-bar>
 
