@@ -10,7 +10,7 @@
     >
       <template v-slot:activator="{ on, attrs }">
         <v-text-field
-          :value ="fecha"
+          :value ="date"
          
           label="Fecha"
           prepend-icon="mdi-calendar"
