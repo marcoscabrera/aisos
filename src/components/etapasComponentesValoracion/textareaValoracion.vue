@@ -1,4 +1,5 @@
 <template>
+<v-row>
   <v-col cols="12">
     <v-textarea
       filled
@@ -16,6 +17,7 @@
       Este Campo no debe de ir vacio y no debe de exceder el numero maximo de palabras
     </v-alert>
   </v-col>
+</v-row>
 </template>
 <script>
 export default {

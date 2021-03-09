@@ -239,4 +239,17 @@ export default {
 mutation_roles_RECIBECORREOS( state, valor) {   
   state.roles_RECIBECORREOS   = valor 
 
-},                                                                           }
+},      
+
+mutation_roles_VISIBILIDADDEINCIDENTES( state, valor) {   
+  state.roles_VISIBILIDADDEINCIDENTES   = valor 
+
+},
+
+mutation_roles_AUTORIZAIMPRESION( state, valor) {   
+  state.roles_AUTORIZAIMPRESION   = valor 
+
+},
+
+
+}

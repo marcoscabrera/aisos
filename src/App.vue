@@ -95,7 +95,7 @@
      
       </v-img></a>
       <v-spacer></v-spacer>
-      <v-app-bar-title class="text-center">Plataforma interna de protección infantil SOS México</v-app-bar-title>
+      <v-app-bar-title class="letrasBlancasEnTitulo text-center">Plataforma interna de protección infantil SOS México</v-app-bar-title>
     </v-app-bar>
 
     <!-- Sizes your content based upon application components -->
@@ -217,6 +217,9 @@ export default {
 
 .v-app-bar-title__content{
   color : white !important;
+}
+.letrasBlancasEnTitulo{
+  color: white !important;
 }
 .colorazul{
  

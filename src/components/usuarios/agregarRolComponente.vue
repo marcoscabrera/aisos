@@ -19,6 +19,7 @@
         <PanelArchivosComponentes></PanelArchivosComponentes>
         <PanelEvidenciaComponentes></PanelEvidenciaComponentes>
         <PanelRecibirCorreos></PanelRecibirCorreos>
+         <PanelEspeciales></PanelEspeciales>
         <!-- <v-row>
             <v-col>
                 <v-switch
@@ -63,6 +64,7 @@ import PanelArchivosComponentes from  '@/components/usuarios/componentes/PanelAr
 import NombreRolComponentes from '@/components/usuarios/componentes/NombreRolComponentes.vue'
 import PanelEvidenciaComponentes from '@/components/usuarios/componentes/PanelEvidenciaComponentes.vue'
 import PanelRecibirCorreos from '@/components/usuarios/componentes/PanelRecibirCorreos.vue'
+import PanelEspeciales from '@/components/usuarios/componentes/PanelEspeciales.vue'
 
 //import valoracionIntegralEtapa from '@/components/etapas/valoracionIntegralEtapa.vue';
     
@@ -84,7 +86,8 @@ export default {
     PanelArchivosComponentes,
     PanelEvidenciaComponentes,
     NombreRolComponentes,
-    PanelRecibirCorreos
+    PanelRecibirCorreos,
+    PanelEspeciales
   
   },
 
@@ -172,6 +175,12 @@ this.$store.dispatch('action_MODIFICACIONARCHIVOS','NO');
 this.$store.dispatch('action_IMPRESIONARCHIVOS','NO');
 this.$store.dispatch('action_VISUALIZACIONARCHIVOS','NO');
 this.$store.dispatch('action_roles_RECIBECORREOS','NO');
+//                    this.$store.state.roles.roles_AUTORIZAIMPRESION
+//                    this.$store.state.roles.roles_VISIBILIDADDEINCIDENTES
+
+this.$store.dispatch('action_roles_AUTORIZAIMPRESION','NO');
+this.$store.dispatch('action_roles_VISIBILIDADDEINCIDENTES','PROPIO');
+
 this.$store.dispatch('action_roles_activo',true);
 },
 
@@ -252,11 +261,14 @@ this.$store.dispatch('action_roles_activo',true);
         MODIFICACIONARCHIVOS: this.$store.state.roles.roles_MODIFICACIONARCHIVOS,
         IMPRESIONARCHIVOS: this.$store.state.roles.roles_IMPRESIONARCHIVOS,
         VISUALIZACIONARCHIVOS: this.$store.state.roles.roles_VISUALIZACIONARCHIVOS,
-       RECIBECORREOS :this.$store.state.roles.roles_RECIBECORREOS,
-       ACTIVO: this.$store.state.roles.roles_ACTIVO,
+        RECIBECORREOS : this.$store.state.roles.roles_RECIBECORREOS,
+        AUTORIZAIMPRESION : this.$store.state.roles.roles_AUTORIZAIMPRESION,
+        VISIBILIDADDEINCIDENTES : this.$store.state.roles.roles_VISIBILIDADDEINCIDENTES,
+        ACTIVO: this.$store.state.roles.roles_ACTIVO,
 
       } ;
-    
+
+
     console.log(" cual es el valor del roles_ACTIVO : " +  this.$store.state.roles.roles_ACTIVO);
     let promesa ;
 

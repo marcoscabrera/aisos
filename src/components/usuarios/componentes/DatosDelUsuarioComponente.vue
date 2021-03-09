@@ -2,7 +2,7 @@
 <template>
   <v-banner
     single-line
-   
+  class ="textoSombreado"
   >
     <v-icon
       slot="icon"
@@ -12,7 +12,7 @@
       mdi-account-circle
     </v-icon>
      <strong>
-   {{this.$store.state.usuarios.usuarios_usuariologueado.nombre}} 
+       {{this.$store.state.usuarios.usuarios_usuariologueado.nombre}} 
     </strong> 
      - {{this.programa}}
    
@@ -100,7 +100,7 @@
         text
         @click="cerrarSesion"
       >
-        Salir
+        Cerras Sesión
       </v-btn>
     </template>
   </v-banner>
@@ -147,6 +147,11 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+
+.textoSombreado{
+
+  text-shadow: 0.3px 0.3px #0e0000;
+}
 
 </style>

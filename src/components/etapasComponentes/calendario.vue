@@ -19,7 +19,7 @@
           v-on="on"
         ></v-text-field>
       </template>
-      <v-date-picker v-model="date" @input="asignarFecha($event)"></v-date-picker>
+      <v-date-picker disabled="true" v-model="date" @input="asignarFecha($event)"></v-date-picker>
     </v-menu>
       <v-alert v-if="this.$store.state.uivars.uivars_error_seleccionarFecha" type="error">
       Debe de escoger una Fecha.

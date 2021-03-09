@@ -63,7 +63,9 @@ roles_MODIFICACIONARCHIVOS: null  ,
 roles_IMPRESIONARCHIVOS: null  ,
 roles_VISUALIZACIONARCHIVOS: null  ,
 roles_ACTIVO : null,
-roles_RECIBECORREOS: null
+roles_RECIBECORREOS: null,
+roles_VISIBILIDADDEINCIDENTES: null,
+roles_AUTORIZAIMPRESION: null,
               }, 
 mutations,
 actions 

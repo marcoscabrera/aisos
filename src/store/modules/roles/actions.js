@@ -263,6 +263,19 @@ context.commit('mutation_MODIFICACIOnDECATALOGOS',valor)
   action_roles_RECIBECORREOS( context , valor ) { 
     context.commit('mutation_roles_RECIBECORREOS',valor)}  
     ,
+
+    action_roles_VISIBILIDADDEINCIDENTES( context , valor ) { 
+      context.commit('mutation_roles_VISIBILIDADDEINCIDENTES',valor)},
+ 
+      
+      action_roles_AUTORIZAIMPRESION( context , valor ) { 
+        context.commit('mutation_roles_AUTORIZAIMPRESION',valor)}
   
-  
+
+
    }
+   
+   
+
+
+   

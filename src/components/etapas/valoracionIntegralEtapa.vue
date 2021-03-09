@@ -37,17 +37,23 @@
         :files="filesa"></barraDocumentosVue>
       </v-col>
     </v-row>
+    <br>
  
+<!--====================================================== -->
+       <v-card width="100%" >
+          <v-card-title> </v-card-title>
+          <v-card-text>
+            <v-row>
+                <textareaValoracion :texto="textovi"></textareaValoracion>
+             </v-row>
+          </v-card-text>
+        </v-card>
 
-    <v-row>
-      <textareaValoracion :texto="textovi"></textareaValoracion>
-    </v-row>
-
-    <br />
+    <br >
     <!-- =============================================== -->
 
-    <v-row>
-        <v-card width="100%" v-if="ocultarConfirmacion">
+    
+  <v-card width="100%" v-if="ocultarConfirmacion">
     <v-card-title> ¿SE CONFIRMA QUE EL EVENTO ES UN INCIDENTE ? </v-card-title>
     <v-card-text>
       <v-row>
@@ -83,54 +89,57 @@
       </v-row>
     </v-card-text>
   </v-card>
-    </v-row>
+  <br>
+  <!--================================================= -->
+
     <!--<v-row>
       <cardConfirmacion :confirmacion="confirmaincidente"></cardConfirmacion>
     </v-row> -->
     <!-- =============================================== -->
-    <br />
-    <v-row v-if="this.$store.state.uivars.uivar_esincidente">
-      <cardTipologia :tipologia="tipologiadelincidente"></cardTipologia>
-    </v-row>
 
+
+    <br>
+
+ 
+      <cardTipologia :tipologia="tipologiadelincidente" v-if="this.$store.state.uivars.uivar_esincidente"></cardTipologia>
+
+    <br >
     <!-- =============================================== -->
   
-
-    <br />
-
-    <v-row  v-if="this.$store.state.uivars.uivar_esincidente">
-      <cardNivelIncidente :nivel="niveldelincidente"></cardNivelIncidente>
-    </v-row>
-
-    <br />
+      <cardNivelIncidente :nivel="niveldelincidente" v-if="this.$store.state.uivars.uivar_esincidente"></cardNivelIncidente>
+    
+    <br>
     <!-- =============================================== -->
 
-    <v-row v-if="this.$store.state.uivars.uivar_esincidente">
-      <cardTipoCaso :tipo="tipodecaso"></cardTipoCaso>
-    </v-row>
-
+   
+      <cardTipoCaso :tipo="tipodecaso" v-if="this.$store.state.uivars.uivar_esincidente"></cardTipoCaso>
+    
+    <br >
     <!-- =============================================== -->
-    <br />
+   
     <!-- =============================================== -->
 
 
+  
+ 
     <!-- =============================================== -->
-    <br />
-    <!-- =============================================== -->
-    <v-row v-if="this.$store.state.uivars.uivar_esincidente">
-      <cardTipoRespuesta :respuesta="tipoderespuesta"></cardTipoRespuesta>
-    </v-row>
+ 
+      <cardTipoRespuesta :respuesta="tipoderespuesta" v-if="this.$store.state.uivars.uivar_esincidente"></cardTipoRespuesta>
+    
+    <br >
+  <!-- =============================================== -->
 
-    <br />
-    <v-row v-if="this.$store.state.uivars.uivar_esincidente">
-      <cardMedidasIntegrales
+   
+      <cardMedidasIntegrales v-if="this.$store.state.uivars.uivar_esincidente"
        :archivoId           ="planycronograma"
        :archivo             ="planycronograma" 
        :sihayarchivo        ="hayPlan"
        :incidenteId         ="incidenteid"
        :objetoDatosArchivo  ="datosDelArchivo"
-       :nombreDelArchivo    ="nombreDelArchivo"></cardMedidasIntegrales>
-    </v-row>
+       :nombreDelArchivo    ="nombreDelArchivo">
+       </cardMedidasIntegrales>
+       <br>
+   
 
     <v-row v-if="mostrarLaBotonera">
       <v-col cols="12" xs="12" sm="12" md="4">

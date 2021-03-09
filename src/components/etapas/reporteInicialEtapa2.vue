@@ -43,27 +43,56 @@
       </v-col>
     </v-row>
 
-    <v-row v-if="estamosActualizando">
-      <v-col cols="12" x2="12" sm="6" md="6" lg="6"> 
-        <v-text-field
-          :value ="nombrePrograma"
-          label="Programa"
-          
-          readonly
+    <!--Autor del documento -->
+    
+      <v-card width="100%" v-if="estamosActualizando">
+        <v-card-title> </v-card-title>
+          <v-card-text>
+            <v-row>
+              <v-col>
+                <v-text-field
+                  :value ="usuarioCreador"
+                  label="Creado por:"
+                  
+                  readonly
 
-        ></v-text-field>
-      </v-col>
-      <v-col cols="12" x2="12" sm="6" md="6" lg="6"> 
-        <v-text-field
-          :value ="date"
-          label="Fecha"
-          prepend-icon="mdi-calendar"
-          readonly
+                ></v-text-field>
+              </v-col>
+            </v-row>
+          </v-card-text>
+      </v-card>
+      <br>
+    <!-- --> 
 
-        ></v-text-field>
-      </v-col>
+   
+       <v-card width="100%" v-if="estamosActualizando">
+          <v-card-title> </v-card-title>
+          <v-card-text>
+            <v-row>
+              <v-col cols="12" x2="12" sm="6" md="6" lg="6"> 
+                <v-text-field
+                  :value ="nombrePrograma"
+                  label="Programa"
+                  
+                  readonly
 
-    </v-row>
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" x2="12" sm="6" md="6" lg="6"> 
+                <v-text-field
+                  :value ="date"
+                  label="Fecha"
+                  prepend-icon="mdi-calendar"
+                  readonly
+
+                ></v-text-field>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+        <br>
+
+    
     
     <!-- seleccoin de programa y de fecha -->
     <v-row v-if="mostarCalendario_y_selectorProgramas">
@@ -73,59 +102,92 @@
       <calendario :fecha="date"></calendario>
     </v-row>
 
-    <v-row>
-      <textareaInvolucrados :texto="involucrados"></textareaInvolucrados>
-    </v-row>
 
-    <v-row>
-      <textfieldElaboro :quienelaboro="elaboro"></textfieldElaboro>
-      <comboboxCargos :quecargo="cargo"></comboboxCargos>
-    </v-row>
+       <v-card width="100%">
+          <v-card-title> </v-card-title>
+          <v-card-text>
+            <textareaInvolucrados :texto="involucrados"></textareaInvolucrados>
+          </v-card-text>
+        </v-card>
+        <br>
+  
 
-    <v-row>
-      <textareaRegistro :texto="registrohechos"></textareaRegistro>
-    </v-row>
+       <v-card width="100%" >
+          <v-card-title> </v-card-title>
+          <v-card-text>
+            <v-row>
+            <textfieldElaboro :quienelaboro="elaboro"></textfieldElaboro>
+            <comboboxCargos :quecargo="cargo"></comboboxCargos>
+            </v-row>
+          </v-card-text>
+        </v-card>
+        <br>
+
+       <v-card width="100%" >
+          <v-card-title> </v-card-title>
+          <v-card-text>
+            <textareaRegistro :texto="registrohechos"></textareaRegistro>
+          </v-card-text>
+        </v-card>
+        <br>
 
     <!-- =============================================== -->
 
-    <v-row>
-      <cardPerlfilAgresor
-        :perfilagresor="perfildelagresor"
-        :tiponiveluno="paadultocolaborador"
-        :tiponiveldos="paadultocolaboradortipo"
-        :vercomboniveluno="vercomboniveluno"
-        :vercomboniveldos ="vercomboniveldos"       
-      >
-      </cardPerlfilAgresor>
-    </v-row>
+       <v-card width="100%" >
+          <v-card-title> </v-card-title>
+          <v-card-text>
+            <cardPerlfilAgresor
+              :perfilagresor="perfildelagresor"
+              :tiponiveluno="paadultocolaborador"
+              :tiponiveldos="paadultocolaboradortipo"
+              :vercomboniveluno="vercomboniveluno"
+              :vercomboniveldos ="vercomboniveldos"       
+            >
+            </cardPerlfilAgresor>
+          </v-card-text>
+        </v-card>
+        <br>
 
     <!-- =============================================== -->
 
-    <v-row>
-      <cardPerfilVictima
-        :perfilvictima="perfilvictima"
-        :recibeayuda="recibeayuda"
-      >
-      </cardPerfilVictima>
-    </v-row>
+       <v-card width="100%" >
+          <v-card-title> </v-card-title>
+          <v-card-text>
+            <cardPerfilVictima
+              :perfilvictima="perfilvictima"
+              :recibeayuda="recibeayuda"
+            >
+            </cardPerfilVictima>
+          </v-card-text>
+        </v-card>
+        <br>
 
-    <br />
 
-    <v-row>
-      <textareaMedidasProteccion
-        :texto="medidasproteccion"
-      ></textareaMedidasProteccion>
-    </v-row>
+
+       <v-card width="100%" >
+          <v-card-title> </v-card-title>
+          <v-card-text>
+            <textareaMedidasProteccion
+              :texto="medidasproteccion"
+            ></textareaMedidasProteccion>
+           </v-card-text>
+        </v-card>
+        <br>
 
     <v-row>
       <esunincidente :incidente="incidenteconfirmado"></esunincidente>
     </v-row>
+    <br>
 
-    <v-row>
-      <textareaTestigos 
-     
-      :texto="testigos"></textareaTestigos>
-    </v-row>
+    <v-card width="100%" >
+          <v-card-title> </v-card-title>
+          <v-card-text>
+            <textareaTestigos 
+          
+            :texto="testigos"></textareaTestigos>
+           </v-card-text>
+        </v-card>
+        <br>
 
 
 
@@ -708,6 +770,8 @@ const  {
 
       let nombrePrograma = a.nombreprograma;
       console.log("nombre programa " + nombrePrograma);
+
+      this.usuarioCreador = a.usuarioCreador;
      
       this.folio = a.folio;
        /***************************************
@@ -919,6 +983,7 @@ const  {
 
   data() {
     return {
+      usuarioCreador : '',
       mostarCalendario_y_selectorProgramas:true,
       nombrePrograma: '',
       estamosActualizando: false,

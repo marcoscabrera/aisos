@@ -60,31 +60,34 @@
     </v-row>
 
     <!-- =============================================== -->
-    <br />
-    <v-row>
-      <textAreaRegistroDelEstatus
-      :texto="seguimiento.status">
-      </textAreaRegistroDelEstatus>
-    </v-row>
+    <br >
+    <v-card width="100%" >
+          <v-card-title> </v-card-title>
+          <v-card-text>
+            <textAreaRegistroDelEstatus
+            :texto="seguimiento.status">
+            </textAreaRegistroDelEstatus>
+          </v-card-text>
+    </v-card>
+ <br >
+    
     <!-- ==========================================  -->
-    <br />
-    <!-- ==========================================  -->
+   
+  
     <!-- =============================================== -->
-    <v-row>
+    
       <cardPlanEnEjecucion
         :incidenteId ="incidenteIdPE"
-
         :archivoId ="seguimiento.plan_docto"
         :nombreDelArchivo="data_plan_docto.nombreOriginal"
         :sihayarchivo="data_plan_docto.hayArchivo"
          :valorcombo="seguimiento.plan"
         ></cardPlanEnEjecucion>
+    <br >
 
-    </v-row>
+      <!-- ==========================================  -->
 
-    <br />
-
-    <v-row>
+    
     <cardDocumentosOficiales
        :incidenteId ="incidenteIdPE"
 
@@ -93,14 +96,14 @@
         :sihayarchivo="data_documento_docto.hayArchivo"
         :valorcombo="seguimiento.documentos">
         </cardDocumentosOficiales>
-    </v-row>
-    <br />
+    
+    <br >
 
     <h4>ACCIONES A REALIZAR</h4>
 
     <!-- =============================================== -->
 
-    <v-row>
+    
    <cardNotificacionDIF
 
         :incidenteId ="incidenteIdPE"
@@ -110,10 +113,11 @@
         :valorcombo="seguimiento.notificaciondif"
    >
    </cardNotificacionDIF>
-    </v-row>
-     <br>
+   <br>
+   <!-- =============================================== -->
 
-       <v-row>
+ 
+
    <cardNotificacionAutoridad v-if="esDenuncia"
         :incidenteId ="incidenteIdPE"
         :archivoId ="seguimiento.notificacionautoridad_docto"
@@ -122,18 +126,12 @@
         :valorcombo="seguimiento.notificacionautoridad"
     >
    </cardNotificacionAutoridad>
-    </v-row>
-    <!-- =============================================== -->
-    <br />
+   <br>
 
-    <!-- =============================================== -->
+ 
 
    <!-- =============================================== -->
-    <br />
-    <!-- =============================================== -->
-
-    <v-row>
-      <cardNotificacionPFN
+     <cardNotificacionPFN
       
        :incidenteId ="incidenteIdPE"
 
@@ -143,15 +141,15 @@
         :valorcombo="seguimiento.notificacionpfn"
    
     ></cardNotificacionPFN>
-    </v-row>
+    <br >
 
     <!-- =============================================== -->
-    <br />
+   
     <!-- =============================================== 
      SE NOTIFICO A LA PERSONA DENUNCIANTE
     -->
    
-    <v-row>
+ 
       <cardNotificacionPersona
         :incidenteId ="incidenteIdPE"
 
@@ -160,13 +158,10 @@
         :sihayarchivo="data_notificaciondenunciante_docto.hayArchivo"
         :valorcombo="seguimiento.notificaciodenunciante"
       ></cardNotificacionPersona>
-    </v-row>
-
-    <!-- =============================================== -->
-    <br />
+  <br />
     <!-- =============================================== -->
 
-    <v-row>
+
       <!--
 SE CUENTA CON EL LLENADO DEL ACTA DE VALORACION DEL/DE LOS INCIDENTES
        
@@ -178,14 +173,9 @@ SE CUENTA CON EL LLENADO DEL ACTA DE VALORACION DEL/DE LOS INCIDENTES
         :sihayarchivo="data_actavaloracion_docto.hayArchivo"
         :valorcombo="seguimiento.actavaloracion"
       ></cardActaDeValoracion>
-
-    </v-row>
-
     <!-- =============================================== -->
     <br />
     <!-- =============================================== -->
-
-    <v-row>
 
       <!--
          SE CUENTA CON UN PLAN DE RECUPERACIÓN EMOCIONAL CON SEGUIMIENTO
@@ -197,12 +187,12 @@ SE CUENTA CON EL LLENADO DEL ACTA DE VALORACION DEL/DE LOS INCIDENTES
         :sihayarchivo="data_planrecuperacion_docto.hayArchivo"
         :valorcombo="seguimiento.planrecuperacion"
       ></cardPlanRecuperacion>
-    </v-row>
+ 
 
     <!-- =============================================== -->
     <br />
     <!-- =============================================== -->
-    <v-row>
+
         <cardProtocoloComponente v-if="verDenuncia_o_investigacion"
          :valorcombo="seguimiento.protocolosos"
         :esDenuncia="esDenuncia"
@@ -210,11 +200,11 @@ SE CUENTA CON EL LLENADO DEL ACTA DE VALORACION DEL/DE LOS INCIDENTES
         :textoRespuesta="tipoderespuesta">
 
         </cardProtocoloComponente>
-    </v-row>
+
 
     <!-- =============================================== -->
 
-    <br />
+    <br>
 
     <v-row>
       <v-col cols="12" xs="12" sm="12" md="4">

@@ -6,7 +6,7 @@
     :single-expand="singleExpand"
     :expanded.sync="expanded"
     item-key="id"
-    show-expand
+    
     sort-by="id"
     class="elevation-1"
     :loading="cargandoDatos"
@@ -78,9 +78,14 @@
         >mdi-timer</v-icon
       >
     </template>
-
+     
+     <!-- Tipo de respuesta    -->
     <template v-slot:item.tipoderespuesta="{ item }">
-      <v-btn v-if="item.estado == 'cerrado_x_ni'" color="green" dark dense>
+      <v-btn v-if="item.estado == 'cerrado_x_ni'" 
+      color="green"
+       dark dense 
+       block
+       class="letrasNegras">
         NO ES UN INCIDENTE
       </v-btn>
 
@@ -89,11 +94,14 @@
         :color="item.coloretapacuatro"
         dark
         dense
+        block
+        class="letrasNegras"
         @click="ir_a_respuesta(item)"
       >
         {{ item.tipoderespuesta }}
       </v-btn>
     </template>
+    <!-- termina tipo de respuesta -->
 
   <template v-slot:item.estado="{ item }">
       <v-btn x-small fab v-if="item.estado == 'abierto'" color="red" dark dense>
@@ -445,8 +453,16 @@ export default {
     guardar__iradenuncias() {
       this.$router.push("/dashboard");
     },
+    
+
     initialize() {
       this.cargandoDatos = true; //esto activa la animacion de loading de la tabla
+      
+      /*
+      Se solicita en el backend los incidentes y en el backend se envian los 
+      incidentes dependiendo los permisos del usuario que realize la peticion
+      Revisar clsIncidentes_todosLosIncidetes.php
+      */
       let usuarioLogueadoID = this.$store.state.usuarios.usuarios_usuariologueado.id;
       let getIncidentes = apiIncidentes.recuperarTodosLosIncidentes(
         usuarioLogueadoID ,this.$store
@@ -460,16 +476,17 @@ export default {
           this.ocultar ==false? this.headers =this.headers2 : this.headers= this.headers1;
          
           this.cargandoDatos = false; //termina la animacion de la tabla loading
-          // ser verifican los permisos del usuario 
+         
+         // ser verifican los permisos del usuario 
           this.verificarPermisos();
     })
         .catch((error) => {
-          console.log(error.data);
+          console.log("mensaje de error :" + error.response);
           this.cargandoDatos = false; //termina la animacion de la tabla loading
         });
       /*
       ]*/
-    },
+    }, // termina funcion.
 
     editItem(item) {
       this.editedIndex = this.incidentes.indexOf(item);
@@ -502,3 +519,13 @@ export default {
   },
 };
 </script>
+<style scoped>
+
+
+
+  .letrasNegras {
+    color: black !important;
+}
+
+
+</style>
