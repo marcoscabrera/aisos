@@ -1,16 +1,22 @@
 <template>
 <v-container>
     <v-row>
-        <v-col cols="12" xs="12" sm="6" md="6">
+        <v-col cols="12" xs="12" sm="3" md="3" lg="4">
             <v-btn color="primary" 
             dense 
             dark 
-            @click="generateReport">
+            block
+            @click="generateReport"
+            class="posicionenreporte">
             <v-icon right dark> mdi-printer </v-icon>
+             <v-spacer></v-spacer>
               Imprimir
             </v-btn>
         </v-col>
-                <v-col cols="12" xs="12" sm="6" md="6">
+        <v-col cols="12" xs="12" sm="3" md="3" lg="4">
+           
+        </v-col>
+        <v-col cols="12" xs="12" sm="6" md="6" lg="8">
 
             <BarraDeNavegacion
              activo_ri="1"
@@ -115,5 +121,7 @@ htmlToPdfOptions: {
 </script>
 
 <style scoped>
-
+.posicionenreporte{
+    top: 6px !important;
+}
 </style>

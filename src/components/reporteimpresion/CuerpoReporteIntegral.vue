@@ -1,6 +1,7 @@
 <template>
 <v-container name="cuerporeporteintegral">
-    <v-row>
+    <br>
+    <!--<v-row>
         <v-col cols="12" xs="2" sm="2" md="2" lg="2">
             <v-img src="https://www.aldeasinfantiles.org.mx/getmedia/51757cf7-a274-4bdc-b552-4304db77c698/logo-aldeas-mx">
 
@@ -14,7 +15,7 @@
                 <v-col>Fecha: </v-col>
             </v-row>
         </v-col>
-    </v-row>
+    </v-row> -->
 
     <v-row>
         <v-col cols="12" xs="12"  sm="12" md="12" lg="12">

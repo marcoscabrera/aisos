@@ -330,9 +330,11 @@ export default {
 
      }
     },
+
     revisarErrrores(){
       console.log(" Revisar Errores ");
     },
+
     guardarRegistro() {
           // 
           console.log(" Permiso EDITARDESEGUIMIENTO  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARDESEGUIMIENTO)             
@@ -452,7 +454,10 @@ export default {
     },
 
 
-
+    /***
+    
+    
+     */
     cargarSeguimientos(){
       /*
        Este id es el id del incidendte
@@ -657,6 +662,8 @@ export default {
      this.cargarSeguimientos();
      
   },
+
+
 
   data() {
     return {
