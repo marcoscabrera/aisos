@@ -100,7 +100,7 @@
         text
         @click="cerrarSesion"
       >
-        Cerras Sesión
+        Cerrar Sesión
       </v-btn>
     </template>
   </v-banner>

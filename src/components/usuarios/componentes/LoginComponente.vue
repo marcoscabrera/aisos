@@ -15,19 +15,24 @@
 
           <v-list-item>
             <v-text-field
+            autocomplete="off"
              v-model="email"
-              label="Email"
              
+             prepend-icon="mdi-at"
             @input="limpiarResponse">
+            
             </v-text-field>
           </v-list-item>
 
           <v-list-item>
-            <v-text-field v-model="pass"
+            <v-text-field
+             prepend-icon="mdi-lock"
+            autocomplete="off"
+             v-model="pass"
             :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
             :type="show1 ? 'text' : 'password'"
              @click:append="show1 = !show1"
-             label="Password"
+            
             @input="limpiarResponse">
             </v-text-field>
           </v-list-item>
