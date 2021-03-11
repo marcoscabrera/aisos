@@ -32,7 +32,9 @@
     </v-row>
      <!--<CuerpoReporte name="visual"></CuerpoReporte>
        -->
-
+    <v-alert type="info">
+     Actualmente esta caracteristica esta en desarrollo.
+    </v-alert>
 <vue-html2pdf
         :show-layout="true"
         :float-layout="false"

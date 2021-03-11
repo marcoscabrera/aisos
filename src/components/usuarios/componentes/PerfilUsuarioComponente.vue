@@ -25,7 +25,9 @@
             </v-col>
 
         </v-row>
-
+    <v-alert type="info">
+     Actualmente esta caracteristica esta en desarrollo.
+    </v-alert>
     </v-container>
 
 </template>

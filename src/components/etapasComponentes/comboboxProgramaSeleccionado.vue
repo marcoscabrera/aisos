@@ -51,8 +51,8 @@ export default {
       //cargamos todos los programas
       // si el rol no es cero se carga el programa segun el id
 
-      let programaid = this.$store.state.usuarios.usuarios_usuariologueado.programa;
-      
+      //let programaid = this.$store.state.usuarios.usuarios_usuariologueado.programa;
+     let programaid =  this.$store.state.usuarios.usuarios_usuariologueado_rol.VISIBILIDADDEINCIDENTES;
       
       console.log("valor de progrma id: " + programaid);
 

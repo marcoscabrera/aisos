@@ -1,4 +1,9 @@
 <template>
+<v-container>
+    <v-alert type="info">
+     Actualmente esta caracteristica esta en desarrollo.
+    </v-alert>
+
   <v-data-table
     :headers="headers"
     :items="evidencias"
@@ -63,6 +68,7 @@
      -->
     </template>
   </v-data-table>
+  </v-container>
 </template>
 
 

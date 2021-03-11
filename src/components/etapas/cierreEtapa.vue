@@ -19,26 +19,33 @@
 -->
         </v-col>
     </v-row>
+      <br>
 
-    <v-row>
-      <v-col cols="12" xs="12" md="6">
-         <v-text-field
-          id="labelFolio"
-          class="cssnuevo"
-          :value="generarFolio"
-          label="FOLIO"
-          filled
-          disabled
-          background-color="#87CEFA"
-          >
-         </v-text-field>
-      </v-col>
+
+        <v-row>
+            <v-col cols="12" xs="12" md="6">
+              <v-text-field
+                id="labelFolio"
+                class="cssnuevo"
+                :value="generarFolio"
+                label="FOLIO"
+                filled
+                disabled
+                background-color="#87CEFA"
+                >
+              </v-text-field>
+            </v-col>
+        </v-row>
+
 
       <!--  <v-col cols="12" xs="12" md="6">
         <barraDocumentosVue></barraDocumentosVue>
       </v-col> -->
-    </v-row>
 
+      <v-card width="100%">
+        <v-card-title>
+        </v-card-title>
+        <v-card-text>
     <v-row>
       <v-col cols="12" xs="12" md="6">
         <v-text-field 
@@ -71,9 +78,14 @@
         </v-menu>
       </v-col>
     </v-row>
+    </v-card-text>
+    </v-card>
 
-    
-
+    <br>
+      <v-card width="100%">
+        <v-card-title>
+        </v-card-title>
+        <v-card-text>
     <v-row>
       <v-col cols="12" xs="12" md="6">
         <v-text-field 
@@ -93,6 +105,13 @@
       </v-col>
     </v-row>
 
+</v-card-text>
+</v-card>
+<br>
+      <v-card width="100%">
+        <v-card-title>
+        </v-card-title>
+        <v-card-text>
     <v-row>
       <v-col cols="12">
         <v-textarea
@@ -109,7 +128,9 @@
      </v-alert>
       </v-col>
     </v-row>
-
+</v-card-text>
+</v-card>
+<br>
     <!-- =============================================== -->
 
     <h4>ACCIONES REALIZADAS PARA CIERRE DE INCIDENTE</h4>

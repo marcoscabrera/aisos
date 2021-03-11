@@ -1,6 +1,67 @@
 <template>
+<v-container>
+      <v-row>
+       <v-col cols="12" xs="12" sm="12" md="6" lg="6">
+    <v-btn id="buttons"
+    color="primary"
+    @click="page > 1 ? page-- : 1"
+    >
+    <v-icon>
+      mdi-chevron-left
+    </v-icon>
+     Atras
+    </v-btn>
+      <a class="ui active item">
+        {{page}} / {{ numPages ? numPages : '∞' }}
+      </a>
+    <v-btn id="buttons"
+    color="primary"
+    @click="page < numPages ? page++ : 1"
+    >
+    <v-icon>
+      mdi-chevron-right
+    </v-icon>
+     Adelante
+    </v-btn>
+       </v-col>
+
+
+
+       <v-col cols="12" xs="12" sm="12" md="6" lg="6">
+         
+          <v-btn id="buttons"
+          color="primary"
+        @click="scale -= scale > 0.2 ? 0.1 : 0"
+          >
+          <v-icon>
+            mdi-magnify-minus
+          </v-icon>
+          Zoom in 
+          </v-btn>
+            <a class="ui active item">
+              {{ formattedZoom }} %
+            </a>
+          <v-btn id="buttons"
+          color="primary"
+        @click="scale += scale < 2 ? 0.1 : 0"
+          >
+          <v-icon>
+            mdi-magnify-plus
+          </v-icon>
+          Zoom out
+          </v-btn>
+       </v-col>
+    </v-row>
   <div id="pdfvuer">
-    <div id="buttons" class="ui grey three item inverted bottom fixed menu transition hidden">
+
+
+
+
+
+
+
+
+   <!-- <div id="buttons" class="ui grey three item inverted bottom fixed menu transition hidden">
       <a class="item" @click="page > 1 ? page-- : 1">
         <i class="left chevron icon"></i>
         Back
@@ -12,8 +73,8 @@
         Forward
         <i class="right chevron icon"></i>
       </a>
-    </div>
-    <div id="buttons" class="ui grey three item inverted bottom fixed menu transition hidden">
+    </div> -->
+   <!-- <div id="buttons" class="ui grey three item inverted bottom fixed menu transition hidden">
       <a class="item" @click="scale -= scale > 0.2 ? 0.1 : 0">
         <i class="left chevron icon" />
           Zoom -
@@ -25,7 +86,7 @@
         Zoom +
         <i class="right chevron icon" />
       </a>
-    </div>
+    </div>-->
     <pdf :src="pdfdata" v-for="i in numPages" :key="i" :id="i" :page="i"
       :scale.sync="scale" style="width:100%;margin:20px auto;">
       <template slot="loading">
@@ -33,6 +94,9 @@
       </template>
     </pdf>
   </div>
+
+</v-container>
+
 </template>
 
 <script>

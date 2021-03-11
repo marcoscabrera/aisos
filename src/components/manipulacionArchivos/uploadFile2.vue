@@ -8,6 +8,14 @@
 
                   <v-icon color="green" :large="largo">mdi-file-document</v-icon>
                 </v-btn>
+
+                <v-btn 
+                  @click="editarArchivo"
+                 >
+                  <span>Editar</span>
+
+                  <v-icon color="warning" :large="largo">mdi-file-edit-outline</v-icon>
+                </v-btn>
     </v-bottom-navigation>
 
 
@@ -145,6 +153,10 @@ export default {
   },
 
   methods: {
+
+    editarArchivo(){
+       this.HayArchivo= false;
+    },
 
     mostrarbotonUpload(){
       console.log("mostrar bton upload");
