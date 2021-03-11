@@ -129,9 +129,13 @@
         :class="item.etapauno"
         :color="item.coloretapauno"
         dark
+        
         @click="irAValoracionInicial(item.id)"
-      >VI
-        </v-btn
+      >
+       <span class="letrasNegras">
+         VI
+       </span>
+       </v-btn
       >
     </template>
 
@@ -145,7 +149,11 @@
         dark
         @click="irAValoracionIntegral(item.id)"
       >
-        VI</v-btn
+       <span class="letrasNegras">
+        VI
+       </span>
+       
+       </v-btn
       >
     </template>
 
@@ -159,7 +167,10 @@
         dark
         @click="irASeguimiento(item.id)"
       >
-        S</v-btn >
+       <span class="letrasNegras">         
+        S
+       </span>
+       </v-btn >
     </template>
 
     <template v-slot:item.etapacuatro="{ item }">
@@ -172,7 +183,10 @@
         dark
         @click="irACierre(item.id)"
       >
-        C</v-btn
+          <span class="letrasNegras">
+            C
+          </span>
+        </v-btn
       >
     </template>
 
@@ -264,11 +278,12 @@ export default {
       { text: "Respuesta", value: "tipoderespuesta" },
       //{ text: "Hechos", value: "data-table-expand" },
       // { text: "Activo", value: "activo" },
-      { text: "Estado", value: "estado" },
+     
       { text: "V Inicial", value: "etapauno" },
       { text: "V Integral", value: "etapados" },
       { text: "Seguimiento", value: "etapatres" },
       { text: "Cierre", value: "etapacuatro" },
+       { text: "Estado", value: "estado" },
       //{ text: "Etapas", value: "actions", sortable: false },
     ],
     headers1: [
@@ -290,11 +305,12 @@ export default {
       { text: "Respuesta", value: "tipoderespuesta" },
       //{ text: "Hechos", value: "data-table-expand" },
       // { text: "Activo", value: "activo" },
-      { text: "Estado", value: "estado" },
+     
       { text: "V Inicial", value: "etapauno" },
       { text: "V Integral", value: "etapados" },
       { text: "Seguimiento", value: "etapatres" },
       { text: "Cierre", value: "etapacuatro" },
+       { text: "Estado", value: "estado" },
       //{ text: "Etapas", value: "actions", sortable: false },
     ],
     incidentes: [],

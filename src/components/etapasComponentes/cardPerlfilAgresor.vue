@@ -129,13 +129,18 @@ export default {
       /* guardando */
 
       this.$store.dispatch('setear_PerfilDelAgresor',evento);
+
      evento == "ENTRE PARES"
         ? this.mostrarComboEntrePares()
         : this.mostrarComboANS();
+
     },
     mostrarComboEntrePares() {
       this.comoboentrepares = true;
       this.comboann = false;
+
+      this.combocolaborador= false;
+      this.combofamiliarorigen = false;
     },
     mostrarComboANS() {
       this.comboann = true;

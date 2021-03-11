@@ -3,18 +3,20 @@
 
     <v-row>
         <v-col cols="12" xs="12" sm="6" md="6">
-           <h2>Cierre</h2>
+           <h2> Cierre </h2>
         </v-col>
         <v-col cols="12" xs="12" sm="6" md="6">
 
-
             <BarraDeNavegacion
-             activo_ri="1"
+             activo_ri="0"
              activo_vi="1"
              activo_s="1"
-             activo_c="0"
-             ></BarraDeNavegacion>
+             activo_c="1"
+             >
+             </BarraDeNavegacion>
+       <!-- import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
 
+-->
         </v-col>
     </v-row>
 
@@ -114,7 +116,7 @@
 
     <!-- =============================================== -->
 
-    <v-row>
+ 
       <cardDocumentoEnCierre 
 
        labelCheckbox= "SE NOTIFICO AL SISTEMA DIF "
@@ -128,14 +130,14 @@
 
       </cardDocumentoEnCierre>
 
-    </v-row>
+ 
 
     <!-- =============================================== -->
     <br />
 
     <!-- =============================================== -->
 
-    <v-row>
+
 
       <cardDocumentoEnCierre 
 
@@ -151,13 +153,13 @@
 
       </cardDocumentoEnCierre>
 
-    </v-row>
+ 
 
     <!-- =============================================== -->
     <br />
     <!-- =============================================== -->
 
-    <v-row>
+    
 
       <cardDocumentoEnCierre 
 
@@ -173,13 +175,13 @@
 
       </cardDocumentoEnCierre>
       
-    </v-row>
+   
 
     <!-- =============================================== -->
     <br />
     <!-- =============================================== -->
 
-    <v-row>
+    
         <cardDocumentoEnCierre 
 
        labelCheckbox= "SE NOTIFICÓ A LA PERSONA DENUNCIANTE"
@@ -192,13 +194,13 @@
       >
 
       </cardDocumentoEnCierre>
-    </v-row>
+   
 
     <!-- =============================================== -->
     <br />
     <!-- =============================================== -->
 
-    <v-row> 
+   
       
       <cardDocumentoEnCierre 
 
@@ -214,13 +216,13 @@
 
       </cardDocumentoEnCierre>      
      
-    </v-row>
+    
 
     <!-- =============================================== -->
     <br />
     <!-- =============================================== -->
 
-    <v-row>
+    
 
             <cardDocumentoEnCierre 
 
@@ -236,13 +238,13 @@
 
       </cardDocumentoEnCierre>      
 
-    </v-row>
+   
 
     <!-- =============================================== -->
     <br />
     <!-- =============================================== -->
 
-    <v-row>
+    
       <v-card width="100%">
         <v-card-title>
           NOMBRE, CARGO Y FIRMA DE QUIEN ELABORA EL ACTA DE CIERRE
@@ -257,7 +259,7 @@
      <v-alert v-if="faltanTestigos" type="error">
       Se debe de agregar al menos un testigo 
      </v-alert>
-    </v-row>
+    
 
     <br />
 
@@ -320,6 +322,7 @@ import usuariosCierre from "@/components/usuarios/usuariosCierre.vue";
 import apiIncidentes from '@/apialdeas/apiIncidentes.js';
 import cardDocumentoEnCierre from '@/components/etapasComponentesCierre/cardDocumentoEnCierre.vue';
 import apiArchivos from '@/apialdeas/apiArchivos.js';
+import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
 
 
 import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
@@ -329,7 +332,8 @@ export default {
   components: {
     //barraDocumentosVue,
     usuariosCierre,
-    cardDocumentoEnCierre },
+    cardDocumentoEnCierre ,
+    BarraDeNavegacion},
 
   computed: {
     generarFolio() {

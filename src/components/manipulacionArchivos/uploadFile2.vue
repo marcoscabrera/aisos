@@ -84,7 +84,7 @@ export default {
   },
   data() {
     return {
-      MostrarBotonDeSubir :true,
+      MostrarBotonDeSubir :false,
       largo :true,
       recienSubido : '0',
       sihayarchivo : false,
@@ -148,7 +148,7 @@ export default {
 
     mostrarbotonUpload(){
       console.log("mostrar bton upload");
-      this.MostrarBotonDeSubir= true;
+      this.MostrarBotonDeSubir= false;
     },
 
 
@@ -272,6 +272,7 @@ export default {
       selectFile(file) {
       this.progress = 0;
       this.currentFile = file;
+      this.upload();
     },
 
 
