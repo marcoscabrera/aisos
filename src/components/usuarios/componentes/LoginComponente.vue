@@ -12,8 +12,14 @@
              src="https://api.aldeasinfantiles.mx/apialdeas/ALDEASSOS.jpg" >
                    </v-img>-->
                    
+          <v-form  autocomplete="off">
 
+         
           <v-list-item>
+<input style="display: none" type="text" name="fakeusernameremembered" />
+<input style="display: none" type="password" name="fakepasswordremembered" />
+            
+          
             <v-text-field
             autocomplete="off"
              v-model="email"
@@ -27,7 +33,7 @@
           <v-list-item>
             <v-text-field
              prepend-icon="mdi-lock"
-            autocomplete="off"
+           
              v-model="pass"
             :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
             :type="show1 ? 'text' : 'password'"
@@ -36,7 +42,7 @@
             @input="limpiarResponse">
             </v-text-field>
           </v-list-item>
-
+           </v-form>
           <v-list-item>
 
             <v-alert v-if="verError"
