@@ -3,7 +3,7 @@
     <!-- pediente la fecha -->
         <v-row>
         <v-col cols="12" xs="12" sm="6" md="6">
-           <h2>Denuncia Legal</h2>
+           <h2>Investigacion Interna</h2>
         </v-col>
         <v-col cols="12" xs="12" sm="6" md="6">
 
@@ -31,12 +31,14 @@
         <barraDocumentos :files="files"> </barraDocumentos>
       </v-col>
     </v-row>
+     <br>
+
     <RegistroIncidenteComponente
       :texto="investigacion.registroincidentes_docto"
     >
     </RegistroIncidenteComponente>
 
-    <br />
+    <br>
 
     <ArchivoImpresionComponente
       name="carta"
@@ -49,7 +51,8 @@
       campo="investigacion_cartautorizacion_docto"
     >
     </ArchivoImpresionComponente>
-    <br />
+
+    <br >
     <ArchivoImpresionComponente
       name="terminos"
       titulo="TERMINOS DE REFERENCIA"
@@ -61,7 +64,7 @@
       campo="investigacion_terminosreferencia_doctp"
     >
     </ArchivoImpresionComponente>
-    <br />
+    <br >
 
     <ArchivoImpresionComponente
       name="plan"
@@ -75,9 +78,9 @@
     >
     </ArchivoImpresionComponente>
 
-    <br />
+    <br >
 
-    <br />
+    <br >
 
     <ArchivoImpresionComponente
       name="plan"
@@ -90,7 +93,9 @@
       campo="investigacion_informe_docto"
     >
     </ArchivoImpresionComponente>
-    <br />
+    <br>
+    <br>
+
     <v-row>
       <v-card width="100%">
         <v-card-title> EVIDENCIAS DE LA INVESTIGACIÓN</v-card-title>
@@ -106,7 +111,8 @@
         </v-card-text>
       </v-card>
     </v-row>
-    <br />
+    <br >
+
     <v-row>
       <v-col cols="12" xs="12" sm="12" md="4">
         <v-btn
@@ -152,6 +158,7 @@ import RegistroIncidenteComponente from "@/components/investigacion/componentesI
 import ArchivoImpresionComponente from "@/components/investigacion/componentesInvestigacion/ArchivoImpresionComponente.vue";
 import apiInvestigacion from "@/apialdeas/apiInvestigacion.js";
 import barraDocumentos from "@/components/barradocumentos/barraDocumentos.vue";
+import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
 
 import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
 
@@ -160,7 +167,7 @@ export default {
     FoliosComponente,
     RegistroIncidenteComponente,
     ArchivoImpresionComponente,
-    barraDocumentos,
+    barraDocumentos,BarraDeNavegacion
   },
   data() {
     return {

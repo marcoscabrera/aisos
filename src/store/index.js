@@ -21,17 +21,7 @@ const store =  new Vuex.Store({
  //urlServidor: 'http://127.0.0.1/apialdeas'
  
 urlServidor : 'https://apialdeasproteccioninfantil.azurewebsites.net',
-
-
-
-// ==== apis anteriores =====
-//urlServidor: 'https://api.aldeasinfantiles.mx/apialdeas'
-//urlServidor : 'https://apialdeasrebelbotdemo.azurewebsites.net',
-// urlServidor :'http://rebelbot.mx/apialdeas'
-
-//Esta es una nueva configuracion y se esta probando.
-
-//    
+  
   },
   mutations: {
   },

@@ -1,6 +1,6 @@
 <template>
 
-    <v-row>
+   
       <v-card width="100%">
         <v-card-title>{{titulo}} </v-card-title>
         <v-card-text>
@@ -27,6 +27,7 @@
                 block
               >
                 <v-icon right dark> mdi-printer </v-icon>
+                <v-spacer></v-spacer>
 
                 Imprimir
               </v-btn>
@@ -34,7 +35,7 @@
           </v-row>
         </v-card-text>
       </v-card>
-    </v-row>
+
     
 </template>
 
