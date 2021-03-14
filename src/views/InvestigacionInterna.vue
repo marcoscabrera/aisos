@@ -1,7 +1,6 @@
 <template>
   <v-container>
-    <h2>Investigacion Interna</h2>
-    <iic></iic>
+       <iic></iic>
   </v-container>
 </template>
 <script>

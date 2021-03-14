@@ -257,6 +257,14 @@ const routes = [
     component: () =>
       import(/* webpackChunckName:"notificacionuno" */ "../views/Notificacionuno.vue"),
   },
+  {
+    path: "/notificacionhasidocerrado",
+    name: "Notificacioncerrado",
+    meta: { requiresAuth : true },
+    component: () =>
+      import(/* webpackChunckName:"notificacionicerrado" */ "../views/NotificacionIncidenteCerrado.vue"),
+  },
+  
    {
     path: "/notificaciondos/:incidenteId/:folio/:esincidente",
     name: "Notificaciondos",

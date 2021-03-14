@@ -85,7 +85,8 @@
       color="green"
        dark dense 
        block
-       class="letrasNegras">
+       class="letrasNegras"
+       @click="irAnoesunincidente(item)">
         NO ES UN INCIDENTE
       </v-btn>
 
@@ -396,7 +397,8 @@ export default {
       /* 
         "DENUNCIA PENAL",
         "INVESTIGACION INTERNA",
-        "ABORDAJE INTERNO", */
+        "ABORDAJE INTERNO", 
+        "EN PROCESO DE VALORACION",*/
 
       console.log("ir a " + valor.tipoderespuesta);
 
@@ -420,7 +422,27 @@ export default {
         // this.$router.push({ name: "DenunciasDetalle", params: { id: ruta } });
         console.log("no genera ningun movimiento");
       }
+      
+       if (valor.tipoderespuesta == "En Proceso de Valoracion") {
+         console.log("en proceso de valoracion ");
+         console.log(" valor de id " +  valor.id);
+         
+        // this.$router.push({ name: "DenunciasDetalle", params: { id: ruta } });
+       this.irAValoracionIntegral(valor.id);
+      }
+
+       if (valor.tipoderespuesta == "NO ES UN INCIDENTE") {
+          this.$router.push({
+          name: "Notificacioncerrado" });
+         }
     },
+
+    irAnoesunincidente(valor) {
+      typeof valor;
+      this.$router.push({ name: "Notificacioncerrado" });
+    },
+
+
     irA(ruta) {
       this.$router.push(ruta);
     },
@@ -437,6 +459,9 @@ export default {
  
       },
     irAValoracionIntegral(id) {
+
+      console.log(" puedeverValoracionIntegral: " + this.puedeverValoracionIntegral );
+      console.log(" id : " + id );
 
        if(   this.puedeverValoracionIntegral  != false){
             this.$router.push({ name: "ValoracionIntegral", params: { id: id } });

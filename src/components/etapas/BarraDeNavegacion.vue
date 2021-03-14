@@ -9,7 +9,7 @@
                     dark
                     small
                     color="primary"
-                    grow
+                    
                     @click="IR_a_RUTA"
                   >
                     <v-icon dark>
@@ -27,7 +27,7 @@
                   fab
                   dark
                   small
-                  grow
+                  
                   color="primary"
                  
                   @click="IR_a_ri"
@@ -41,7 +41,7 @@
                   fab
                   dark
                   small
-                  grow
+                  
                   color="primary"
                   @click="IR_a_vi"
                 > VI
@@ -55,7 +55,7 @@
                   fab
                   dark
                   small
-                  grow
+                  
                   color="primary"
                  
                   @click="ir_al_seguimiento"
@@ -72,7 +72,7 @@
                   fab
                   dark
                   small
-                  grow
+                  
                   color="primary"
                   @click="ir_al_cierre">
                     C
@@ -94,14 +94,14 @@
 
      <v-btn 
                     
-                    fab
+              
                     dark
                     small
                     
-                    grow
+                    
                     @click="IR_a_RUTA"
                   >
-                    <span>Dashboard</span>
+                    <span class ="d-none d-sm-flex" >Dashboard</span>
                     <v-icon dark>
                       mdi-view-dashboard-variant-outline 
                     </v-icon>
@@ -109,25 +109,25 @@
     
 
     <v-btn value="recent" @click="IR_a_ri">
-      <span>Inicial</span>
+      <span class ="d-none d-sm-flex">Inicial</span>
 
       <v-icon>mdi-file-document-edit-outline</v-icon>
-    </v-btn>
+    </v-btn >
 
     <v-btn value="favorites"   @click="IR_a_vi">
-      <span>Integral</span>
+      <span class ="d-none d-sm-flex">Integral</span>
 
       <v-icon>mdi-file-cog-outline</v-icon>
     </v-btn>
 
     <v-btn value="nearby"  @click="ir_al_seguimiento" >
-      <span>Seguimiento</span>
+      <span class ="d-none d-sm-flex">Seguimiento</span>
 
       <v-icon>mdi-clipboard-check-outline</v-icon>
     </v-btn>
 
     <v-btn value="nearby"  @click="ir_al_cierre">
-      <span>Cierre</span>
+      <span class ="d-none d-sm-flex">Cierre</span>
       <v-icon>mdi-map-marker</v-icon>
     </v-btn>
   </v-bottom-navigation>
