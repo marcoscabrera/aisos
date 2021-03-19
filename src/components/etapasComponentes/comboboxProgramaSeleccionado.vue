@@ -68,7 +68,7 @@ export default {
             //  console.log("valor d los progrmas: " + JSON.stringify(response.data));
               //let programs = response.data;
 
-            this.itemsUnidades = response.data;
+            this.itemsUnidades =    response.data;
           
 
             })
