@@ -20,7 +20,9 @@ const store =  new Vuex.Store({
 
  //urlServidor: 'http://127.0.0.1/apialdeas'
  
-urlServidor : 'https://apialdeasproteccioninfantil.azurewebsites.net',
+
+ 
+  urlServidor : 'https://apialdeasproteccioninfantil.azurewebsites.net',
   
   },
   mutations: {

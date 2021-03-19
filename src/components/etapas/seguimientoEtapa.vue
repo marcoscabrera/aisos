@@ -194,7 +194,7 @@ SE CUENTA CON EL LLENADO DEL ACTA DE VALORACION DEL/DE LOS INCIDENTES
     <!-- =============================================== -->
 
         <cardProtocoloComponente 
-         :valorcombo="seguimiento.protocolosos"
+        :valorcombo="seguimiento.protocolosos"
         :esDenuncia="esDenuncia"
         :incidenteId="incidenteId"
         :textoRespuesta="tipoderespuesta">
@@ -402,8 +402,10 @@ export default {
           console.log( JSON.stringify(response.data));
            console.log( 'actualizado seguimiento: ' + response.data.estado);
           this.loading = false;
+
+          console.log("estado :: "  + response.data.estado );
          
-          if (response.data.estado=='abierto'){
+          if (response.data.estado  =='abierto'){
                    this.mensaje = 'La información ha sido guardada.';
                    this.tipoalerta = 'warning';
            }
@@ -430,7 +432,7 @@ export default {
 
        resultadoValidacion > 0 ? this.revisarErrrores() : this.guardarRegistro();
 */     
-       validacionSeguimiento.validacion_sePuedeCapturar(this.$store);
+      // validacionSeguimiento.validacion_sePuedeCapturar(this.$store);
        this.guardarRegistro();
      
     },
