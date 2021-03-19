@@ -20,14 +20,14 @@
                 <uploadFile2 
                   :mostrarMensajeValidacion ="this.$store.state.uivars.uivars_error_seguimiento_seguimiento_documentos_docto"
           
-                directorio="/uploads/seguimiento"
+                directorio="/uploads/abordaje"
                 :HayArchivo ="sihayarchivo"
                 
                 :nombreArchivo = "nombreDelArchivo"
                 :incidenteid ="incidenteId"
                 :archivoId="archivoId"
-                action_a_Ejecutar="action_documentos_docto"
-                modulo="seguimiento"
+                action_a_Ejecutar="action_abordaje_documentos"
+                modulo="abordaje"
                 campoState="seguimiento_documentos_docto">
                 </uploadFile2> 
             </v-col>
@@ -64,14 +64,14 @@
       data() {
 
           return {
-               itemsOpciones: ["SI", "NO", "POR CONFIRMAR"],
+               itemsOpciones: ["SI APLICA", "NO APLICA"],
           }
       },
 
       methods : {
          asignarValor(event){
 
-            this.$store.dispatch("action_documentos", event);
+            this.$store.dispatch("action_abordaje_documentos", event);
          }
       }
 

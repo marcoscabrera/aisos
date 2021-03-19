@@ -1,105 +1,12 @@
 <template>
- <!--        <div>
-           <v-row>
-              <v-col >
 
-                  <v-btn 
-                    class="mx-2"
-                    fab
+   <v-bottom-navigation  color="primary">
+
+                   <v-btn 
                     dark
                     small
-                    color="primary"
-                    
                     @click="IR_a_RUTA"
-                  >
-                    <v-icon dark>
-                      mdi-view-dashboard-variant-outline 
-                    </v-icon>
-                  </v-btn>
-
-              </v-col>
-
-
-              <v-col>
-  
-                <v-btn v-if="activo_ri=='1'"
-                  class="mx-2"
-                  fab
-                  dark
-                  small
-                  
-                  color="primary"
-                 
-                  @click="IR_a_ri"
-                > RI
-                </v-btn>  
-             </v-col>
-
-             <v-col>
-                <v-btn v-if="activo_vi=='1'"
-                  class="mx-2"
-                  fab
-                  dark
-                  small
-                  
-                  color="primary"
-                  @click="IR_a_vi"
-                > VI
-                </v-btn>
-             </v-col>
-
-
-             <v-col>
-                <v-btn v-if="activo_s=='1'"
-                  class="mx-2"
-                  fab
-                  dark
-                  small
-                  
-                  color="primary"
-                 
-                  @click="ir_al_seguimiento"
-                >
-                    S
-                </v-btn>
-             </v-col>
-
-
-             <v-col>
-
-                <v-btn v-if="activo_c"
-                  class="mx-2"
-                  fab
-                  dark
-                  small
-                  
-                  color="primary"
-                  @click="ir_al_cierre">
-                    C
-                </v-btn>
-
-             </v-col>
-
-
-           
-
-                
-     
-
-
-                </v-row>
-        </div>  -->
-
-          <v-bottom-navigation v-model="value" color="primary">
-
-     <v-btn 
-                    
-              
-                    dark
-                    small
-                    
-                    
-                    @click="IR_a_RUTA"
+                    :clase ="claseResponsive"
                   >
                     <span class ="d-none d-sm-flex" >Dashboard</span>
                     <v-icon dark>
@@ -108,25 +15,25 @@
                   </v-btn>
     
 
-    <v-btn value="recent" @click="IR_a_ri">
+    <v-btn  @click="IR_a_ri" :clase ="claseResponsive">
       <span class ="d-none d-sm-flex">Inicial</span>
 
       <v-icon>mdi-file-document-edit-outline</v-icon>
     </v-btn >
 
-    <v-btn value="favorites"   @click="IR_a_vi">
+    <v-btn    @click="IR_a_vi" :clase ="claseResponsive">
       <span class ="d-none d-sm-flex">Integral</span>
 
       <v-icon>mdi-file-cog-outline</v-icon>
     </v-btn>
 
-    <v-btn value="nearby"  @click="ir_al_seguimiento" >
+    <v-btn   @click="ir_al_seguimiento"  :clase ="claseResponsive">
       <span class ="d-none d-sm-flex">Seguimiento</span>
 
       <v-icon>mdi-clipboard-check-outline</v-icon>
     </v-btn>
 
-    <v-btn value="nearby"  @click="ir_al_cierre">
+    <v-btn   @click="ir_al_cierre" :clase ="claseResponsive">
       <span class ="d-none d-sm-flex">Cierre</span>
       <v-icon>mdi-map-marker</v-icon>
     </v-btn>
@@ -155,48 +62,84 @@
 
             return {
 
-
-
+              claseResponsive : ''
             }
-        },
+            },
 
+            mounted () {
+              this.buscarVersionViewport( ) ;
+            },
 
 
         methods: {
+  buscarVersionViewport( ) {
+        
+        
 
+         console.log(" <<<<<< VALOR BREAKPOINT.NAME >>>>>> " + this.$vuetify.breakpoint.name);
+         let clase = ''
+         switch (this.$vuetify.breakpoint.name) {
+            case 'xs': 
+            clase ="minimoBotonEnBarra";
+            break;
+
+            case 'sm':  
+            clase ="minimoBotonEnBarra";
+            break;
+
+            case 'md':  
+           clase ="";
+            break;
+
+            case 'lg':  
+            clase ="";
+            break;
+
+            case 'xl':  
+            clase ="";
+            break;
+        }
+        this.claseResponsive =  clase;
+    },
         IR_a_ri() {
 
        // named route
-       
-          let id  = this.$route.params.id;
+          
+          console.log(" <<< BARRA DE NAVEGACION >>>> valor incidente >>>" + this.$store.state.incidentes.etapainicial_incidente);
+
+          let id  = this.$store.state.incidentes.etapainicial_incidente;
           this.$router.push({ name: "DenunciasDetalle", params: { id: id } });
          
 
         },
 
    ir_al_cierre(){
-    
-      let id  = this.$route.params.id;
+     console.log(" <<< BARRA DE NAVEGACION >>>> valor incidente >>>" + this.$store.state.incidentes.etapainicial_incidente);
+
+      let id  = this.$store.state.incidentes.etapainicial_incidente;
       this.$router.push({ name: "Cierre", params: { incidenteId: id } });
      
 
     },
     ir_al_seguimiento(){
-       
-       let id  = this.$route.params.id;
+        console.log(" <<< BARRA DE NAVEGACION >>>> valor incidente >>>" + this.$store.state.incidentes.etapainicial_incidente);
+
+        let id  = this.$store.state.incidentes.etapainicial_incidente;
         this.$router.push({ name: "Seguimiento", params: { id: id } });
 
        
     },
       IR_a_vi(){
         
-      
-        let id  = this.$route.params.id;
+       console.log(" <<< BARRA DE NAVEGACION >>>> valor incidente >>>" + this.$store.state.incidentes.etapainicial_incidente);
+
+        let id  = this.$store.state.incidentes.etapainicial_incidente;
         //this.$router.push({ name: "ValoracionIntegral", params: { id: this.$route.params.id  });
           this.$router.push({ name: "ValoracionIntegral", params: { id: id } });
       
       },
     IR_a_RUTA() {
+     console.log(" <<< BARRA DE NAVEGACION >>>> valor incidente >>>" + this.$store.state.incidentes.etapainicial_incidente);
 
       this.$router.push('/dashboard');
     },
@@ -205,6 +148,8 @@
     }
 </script>
 
-<style scoped>
-
+<style >
+.minimoBotonEnBarra{
+  min-width: 52px !important;
+}
 </style>

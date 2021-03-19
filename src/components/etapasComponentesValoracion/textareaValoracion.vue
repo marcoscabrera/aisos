@@ -58,7 +58,7 @@ export default {
       let numeroPalabras = texto.split(" ");
       let cuantos = numeroPalabras.length;
 
-      let m= ` VALORACIÓN INICIAL (MAXIMO 250 PALABRAS)  PALABRAS #${cuantos}`;
+      let m= ` VALORACIÓN  (MAXIMO 250 PALABRAS)  PALABRAS #${cuantos}`;
        
 
       this.mensaje = m;

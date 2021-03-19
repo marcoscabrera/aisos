@@ -2,10 +2,10 @@
   <v-container>
 
     <v-row>
-        <v-col cols="12" xs="12" sm="6" md="6">
+        <v-col cols="12" xs="12" sm="12" md="6">
            <h2>Valoración Inicial</h2>
         </v-col>
-        <v-col cols="12" xs="12" sm="6" md="6">
+        <v-col cols="12" xs="12" sm="12" md="6">
 
             <BarraDeNavegacion
              activo_ri="0"
@@ -677,6 +677,9 @@ const  {
         console.log(atipo);
         let idRecuperado = a["id"];
 
+        
+        this.$store.dispatch('setear_Incidente',idRecuperado);
+
         console.log("valor de idRecuperado  : " + idRecuperado);
 
         this.modo = "update";
@@ -772,6 +775,8 @@ const  {
       console.log("nombre programa " + nombrePrograma);
 
       this.usuarioCreador = a.usuarioCreador;
+
+      
      
       this.folio = a.folio;
        /***************************************
@@ -964,6 +969,7 @@ const  {
           console.log("recuperando los datos del incidente ");
           // console.log(JSON.stringify(response.data));
           /** */
+          this.$store.dispatch("setear_Incidente", this.$route.params.id);
           this.asignarAVariablesValoresDeConsulta2(response);
 
           this.modo = "update";

@@ -18,6 +18,35 @@ export default {
     return api.axiosget(endpoint);
      },
 
+
+     buscarIncidente(parametro,store){
+
+        let predicado = '/api/v0/incidentes/folio/'+ parametro;
+
+        let apix = store.state.urlServidor;
+    
+        let endpoint = apix + predicado;
+    
+        console.log("valor del endpoint " + endpoint);
+    
+        return api.axiosget(endpoint);     
+
+     },
+
+     buscarIncidente_parametros(parametros,store){
+
+        let predicado = '/api/v0/incidentes/busqueda/parametros';
+
+        let apix = store.state.urlServidor;
+    
+        let endpoint = apix + predicado;
+    
+        console.log("valor del endpoint " + endpoint);
+    
+        return api.axiospost(endpoint,parametros);     
+
+     },
+
     nuevoIncidente(parametros, store) { 
 
     let predicado = "/api/v0/incidentes";

@@ -1,5 +1,5 @@
 <template>
-    <v-row>
+    
       <v-card width="100%">
         <v-card-title>CONSENSO NACIONAL PARA DENUNCIA </v-card-title>
         <v-card-text>
@@ -38,7 +38,7 @@
           </v-row>
         </v-card-text>
       </v-card>
-    </v-row>
+    
 </template>
 
 <script >

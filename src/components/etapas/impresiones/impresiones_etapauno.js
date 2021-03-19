@@ -4,7 +4,7 @@ export default  {
  setearValores( incidente, store) {
    
   store.dispatch('action_folio',incidente.folio);
-  store.dispatch('setear_Incidente',incidente.id);
+  //store.dispatch('setear_Incidente',incidente.id);
   store.dispatch('setear_programa',incidente.programa);
   store.dispatch('setear_FechaInicial',incidente.fecha);
   store.dispatch('setear_Involucrados',incidente.involucrados);

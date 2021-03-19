@@ -75,8 +75,13 @@ export default {
             .catch((error) => {
               console.log(error);
             });
-     }else{
-       this.itemsUnidades.push(programaid)   ;
+     };
+
+     if(programaid == 'PROGRAMA'){
+       
+       console.log(" soli un programa : " +  this.$store.state.usuarios.usuarios_usuariologueado.programa);
+       let programActual =this.$store.state.usuarios.usuarios_usuariologueado.programa;
+       this.itemsUnidades.push(programActual)   ;
      }
 
 

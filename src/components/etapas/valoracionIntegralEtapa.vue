@@ -1,10 +1,10 @@
 <template>
   <v-container>
     <v-row>
-        <v-col cols="12" xs="12" sm="6" md="6">
+        <v-col cols="12" xs="12" sm="12" md="6">
            <h2>Valoración Integral</h2>
         </v-col>
-        <v-col cols="12" xs="12" sm="6" md="6">
+        <v-col cols="12" xs="12" sm="12" md="6">
 
 
             <BarraDeNavegacion
@@ -523,6 +523,9 @@ export default {
 
           console.log(response.data[0]["id"]);
           this.id = response.data[0]["id"];
+
+          this.$store.dispatch("setear_Incidente", this.id);
+
           this.textovi = response.data[0]["textovi"];
           this.$store.dispatch('action_textovi',this.textovi);
 
@@ -783,7 +786,7 @@ export default {
       seleccionabordaje: false,
 
       itemsTipoDeCaso: [
-        " ABUSO FISICO",
+        "ABUSO FISICO",
         "ABUSO SEXUAL",
         "ABUSO EMOCIONAL",
         "NEGLIGENCIA Y/O TRATO NEGLIGENTE",

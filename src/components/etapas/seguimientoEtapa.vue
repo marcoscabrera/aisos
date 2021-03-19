@@ -3,10 +3,10 @@
   
 
     <v-row>
-        <v-col cols="12" xs="12" sm="6" md="6">
+        <v-col cols="12" xs="12" sm="12" md="6">
            <h2>Seguimiento</h2>
         </v-col>
-        <v-col cols="12" xs="12" sm="6" md="6">
+        <v-col cols="12" xs="12" sm="12" md="6">
 
 
             <BarraDeNavegacion
@@ -61,14 +61,14 @@
 
     <!-- =============================================== -->
     <br >
-    <v-card width="100%" >
+  <!--  <v-card width="100%"  >
           <v-card-title> </v-card-title>
           <v-card-text>
             <textAreaRegistroDelEstatus
             :texto="seguimiento.status">
             </textAreaRegistroDelEstatus>
           </v-card-text>
-    </v-card>
+    </v-card> -->
  <br >
     
     <!-- ==========================================  -->
@@ -76,19 +76,19 @@
   
     <!-- =============================================== -->
     
-      <cardPlanEnEjecucion
+ <!--     <cardPlanEnEjecucion
         :incidenteId ="incidenteIdPE"
         :archivoId ="seguimiento.plan_docto"
         :nombreDelArchivo="data_plan_docto.nombreOriginal"
         :sihayarchivo="data_plan_docto.hayArchivo"
          :valorcombo="seguimiento.plan"
         ></cardPlanEnEjecucion>
-    <br >
+    <br > -->
 
       <!-- ==========================================  -->
 
     
-    <cardDocumentosOficiales
+  <!--  <cardDocumentosOficiales
        :incidenteId ="incidenteIdPE"
 
         :archivoId ="seguimiento.documentos_docto"
@@ -97,7 +97,7 @@
         :valorcombo="seguimiento.documentos">
         </cardDocumentosOficiales>
     
-    <br >
+    <br > -->
 
     <h4>ACCIONES A REALIZAR</h4>
 
@@ -193,7 +193,7 @@ SE CUENTA CON EL LLENADO DEL ACTA DE VALORACION DEL/DE LOS INCIDENTES
     <br />
     <!-- =============================================== -->
 
-        <cardProtocoloComponente v-if="verDenuncia_o_investigacion"
+        <cardProtocoloComponente 
          :valorcombo="seguimiento.protocolosos"
         :esDenuncia="esDenuncia"
         :incidenteId="incidenteId"
@@ -263,16 +263,17 @@ import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudP
 
 export default {
   components: {     
-    cardProtocoloComponente,   BarraDeNavegacion,          
-    textAreaRegistroDelEstatus : () => import('@/components/etapasComponentesSeguimiento/textAreaRegistroDelEstatus.vue'),
-    cardPlanEnEjecucion :()=> import('@/components/etapasComponentesSeguimiento/cardPlanEnEjecucion.vue'),
+    cardProtocoloComponente,  
+     BarraDeNavegacion,          
+   // textAreaRegistroDelEstatus : () => import('@/components/etapasComponentesSeguimiento/textAreaRegistroDelEstatus.vue'),
+   // cardPlanEnEjecucion :()=> import('@/components/etapasComponentesSeguimiento/cardPlanEnEjecucion.vue'),
     cardNotificacionDIF :()=> import('@/components/etapasComponentesSeguimiento/cardNotificacionDIF.vue'),
     cardNotificacionAutoridad :()=> import('@/components/etapasComponentesSeguimiento/cardNotificacionAutoridad.vue'),
     cardNotificacionPFN  :()=> import('@/components/etapasComponentesSeguimiento/cardNotificacionPFN.vue'),
     cardNotificacionPersona :() => import('@/components/etapasComponentesSeguimiento/cardNotificacionPersona.vue'),
     cardActaDeValoracion :() => import('@/components/etapasComponentesSeguimiento/cardActaDeValoracion.vue'),
     cardPlanRecuperacion :() => import('@/components/etapasComponentesSeguimiento/cardPlanRecuperacion.vue'),
-    cardDocumentosOficiales:() => import('@/components/etapasComponentesSeguimiento/cardDocumentosOficiales.vue')
+   // cardDocumentosOficiales:() => import('@/components/etapasComponentesSeguimiento/cardDocumentosOficiales.vue')
 
   },
 
@@ -368,24 +369,24 @@ export default {
      
      let parametros = {
             incidenteid :  this.incidenteIdPE,        
-            status  : this.$store.state.seguimiento.seguimiento_status,            
-            plan      : this.$store.state.seguimiento.seguimiento_plan,             
-            documentos   : this.$store.state.seguimiento.seguimiento_documentos,           
+            status  : '.',            
+            plan      : '.',             
+            documentos   : '.',           
             notificaciondif   : this.$store.state.seguimiento.seguimiento_notificaciondif,      
             notificacionautoridad : this.$store.state.seguimiento.seguimiento_notificacionautoridad, 
             notificacionpfn       : this.$store.state.seguimiento.seguimiento_notificacionpfn,  
             notificaciodenunciante : this.$store.state.seguimiento.seguimiento_notificaciodenunciante, 
             actavaloracion        : this.$store.state.seguimiento.seguimiento_actavaloracion, 
             planrecuperacion      : this.$store.state.seguimiento.seguimiento_planrecuperacion, 
-            documentos_docto        : this.$store.state.seguimiento.seguimiento_documentos_docto,     
+            documentos_docto        : '0',     
             notificaciondif_docto     : this.$store.state.seguimiento.seguimiento_notificaciondif_docto,   
             notificacionautoridad_docto  : this.$store.state.seguimiento.seguimiento_notificacionautoridad_docto, 
             notificacionpfn_docto        : this.$store.state.seguimiento.seguimiento_notificacionpfn_docto, 
             notificaciodenunciante_docto : this.$store.state.seguimiento.seguimiento_notificaciodenunciante_docto, 
             actavaloracion_docto        : this.$store.state.seguimiento.seguimiento_actavaloracion_docto, 
             planrecuperacion_docto      : this.$store.state.seguimiento.seguimiento_planrecuperacion_docto, 
-            plan_docto  : this.$store.state.seguimiento.seguimiento_plan_docto,
-            protocolosos : this.$store.state.seguimiento.seguimiento_protocolosos
+            plan_docto  : '0',
+             protocolosos : this.$store.state.seguimiento.seguimiento_protocolosos
 
      };
 
@@ -483,16 +484,16 @@ export default {
 
       this.tipoderespuesta = response.data[0]["tipoderespuesta"];
 
-      this.tipoderespuesta == 'DENUNCIA PENAL' ? this.esDenuncia=true : this.esDenuncia =false;
+      this.tipoderespuesta == 'DENUNCIA LEGAL' ? this.esDenuncia=true : this.esDenuncia =false;
       
       //si se muestra o no 
-      this.tipoderespuesta== 'DENUNCIA PENAL' ? this.verDenuncia_o_investigacion= true 
+    /*  this.tipoderespuesta== 'DENUNCIA PENAL' ? this.verDenuncia_o_investigacion= true 
       : this.tipoderespuesta == 'INVESTIGACION INTERNA' ? this.verDenuncia_o_investigacion= true 
       : this.verDenuncia_o_investigacion= false;
       
       console.log(" tipoderespuesta >> " + this.tipoderespuesta);
       
-      console.log(" verDenuncia_o_investigacion >> " + this.verDenuncia_o_investigacion);
+      console.log(" verDenuncia_o_investigacion >> " + this.verDenuncia_o_investigacion);*/
       
       /* *******************************************************/
       this.seguimiento = response.data[0];
@@ -516,20 +517,20 @@ export default {
       */
 
 
-       let archivo_plan_docto = apiArchivos.conseguirArchivo(this.seguimiento.plan_docto, this.$store.state);
+      // let archivo_plan_docto = apiArchivos.conseguirArchivo(this.seguimiento.plan_docto, this.$store.state);
        let archivo_planrecuperacion_docto = apiArchivos.conseguirArchivo(this.seguimiento.planrecuperacion_docto, this.$store.state);
        let archivo_notificacionpfn_docto = apiArchivos.conseguirArchivo(this.seguimiento.notificacionpfn_docto, this.$store.state);
        let archivo_notificaciondif_docto = apiArchivos.conseguirArchivo(this.seguimiento.notificaciondif_docto, this.$store.state);
        let archivo_notificacionautoridad_docto = apiArchivos.conseguirArchivo(this.seguimiento.notificacionautoridad_docto, this.$store.state);
        let archivo_notificaciondenunciante_docto = apiArchivos.conseguirArchivo(this.seguimiento.notificaciondenunciante_docto, this.$store.state);
-       let archivo_documentos_docto = apiArchivos.conseguirArchivo(this.seguimiento.documentos_docto, this.$store.state);
+       //let archivo_documentos_docto = apiArchivos.conseguirArchivo(this.seguimiento.documentos_docto, this.$store.state);
        let archivo_actavaloracion_docto = apiArchivos.conseguirArchivo(this.seguimiento.actavaloracion_docto, this.$store.state);
        
 
 
 
        /* --------------------------------------------------------------- */
-       archivo_plan_docto.then(
+       /*archivo_plan_docto.then(
          response => {
            //console.log("archivo_plan_docto :" + JSON.stringify(response.data));
 
@@ -542,7 +543,7 @@ export default {
          error=> {
            console.log(" error " + JSON.stringify(error.data));
          }
-       );
+       );*/
        /* --------------------------------------------------------------- */
        archivo_planrecuperacion_docto.then(
          response => {
@@ -616,7 +617,7 @@ export default {
          }
        );
        /* --------------------------------------------------------------- */
-       archivo_documentos_docto.then(
+      /* archivo_documentos_docto.then(
          response => {
            //console.log("archivo_documentos_docto :" + JSON.stringify(response.data));
      
@@ -629,7 +630,7 @@ export default {
          error=> {
            console.log(" error " + JSON.stringify(error.data));
          }
-       );
+       );*/
        /* --------------------------------------------------------------- */
        archivo_actavaloracion_docto.then(
          response => {

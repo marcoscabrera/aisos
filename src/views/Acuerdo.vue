@@ -2,21 +2,21 @@
 <v-container>
     <v-row>
         <v-col>
-     <p>
+     <p class="text-justify">
          <strong>Aviso de Privacidad Aldeas Infantiles SOS México</strong><br>
          Aldeas Infantiles SOS México es una Institución de Asistencia Privada, independiente, no gubernamental, sin inclinación religiosa y de desarrollo social, que tiene como principal objetivo la formación de familias para niños y niñas que han perdido la protección de sus padres, integrándolos en un sistema que les permita desarrollar una vida normal, logrando así convertirlos en jóvenes de provecho   </p>
  
-<p>
+<p class="text-justify">
 La Organización tiene como fines, entre otros, proveer de cuidados familiares, proteger y dar bienestar a los niños, niñas y jóvenes privados del cuidado parental o en peligro de encontrarse en esa situación, mediante la implementación del programa de Aldeas Infantiles SOS que proporcionan a los niños, niñas y jóvenes, un hogar integrado por una madre social, hermanos (sociales o biológicos), una vida en comunidad, según el concepto de Hermann Gmeiner, en concordancia con las Directrices sobre las Modalidades Alternativas de Cuidado de los Niños de Naciones Unidas1, la Convención sobre los Derechos del Niño2 y la Constitución Política de los Estados Unidos Mexicanos. Para el cumplimiento de dichos fines, Aldeas Infantiles SOS México implementa diferentes programas para recibir donativos, contando con la autorización del Servicio de Administración Tributaria y bajo los más estrictos parámetros de transparencia, así como de protección de datos. Los programas a través de los cuales recibe donativos se pueden consultar en nuestra página de internet www.aldeasinfantiles.org.mx</p>
  
-<p>
+<p  class="text-justify">
 De conformidad con lo anterior, el objetivo del presente Aviso de Privacidad es informar las características del tratamiento de los datos personales de los participantes o posibles participantes que apoyen los programas de donación de Aldeas Infantiles SOS México, en términos de lo dispuesto por la Ley Federal de Protección de Datos Personales en Posesión de los Particulares. La información y datos personales de nuestros colaboradores, en sus distintos niveles, es muy importante, razón por la cual es tratada de manera estrictamente confidencial y con la secrecía necesaria para lograr los fines de la Organización, transmitir confianza a nuestros donantes o posibles donantes, por lo que hacemos un esfuerzo permanente para salvaguardarla.</p>
  
-<p>
+<p  class="text-justify">
  <strong>Identidad y domicilio del responsable  </strong><br>
 En concordancia con el derecho a la protección de datos personales en posesión de particulares consagrado en el artículo 6° de la Constitución Política de los Estados Unidos Mexicanos, así como en cumplimiento a las disposiciones de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares, y con base en los principios de licitud, consentimiento, información, calidad, finalidad, lealtad, proporcionalidad y responsabilidad; Aldeas Infantiles SOS México, I.A.P., con domicilio ubicado en Av. Morelos No. 43 Col. Rosas del Tepeyac, Del. Gustavo A. Madero, C.P. 07050, México D.F., es responsable de recabar y proteger sus datos personales, así como del uso que se le dé a los mismos.</p>
 
-<p>
+<p  class="text-justify">
  <strong>Finalidad del tratamiento de datos  </strong><br>
 Sus datos personales son utilizados para las siguientes finalidades:<br>
 A) Los datos personales de los donantes nacionales e internacionales son utilizados de manera interna para fines estadísticos, administrativos y de recaudación de fondos.
@@ -29,7 +29,7 @@ En caso de que no desee que sus datos personales sean utilizados para las finali
 
 </p>
 
-<p>
+<p  class="text-justify">
  <strong>Datos personales que podrán ser recabados y tratados  </strong><br>
 Para los fines antes citados requerimos obtener los siguientes datos personales:<br>
 A) Nombre completo<br>
@@ -47,25 +47,25 @@ De conformidad con lo anterior, en términos del presente Aviso de Privacidad, n
 </p>
 
 
-<p>
+<p  class="text-justify">
  <strong>Opciones y medios para limitar el uso o divulgación de los datos  </strong><br>
 En todo momento usted podrá limitar el uso o divulgación del tratamiento de sus datos personales, para tal efecto póngase en contacto al correo electrónico, protecciondedatos@aldeasinfantiles.org.mx, es necesario que presente su petición al responsable del manejo de la información de la
 Organización cuyos datos de contacto vienen a continuación.
 
 </p>
 
-<p>
+<p  class="text-justify">
  <strong>Medios para ejercer los derechos ARCO  </strong><br>
 Así también, tiene derecho de acceder a sus datos personales que poseemos y a los detalles del tratamiento de los mismos, rectificar en caso de ser inexactos o incompletos, cancelarlos cuando considere que no se requieren para alguna de las finalidades señaladas en el aviso de privacidad, así como a oponerse al tratamiento de los mismos y/o revocar en los casos que proceda, cuando la ley específica lo permita, el consentimiento que para tal fin nos haya otorgado, a través de los procedimientos que hemos implementado para tal efecto. Para conocer más detalles sobre el procedimiento respectivo, requisitos y plazos, puede contactar al responsable de manejo de la Información, Lic. Sair Pinilla al siguiente correo electrónico, protecciondedatos@aldeasinfantiles.org.mx. Su petición debe de ir acompañada de la siguiente información: Nombre completo de la persona que desea revocar el consentimiento, documento de identidad que acredite la personalidad o documento que acredite la representación legal en su caso. Descripción clara y precisa de los datos personales respecto de los que se busca ejercer alguno de los derechos antes mencionados. Domicilio, correo electrónico u otro medio para comunicarle la respuesta a su solicitud. Cualquier otro documento que facilite la localización de los datos personales. Sólo en los casos procedentes y en los supuestos en que la ley específica lo permita, manifestación expresa de que desea que el tratamiento de todos los datos personales recabados por nosotros sean revocados. Tendremos un plazo de 20 días contados a partir desde la fecha en que se recibió la solicitud para atender y comunicarle la determinación adoptada, a efecto de que, si resulta procedente, se haga efectiva la misma dentro de los 15 días siguientes a la fecha en que se comunica la respuesta. Tratándose de solicitudes de acceso de datos personales, procederá la entrega previa acreditación de la identidad del solicitante o representante legal según corresponda. Los plazos antes referidos podrán ser ampliados una sola vez por un periodo igual, siempre y cuando así lo justifiquen las circunstancias del caso. Le informamos también que utilizamos tecnologías de información para fines estadísticos, para cualquier duda igualmente contacte a la persona responsable del manejo de la información antes mencionada.
 </p>
 
 
-<p>
+<p  class="text-justify">
  <strong>Revocación del consentimiento  </strong><br>
 Usted tiene derecho a revocar su consentimiento, así como oponerse al tratamiento de sus datos personales para las finalidades que no sean indispensables para la relación jurídica. La revocación de su consentimiento para el tratamiento de sus datos personales, la podrá realizar en términos del párrafo anterior.
 </p>
 
-<p>
+<p  class="text-justify">
  <strong>Subcontratación de servicios  </strong><br>
 Aldeas Infantiles SOS México I.A.P, en algunos casos, recabará los datos requeridos para el cumplimiento de su objeto y para las finalidades que se señalan en el presente Aviso de Privacidad, a través de personal que labore para empresas con las cuales tenga celebrados contratos de prestación de servicios. El objetivo de dichos contratos, en términos generales, es la prestación de servicios orientados a la obtención de nuevos donantes con vocación de permanencia para la aportación de recursos financieros para las actividades que desarrolla la Organización.
 Las empresas con las cuales Aldeas Infantiles SOS México I.A.P., actualmente tiene celebrado contratos de prestación de servicios en los términos señalados en el párrafo anterior, son: Fundraisers México, S de
@@ -75,7 +75,7 @@ Concretamente, en términos de los contratos de prestación de servicios corresp
 Aldeas Infantiles SOS México I.A.P. será responsable de vigilar que las empresas que correspondan, den cumplimiento a las disposiciones aplicables en materia de protección de datos personales en posesión de los particulares.
 </p>
 
-<p>
+<p  class="text-justify">
  <strong>Transferencia de datos  </strong><br>
 Para lograr el objeto y fines que persigue Aldeas Infantiles SOS México I.A.P., los datos personales de los donantes podrán ser transferidos y tratados dentro y fuera del territorio por el personal de la Secretaría General de SOS Kinderdorf International (Oficina Internacional de Aldeas Infantiles SOS México), cuya sede se encuentra ubicada en Innsbruck, Austria.
 Las transferencias internacionales de datos se realizarían con la finalidad de elaborar análisis estadísticos y control de transparencia del manejo de la información y ejecución de operaciones de la organización en México, además de garantizar el resguardo de la información de los donantes y todo lo relacionado a la recaudación de fondos. Las transferencias internacionales de datos no se realizarán por fines distintos a los relacionados con la misión de la Organización, ni tampoco se realizará con la finalidad de proporcionar información sobre los donantes a ninguna empresa externa.
@@ -84,21 +84,21 @@ Asimismo, usted podrá manifestar la negativa de que su información sea transfe
 protecciondedatos@aldeasinfantiles.org.mx
 </p>
 
-<p>
+<p  class="text-justify">
  <strong>Procedimiento y medios por el cual se comunicará a los titulares de cambios al aviso de privacidad.  </strong><br>
 Atendiendo las directrices de la autoridad competente, en su caso, de ser necesario realizaremos cambios o modificaciones al aviso de privacidad, atendiendo también los fines de la organización y el interés superior del niño. En su caso estas modificaciones estarán disponibles en nuestra página de internet www.aldeasinfantiles.org.mx o se las haremos llegar a la brevedad al último correo electrónico que nos haya proporcionado.􀀀
 Una vez que se puso a mi disposición el presente aviso de privacidad, autorizo y consiento expresa y/o tácitamente a Aldeas Infantiles SOS México, el manejo y tratamiento de mis datos personales, por no tener oposición alguna para ello, lo anterior de conformidad con el artículo 8°, párrafo tercero de la Ley Federal de Protección de Datos Personales en
 Posesión de los Particulares. Para los casos de tratamiento de datos personales que no requieran el consentimiento expreso o tácito de los titulares se aplicará lo dispuesto en el artículo 10 de la Ley de la materia.
 
 </p>
-<p>
+<p  class="text-justify">
  <strong>Ciudad de México, Distrito Federal, a octubre de 2014.  </strong><br>
 Este documento atiende las disposiciones de la ley aplicable, para casos específicos y en atención al objeto social y fines de la Organización, se atenderá la situación concreta y se le pondrá a la vista el aviso de privacidad simplificado cuyo contenido actualiza la información requerida en las fracciones I y II del artículo 16 de la ley de la materia y remite al presente aviso de privacidad completo. Cualquier modificación a este aviso de privacidad podrá consultarlo en la página www.aldeasinfantiles.org.mx. Si usted considera que su derecho de protección de datos personales ha sido lesionado por alguna conducta de nuestros empleados o de nuestras actuaciones o respuestas, presume que en el tratamiento de sus datos personales existe alguna violación a las disposiciones previstas en la Ley
 Federal de Protección de Datos Personales en Posesión de los Particulares, podrá interponer la queja o denuncia correspondiente ante el IFAI, para mayor información visite www.ifai.org.mx.
 
 </p>
 
-<p>
+<p  class="text-justify">
  <strong>Consiento que mis datos personales sean tratados para las finalidades   </strong>
 </p>
 

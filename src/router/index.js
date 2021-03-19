@@ -307,7 +307,13 @@ const routes = [
     component: () =>
       import(/* webpackChunckName:"denuncialegal" */ "../views/InvestigacionInterna.vue"),
   },
-
+ {
+    path: "/abordajeinterno/:incidenteId",
+    name: "AbordajeInterno",
+    meta: { requiresAuth : true },
+    component: () =>
+      import(/* webpackChunckName:"abordajeintetno" */ "../views/AbordajeInterno.vue"),
+  },
   {
     path: "/evidencias/:incidenteId",
     name: "Evidencias",

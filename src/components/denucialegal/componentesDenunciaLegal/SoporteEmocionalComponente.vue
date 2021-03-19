@@ -1,6 +1,6 @@
 <template>
 
-    <v-row>
+   
       <v-card width="100%">
         <v-card-title >
           SOPORTE EMOCIONAL PARA LOS NNAJ INVOLUCRADOS
@@ -43,7 +43,7 @@
           </v-row>
         </v-card-text>
       </v-card>
-    </v-row>
+  
 </template>
 
 <script >

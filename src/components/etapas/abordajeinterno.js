@@ -1,18 +1,24 @@
-import apiSeguimiento from '@/apialdeas/apiSeguimiento.js';
+import apiAbordaje from '@/apialdeas/apiAbordaje.js';
 
 export default {
 
+    cargarAbordaje_por_incidente(id,store){
 
-    cargarDatosSeguimiento(id,store){
+          return apiAbordaje.cargarAbordaje_por_incidente(id, store);
+
+    },
+
+
+    cargarDatosAbordaje(id,store){
      
 
-    return apiSeguimiento.cargarSeguimiento(id, store);
+    return apiAbordaje.cargarAbordaje(id, store);
     
 
     },
 
     updateSeguimiento(parametros, store){
-        return apiSeguimiento.updateSeguimiento(parametros, store);
+        return apiAbordaje.updateSeguimiento(parametros, store);
     },
 
     asignarVariablesGLobales(datos,store){
@@ -20,12 +26,9 @@ export default {
             console.log('datos   ');
 
             console.log(datos);
-
             // APLICAR PARSE? POR QUE DATOS ES UN OBJETO.
-            console.log('datos.seguimiento_incidenteid');
+            console.log('datos.seguimiento_incidenteid   ');
             console.log(datos.incidenteid) ;
-           
-            store.dispatch("setear_Incidente",datos.incidenteid);
 
             console.log("atos.protocolosos : " + datos.incidenteid) ;
             let datos_protocolosos = JSON.stringify(datos.protocolosos) ;

@@ -95,7 +95,7 @@
      
       </v-img></a>
       <v-spacer></v-spacer>
-      <v-app-bar-title class="letrasBlancasEnTitulo text-center">Plataforma interna de protección infantil SOS México</v-app-bar-title>
+      <v-app-bar-title :class="cssResponsiveTexto">Plataforma interna de protección infantil SOS México</v-app-bar-title>
     </v-app-bar>
 
     <!-- Sizes your content based upon application components -->
@@ -126,20 +126,61 @@ export default {
   components: {
     DatosDelUsuarioComponente
   },
+ 
+  computed : {
+
+   /* css(){
+
+         switch (this.$vuetify.breakpoint.name) {
+          case 'xs': return 'cssXS_SM'
+          case 'sm': return 'cssXS_SM'
+          case 'md': return 'cssMD_LG'
+          case 'lg': return 'cssMD_LG'
+          case 'xl': return 'cssMD_LG'
+           default :'cssMD_LG'
+        }
+    }*/
+  },
 
   data: () => ({
     drawer: false,
     puedeCrearCatalogos: false,
     puedevermenulateral :false,
     imagenLogin: '',
+    cssResponsiveTexto : ''
   }),
   mounted () {
     this.crearToken();
      this.cargarLosParametros();
     this.mostrarMenuLateral();
-   
-  },
+    this. claseCss();
+
+   },  
   methods: {
+   
+   claseCss () {
+         
+         let valor  = '' ; 
+         console.log(" >>>>>> VALOR BREAKPOINT.NAME >>>>>> " + this.$vuetify.breakpoint.name);
+         switch (this.$vuetify.breakpoint.name) {
+          case 'xs': 
+           valor =  'cssXS_SM';
+           break;
+          case 'sm':  valor = 'cssXS_SM';
+           break;
+
+          case 'md':  valor = 'cssMD_LG';
+          break;
+          case 'lg':  valor = 'cssMD_LG';
+          break;
+          case 'xl':  valor = 'cssMD_LG';
+          break;
+         
+        }
+        
+        return this.cssResponsiveTexto = valor;
+   },
+
     crearToken(){
        variablesLocales.setearToken('xxxx');
       variablesLocales.setUsuarioId('');
@@ -214,6 +255,20 @@ export default {
 };
 </script>
 <style scoped>
+
+.cssMD_LG{
+ 
+  color: white !important;
+
+}
+
+.cssXS_SM{
+ 
+  color: white !important;
+  font-size: 0.65em;
+
+}
+
 
 .v-app-bar-title__content{
   color : white !important;

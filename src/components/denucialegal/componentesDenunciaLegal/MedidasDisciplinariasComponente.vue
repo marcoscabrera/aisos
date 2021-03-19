@@ -1,5 +1,5 @@
 <template>
-    <v-row>
+  
       <v-card width="100%">
         <v-card-title>IMPLEMENTAR MEDIDAS DISCIPLINARIAS LIGADAS AL RESULTADO DE LAS
           DENUNCIAS </v-card-title>
@@ -39,7 +39,7 @@
           </v-row>
         </v-card-text>
       </v-card>
-   </v-row>
+
 </template>
 
 <script >

@@ -6,7 +6,7 @@ export default {
 
     state: {
 
-      
+        etapainicial_id : '0',
         etapainicial_folio: '',
         etapainicial_programa: '',
    

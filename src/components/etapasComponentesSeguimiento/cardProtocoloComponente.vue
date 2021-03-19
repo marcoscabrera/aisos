@@ -69,13 +69,22 @@
         },
 
         irA_docto(){
-
-           if( this.textoRespuesta=="DENUNCIA PENAL" ){
+             
+            this.$store.dispatch("setear_Incidente",this.incidenteId );
+     
+           if( this.textoRespuesta=="DENUNCIA LEGAL" ){
              this.$router.push({ name: "DenunciaLegal", params: { denunciaId: this.incidenteId } });
 
            }else{
           
              this.$router.push({ name: "InvestigacionInterna", params: { incidenteId: this.incidenteId } });
+           }
+
+           if(this.textoRespuesta=="ABORDAJE INTERNO") {
+
+           this.$router.push({ name: "AbordajeInterno", params: { incidenteId: this.incidenteId } });
+        
+
            }
             
         }

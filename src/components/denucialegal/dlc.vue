@@ -2,10 +2,10 @@
   <v-container name="denuncialegal">
 
     <v-row>
-        <v-col cols="12" xs="12" sm="6" md="6">
+        <v-col cols="12" xs="12" sm="12" md="6">
            <h2>Denuncia Legal</h2>
         </v-col>
-        <v-col cols="12" xs="12" sm="6" md="6">
+        <v-col cols="12" xs="12" sm="12" md="6">
 
 
             <BarraDeNavegacion
@@ -14,12 +14,18 @@
              activo_s="true"
              activo_c="true"
              ></BarraDeNavegacion>
+<!-- 
 
+
+  import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
+
+-->
         </v-col>
     </v-row>
     <!-- pediente la fecha -->
     <FoliosComponente :folio="folio"
     :foliodenuncia ='denuncia.foliodenuncia'
+    :date = 'denuncia.fechaCreacion'
     tipofolio="DENUNCIA">
     </FoliosComponente>
 
@@ -37,6 +43,7 @@
         </barraDocumentos>
       </v-col>
     </v-row>
+    <br>
     <ConsensoComponente
           :valorcombo = "denuncia.consenso"  
           :incidenteId ="denuncia.incidenteid"
@@ -46,20 +53,20 @@
           :sihayarchivo="consensoArchivo_sihayarchivo"
     ></ConsensoComponente> 
 
-    <br/>
+    <br>
      <SoporteLegalComponente
        :valorComboAsesorDurante="denuncia.soportedurante"
        :valorComboAsesorAntes="denuncia.soporteantes"
        :valorComboAsesorContacto="denuncia.soportecontacto"
      
      ></SoporteLegalComponente>
-    <br />
+    <br >
     <SoporteEmocionalComponente
        :valorComboAsesorDurante="denuncia.soporteemocionaldurante"
        :valorComboAsesorAntes="denuncia.soporteemocionalantes"
        :valorComboAsesorContacto="denuncia.soporteemocionalcontacto"
     ></SoporteEmocionalComponente>
-    <br />
+    <br>
 
     <MedidasDisciplinariasComponente
           :valorcombo = "denuncia.medidasd"  
@@ -69,16 +76,19 @@
           :sihayarchivo="medidasArchivo_sihayarchivo"
     ></MedidasDisciplinariasComponente>
 
-    <br />
+    <br>
     <TextoAcercaDeLasMedidas
     :texto="denuncia.medidastexto"></TextoAcercaDeLasMedidas>
 
-    <br />
+    <br> 
+    <v-alert :type="tipoalerta">
+       {{mensaje}}
+    </v-alert>
+    <br>
     <v-row>
       <v-col cols="12" xs="12" sm="12" md="4">
-        <v-btn
-          :loading="loading"
-          :disabled="loading"
+       <!-- <v-btn
+          
           color="primary"
           @click="permisoImpresion"
           block
@@ -86,12 +96,11 @@
           <v-icon right dark> mdi-printer </v-icon>
           <v-spacer></v-spacer>
           Imprimir
-        </v-btn>
+        </v-btn> -->
       </v-col>
       <v-col cols="12" xs="12" sm="12" md="4">
-        <v-btn
-          :loading="loading"
-          :disabled="loading"
+      <!--  <v-btn
+          
           color="red"
        
           block
@@ -99,7 +108,7 @@
           <v-icon right dark> mdi-close </v-icon>
           <v-spacer></v-spacer>
           Cancelar
-        </v-btn>
+        </v-btn> -->
       </v-col>
       <v-col cols="12" xs="12" sm="12" md="4">
         <v-btn
@@ -122,13 +131,13 @@ import apiIncidentes from "@/apialdeas/apiIncidentes.js";
 import apiDenuncias from "@/apialdeas/apiDenuncias.js";
 import FoliosComponente  from "./componentesDenunciaLegal/FoliosComponente.vue";
 import barraDocumentos  from "@/components/barradocumentos/barraDocumentos.vue";
-
+import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
 import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
 
 export default {
 
   components : {
-    FoliosComponente,barraDocumentos,
+    FoliosComponente,barraDocumentos,BarraDeNavegacion,
     ConsensoComponente : () => import('./componentesDenunciaLegal/ConsensoComponente.vue'),
     SoporteLegalComponente  : () => import('./componentesDenunciaLegal/SoporteLegalComponente.vue'),
     SoporteEmocionalComponente : () => import('./componentesDenunciaLegal/SoporteEmocionalComponente.vue'),
@@ -137,6 +146,8 @@ export default {
 },
   data() {
     return {
+      tipoalerta : '',
+      mensaje : '',
       itemsCargos: ["SI", "NO", "EN PROCESO"],
       loading: false,
 
@@ -236,6 +247,8 @@ export default {
     },
     guardarDenuncia(){
 
+      this.loading = true;
+
        let denunciaObj = this.$store.state.denuncias;
 
 
@@ -285,11 +298,24 @@ export default {
          response=>{
 
            console.log(JSON.stringify(response.data));
+           this.loading = false;
+           
+           console.log(response.data.estado);
+           if (response.data.estado=='guardado'){
+                   this.mensaje = 'La información ha sido guardada.';
+                   this.tipoalerta = 'warning';
+           }
+
+          if (response.data.estado=='cerrado'){
+                   this.mensaje = 'Este registro ha sido completado';
+                   this.tipoalerta = 'success';
+           }
 
          }
        ).catch(
          error=> {
            console.log(error);
+             this.loading = false;
          }
        );
        

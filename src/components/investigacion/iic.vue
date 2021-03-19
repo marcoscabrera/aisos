@@ -2,10 +2,10 @@
   <v-container name="investigacion">
     <!-- pediente la fecha -->
         <v-row>
-        <v-col cols="12" xs="12" sm="6" md="6">
+        <v-col cols="12" xs="12" sm="12" md="6">
            <h2>Investigacion Interna</h2>
         </v-col>
-        <v-col cols="12" xs="12" sm="6" md="6">
+        <v-col cols="12" xs="12" sm="12" md="6">
 
 
             <BarraDeNavegacion
@@ -20,6 +20,7 @@
     <FoliosComponente
       :folio="investigacion.folio"
       :foliodenuncia="investigacion.folioinvestigacion"
+      :date ="investigacion.fechaCreacion"
       tipofolio="INVESTIGACIÓN"
     >
     </FoliosComponente>
@@ -91,6 +92,7 @@
       :sihayarchivo="informe_siHayArchivo"
       action_a_ejecutar="action_informe_docto"
       campo="investigacion_informe_docto"
+             
     >
     </ArchivoImpresionComponente>
     <br>
@@ -112,12 +114,14 @@
       </v-card>
     </v-row>
     <br >
-
+    <v-alert :type="tipoalerta">
+       {{mensaje}}
+    </v-alert>
+    <br>
     <v-row>
       <v-col cols="12" xs="12" sm="12" md="4">
-        <v-btn
-          :loading="loading"
-          :disabled="loading"
+        <!-- <v-btn
+      
           color="primary"
           @click="permisoImpresion"
           block
@@ -125,14 +129,14 @@
           <v-icon right dark> mdi-printer </v-icon>
           <v-spacer></v-spacer>
           Imprimir
-        </v-btn>
+        </v-btn> -->
       </v-col>
       <v-col cols="12" xs="12" sm="12" md="4">
-        <v-btn color="red" @click="irADash" block>
+      <!---  <v-btn color="red" @click="irADash" block>
           <v-icon right dark> mdi-close </v-icon>
           <v-spacer></v-spacer>
           Cancelar
-        </v-btn>
+        </v-btn> -->
       </v-col>
       <v-col cols="12" xs="12" sm="12" md="4">
         <v-btn
@@ -171,6 +175,8 @@ export default {
   },
   data() {
     return {
+      tipoalerta : '',
+      mensaje : '',
       folio: "",
       folioinvestigacion: "",
       siHayArchivo: false,
@@ -248,7 +254,7 @@ export default {
     },
     guardar() {
       console.log(" guardar esta info");
-
+      this.loading =true;
       let parametros = {
         id: this.investigacion.id,
         folioinvestigacion: this.$store.state.investigacion
@@ -275,9 +281,22 @@ export default {
       update
         .then((response) => {
           console.log(JSON.stringify(response.data));
+          this.loading= false;
+
+          console.log(response.data.estado);
+           if (response.data.estado=='guardado'){
+                   this.mensaje = 'La información ha sido guardada.';
+                   this.tipoalerta = 'warning';
+           }
+
+          if (response.data.estado=='cerrado'){
+                   this.mensaje = 'Este registro ha sido completado';
+                   this.tipoalerta = 'success';
+           }
         })
         .catch((error) => {
           console.log(JSON.stringify(error.data));
+           this.loading= false;
         });
     }, //termina upodate
 
@@ -359,7 +378,8 @@ export default {
           investigacion.informe_docto_Archivo.hayArchivo);
 
       this.$store.dispatch("action_investigacion_informe_docto_nombre",this.this.informe_NombreArchivo);
-       this.$store.dispatch("action_informe_docto", this.informe_archivoId);
+      this.$store.dispatch("action_informe_docto", this.informe_archivoId);
+
     },
 
     irAevidencias() {

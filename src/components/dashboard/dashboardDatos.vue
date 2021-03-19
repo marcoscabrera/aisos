@@ -11,7 +11,10 @@
     class="elevation-1"
     :loading="cargandoDatos"
     loading-text="Cargando... por favor sea paciente"
+   
   >
+
+
     <template v-slot:item.activo="{ item }">
       <v-simple-checkbox v-model="item.activo" enabled></v-simple-checkbox>
     </template>
@@ -22,29 +25,169 @@
       </td>
     </template>
 
+
     <template v-slot:top>
-      <v-toolbar flat color="white">
-        <v-toolbar-title>Incidentes</v-toolbar-title>
-        <v-divider class="mx-4" inset vertical></v-divider>
-        <!-- <v-chip>1.- Valoración Inicial</v-chip>
-        <v-chip>2.- Valoración Integral</v-chip>
-        <v-chip>3.- Seguimiento</v-chip>
-        <v-chip>4.- Cierre</v-chip> -->
-        <v-divider class="mx-4" inset vertical></v-divider>
-        <v-spacer></v-spacer>
+      
+          <v-toolbar flat color="white">
 
-        <v-btn color="primary"   dark class="mb-2" @click="togglecols">
-          <v-icon>
-            mdi-toggle-switch
-          </v-icon>
-        </v-btn>
+              <v-toolbar-title>Incidentes</v-toolbar-title>
+              <v-divider class="mx-4 d-none d-sm-flex d-sm-none d-md-flex" inset vertical></v-divider>
+              <v-spacer></v-spacer>
 
-       <v-divider class="mx-4" inset vertical></v-divider>
 
-        <v-btn color="primary"  v-if="puedeCrearUnNuevoIncidente" dark class="mb-2" @click="irADenuncias">
-          Nuevo Incidente
-        </v-btn>
-      </v-toolbar>
+              <v-btn color="primary"   
+              dark 
+              class="mb-2 d-none d-sm-flex d-sm-none d-md-flex" 
+              @click="togglecols">
+                <v-icon>
+                  mdi-toggle-switch
+                </v-icon>
+              </v-btn>
+
+             <v-divider class="mx-4" inset vertical></v-divider>
+
+              <v-btn v-if="mostrarBotonDeBusquedas"
+              color="primary" 
+               dark class="mb-2" 
+               @click="mostrarLasBarrasDeBusqueda">
+                 <v-icon>
+                 mdi-file-find
+                </v-icon>
+               
+              </v-btn>
+
+              <v-btn color="primary" 
+               dark class="mb-2" 
+               @click="cargarTodosLosIncidentes">
+                 <v-icon>
+                 mdi-update
+                </v-icon>
+               
+              </v-btn>
+
+              <v-divider class="mb-2 d-none d-sm-flex d-sm-none d-md-flex mx-4"    inset vertical></v-divider>
+
+              <v-btn color="primary" 
+               v-if="puedeCrearUnNuevoIncidente"
+                dark 
+                class="mb-2" 
+                @click="irADenuncias">
+                <v-icon class="d-flex d-sm-flex d-md-none">
+                  mdi-text-box-plus-outline
+                </v-icon>
+                <span class="d-none d-md-flex ">
+                   Nuevo Incidente
+                </span>
+               
+              </v-btn>
+        
+
+
+          </v-toolbar>
+
+ 
+
+          <!--  v-if="mostrarBusquedas" -->
+          <v-toolbar  v-if="mostrarBusquedas" flat color="white">
+
+            <v-toolbar-items >
+
+              <v-row >
+                  <v-col cols="12" xs="12" sm="12" md="6" lg="6">
+                      <v-row>
+                            <v-col cols="6" xs="6" sm="6" md="6" lg="6">
+                              <v-text-field
+                              v-model="busquedaArealizar"
+                              dense
+                              label=""
+                              clearable
+                              prefix="Folio"
+                              prepend-icon="mdi-magnify"
+                              >
+                              </v-text-field>
+                            </v-col>
+
+                            <v-col cols="6" xs="6" sm="6" md="6" lg="6">
+                              <v-btn
+                              dark
+                              dense
+                              color ="primary"
+                              block
+                              @click="busquedaPorFolio"
+                              >
+                              <v-icon>
+                                mdi-magnify
+                              </v-icon>
+
+                            </v-btn>
+                            </v-col>
+
+                      </v-row>
+                  </v-col>
+
+
+                  <v-col cols="12" xs="12" sm="12" md="6" lg="6">
+                      <v-row>
+                          <v-col cols="12" xs="12" sm="12" md="3" lg="3">
+                    
+                                  <v-select 
+                                  v-model="tipoDePrograma"
+                                  block
+                                    label ="Programas"
+                                  :items = "itemsProgramas">
+                                    Programas
+                                  </v-select> 
+                          </v-col>
+
+                          <v-col cols="12" xs="12" sm="12" md="3" lg="3">
+                                <v-select
+                                v-model="tipoDeEstado"
+                                block
+                                  label="Estado"
+                                  :items = "itemsEstados">
+                                  Estados
+                                  </v-select>  
+                          </v-col>
+
+                          <v-col cols="12" xs="12" sm="12" md="3" lg="3">
+                              <v-select 
+                              v-model="tipoDeRespuesta"
+                                block
+                                label="Respuestas"
+                                :items = "itemsRespuestas">
+                                Respuestas
+                              </v-select> 
+                          </v-col>
+
+                          <v-col cols="12" xs="12" sm="12" md="3" lg="3">
+                             <v-btn
+                              color="primary"
+                              dark
+                              dense
+                              block
+                              @click="filtrarEnBaseDeDatos"
+                              >
+                              <v-icon>
+                                mdi-magnify
+                              </v-icon>
+                              
+                              </v-btn>
+                          </v-col>
+                      </v-row>
+                  </v-col>
+              </v-row>
+  
+            </v-toolbar-items>
+ 
+
+
+          </v-toolbar>
+   
+         
+
+
+          <br>
+     
     </template>
     <!--
       
@@ -235,10 +378,31 @@
 
 <script>
 import apiIncidentes from "@/apialdeas/apiIncidentes.js";
+import apiProgramas from  "@/apialdeas/apiProgramas.js"; 
 import validacionSeguimiento from '@/components/etapas/validaciones/validacionSeguimiento.js';
+//import PanelDenunciaComponentes from '@/components/usuarios/componentes/PanelDenunciaComponentes.vue';
 
 export default {
   data: () => ({
+
+    /* variables para ui */
+    //visualiza u oculta el boton para mostrar el Boton de busquedas.
+    mostrarBotonDeBusquedas : false,
+
+   /* Valores para las combos que realizan la busqueda */
+    tipoDePrograma  : 'TODOS' ,
+    tipoDeEstado : 'TODOS' ,
+    tipoDeRespuesta : 'TODOS',
+
+
+    mostrarBusquedas:false,
+    itemsFolios :['Folio', 'Todos'],
+    itemsProgramas :[],
+    itemsEstados : ['TODOS','CERRADOS' ,'ABIERTOS','CERRADOS POR NO SER INCIDENTE'],
+    itemsRespuestas  : ['TODOS','DENUNCIA LEGAL', 'INVESTIGACIÓN INTERNA', 'ABORDAJE INTERNO'],
+    prefijo : 'Folio',
+    busquedaArealizar : '',
+    mostarBarraBusquedas : false,
     ocultar : false,
     puedeCrearUnNuevoIncidente  :  false,
     puedeVerValoracionInicial  :  false,
@@ -349,6 +513,249 @@ export default {
   },
 
   methods: {
+
+    filtrarEnBaseDeDatos(){
+
+
+       let usuarioLogueadoID = this.$store.state.usuarios.usuarios_usuariologueado.id;
+     
+       if( this.tipoDeEstado.length == 0 ) { this.tipoDeEstado = 'TODOS' }
+       if( this.tipoDePrograma.length == 0 ) { this.tipoDePrograma = 'TODOS' }
+       if( this.tipoDeRespuesta.length == 0 ) { this.tipoDeRespuesta = 'TODOS' }
+
+      let valor ='';
+      switch(this.tipoDeEstado)
+        {
+          case 'TODOS':
+           valor ='TODOS';
+           break;
+        case 'CERRADOS':
+          valor = 'cerrado';
+        break;
+        case 'ABIERTOS':
+          valor = 'abierto';
+        break;
+        case 'CERRADOS POR NO SER INCIDENTE':
+          valor = 'cerrado_x_ni';
+        break;
+        }
+
+        
+
+      var parametros = {
+
+        idusuario : usuarioLogueadoID,
+        tipoDePrograma :  this.tipoDePrograma,
+        tipoDeEstado   :  valor,
+        tipoDeRespuesta : this.tipoDeRespuesta
+
+      };
+
+      let p = apiIncidentes.buscarIncidente_parametros(parametros, this.$store);
+
+       p
+      .then( response => {
+         console.log(JSON.stringify(response.data));
+           this.incidentes = response.data;
+         })
+      .catch( error => { console.log(JSON.stringify(error.data))});
+        
+
+
+
+    },
+
+    filtrar(){
+     
+     console.log(this.tipoDePrograma + ' - ' + this.tipoDeEstado +' - ' + this.tipoDeRespuesta);
+     
+     let tempArray=[];
+      // itemsEstados : ['TODOS','CERRADOS' ,'ABIERTOS','CERRADO POR NO SER INCIDENTE'],
+   
+     tempArray =  this.incidentes.map(  function(item, index)  {
+        typeof index;
+       // console.log(item.estado +' - ' + this.tipoDeEstado);
+
+        var i = item;
+        
+       if ( this.tipoDeEstado == 'TODOS' )
+        { return i ;}
+
+        var valor = '';
+        
+        switch(this.tipoDeEstado)
+        {
+          case 'TODOS':
+           valor ='todos';
+           break;
+        case 'CERRADOS':
+          valor = 'cerrado';
+        break;
+        case 'ABIERTOS':
+          valor = 'abierto';
+        break;
+        case 'CERRADOS POR NO SER INCIDENTE':
+          valor = 'cerrado_x_ni';
+        break;
+        }
+        
+       // console.log("antes _ item " +  i.estado );
+
+       // console.log("antes _" + valor); 
+
+   
+
+        if (i.estado == valor)
+        {
+            console.log("return " +  i.estado );
+            console.log("return " + valor);
+              console.log("item " + i);
+            return i;
+        
+        }
+     });
+
+
+     console.log(tempArray);
+     this.incidentes =tempArray;
+
+  },
+
+    cargarTodosLosProgramas(){
+
+      let programaid =  this.$store.state.usuarios.usuarios_usuariologueado_rol.VISIBILIDADDEINCIDENTES;
+      
+      console.log("valor de store.state.usuarios.usuarios_usuariologueado_rol.VISIBILIDADDEINCIDENTES : " + programaid);
+   
+
+     let promesa = apiProgramas.cargar__todo__los__programas_columna(this.$store);
+      
+       promesa
+      .then( response => {
+         console.log(JSON.stringify(response.data));
+           
+           this.itemsProgramas = response.data;
+           this.itemsProgramas.push("TODOS");
+
+         } )
+      .catch( error => { console.log(JSON.stringify(error.data))});
+
+
+    },
+     cargarTodosLosIncidentes(){
+        this.initialize();
+     },
+     busquedaPorFolio(){
+
+     let f  =  this.busquedaArealizar;
+
+     console.log(">>>>>>>>>>>> " + f);
+       
+       let incidenteBuscado = apiIncidentes.buscarIncidente(f, this.$store );
+       
+       incidenteBuscado
+      .then( response => { 
+
+        console.log(response.data);
+         
+        this.incidentes = response.data;
+
+        } )
+      .catch( error => { console.log(JSON.stringify(error.data))});
+       
+     },
+
+    mostrarLasBarrasDeBusqueda(){
+
+      this.mostrarBusquedas == false ? 
+      this.mostrarBusquedas = true : 
+      this.mostrarBusquedas= false;
+
+       this.buscarVersionViewport( this.mostrarBusquedas);
+
+    },
+    //convertir a mobile 
+
+    cssXS_SM(){
+      try {
+  //utyilizar 
+  // https://stackoverflow.com/questions/49551205/best-way-to-dynamically-change-theme-of-my-vue-js-spa
+    // var elemente = document.getElementsByClassName('v-data-table__wrapper')[1];
+    
+    var elemente =  document.querySelector("div.v-data-table__wrapper");
+
+     console.log(elemente);
+     //elemente.style.marginTop ="300 px"; 
+     this.mostrarBusquedas==true 
+     ? elemente.classList.add("agregar_300px_margintop")
+     :elemente.classList.remove("agregar_300px_margintop")
+    
+      }catch(error){
+        console.log(" errore en cssxm_sm " + error);
+      }
+    },
+
+    cssMD_LG(){
+     
+     var elemente =  document.querySelector("div.v-data-table__wrapper");
+
+     this.mostrarBusquedas==true 
+     ? elemente.classList.add("agregar_50px_margintop")
+     :elemente.classList.remove("agregar_50px_margintop")
+    
+    
+    },
+    
+    buscarVersionViewport( mb) {
+        typeof mb;
+        
+
+         console.log(" <<<<<< VALOR BREAKPOINT.NAME >>>>>> " + this.$vuetify.breakpoint.name);
+         
+         switch (this.$vuetify.breakpoint.name) {
+            case 'xs': 
+            this.cssXS_SM();
+            break;
+
+            case 'sm':  
+            this.cssXS_SM();
+            break;
+
+            case 'md':  
+           this.cssMD_LG();
+            break;
+
+            case 'lg':  
+            this.cssMD_LG();
+            break;
+
+            case 'xl':  
+           this.cssMD_LG();
+            break;
+        }
+    },
+    buscarPor(tema){
+         this.prefijo = 'Folio';
+        switch(tema) {
+
+          case  'usuarios' : 
+           this.prefijo = 'usuario :';
+          break;
+
+          case  'programas' : 
+           this.prefijo = 'programa :';
+          break;
+
+          case 'fecha':
+          this.prefijo = 'fecha :';
+          break;
+
+          case 'folio':
+            this.prefijo = 'folio';
+          break;
+        }
+
+    },
     togglecols(){
        
        this.ocultar == false ? this.ocultar=true : this.ocultar=false;
@@ -386,6 +793,10 @@ export default {
     permisosDeRol.VISUALIZACIONDESEGUIMIENTO == "SI" ?  this.puedeVerSeguimiento = true : this.puedeVerSeguimiento = false;
 
     permisosDeRol.VISUALIZACIONDECIERRE == "SI" ?  this.puedeVerCierre = true : this.puedeVerCierre = false;
+
+    permisosDeRol. VISIBILIDADDEINCIDENTES == "TODOS" ? this.mostrarBotonDeBusquedas = true : this.mostrarBotonDeBusquedas = false;
+     
+
     console.log( this.puedeCrearUnNuevoIncidente);
     console.log( this.puedeVerValoracionInicial);
     console.log(this.puedeverValoracionIntegral);
@@ -393,6 +804,12 @@ export default {
     console.log(this.puedeVerCierre);
 
     },
+    
+    mostarBarraBusquedas_proceso(){
+       this.mostarBarraBusquedas = true ;
+       this.buscarVersionViewport();
+    },
+
     ir_a_respuesta(valor) {
       /* 
         "DENUNCIA PENAL",
@@ -404,7 +821,10 @@ export default {
 
       // var ruta = '';
 
-      if (valor.tipoderespuesta == "DENUNCIA PENAL") {
+      if (valor.tipoderespuesta == "DENUNCIA LEGAL") {
+
+        this.$store.dispatch("setear_Incidente",valor.id);
+
         this.$router.push({
           name: "DenunciaLegal",
           params: { denunciaId: valor.id },
@@ -412,6 +832,9 @@ export default {
         // this.$router.push('/denuncialegal');
       }
       if (valor.tipoderespuesta == "INVESTIGACION INTERNA") {
+
+        this.$store.dispatch("setear_Incidente",valor.id);
+
         this.$router.push({
           name: "InvestigacionInterna",
           params: { incidenteId: valor.id },
@@ -419,11 +842,17 @@ export default {
         //this.$router.push('/investigacioninterna');
       }
       if (valor.tipoderespuesta == "ABORDAJE INTERNO") {
-        // this.$router.push({ name: "DenunciasDetalle", params: { id: ruta } });
-        console.log("no genera ningun movimiento");
+        this.$store.dispatch("setear_Incidente",valor.id);
+
+         this.$router.push(
+           { name: "AbordajeInterno", 
+           params: { incidenteId: valor.id } });
+       
       }
       
        if (valor.tipoderespuesta == "En Proceso de Valoracion") {
+         this.$store.dispatch("setear_Incidente",valor.id);
+
          console.log("en proceso de valoracion ");
          console.log(" valor de id " +  valor.id);
          
@@ -432,6 +861,8 @@ export default {
       }
 
        if (valor.tipoderespuesta == "NO ES UN INCIDENTE") {
+         this.$store.dispatch("setear_Incidente",valor.id);
+
           this.$router.push({
           name: "Notificacioncerrado" });
          }
@@ -447,6 +878,9 @@ export default {
       this.$router.push(ruta);
     },
     irAValoracionInicial(ruta) {
+      
+      
+      this.$store.dispatch("setear_Incidente",ruta);
 
       if(   this.puedeVerValoracionInicial  != false){
         console.log("is a visitar " + ruta);
@@ -463,6 +897,9 @@ export default {
       console.log(" puedeverValoracionIntegral: " + this.puedeverValoracionIntegral );
       console.log(" id : " + id );
 
+      this.$store.dispatch("setear_Incidente",id);
+
+
        if(   this.puedeverValoracionIntegral  != false){
             this.$router.push({ name: "ValoracionIntegral", params: { id: id } });
        }
@@ -471,6 +908,8 @@ export default {
       // named route
         },
     irASeguimiento(id) {
+         this.$store.dispatch("setear_Incidente",id);
+
          validacionSeguimiento.inicializar_captura_De_errores(this.$store);
       if(   this.puedeVerSeguimiento  != false){
             console.log(" valor de id :  " + id);
@@ -481,6 +920,8 @@ export default {
     },
 
     irACierre(id) {
+      this.$store.dispatch("setear_Incidente",id);
+
 
             if(   this.puedeVerCierre  != false){
             this.$router.push({ name: "Cierre", params: { incidenteId: id } });
@@ -520,6 +961,7 @@ export default {
          
          // ser verifican los permisos del usuario 
           this.verificarPermisos();
+          this.cargarTodosLosProgramas();
     })
         .catch((error) => {
           console.log("mensaje de error :" + error.response);
@@ -560,10 +1002,16 @@ export default {
   },
 };
 </script>
-<style scoped>
 
 
+<style >
 
+ .agregar_300px_margintop {
+      margin-top:  300px !important;
+   }
+ .agregar_50px_margintop {
+      margin-top:  50px !important;
+   }
   .letrasNegras {
     color: black !important;
 }

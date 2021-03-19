@@ -50,7 +50,7 @@ export default {
     return {
       
       itemsOpciones: [
-        "DENUNCIA PENAL",
+        "DENUNCIA LEGAL",
         "INVESTIGACION INTERNA",
         "ABORDAJE INTERNO",
       ],

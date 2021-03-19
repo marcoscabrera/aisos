@@ -19,7 +19,7 @@
                 </uploadFile2> 
             </v-col>
             <v-col cols="12" xs="12" sm="12" md="6">
-              <v-btn
+             <!-- <v-btn
                 :loading="loading"
                 :disabled="loading"
                 color="primary"
@@ -30,7 +30,7 @@
                 <v-spacer></v-spacer>
 
                 Imprimir
-              </v-btn>
+              </v-btn> -->
             </v-col>
           </v-row>
         </v-card-text>
