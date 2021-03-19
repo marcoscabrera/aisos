@@ -205,10 +205,13 @@ SE CUENTA CON EL LLENADO DEL ACTA DE VALORACION DEL/DE LOS INCIDENTES
     <!-- =============================================== -->
 
     <br>
-
+    <v-alert :type="tipoalerta">
+       {{mensaje}}
+    </v-alert>
+    <br>
     <v-row>
       <v-col cols="12" xs="12" sm="12" md="4">
-        <v-btn
+       <!-- <v-btn
           :loading="loading"
           :disabled="loading"
           color="primary"
@@ -218,7 +221,7 @@ SE CUENTA CON EL LLENADO DEL ACTA DE VALORACION DEL/DE LOS INCIDENTES
           <v-icon right dark> mdi-printer </v-icon>
           <v-spacer></v-spacer>
           Imprimir
-        </v-btn>
+        </v-btn> -->
       </v-col>
       <v-col cols="12" xs="12" sm="12" md="4">
          <v-btn
@@ -397,8 +400,19 @@ export default {
       update.then(
         response =>{
           console.log( JSON.stringify(response.data));
-           console.log( 'actualizado seguimiento');
+           console.log( 'actualizado seguimiento: ' + response.data.estado);
           this.loading = false;
+         
+          if (response.data.estado=='abierto'){
+                   this.mensaje = 'La información ha sido guardada.';
+                   this.tipoalerta = 'warning';
+           }
+
+          if (response.data.estado=='cerrado'){
+                   this.mensaje = 'Este registro ha sido completado';
+                   this.tipoalerta = 'success';
+           }
+
         }
       ).catch(
          error =>{
@@ -668,6 +682,8 @@ export default {
 
   data() {
     return {
+      tipoalerta : '',
+      mensaje : '',
       errores : 0,
       tipoderespuesta : '',
       esDenuncia : false,
