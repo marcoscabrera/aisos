@@ -150,6 +150,7 @@ import controlDeSesion from '@/sesion/controlDeSesion.js';
             },
             aceptar() {
                 this.mostrarMenuLateral();
+                   
                 this.$router.push('Dashboard');
             }
         },

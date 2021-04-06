@@ -211,7 +211,7 @@ SE CUENTA CON EL LLENADO DEL ACTA DE VALORACION DEL/DE LOS INCIDENTES
     <br>
     <v-row>
       <v-col cols="12" xs="12" sm="12" md="4">
-       <!-- <v-btn
+        <v-btn
           :loading="loading"
           :disabled="loading"
           color="primary"
@@ -221,7 +221,7 @@ SE CUENTA CON EL LLENADO DEL ACTA DE VALORACION DEL/DE LOS INCIDENTES
           <v-icon right dark> mdi-printer </v-icon>
           <v-spacer></v-spacer>
           Imprimir
-        </v-btn> -->
+        </v-btn> 
       </v-col>
       <v-col cols="12" xs="12" sm="12" md="4">
          <v-btn
@@ -262,7 +262,7 @@ import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
 /* importar en el componente , antes del export defaiñt*/
 import validacionSeguimiento from "@/components/etapas/validaciones/validacionSeguimiento.js";
 
-import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
+//import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
 
 export default {
   components: {     
@@ -317,11 +317,12 @@ export default {
 
       //realizamos la solicitud del permiso//
        let idRecuperado = this.$route.params.id;
-       let usuario = this.$store.state.usuarios.usuarios_usuariologueado.id ;
-       let incidenteid =idRecuperado ;
-       let etapa="Seguimiento";
-       let s= this.$store;
-       solicitudPermisoImpresion.solicitudImpresion(usuario,incidenteid,etapa,s);
+       this.$store.dispatch('actions_permisosimpresion_incidenteid',this.$route.params.id);
+       this.$store.dispatch('actions_permisosimpresion_usuarioid', this.$store.state.usuarios.usuarios_usuariologueado.id);
+       this.$store.dispatch('actions_permisosimpresion_etapa', "Seguimiento");
+     
+     //  let s= this.$store;
+       //solicitudPermisoImpresion.solicitudImpresion(usuario,incidenteid,etapa,s);
        //-------------------------------------------------------------
 
        //Redireccionamos al usuario en caso de que no tenga los permisos 

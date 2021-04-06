@@ -1,71 +1,102 @@
 <template>
-  <v-container name="contenedornotificacion">
-    <v-row>
-      <h2 class="text-center">
-        <v-col>Solicitud de Impresión.</v-col>
-      </h2>
-    </v-row>
-    <v-row>
-      <v-col></v-col>
-      <v-col>
-        <p class="text-center">
-
-          Se ha notificado de su solicitud a los miembros del  comite de proteccion infantil via correo
-        </p>
-        <p class="text-center">
-          Usuario :<strong>** usuario actual de la sesion **</strong>
-        </p>
-      </v-col>
-      <v-col></v-col>
-    </v-row>
-
-    <v-row>
-      <v-col>
-        <v-btn color="blue" block
-        
+<v-card>
+  <v-card-title>
+   Solicitud de Impresión
+  </v-card-title>
+  <v-card-text v-if="TextoIndicacion">
+    <p> 
+     Para imprimir esta información se necesita solicitar un permiso.
+    </p>
+    <p>
+    ¿ Deseas solicitar permiso para imprimir esta información?
+    </p>
+  </v-card-text>
+    <v-card-text v-if="TextoRespuesta">
+    <p> 
+     Se ha enviado una solicitud de impresión 
+    </p>
+    <p>
+    En breve revise las notificaciones de su perfil.
+    </p>
+  </v-card-text>
+   <v-card-actions>
+     <v-row>
+       <v-col>
+                 <v-btn 
+        color="blue"
+         block
         @click="irADashboard"> Dashboard </v-btn>
-      </v-col>
+       </v-col>
 
-      <v-col>
-        <v-btn @click="irAdenuncia" color="blue" block> Ver Reporte </v-btn>
-      </v-col>
-    </v-row>
-  </v-container>
+       <v-col>
+ 
+          <v-btn   v-if="TextoIndicacion"
+            :loading="loading"
+            @click="solicitarPermiso" 
+            color="primary" block>
+              si, quiero un permiso
+          </v-btn>
+       </v-col>
+     </v-row>
+
+
+
+   </v-card-actions>
+
+
+</v-card>
+
 </template>
 <script>
 //import dashboardVista from '@/components/dashboard/dashboardVista.vue';
+
+import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
+
 export default {
-  name: "Dasboard",
+  name: "permisoDeImpresion",
 
   data() {
     return {
       //folio:this.$route.params.folio
+      loading : false,
+      TextoIndicacion : true,
+      TextoRespuesta : false,
+
     };
   },
 
+  mounted () {
+    
+  },
+
   methods: {
+
+
+
+    solicitarPermiso() {
+
+       this.loading = true ;
+       let usuario = this.$store.state.permisosimpresion.permisosimpresion_incidenteid;
+       let incidenteid = this.$store.state.permisosimpresion.permisosimpresion_usuarioid;
+       let etapa = this.$store.state.permisosimpresion.permisosimpresion_etapa;
+  
+       let s= this.$store;
+       solicitudPermisoImpresion.solicitudImpresion(usuario,incidenteid,etapa,s);
+       this.loading = false;
+
+       this.TextoRespuesta= true ;
+       this.TextoIndicacion= false;
+
+    },
 
     irADashboard(){
 
       this.$router.push('/dashboard');
     },
-    irAdenuncia() {
-         
-         let idRecuperado = this.$route.params.incidenteId;
-         this.$router.push({
-          name: "DenunciasDetalle",
-          params: { id: idRecuperado },
-        })
-    },
-    saludo() {
-      console.log("saludos estas en dasboard");
-    },
+
   },
 
-  updated() {
-    this.saludo();
-    
-  },
+
 };
 </script>
 

@@ -87,7 +87,7 @@
     <br>
     <v-row>
       <v-col cols="12" xs="12" sm="12" md="4">
-       <!-- <v-btn
+        <v-btn
           
           color="primary"
           @click="permisoImpresion"
@@ -96,10 +96,10 @@
           <v-icon right dark> mdi-printer </v-icon>
           <v-spacer></v-spacer>
           Imprimir
-        </v-btn> -->
+        </v-btn> 
       </v-col>
       <v-col cols="12" xs="12" sm="12" md="4">
-      <!--  <v-btn
+        <v-btn
           
           color="red"
        
@@ -108,7 +108,7 @@
           <v-icon right dark> mdi-close </v-icon>
           <v-spacer></v-spacer>
           Cancelar
-        </v-btn> -->
+        </v-btn> 
       </v-col>
       <v-col cols="12" xs="12" sm="12" md="4">
         <v-btn
@@ -132,7 +132,7 @@ import apiDenuncias from "@/apialdeas/apiDenuncias.js";
 import FoliosComponente  from "./componentesDenunciaLegal/FoliosComponente.vue";
 import barraDocumentos  from "@/components/barradocumentos/barraDocumentos.vue";
 import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
-import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
+//import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
 
 export default {
 
@@ -202,11 +202,13 @@ export default {
 
       //realizamos la solicitud del permiso//
        let idRecuperado = this.$route.params.id;
-       let usuario = this.$store.state.usuarios.usuarios_usuariologueado.id ;
-       let incidenteid =idRecuperado ;
-       let etapa="Denuncia";
-       let s= this.$store;
-       solicitudPermisoImpresion.solicitudImpresion(usuario,incidenteid,etapa,s);
+      
+
+       this.$store.dispatch('actions_permisosimpresion_incidenteid',this.$route.params.id);
+       this.$store.dispatch('actions_permisosimpresion_usuarioid', this.$store.state.usuarios.usuarios_usuariologueado.id);
+       this.$store.dispatch('actions_permisosimpresion_etapa', "Denuncia");
+     
+       //solicitudPermisoImpresion.solicitudImpresion(usuario,incidenteid,etapa,s);
        //-------------------------------------------------------------
 
        

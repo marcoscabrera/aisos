@@ -164,7 +164,7 @@ import apiInvestigacion from "@/apialdeas/apiInvestigacion.js";
 import barraDocumentos from "@/components/barradocumentos/barraDocumentos.vue";
 import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
 
-import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
+//import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
 
 export default {
   components: {
@@ -237,11 +237,13 @@ export default {
 
       //realizamos la solicitud del permiso//
        let idRecuperado = this.$route.params.id;
-       let usuario = this.$store.state.usuarios.usuarios_usuariologueado.id ;
-       let incidenteid =idRecuperado ;
-       let etapa="Investigacion Interna";
-       let s= this.$store;
-       solicitudPermisoImpresion.solicitudImpresion(usuario,incidenteid,etapa,s);
+      
+       
+       this.$store.dispatch('actions_permisosimpresion_incidenteid',this.$route.params.id);
+       this.$store.dispatch('actions_permisosimpresion_usuarioid', this.$store.state.usuarios.usuarios_usuariologueado.id);
+       this.$store.dispatch('actions_permisosimpresion_etapa', "Investigacion Interna");
+     
+     //  solicitudPermisoImpresion.solicitudImpresion(usuario,incidenteid,etapa,s);
        //-------------------------------------------------------------
         
         //redirrecionamos al usuario hacia la pantalla de notificacion de permisos

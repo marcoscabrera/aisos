@@ -216,7 +216,7 @@ import validacionReporteInicial from   "@/components/etapas/validaciones/validac
 //import medidasCrud from "@/components/seguimiento/medidasCrud.vue";
 import validacionArchivo from  "@/components/etapas/validaciones/validacionArchivos.js";
 
-import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
+//import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
 
 export default {
   components: {
@@ -422,14 +422,13 @@ export default {
        /* En caso de que no se tenga permiso */
 
       //realizamos la solicitud del permiso//
+
+       this.$store.dispatch('actions_permisosimpresion_incidenteid',this.$route.params.id);
+       this.$store.dispatch('actions_permisosimpresion_usuarioid', this.$store.state.usuarios.usuarios_usuariologueado.id);
+       this.$store.dispatch('actions_permisosimpresion_etapa', "Valoracion Integral");
+     
        let idRecuperado = this.$route.params.id;
-       let usuario = this.$store.state.usuarios.usuarios_usuariologueado.id ;
-       let incidenteid =idRecuperado ;
-       let etapa="Valoracion Integral";
-       let s= this.$store;
-       solicitudPermisoImpresion.solicitudImpresion(usuario,incidenteid,etapa,s);
-       //-------------------------------------------------------------
-      
+     
        //Redireccionamos al usuario hacia la pantalla de notificacion
        // de solicitud de permiso.
         

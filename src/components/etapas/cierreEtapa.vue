@@ -346,7 +346,7 @@ import apiArchivos from '@/apialdeas/apiArchivos.js';
 import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
 
 
-import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
+//import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
 
 
 export default {
@@ -383,11 +383,13 @@ export default {
 
       //realizamos la solicitud del permiso//
        let idRecuperado = this.$route.params.id;
-       let usuario = this.$store.state.usuarios.usuarios_usuariologueado.id ;
-       let incidenteid =idRecuperado ;
-       let etapa="Cierre";
-       let s= this.$store;
-       solicitudPermisoImpresion.solicitudImpresion(usuario,incidenteid,etapa,s);
+    
+      // let s= this.$store;
+       this.$store.dispatch('actions_permisosimpresion_incidenteid',this.$route.params.id);
+       this.$store.dispatch('actions_permisosimpresion_usuarioid', this.$store.state.usuarios.usuarios_usuariologueado.id);
+       this.$store.dispatch('actions_permisosimpresion_etapa', "Cierre");
+     
+     //  solicitudPermisoImpresion.solicitudImpresion(usuario,incidenteid,etapa,s);
        //-------------------------------------------------------------
 
           

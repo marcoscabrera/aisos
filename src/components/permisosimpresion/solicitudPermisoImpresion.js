@@ -3,7 +3,7 @@ import apiPermisosimpresion from '@/apialdeas/apiPermisosimpresion.js';
 
 export default {
 
-  solicitudImpresion(
+async  solicitudImpresion(
        usuarioid,
        incidenteid,
        etapa,

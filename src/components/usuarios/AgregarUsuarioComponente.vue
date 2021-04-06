@@ -178,7 +178,10 @@
             <v-btn block color="red" dark @click="close">Cancelar </v-btn>
         </v-col>
         <v-col>
-            <v-btn block color="green" :loading="loading" dark @click="save">
+            <v-btn 
+            block 
+            color="green" 
+            :loading="loading" dark @click="save">
             Guardar
             </v-btn>
         </v-col>

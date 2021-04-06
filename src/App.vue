@@ -64,8 +64,9 @@
             <v-list-item-title color="white"> Estadisticas </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-
-        <v-list-item @click="irAconfiguracion" v-if="this.$store.state.uivars.uivars_puedever_configuracion">
+       
+       <!---
+        <v-list-item @click="irAconfiguracion" >
           <v-list-item-action>
             <v-icon color="white"> mdi-application-cog </v-icon>
           </v-list-item-action>
@@ -73,6 +74,7 @@
             <v-list-item-title color="white"> Configuracion </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        -->
 
         <v-list-item  @click="cerrarSesion">
           <v-list-item-action>
@@ -96,6 +98,11 @@
       </v-img></a>
       <v-spacer></v-spacer>
       <v-app-bar-title :class="cssResponsiveTexto">Plataforma interna de protección infantil SOS México</v-app-bar-title>
+    
+
+     <ComponenteCardUsuarioLogueado>
+
+     </ComponenteCardUsuarioLogueado>
     </v-app-bar>
 
     <!-- Sizes your content based upon application components -->
@@ -103,7 +110,9 @@
       <!-- Provides the application the proper gutter -->
       <v-container fluid >
         <!-- If using vue-router -->
+        <!--
         <DatosDelUsuarioComponente v-if="this.$store.state.uivars.uivars_hayUnUsuarioLogueado"></DatosDelUsuarioComponente>
+         -->
         <router-view></router-view>
       </v-container>
     </v-main>
@@ -115,16 +124,19 @@
 </template>
 
 <script>
-import DatosDelUsuarioComponente from '@/components/usuarios/componentes/DatosDelUsuarioComponente.vue';
+//import DatosDelUsuarioComponente from '@/components/usuarios/componentes/DatosDelUsuarioComponente.vue';
 import apiParametros from '@/apialdeas/apiParametros.js';
 import controlDeSesion   from '@/sesion/controlDeSesion.js';
 import variablesLocales from '@/store/variablesLocales.js';
+import ComponenteCardUsuarioLogueado from '@/components/usuarios/componentes/ComponenteCardUsuarioLogueado.vue';
 
 export default {
   name: "App",
 
   components: {
-    DatosDelUsuarioComponente
+    //DatosDelUsuarioComponente
+    ComponenteCardUsuarioLogueado
+
   },
  
   computed : {
@@ -147,13 +159,17 @@ export default {
     puedeCrearCatalogos: false,
     puedevermenulateral :false,
     imagenLogin: '',
-    cssResponsiveTexto : ''
+    cssResponsiveTexto : '',
+    PuedeVerConfiguracion : false,
   }),
   mounted () {
     this.crearToken();
      this.cargarLosParametros();
     this.mostrarMenuLateral();
     this. claseCss();
+    
+
+
 
    },  
   methods: {

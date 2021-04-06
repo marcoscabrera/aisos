@@ -15,8 +15,7 @@
              >
              </BarraDeNavegacion>
        <!-- import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
-
--->
+        -->
         </v-col>
     </v-row>
    
@@ -281,7 +280,7 @@ import validacionReporteInicial from   "@/components/etapas/validaciones/validac
 //import valoracionIntegralEtapa from '@/components/etapas/valoracionIntegralEtapa.vue';
 import impresiones_etapauno from '@/components/etapas/impresiones/impresiones_etapauno.js';
 
-import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
+//import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
 
 export default {
   components: {
@@ -310,6 +309,9 @@ export default {
 
   methods: {
    
+   //se crea el array datos y se le asigna los valores de las variables 
+   //que almacenan la informacion de esta etapa del reporte de incidente.
+   //para posteriormente pasar el array como parametro en funcion
     setearValores_para_impresion(){
    
 
@@ -323,34 +325,41 @@ export default {
       datos.RegistroHechos= this.registrohechos;
       datos.perfildelagresor= this.perfildelagresor;
       datos.paadultocolaborador=this.paadultocolaborador;
-       datos.paadultocolaboradortipo=this.paadultocolaboradortipo;
-       datos.perfilvictima= this.perfilvictima ;
+      datos.paadultocolaboradortipo=this.paadultocolaboradortipo;
+      datos.perfilvictima= this.perfilvictima ;
       datos.recibeayuda=  this.recibeayuda ;
       datos.medidasproteccion=  this.medidasproteccion ;
       datos.incidenteconfirmado=  this.incidenteconfirmado ;
       datos.testigos= this.testigos;
-
-
      impresiones_etapauno.setearValores(datos, this.$store);
     },
+
+
+
+
+
+
     solicitudImpresion(){
 
 
-      // 
-          console.log(" Permiso IMPRESIONVALORACIONINICIAL  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.IMPRESIONVALORACIONINICIAL)             
+   
+     console.log(" Permiso IMPRESIONVALORACIONINICIAL  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.IMPRESIONVALORACIONINICIAL)             
+     
      if (this.$store.state.usuarios.usuarios_usuariologueado_rol.IMPRESIONVALORACIONINICIAL=='SI'){
 
        //NOTA:
        /*
         AQUI VA EL CODIGO PARA REALIZAR LA IMPRESION .
+        por el momento visualizamos en la pantalla.
          */
 
         ///////////////////////////////////////
         // seteamos los valores a iutlizar 
         ////////////////////////////////////////
         this.setearValores_para_impresion();
-        ////////////////////////////////////
-   this.$router.push({
+        ////////////////////////////////////////
+
+        this.$router.push({
           name: "ReporteImpresion"
         });
 
@@ -358,25 +367,44 @@ export default {
 
 
      }else {
+
+
        //realizamos la solicitud del permiso//
-       let idRecuperado = this.$route.params.id;
-       let usuario = this.$store.state.usuarios.usuarios_usuariologueado.id ;
-       let incidenteid =idRecuperado ;
-       let etapa="Valoración Inicial";
-       let s= this.$store;
-       solicitudPermisoImpresion.solicitudImpresion(usuario,incidenteid,etapa,s);
-       //-------------------------------------
-      
-      
-      //redireccionamos a pantalla
+       /*
+
+        actions_uivars_error_permisosimpresion_id
+        actions_uivars_error_permisosimpresion_usuarioid
+        actions_uivars_error_permisosimpresion_incidenteid
+        actions_uivars_error_permisosimpresion_etapa
+        actions_uivars_error_permisosimpresion_password
+        actions_uivars_error_permisosimpresion_respuesta
+        actions_uivars_error_permisosimpresion_usuarioidautorizo
+        actions_uivars_error_permisosimpresion_vigente
+        actions_uivars_error_permisosimpresion_fechapeticion
+        actions_uivars_error_permisosimpresion_fechaautorizacion
+
+       */
+       this.$store.dispatch('actions_permisosimpresion_incidenteid',this.$route.params.id);
+       this.$store.dispatch('actions_permisosimpresion_usuarioid', this.$store.state.usuarios.usuarios_usuariologueado.id);
+       this.$store.dispatch('actions_permisosimpresion_etapa', "Valoración Inicial");
+             
+      //-------------------------------------
+       //redireccionamos a pantalla
       this.$router.push({
           name: "PermisoImpresion",
-          params: { incidenteId: idRecuperado },
+          params: { incidenteId: this.$route.params.id },
         });
 
 
      }//termina if del pedido
     },
+
+
+
+
+
+
+
     guardar__iraDashboard() {
       this.$router.push("/dashboard");
     },
@@ -598,7 +626,9 @@ const  {
 
     /******************* */
     guardar_nuevoIncidente(){
-this.loadingGuardar = true;
+
+    //esta variable activa la animacion del --loader-- del boton
+    this.loadingGuardar = true;
     
 
 const  { 
