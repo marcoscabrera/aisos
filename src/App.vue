@@ -97,7 +97,7 @@
      
       </v-img></a>
       <v-spacer></v-spacer>
-      <v-app-bar-title :class="cssResponsiveTexto">Plataforma interna de protección infantil SOS México</v-app-bar-title>
+      <v-app-bar-title :class="cssResponsiveTexto">..Plataforma interna de protección infantil SOS México</v-app-bar-title>
     
 
      <ComponenteCardUsuarioLogueado>
