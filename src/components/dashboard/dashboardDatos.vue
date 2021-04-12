@@ -44,33 +44,41 @@
                 </v-icon>
               </v-btn>
 
-             <v-divider class="mx-4" inset vertical></v-divider>
+            <v-divider class="mb-2 d-none d-sm-flex d-sm-none d-md-flex mx-2"    inset vertical></v-divider>
+
 
               <v-btn v-if="mostrarBotonDeBusquedas"
-              color="primary" 
-               dark class="mb-2" 
-               @click="mostrarLasBarrasDeBusqueda">
+                 color="primary" 
+                 dark class="mb-2 margen_5px" 
+                 @click="mostrarLasBarrasDeBusqueda">
                  <v-icon>
                  mdi-file-find
                 </v-icon>
-               
+                 <span class="d-none d-md-flex ">
+                Busquedas
+                </span>
               </v-btn>
 
+              <v-divider class="mb-2 d-none d-sm-flex d-sm-none d-md-flex mx-2"    inset vertical></v-divider>
+
+
               <v-btn color="primary" 
-               dark class="mb-2" 
+               dark class="mb-2 margen_5px" 
                @click="cargarTodosLosIncidentes">
                  <v-icon>
                  mdi-update
                 </v-icon>
-               
+                <span class="d-none d-md-flex ">
+                Actualizar
+                </span>
               </v-btn>
 
-              <v-divider class="mb-2 d-none d-sm-flex d-sm-none d-md-flex mx-4"    inset vertical></v-divider>
+              <v-divider class="mb-2 d-none d-sm-flex d-sm-none d-md-flex mx-2"    inset vertical></v-divider>
 
               <v-btn color="primary" 
                v-if="puedeCrearUnNuevoIncidente"
                 dark 
-                class="mb-2" 
+                class="mb-2 margen_5px" 
                 @click="irADenuncias">
                 <v-icon class="d-flex d-sm-flex d-md-none">
                   mdi-text-box-plus-outline
@@ -1004,7 +1012,10 @@ export default {
 </script>
 
 
-<style >
+<style scoped >
+  .margen_5px{
+    margin-left: 5px;
+  } 
 
  .agregar_300px_margintop {
       margin-top:  300px !important;
