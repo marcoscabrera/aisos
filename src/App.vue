@@ -92,7 +92,7 @@
       <v-app-bar-nav-icon color="white" @click="drawer = !drawer" />
       <a class="d-inline-block ml-0 mr-2 ml-md-2 router-link-active" href="#" >
             <v-img max-height="50" max-width="120"
-                   src="https://api.aldeasinfantiles.mx/apialdeas/logo.png">
+                   src="https://www.aldeasinfantiles.org.mx/getmedia/51757cf7-a274-4bdc-b552-4304db77c698/logo-aldeas-mx">
             </v-img>
       </a>
       <v-spacer></v-spacer>
@@ -104,7 +104,7 @@
             hacer parametro para cambiar precio
             -->
             Plataforma Interna De Protección Infantil De Aldeas Infantiles
-            Infantiles SOS México IAP
+             SOS México IAP
          </span> 
         </v-app-bar-title>
        
