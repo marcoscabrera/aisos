@@ -8,8 +8,15 @@
     <template v-slot:top>
       <v-toolbar flat color="white">
         <v-toolbar-title>Catalogo de Usuarios</v-toolbar-title>
-        <v-divider class="mx-4" inset vertical></v-divider>
+        
         <v-spacer></v-spacer>
+            <v-btn color="primary" dark class="mb-2" @click="iraConfig">
+              <v-icon>
+                mdi-cog
+              </v-icon>
+              Configuracion
+            </v-btn>
+            <v-divider class="mx-4" inset vertical></v-divider>
             <v-btn color="primary" dark class="mb-2" @click="agregarNuevoUsuario"
               >Nuevo Usuario
               </v-btn >
@@ -112,7 +119,15 @@ export default {
     this.initialize();
   },
 
-  methods: {
+    /* 
+    Esta funcion nos lleva al menu de configuracion
+    */
+   methods : {
+    iraConfig(){
+
+      this.$router.push({name:'Configuracion'});
+
+    },
     activar(event,item) {
       
       console.log("valor de event " + event);

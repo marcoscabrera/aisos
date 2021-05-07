@@ -25,9 +25,7 @@
              activo_c="0"
              >
              </BarraDeNavegacion>
-       <!-- import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
 
--->
         </v-col>
     </v-row>
      <!--<CuerpoReporte name="visual"></CuerpoReporte>

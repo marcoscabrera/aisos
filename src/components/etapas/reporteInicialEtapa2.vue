@@ -331,7 +331,7 @@ export default {
       datos.medidasproteccion=  this.medidasproteccion ;
       datos.incidenteconfirmado=  this.incidenteconfirmado ;
       datos.testigos= this.testigos;
-     impresiones_etapauno.setearValores(datos, this.$store);
+      impresiones_etapauno.setearValores(datos, this.$store);
     },
 
 
@@ -386,7 +386,7 @@ export default {
        */
        this.$store.dispatch('actions_permisosimpresion_incidenteid',this.$route.params.id);
        this.$store.dispatch('actions_permisosimpresion_usuarioid', this.$store.state.usuarios.usuarios_usuariologueado.id);
-       this.$store.dispatch('actions_permisosimpresion_etapa', "Valoración Inicial");
+       this.$store.dispatch('actions_permisosimpresion_etapa', "Valoracion Inicial");
              
       //-------------------------------------
        //redireccionamos a pantalla

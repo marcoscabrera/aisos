@@ -78,13 +78,19 @@ export default {
      }
 
      if(programaid == 'PROGRAMA'){
-       
+       /* Este valor de progrima generalmente aplicara a usuarios que sean 
+       directores de programa o alguien paracido a esa linea de mando */
        console.log(" soli un programa : " +  this.$store.state.usuarios.usuarios_usuariologueado.programa);
        let programActual =this.$store.state.usuarios.usuarios_usuariologueado.programa;
        this.itemsUnidades.push(programActual)   ;
      }
 
-
+    if(programaid == 'PROPIOS'){
+       /* Este tipo de usuarios solo son asistentes en la captura  */
+       console.log(" soli un programa : " +  this.$store.state.usuarios.usuarios_usuariologueado.programa);
+       let programActual =this.$store.state.usuarios.usuarios_usuariologueado.programa;
+       this.itemsUnidades.push(programActual)   ;
+     }
      
       
     },

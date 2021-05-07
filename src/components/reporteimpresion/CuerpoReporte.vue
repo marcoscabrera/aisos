@@ -261,7 +261,22 @@ import { jsPDF } from "jspdf";
     export default {
         name : 'CuerpoReporte',
 
+        mounted(){
+
+            //this.obtener_valores_antes_de_imprimir();
+        },
+
         methods: {
+
+            obtener_valores_antes_de_imprimir() {
+                /* 
+                    Leemos el id del incidente y cargamos los valores
+ 
+                 */
+
+
+             
+            },
             print() {
 
                 var print= new jsPDF();

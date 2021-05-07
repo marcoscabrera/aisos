@@ -448,12 +448,13 @@ export default {
       { text: "Fecha", value: "fechaAlta" },
 
 
-      { text: "Respuesta", value: "tipoderespuesta" },
+    
       //{ text: "Hechos", value: "data-table-expand" },
       // { text: "Activo", value: "activo" },
      
       { text: "V Inicial", value: "etapauno" },
       { text: "V Integral", value: "etapados" },
+      { text: "Respuesta", value: "tipoderespuesta" },
       { text: "Seguimiento", value: "etapatres" },
       { text: "Cierre", value: "etapacuatro" },
        { text: "Estado", value: "estado" },

@@ -91,13 +91,23 @@
       <!-- -->
       <v-app-bar-nav-icon color="white" @click="drawer = !drawer" />
       <a class="d-inline-block ml-0 mr-2 ml-md-2 router-link-active" href="#" >
-      <v-img max-height="50"
-         max-width="120"
-      src="https://api.aldeasinfantiles.mx/apialdeas/logo.png">
-     
-      </v-img></a>
+            <v-img max-height="50" max-width="120"
+                   src="https://api.aldeasinfantiles.mx/apialdeas/logo.png">
+            </v-img>
+      </a>
       <v-spacer></v-spacer>
-      <v-app-bar-title width="100%" :class="cssResponsiveTexto">Plataforma interna de protección infantil SOS México</v-app-bar-title>
+      <v-app-bar-title width="100%" :class="cssResponsiveTexto"
+                     
+      >
+          <span class="bar-title__content_hack">
+            <!-- //to-do 
+            hacer parametro para cambiar precio
+            -->
+            Plataforma Interna De Protección Infantil De Aldeas Infantiles
+            Infantiles SOS México IAP
+         </span> 
+        </v-app-bar-title>
+       
     
       
      <ComponenteCardUsuarioLogueado>
@@ -270,11 +280,15 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style >
 
 .cssMD_LG{
  
   color: white !important;
+  /* text-overflow: clip !important;*/
+    overflow: unset !important;
+    text-overflow: unset !important;
+    white-space: nowrap;
 
 }
 
@@ -282,13 +296,42 @@ export default {
  
   color: white !important;
   font-size: 0.65em;
+   text-overflow: clip !important;
 
 }
+/*
+Para eveitar que el titulo de la plataforma muestre los  3 punto 
+que se muiestran cuando el text-overflow es igual a elipsis: 
 
-
-.v-app-bar-title__content{
-  color : white !important;
+ */
+.correcion_titulo_sin_elipsis {
+    overflow: unset;
+    text-overflow: clip !important;
+    white-space: nowrap;
 }
+
+/*
+La clase a continuacion pertenece a el framework vuetify
+ */
+ .bar-title__content_hack {
+    overflow: unset !important;
+    text-overflow: unset !important;
+    white-space: nowrap;
+}
+
+.v-app-bar-title__placeholder, .v-app-bar-title__content {
+    overflow: unset !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/*.v-app-bar-title__content{
+  color : rgb(237, 238, 234) !important;
+  overflow: unset !important;
+  text-overflow: unset !important;
+  white-space: nowrap;
+
+}*/
 .letrasBlancasEnTitulo{
   color: white !important;
 }

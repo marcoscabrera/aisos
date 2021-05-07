@@ -76,8 +76,8 @@ export default {
     solicitarPermiso() {
 
        this.loading = true ;
-       let usuario = this.$store.state.permisosimpresion.permisosimpresion_incidenteid;
-       let incidenteid = this.$store.state.permisosimpresion.permisosimpresion_usuarioid;
+       let incidenteid  = this.$store.state.permisosimpresion.permisosimpresion_incidenteid;
+       let usuario  = this.$store.state.permisosimpresion.permisosimpresion_usuarioid;
        let etapa = this.$store.state.permisosimpresion.permisosimpresion_etapa;
   
        let s= this.$store;

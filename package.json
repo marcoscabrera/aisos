@@ -18,6 +18,7 @@
     "material-design-icons-iconfont": "^6.1.0",
     "pdfjs-dist": "^2.6.347",
     "pdfvuer": "^1.7.5",
+    "print-js": "^1.6.0",
     "propdoc": "^0.9.3",
     "vue": "^2.6.11",
     "vue-apexcharts": "^1.6.0",

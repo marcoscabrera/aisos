@@ -12,6 +12,7 @@ import roles from './modules/roles/roles.js'
 import usuarios from './modules/usuarios/usuarios.js'
 import conciencia from './modules/conciencia/conciencia.js'
 import permisosimpresion from './modules/permisosimpresion/permisosimpresion.js'
+import impresiones from './modules/impresiones/impresiones.js'
 
 Vue.use(Vuex)
 //export default new Vuex.Store
@@ -31,7 +32,7 @@ const store =  new Vuex.Store({
   },
   modules: {
     conciencia,usuarios, roles,incidentes,valoracion,uivars,seguimiento,denuncias,investigacion,evidencias,
-    permisosimpresion
+    permisosimpresion,impresiones
   }
 })
   

@@ -1,4 +1,47 @@
+import apiIncidentes from "@/apialdeas/apiIncidentes.js";
 export default  {
+
+
+
+obtenerValores(incidente,store){
+
+  let P_incidente = apiIncidentes.recuperarUnIncidente(
+    incidente,
+    store
+  );
+
+  P_incidente.then((response) => {
+    console.log("recuperando los datos del incidente ");
+    // console.log(JSON.stringify(response.data));
+    /** */
+
+    var a = response.data;
+
+    let datos =[];
+    datos.folio = a.folio;
+    datos.programa= a.nombreprograma;
+    datos.fecha= a.fechaAlta;
+    datos.involucrados=  a.involucrados;
+    datos.Elaboro= a.elaboro ;
+    datos.cargos=a.cargousuario;
+    datos.RegistroHechos= a.registrohechos;
+    datos.perfildelagresor= a.prefildelagresor;
+    datos.paadultocolaborador=a.paadultocolaborador;
+    datos.paadultocolaboradortipo=a.paadultocolaboradortipo;
+    datos.perfilvictima= a.perfilvictima ;
+    datos.recibeayuda=  a.recibeayuda ;
+    datos.medidasproteccion=  a.medidasproinmediatas ;
+    datos.incidenteconfirmado=  a.incidenteconfirmado ;
+    datos.testigos= a.testigos;
+
+    this.setearValores(datos, store);
+
+  }).catch((error) => {
+    console.log(JSON.stringify(error.response));
+   
+  });
+
+},
 
 
  setearValores( incidente, store) {

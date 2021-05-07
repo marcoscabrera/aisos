@@ -59,6 +59,21 @@ export default {
 
     },
 
+    update__permisosimpresion_autorizar(parametros,store){
+
+        let predicado = "/api/v0/permisosimpresion/autorizar";
+
+        let apix = store.state.urlServidor;
+    
+        let endpoint = apix + predicado;
+    
+        console.log("valor del endpoint " + endpoint);
+    
+        return api.axiospost(endpoint, parametros);
+     
+
+    },
+
     Delete__permisosimpresion(id,store){
 
         let predicado = "/api/v0/permisosimpresion/" + id;
@@ -71,6 +86,18 @@ export default {
         return api.axiosdelete(endpoint);
      
 
+    },
+
+    Post_generarDocumentoDeImpresion(parametros, store) {
+
+        let predicado = "/api/v0/permisosimpresion/generar";
+
+        let apix = store.state.urlServidor;
+
+        let endpoint = apix + predicado;
+        
+    
+        return api.axiospost(endpoint, parametros);
     }
 }
 

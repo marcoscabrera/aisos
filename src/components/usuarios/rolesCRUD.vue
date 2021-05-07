@@ -12,6 +12,14 @@
         <v-toolbar-title> **</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
+            <v-btn color="primary" dark class="mb-2" @click="iraConfig">
+              <v-icon>
+                mdi-cog
+              </v-icon>
+              Configuracion
+            </v-btn>
+            <v-divider class="mx-4" inset vertical></v-divider>
+ 
             <v-btn color="primary" dark class="mb-2" @click="agregarNuevoRol"
               >+ Agregar Rol</v-btn
             >        
@@ -97,6 +105,15 @@ export default {
   },
 
   methods: {
+    /* 
+    Esta funcion nos lleva al menu de configuracion
+    */
+    iraConfig(){
+
+      this.$router.push({name:'Configuracion'});
+
+    },
+    
 activar(event,item) {
       
       console.log("valor de event " + event);

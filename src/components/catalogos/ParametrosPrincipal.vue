@@ -1,5 +1,7 @@
 <template>
+
   <v-row>
+    
     <v-col cols="12" xs="12" sm="6" md="12">
       <v-card>
         <v-card-title>Imagen en login</v-card-title>

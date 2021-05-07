@@ -14,6 +14,15 @@
         <v-toolbar-title> Cargos </v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
+                    <v-btn color="primary" dark class="mb-2" @click="iraConfig">
+              <v-icon>
+                mdi-cog
+              </v-icon>
+              Configuracion
+            </v-btn>
+            <v-divider class="mx-4" inset vertical></v-divider>   
+
+
         <v-dialog v-model="dialog" max-width="500px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on"
@@ -119,6 +128,12 @@ export default {
       activo: "",
     },
   }),
+
+  iraConfig(){
+     
+     this.$router.push({ name : 'Configuracion'});
+
+  },
 
   computed: {
     formTitle() {

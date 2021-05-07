@@ -208,7 +208,7 @@ export default {
 
     getPerfil () {
       
-      this.loading = true ;
+     this.loading = true ;
      let promesa =  controlDeSesion.loginUsuario(this.email, this.pass, this.$store);
 
       promesa

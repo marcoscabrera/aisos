@@ -1,2 +1,24 @@
 #creamos una cuenta de almacenjae en azure
 https://docs.microsoft.com/en-us/azure/storage/common/storage-account-create?tabs=azure-portal
+
+El usuario hace login con su correo institucional .
+a) si el usuario se loguea correctamente accede al acuerdo de confidencialidad 
+b) si el usuario no tiene exito recibe mensaje en pantalla de credenciales incorrectas.
+--dasboard
+
+El usuario accede al dashboard y se despliega la informacion de acuerdo 
+al permiso "visibilidaddeincidentes", el cual puede tener el valor de "Todos", "programa" y "propios"
+esto se refleja de la siguiente manera .
+--el usurio puede ver o todos los incidentes de todos los programas (comite), solo los incidentes 
+de un programa (director de programa) o solo sus propios incidentes (usuario pertenece a la administracion de un programa)
+-- EL usuario podra dar de alta o no  segun el  rol de un nuevo incidente.
+--Si el usurio tiene los roles que corresponden a comite o a director de programa se activa el boton de busquedas.
+
+
+1.-Reporte inicial
+--El usuario puede acceder a todos los documentos de consulta asociados a esta etapa.
+--El usuarios puede seleccionar un programa de la lista de programas.
+--El usuario puede ser grabar y recibir su notificacion de validacion.
+-- El usuario puede imprimir si tiene el permiso adecuado.
+--SI el usuario no tiene el permiso adecuado debera de realizar una solicitud, la cual llegara al perfil 
+de un miembro del comite y de su director de programa.(falta integrar totalmente en Produccion.)

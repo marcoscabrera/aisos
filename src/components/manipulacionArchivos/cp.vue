@@ -23,6 +23,15 @@
     </v-icon>
      Adelante
     </v-btn>
+
+
+   <v-btn id="xx"
+    color="primary"
+    @click="imprime_el_canvas"
+    >
+    Prueba Imprimir
+
+    </v-btn>
        </v-col>
 
 
@@ -100,6 +109,7 @@
 </template>
 
 <script>
+import printJS from 'print-js'
 import pdfvuer from 'pdfvuer'
 // import 'pdfjs-dist/build/pdf.worker.entry' // To be uncommented if you get error: Error: Setting up fake worker failed: "window.pdfjsWorker is undefined".
 //https://github.com/arkokoley/pdfvuer
@@ -138,6 +148,10 @@ export default {
     }
   },
   methods: {
+    imprime_el_canvas(){
+         //printJS('1', 'html');
+          printJS(this.$store.state.uivars.uivars_docto_a_ver, 'pdf');
+    },
     getPdf () {
       let srcx = this.$store.state.uivars.uivars_docto_a_ver ;  
       var self = this;
