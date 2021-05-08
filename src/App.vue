@@ -8,7 +8,7 @@
         <v-list-item two-line>
           <v-list-item-avatar>
             <img
-              src="https://www.aldeasinfantiles.org.mx/getmedia/51757cf7-a274-4bdc-b552-4304db77c698/logo-aldeas-mx"
+              src="images/aldeas_logo.png"
               alt=""
             />
           </v-list-item-avatar>
