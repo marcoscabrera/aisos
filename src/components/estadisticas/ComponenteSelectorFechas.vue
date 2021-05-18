@@ -2,7 +2,7 @@
     <v-container name="selectorfechas">
 
         <v-row>
-            <v-col>
+           <!-- <v-col>
                 <v-btn
                 :color="diacolor"
                 block
@@ -10,7 +10,7 @@
                 Diario
                 </v-btn>
 
-            </v-col>
+            </v-col> -->
             <v-col>
                 <v-btn
                 :color="mensualcolor"
@@ -93,12 +93,33 @@
 
 
         </v-row>
+      
+       <v-row>
+         <v-col>
+           <v-btn color="Blue"
+           dark
+           dense
+           block
+           
+           @click="buscar">
+
+           <v-icon>
+             mdi-magnify
+           </v-icon>
+
+           Buscar
+
+           </v-btn>
+         </v-col>
+       </v-row>
         
     </v-container>
     
 </template>
 
 <script>
+
+import apiEstadisticas from '@/apialdeas/apiEstadisticas.js';
 export default {
     name :'SelectorFechaReportes',
 
@@ -120,21 +141,79 @@ export default {
 
     methods :{
 
+       buscar(){
+
+         let parametros ={ fi : this.$store.state.estadisticas.fechaInicial,
+                           ff : this.$store.state.estadisticas.fechaFinal,
+                           tipo :this.$store.state.estadisticas.tipo}
+   
+         typeof parametros;
+
+       let p  = apiEstadisticas.generarEstadisticas(parametros, this.$store);
+        p
+       .then( response => { 
+            
+             console.log(JSON.stringify(response.data));
+
+             this.$store.dispatch("action_dato_graficas",response.data);
+
+
+
+       }
+       
+       )
+       .catch( error => { console.log(JSON.stringify(error.data))});
+       
+       
+        
+
+       },
+
         getFechaInicial(date){
 
             console.log(date);
-            this.$store.dispatch("setearVariablefecha",date);
+            this.$store.dispatch("action_fechaInicial",date);
 
         },
 
         getFecha2(date){
 
             console.log(date);
-             this.$store.dispatch("setearVariablefecha2",date);
+             this.$store.dispatch("action_fechaFinal",date);
+
+        },
+
+        modoSelector(modo){ 
+
+
+                      if (modo==2){
+                this.fechainicial = true 
+                this.fechafinal = false 
+                this.month='month'
+                    this.diacolor=''
+                    this.mensualcolor='blue'
+                    this.periodocolor= ''
+                      this.$store.dispatch("action_tipo",2)
+
+            }
+
+            if (modo==3){
+                this.fechainicial = true 
+                this.fechafinal = true 
+                   this.month='date'
+                    this.diacolor=''
+                    this.mensualcolor=''
+                    this.periodocolor= 'blue'
+                      this.$store.dispatch("action_tipo",3)
+            }
+
+
+
+
 
         },
         
-        modoSelector(modo){
+        modoSelector2(modo){
 
             if (modo==1){
                 this.fechafinal = false 

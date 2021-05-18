@@ -147,14 +147,14 @@
             },
 
 
-            impresion_etapaInicial(incidentid) {
+            impresion_etapaInicial(solicitudid) {
 
                    console.log('Hacia la impresion de la valoracion inicial ');
                     /* ---------------------------------------------------------*/
                      
                     //this.$store.dispatch('actions_permisosimpresion_etapa', "Valoracion Inicial");
                    
-                   let parametros  = { id:  incidentid };
+                   let parametros  = { id:  solicitudid ,tipo : 'autorizacion' };
 
                    //impresiones_etapauno.obtenerValores(parametros,this.$store);
 

@@ -80,11 +80,7 @@
     <TextoAcercaDeLasMedidas
     :texto="denuncia.medidastexto"></TextoAcercaDeLasMedidas>
 
-    <br> 
-    <v-alert :type="tipoalerta">
-       {{mensaje}}
-    </v-alert>
-    <br>
+
     <v-row>
       <v-col cols="12" xs="12" sm="12" md="4">
         <v-btn

@@ -1,5 +1,11 @@
 export default {
 
+    
+    mutation_uivars_vermenuprincipal(state,valor){
+
+        state.uivars_vermenuprincipal= valor;
+
+    },
 
     mmutation_uivars_esincidente(state,valor){
 

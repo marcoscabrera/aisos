@@ -1,42 +1,37 @@
 <template>
 <v-container>
       <v-row>
-       <v-col cols="12" xs="12" sm="12" md="6" lg="6">
-    <v-btn id="buttons"
-    color="primary"
-    @click="page > 1 ? page-- : 1"
-    >
-    <v-icon>
-      mdi-chevron-left
-    </v-icon>
-     Atras
-    </v-btn>
-      <a class="ui active item">
-        {{page}} / {{ numPages ? numPages : '∞' }}
-      </a>
-    <v-btn id="buttons"
-    color="primary"
-    @click="page < numPages ? page++ : 1"
-    >
-    <v-icon>
-      mdi-chevron-right
-    </v-icon>
-     Adelante
-    </v-btn>
+
+       <v-col cols="12" xs="12" sm="12" md="4" lg="4">
+          <v-btn id="buttons"
+            color="primary"
+            @click="page > 1 ? page-- : 1"
+            >
+            <v-icon>
+              mdi-chevron-left
+            </v-icon>
+               Atras
+          </v-btn>
+            <a class="ui active item">
+              {{page}} / {{ numPages ? numPages : '∞' }}
+            </a>
+          <v-btn id="buttons"
+            color="primary"
+            @click="page < numPages ? page++ : 1"
+            >
+          <v-icon>
+            mdi-chevron-right
+          </v-icon>
+          Adelante
+          </v-btn>
 
 
-   <v-btn id="xx"
-    color="primary"
-    @click="imprime_el_canvas"
-    >
-    Prueba Imprimir
 
-    </v-btn>
        </v-col>
 
 
 
-       <v-col cols="12" xs="12" sm="12" md="6" lg="6">
+       <v-col cols="12" xs="12" sm="12" md="4" lg="4">
          
           <v-btn id="buttons"
           color="primary"
@@ -60,6 +55,28 @@
           Zoom out
           </v-btn>
        </v-col>
+
+
+
+
+              <v-col cols="12" xs="12" sm="12" md="4" lg="4">
+
+
+
+                   <v-btn id="xx"
+                      color="primary"
+                      @click="imprime_el_canvas"
+                      >
+
+                        <v-icon>
+                          mdi-print-file
+                        </v-icon>
+                       Imprimir
+
+                  </v-btn>
+         
+
+             </v-col>
     </v-row>
   <div id="pdfvuer">
 

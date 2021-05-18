@@ -3,10 +3,12 @@
        A continuacion se presenta 
        el codigo que generar el avatar a la derecha de la barra 
        de la web app
+       
+       this.$store.state.uivars.uivars_hayUnUsuarioLogueado
       ------------------------------------------------------------->
 
 
-      <v-menu v-if="this.$store.state.uivars.uivars_hayUnUsuarioLogueado"
+      <v-menu v-if="this.$store.state.uivars.uivars_puedevermenulateral"
         left
         bottom
       >

@@ -264,6 +264,8 @@
 <script>
 import barraDocumentosVue from "../barradocumentos/barraDocumentos.vue";
 import apiIncidentes from "@/apialdeas/apiIncidentes.js";
+import apiPermisosimpresion  from "@/apialdeas/apiPermisosimpresion.js";
+
 import comboboxProgramaSeleccionado from "@/components/etapasComponentes/comboboxProgramaSeleccionado.vue";
 import calendario from "@/components/etapasComponentes/calendario.vue";
 import textareaInvolucrados from "@/components/etapasComponentes/textareaInvolucrados.vue";
@@ -356,13 +358,44 @@ export default {
         ///////////////////////////////////////
         // seteamos los valores a iutlizar 
         ////////////////////////////////////////
-        this.setearValores_para_impresion();
+        //this.setearValores_para_impresion();
         ////////////////////////////////////////
 
-        this.$router.push({
+       /*this.$router.push({
           name: "ReporteImpresion"
-        });
+        });*/
+        
 
+        //codigo actualizado 8 de mayo
+        /*
+        
+        */
+                   let parametros  = { incidenteid:   this.$route.params.id ,etapa:'Valoracion Inicial', tipo : 'sin autorizacion' };
+
+                   //impresiones_etapauno.obtenerValores(parametros,this.$store);
+
+                    let promesa = apiPermisosimpresion.Post_generarDocumentoDeImpresion(parametros,this.$store);
+                     promesa
+                    .then( response => { 
+
+                        console.log(JSON.stringify(response.data));
+                        console.log(" Nombre del reporte : " + response.data.nombrereporte);
+                        
+                        let directorio ="/apidatos/reportesetapas/" + response.data.nombrereporte;
+                        
+                        let link =  this.$store.state.urlServidor + directorio ;
+        
+                        this.$store.dispatch("actions_uivars_docto_a_ver",link);
+
+                       this.$router.push({
+                        name: "VisorPDF"
+                        });
+                        
+                        
+                        })
+                    .catch( error => { console.log(JSON.stringify(error.data))});
+                    
+             
      
 
 

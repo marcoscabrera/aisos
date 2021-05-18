@@ -3,6 +3,12 @@ export default {
 
      ////paramtros
 
+     actions_uivars_vermenuprincipal(context,valor){
+
+        context.commit("mutation_uivars_vermenuprincipal",valor);
+
+     },
+
      actions_uivars_parametros(context,valor){
 
         context.commit("mutation_uivars_parametros",valor);

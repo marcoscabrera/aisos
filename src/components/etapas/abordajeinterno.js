@@ -18,7 +18,7 @@ export default {
     },
 
     updateSeguimiento(parametros, store){
-        return apiAbordaje.updateSeguimiento(parametros, store);
+        return apiAbordaje.updateabordaje(parametros, store);
     },
 
     asignarVariablesGLobales(datos,store){

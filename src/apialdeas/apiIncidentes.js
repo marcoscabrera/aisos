@@ -148,6 +148,20 @@ export default {
     
         return api.axiosput(endpoint, parametros);
 
+     },
+
+     get_respuesta_al_incidente(id,store){
+
+        let predicado = "/api/v0/incidente/" + id + "/respuesta";
+
+        let apix = store.state.urlServidor;
+    
+        let endpoint = apix + predicado;
+    
+           
+    
+        return api.axiosget(endpoint);
+
      }
 
     

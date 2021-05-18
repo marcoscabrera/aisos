@@ -2,17 +2,18 @@
 
    <v-bottom-navigation  color="primary">
 
-                   <v-btn 
-                    dark
-                    small
-                    @click="IR_a_RUTA"
-                    :clase ="claseResponsive"
-                  >
-                    <span class ="d-none d-sm-flex" >Dashboard</span>
-                    <v-icon dark>
-                      mdi-view-dashboard-variant-outline 
-                    </v-icon>
-                  </v-btn>
+      <v-btn 
+         dark
+         small
+         @click="IR_a_RUTA"
+         :clase ="claseResponsive"
+        >
+          <span class ="d-none d-sm-flex" >Dashboard</span>
+  
+             <v-icon dark>
+                 mdi-view-dashboard-variant-outline 
+              </v-icon>
+      </v-btn>
     
 
     <v-btn  @click="IR_a_ri" :clase ="claseResponsive">
@@ -25,6 +26,13 @@
       <span class ="d-none d-sm-flex">Integral</span>
 
       <v-icon>mdi-file-cog-outline</v-icon>
+    </v-btn>
+
+
+    <v-btn    @click="IR_a_Respuesta" :clase ="claseResponsive">
+      <span class ="d-none d-sm-flex">Respuesta</span>
+
+      <v-icon>mdi-file-document-edit-outline</v-icon>
     </v-btn>
 
     <v-btn   @click="ir_al_seguimiento"  :clase ="claseResponsive">
@@ -41,6 +49,7 @@
 </template>
 
 <script>
+import apiIncidentes from '@/apialdeas/apiIncidentes.js';
     export default {
 
         props: {
@@ -119,6 +128,56 @@
       let id  = this.$store.state.incidentes.etapainicial_incidente;
       this.$router.push({ name: "Cierre", params: { incidenteId: id } });
      
+
+    },
+
+    IR_a_Respuesta(){
+
+
+      let id  = this.$store.state.incidentes.etapainicial_incidente;
+     // this.$router.push({ name: "Cierre", params: { incidenteId: id } });
+     
+      let promesa = apiIncidentes.get_respuesta_al_incidente(id, this.$store);
+
+       promesa
+      .then( response => { console.log(JSON.stringify(response.data));
+
+          let respuesta  = JSON.stringify(response.data);
+
+          switch(respuesta){
+            case '"DENUNCIA LEGAL"':
+
+              this.$store.dispatch("setear_Incidente",id);
+              this.$router.push({
+                  name: "DenunciaLegal",
+                  params: { denunciaId: id },
+                  });
+            break;
+            case '"ABORDAJE INTERNO"':
+
+                this.$store.dispatch("setear_Incidente",id);
+                this.$router.push(
+                  {     name: "AbordajeInterno", 
+                         params: { incidenteId: id } });
+
+            break;
+            case '"INVESTIGACION INTERNA"':
+              this.$store.dispatch("setear_Incidente",id);
+              this.$router.push({
+                  name: "InvestigacionInterna",
+                  params: { incidenteId: id },
+              });
+            break;
+            default :
+            console.log("sin respuesta");
+            break;
+
+          }
+      
+      
+      } )
+      .catch( error => { console.log(JSON.stringify(error.data))});
+
 
     },
     ir_al_seguimiento(){

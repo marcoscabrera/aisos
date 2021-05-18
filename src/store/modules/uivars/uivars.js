@@ -11,7 +11,10 @@ state: {
 
     uivars_parametro_imagenLogin :'',
 
-    ///////////////////////
+    //////////////////////////////////
+
+    uivars_vermenuprincipal : false,
+    //////////////////////////////////
     uivar_esincidente: false,
     uivars_puedevermenulateral : false,
     uivars_puedever_configuracion : false,

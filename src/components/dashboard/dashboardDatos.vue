@@ -1,4 +1,10 @@
+<!-- 
 
+ Corregir la secuencia  etap 1-2, respuesta ,3,4
+
+ correguir abordaje interno
+
+-->
   <template>
   <v-data-table width ="100%"
     :headers="headers"
@@ -230,8 +236,54 @@
       >
     </template>
      
-     <!-- Tipo de respuesta    -->
-    <template v-slot:item.tipoderespuesta="{ item }">
+     <!-- Tipo de respuesta    v-if="item.estado == 'En Proceso de Valoracion'"-->
+
+    <template v-slot:item.tipoderespuesta="{ item }" >
+
+      <v-btn x-small 
+      block  
+      :color="item.colorestadorespuesta"
+       dark 
+       dense
+       class="letrasNegras"
+        @click="ir_a_respuesta(item)"
+         v-if="item.tipoderespuesta == 'INVESTIGACION INTERNA'">
+       <span color="black"> Investigacion </span>
+      </v-btn>
+
+      <v-btn  v-if="item.tipoderespuesta == 'ABORDAJE INTERNO'"
+          x-small
+          :color="item.colorestadorespuesta"
+          dark
+          block
+          
+          dense
+          class="letrasNegras"
+           @click="ir_a_respuesta(item)"
+      >
+         Abordaje Interno
+      </v-btn>
+
+       <v-btn  v-if="item.tipoderespuesta == 'DENUNCIA LEGAL'"
+          x-small
+          :color="item.colorestadorespuesta"
+          dark
+          block
+          dense
+          class="letrasNegras"
+           @click="ir_a_respuesta(item)"
+        
+      >
+         Denuncia
+      </v-btn>
+
+
+    </template>
+    <!-- termina tipo de respuesta -->
+
+    <!-- Estado  -->
+
+  <template v-slot:item.estado="{ item }" >
       <v-btn v-if="item.estado == 'cerrado_x_ni'" 
       color="green"
        dark dense 
@@ -241,37 +293,70 @@
         NO ES UN INCIDENTE
       </v-btn>
 
-      <v-btn
-        v-else
-        :color="item.coloretapacuatro"
+      <v-btn v-if="item.estado == 'cerrado'"
+       
+        color="green"
+        dark
+        dense
+        block
+        class="letrasNegras"
+        @click="irACierre(item.id)"
+      >
+         CERRADO
+      </v-btn>
+
+    <v-btn v-if="item.estado == 'en espera de valoracion'"
+       
+        color="yellow"
+        dark
+        dense
+        block
+        class="letrasNegras"
+        @click="irAValoracionIntegral(item.id)"
+      >
+        EN ESPERA DE VALORACION INTEGRAL
+      </v-btn>
+
+      <v-btn v-if="item.estado == 'en llenado de respuesta'"
+       
+        color="yellow"
         dark
         dense
         block
         class="letrasNegras"
         @click="ir_a_respuesta(item)"
       >
-        {{ item.tipoderespuesta }}
-      </v-btn>
-    </template>
-    <!-- termina tipo de respuesta -->
-
-  <template v-slot:item.estado="{ item }">
-      <v-btn x-small fab v-if="item.estado == 'abierto'" color="red" dark dense>
-       .
+        EN {{item.tipoderespuesta}}
       </v-btn>
 
-      <v-btn
-        v-else
-        x-small
-        color="green"
-        dark
-        fab
-        dense
+      <v-btn v-if="item.estado == 'en llenado de seguimiento'"
        
+        color="yellow"
+        dark
+        dense
+        block
+        class="letrasNegras"
+       @click="irASeguimiento(item.id)"
       >
-      .
+       EN SEGUIMIENTO
       </v-btn>
+
+
+       <v-btn v-if="item.estado == 'en espera de cierre'"
+       
+        color="yellow"
+        dark
+        dense
+        block
+        class="letrasNegras"
+     @click="irACierre(item.id)"
+      >
+       EN ESPERA DE CIERRE
+      </v-btn>    
     </template>
+
+
+
 
     <template v-slot:item.etapauno="{ item }">
       <v-btn 
@@ -457,7 +542,7 @@ export default {
       { text: "Respuesta", value: "tipoderespuesta" },
       { text: "Seguimiento", value: "etapatres" },
       { text: "Cierre", value: "etapacuatro" },
-       { text: "Estado", value: "estado" },
+      { text: "Estado", value: "estado" },
       //{ text: "Etapas", value: "actions", sortable: false },
     ],
     headers1: [
@@ -522,6 +607,8 @@ export default {
   },
 
   methods: {
+
+
 
     filtrarEnBaseDeDatos(){
 

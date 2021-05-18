@@ -13,6 +13,8 @@ import usuarios from './modules/usuarios/usuarios.js'
 import conciencia from './modules/conciencia/conciencia.js'
 import permisosimpresion from './modules/permisosimpresion/permisosimpresion.js'
 import impresiones from './modules/impresiones/impresiones.js'
+import abordaje from './modules/abordaje/abordaje.js'
+import estadisticas from './modules/estadisticas/estadisticas.js'
 
 Vue.use(Vuex)
 //export default new Vuex.Store
@@ -32,7 +34,7 @@ const store =  new Vuex.Store({
   },
   modules: {
     conciencia,usuarios, roles,incidentes,valoracion,uivars,seguimiento,denuncias,investigacion,evidencias,
-    permisosimpresion,impresiones
+    permisosimpresion,impresiones,abordaje,estadisticas
   }
 })
   

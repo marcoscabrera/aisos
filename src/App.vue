@@ -2,8 +2,12 @@
   <!-- App.vue -->
 
   <v-app color="indigo">
-    <v-navigation-drawer v-model="drawer" app class="barra">
-      <!-- -->
+  <!-- <v-navigation-drawer 
+    v-model="drawer"
+     app 
+     
+     class="barra">
+     
       <v-list dense>
         <v-list-item two-line>
           <v-list-item-avatar>
@@ -30,14 +34,7 @@
           </v-list-item-content>
         </v-list-item>
 
-        <!-- <v-list-item @click="irADenuncias">
-          <v-list-item-action>
-            <v-icon> mdi-alert-circle-outline </v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title> Incidentes (Eventual) </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item> -->
+
 
         <v-list-item @click="irAConciencia" v-if="this.$store.state.uivars.uivars_puedevermenulateral">
           <v-list-item-action>
@@ -65,16 +62,7 @@
           </v-list-item-content>
         </v-list-item>
        
-       <!---
-        <v-list-item @click="irAconfiguracion" >
-          <v-list-item-action>
-            <v-icon color="white"> mdi-application-cog </v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title color="white"> Configuracion </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        -->
+ 
 
         <v-list-item  @click="cerrarSesion">
           <v-list-item-action>
@@ -85,14 +73,23 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-    </v-navigation-drawer>
+    </v-navigation-drawer> -->
 
     <v-app-bar app>
       <!-- -->
-      <v-app-bar-nav-icon color="white" @click="drawer = !drawer" />
+
+        <!--  @click="drawer = !drawer"-->
+        <v-app-bar-nav-icon 
+        color="white" 
+       @click="mostarMenu"  
+       v-if="this.$store.state.uivars.uivars_puedevermenulateral"
+         />
+
+
+
       <a class="d-inline-block ml-0 mr-2 ml-md-2 router-link-active" href="#" >
             <v-img max-height="50" max-width="120"
-                   src="images/aldeas_logo.png">
+                   src="https://api.aldeasinfantiles.mx/apialdeas/logo.png">
             </v-img>
       </a>
       <v-spacer></v-spacer>
@@ -119,6 +116,12 @@
     <v-main class="colorazul">
       <!-- Provides the application the proper gutter -->
       <v-container fluid >
+         <br>
+        <ComponenteBarraDeNavegacion >
+
+        </ComponenteBarraDeNavegacion>
+        <br>
+        
         <!-- If using vue-router -->
         <!--
         <DatosDelUsuarioComponente v-if="this.$store.state.uivars.uivars_hayUnUsuarioLogueado"></DatosDelUsuarioComponente>
@@ -139,17 +142,27 @@ import apiParametros from '@/apialdeas/apiParametros.js';
 import controlDeSesion   from '@/sesion/controlDeSesion.js';
 import variablesLocales from '@/store/variablesLocales.js';
 import ComponenteCardUsuarioLogueado from '@/components/usuarios/componentes/ComponenteCardUsuarioLogueado.vue';
+import ComponenteBarraDeNavegacion from '@/components/barranavegacion/ComponenteBarraDeNavegacion_b.vue';
+import * as easings from 'vuetify/es5/services/goto/easing-patterns'
 
 export default {
   name: "App",
 
   components: {
     //DatosDelUsuarioComponente
-    ComponenteCardUsuarioLogueado
+    ComponenteCardUsuarioLogueado,ComponenteBarraDeNavegacion
 
   },
  
   computed : {
+
+     options () {
+        return {
+          duration: this.duration,
+          offset: this.offset,
+          easing: this.easing,
+        }
+     }
 
    /* css(){
 
@@ -171,6 +184,18 @@ export default {
     imagenLogin: '',
     cssResponsiveTexto : '',
     PuedeVerConfiguracion : false,
+
+
+    type: 'number',
+        number: 9999,
+        selector: '#first',
+        selections: ['#first', '#second', '#third'],
+        selected: 'Button',
+        elements: ['Button', 'Radio group'],
+        duration: 300,
+        offset: 0,
+        easing: 'easeInOutCubic',
+        easings: Object.keys(easings),
   }),
   mounted () {
     this.crearToken();
@@ -183,6 +208,20 @@ export default {
 
    },  
   methods: {
+
+
+   mostarMenu(){
+    
+
+
+     this.$store.state.uivars.uivars_vermenuprincipal == false ? this.$store.state.uivars.uivars_vermenuprincipal = true :
+     this.$store.state.uivars.uivars_vermenuprincipal = false;
+   
+     this.$vuetify.goTo("#app", this.options);
+    
+
+
+   },
    
    claseCss () {
          

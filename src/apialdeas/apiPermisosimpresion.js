@@ -98,6 +98,23 @@ export default {
         
     
         return api.axiospost(endpoint, parametros);
+    },
+
+
+    /*
+      Esta funcion se utiiza cuando se manda a imprimir directamente
+      sin necesidad de consultar la tabla de permisos.
+    */
+    Post_generarDocumentoDeImpresion_sinAutorizacion(parametros, store) {
+
+        let predicado = "/api/v0/permisosimpresion/generar/";
+
+        let apix = store.state.urlServidor;
+
+        let endpoint = apix + predicado;
+        
+    
+        return api.axiospost(endpoint, parametros);
     }
 }
 

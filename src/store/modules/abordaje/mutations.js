@@ -48,7 +48,49 @@ mutation_abordaje_documentos_docto_nombre( state, valor) {
 mutation_abordaje_documentos_docto  ( state, valor) {   
               state.abordaje_documentos_docto  = valor 
             
- },       
+ },    
+
+ /// mutaciones para validaciones 
+ 
+ 
+ 
+ mutation_abordaje_validacion_id ( state, valor) {   
+  state.abordaje_validacion_id  = valor 
+
+},   
+
+
+ mutation_abordaje_validacion_incidenteid ( state, valor) {   
+  state.abordaje_validacion_id  = valor ;
+
+},   
+
+ mutation_abordaje_validacion_status ( state, valor) {   
+  state.abordaje_validacion_status  = valor ;
+
+},   
+
+ mutation_abordaje_validacion_plan ( state, valor) {   
+  state.abordaje_validacion_plan  = valor ;
+
+},   
+
+ mutation_abordaje_validacion_plan_docto ( state, valor) {   
+  state.abordaje_validacion_plan_docto  = valor 
+
+},   
+
+
+ mutation_abordaje_validacion_documentos ( state, valor) {   
+  state.abordaje_validacion_documentos_docto  = valor 
+
+},   
+
+
+ mutation_abordaje_validacion_documentos_docto ( state, valor) {   
+  state.abordaje_validacion_documentos_docto  = valor 
+
+},   
         
 
  }

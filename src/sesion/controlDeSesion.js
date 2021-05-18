@@ -44,7 +44,8 @@ export default {
 
 
   cerrarSesion(store,router){
-
+    
+    store.dispatch("actions_uivars_vermenuprincipal",false);
     store.dispatch('action_usuarios_usuariologueado',null);
     store.dispatch('action_usuarios_usuariologueado_rol',null);
     store.dispatch('actions_uuivars_puedevermenulateral',false);

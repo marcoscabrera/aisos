@@ -19,15 +19,14 @@
         </v-col>
     </v-row>
     <br>
-    <v-alert type="info">
-     Actualmente esta caracteristica esta en desarrollo.
-    </v-alert>
+
     <!-- -->
 
         <!-- pediente la fecha -->
     <FoliosComponente 
     :folio="folio"
     :foliodenuncia ="folioabordaje"
+    :date="fecha"
     tipofolio="ABORDAJE INTERNO">
     </FoliosComponente>
 
@@ -35,12 +34,9 @@
     <!-- =============================================== -->
     <br >
     <v-card width="100%" >
-          <v-card-title> </v-card-title>
-          <v-card-text>
-            <textAreaRegistroDelEstatus
-            :texto="abordaje.status">
-            </textAreaRegistroDelEstatus>
-          </v-card-text>
+    <ComponenteTextAreaStatus :texto="texto">
+    </ComponenteTextAreaStatus>
+
     </v-card>
  <br >
     
@@ -48,29 +44,35 @@
    
   
     <!-- =============================================== -->
-    
-      <cardPlanEnEjecucion
+       <!-- abordaje_plan -->
+       
+      <ComponenteCardDoctoAbordaje
         :incidenteId ="incidenteIdPE"
         :archivoId ="abordaje.plan_docto"
         :nombreDelArchivo="data_plan_docto.nombreOriginal"
         :sihayarchivo="data_plan_docto.hayArchivo"
-         :valorcombo="abordaje.plan"
-        ></cardPlanEnEjecucion>
+        :valorcombo="abordaje.plan"
+        ></ComponenteCardDoctoAbordaje>
     <br >
 
       <!-- ==========================================  -->
 
     
-    <cardDocumentosOficiales
-       :incidenteId ="incidenteIdPE"
+    <ComponenteCardDocumentosOficiales
+        :incidenteId ="incidenteIdPE"
 
         :archivoId ="abordaje.documentos_docto"
         :nombreDelArchivo="data_documento_docto.nombreOriginal"
         :sihayarchivo="data_documento_docto.hayArchivo"
         :valorcombo="abordaje.documentos">
-        </cardDocumentosOficiales>
+        </ComponenteCardDocumentosOficiales>
     
-    <br >
+
+    <br> 
+    <v-alert :type="tipoalerta">
+       {{mensaje}}
+    </v-alert>
+    <br>
 
     <v-row>
       <v-col cols="12" xs="12" sm="12" md="4">
@@ -112,9 +114,7 @@
         </v-btn> 
       </v-col>
     </v-row>
-    <v-alert type="info">
-     Actualmente esta caracteristica esta en desarrollo.
-    </v-alert>
+
   </v-container>
 </template>
 <script>
@@ -137,9 +137,9 @@ export default {
   components: {   
     FoliosComponente,  
      BarraDeNavegacion,          
-    textAreaRegistroDelEstatus : () => import('@/components/etapasComponentesSeguimiento/textAreaRegistroDelEstatus.vue'),
-    cardPlanEnEjecucion :()=> import('@/components/etapasComponentesSeguimiento/cardPlanEnEjecucion.vue'),
-    cardDocumentosOficiales:() => import('@/components/etapasComponentesSeguimiento/cardDocumentosOficiales.vue')
+    ComponenteTextAreaStatus : () => import('@/components/etapasComponentesAbordaje/ComponenteTextAreaStatus.vue'),
+    ComponenteCardDoctoAbordaje :()=> import('@/components/etapasComponentesAbordaje/ComponenteCardDoctoAbordaje.vue'),
+    ComponenteCardDocumentosOficiales:() => import('@/components/etapasComponentesAbordaje/ComponenteCardDocumentosOficiales.vue')
 
   },
 
@@ -248,9 +248,22 @@ export default {
 
       update.then(
         response =>{
+
           console.log( JSON.stringify(response.data));
-           console.log( 'actualizado seguimiento');
+          console.log( 'actualizado seguimiento'+ response.data.estado);
           this.loading = false;
+
+          if (response.data.estado=='abierto'){
+                   this.mensaje = 'La información ha sido guardada.';
+                   this.tipoalerta = 'warning';
+           }
+
+          if (response.data.estado=='cerrado'){
+                   this.mensaje = 'Este registro ha sido completado';
+                   this.tipoalerta = 'success';
+           }
+
+
         }
       ).catch(
          error =>{
@@ -347,29 +360,56 @@ export default {
       "folioabordaje":"AI--1-2021"},
       "folioincidente":"MO-7-2021"}
 
+
+                  incidenteid :  this.incidenteIdPE,        
+            status  : this.$store.state.abordaje.abordaje_status,            
+            plan      : this.$store.state.abordaje.abordaje_plan,             
+            documentos   : this.$store.state.abordaje.abordaje_documentos,           
+            plan_docto : this.$store.state.abordaje.abordaje_plan_docto, 
+            documentos_docto : this.$store.state.abordaje.abordaje_documentos_docto,
+
       */
       this.abordaje = response.data[0];
       this.folio = response.data[1]["folioincidente"];
       this.folioabordaje =  response.data[0]["folioabordaje"];
+
+      this.fecha =   response.data[0]["fechaUpdate"];  
+      this.texto =   response.data[0]["status"];  
+      this.$store.dispatch("action_abordaje_status", this.texto );
+
       //setear el valor del filio para reporte de impresion 
       this.$store.dispatch("action_folio",this.folio);
       
       this.incidenteId =response.data[0]["incidenteid"];
       /* *******************************************************/
        let plan_docto = response.data[0]["plan_docto"];
+       this.$store.dispatch("action_abordaje_plan_docto",plan_docto);
+       this.$store.dispatch("action_abordaje_plan",response.data[0]["plan"]);
+
        let documentos_docto = response.data[0]["documentos_docto"];
+       this.$store.dispatch("action_abordaje_documentos_docto",documentos_docto);
+       this.$store.dispatch("action_abordaje_documentos",response.data[0]["documentos"]);
+       
+       this.estado = response.data[0]["estado"];
 
        let archivo_plan_docto = apiArchivos.conseguirArchivo(plan_docto, this.$store.state);
        let archivo_documentos_docto = apiArchivos.conseguirArchivo(documentos_docto, this.$store.state);
    
     /* 
-       let archivo_planrecuperacion_docto = apiArchivos.conseguirArchivo(this.seguimiento.planrecuperacion_docto, this.$store.state);
-       let archivo_notificacionpfn_docto = apiArchivos.conseguirArchivo(this.seguimiento.notificacionpfn_docto, this.$store.state);
-       let archivo_notificaciondif_docto = apiArchivos.conseguirArchivo(this.seguimiento.notificaciondif_docto, this.$store.state);
-       let archivo_notificacionautoridad_docto = apiArchivos.conseguirArchivo(this.seguimiento.notificacionautoridad_docto, this.$store.state);
-       let archivo_notificaciondenunciante_docto = apiArchivos.conseguirArchivo(this.seguimiento.notificaciondenunciante_docto, this.$store.state);
-       let archivo_actavaloracion_docto = apiArchivos.conseguirArchivo(this.seguimiento.actavaloracion_docto, this.$store.state);
-      */ 
+         action_abordaje_id 
+
+action_abordaje_incidenteid 
+,
+action_abordaje_status 
+,
+action_abordaje_plan
+,
+action_abordaje_documentos 
+action_abordaje_plan_docto 
+
+action_abordaje_documentos_docto 
+ action_abordaje_plan_docto_nombre
+  action_abordaje_documentos_docto_nombre    */ 
 
 
 
@@ -395,7 +435,7 @@ export default {
      
           // this.data_documento_docto= response.data[0];
              this.data_documento_docto =  this.checkArray(   response.data[0] );
-              this.$store.dispatch('action_abordaje_documentos_docto_nombre', this.data_documento_docto['nombreOriginal']);
+             this.$store.dispatch('action_abordaje_documentos_docto_nombre', this.data_documento_docto['nombreOriginal']);
 
       }
        ).catch(
@@ -426,11 +466,16 @@ export default {
 
   data() {
     return {
+      estado: '',
+      mensaje : '',
+      tipoalerta: '',
       folioabordaje :'',
       errores : 0,
       tipoderespuesta : '',
       esDenuncia : false,
       verDenuncia_o_investigacion : false,
+      texto : '',
+      fecha : '',
 
       data_plan_docto : [],
       data_planrecuperacion_docto: [],

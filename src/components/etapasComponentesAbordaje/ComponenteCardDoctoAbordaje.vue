@@ -15,7 +15,7 @@
               >
               </v-select>
 
-              <v-alert v-if="this.$store.state.uivars.uivars_error_seguimiento_seguimiento_plan" type="error">
+              <v-alert v-if="this.$store.state.abordaje.abordaje_validacion_plan" type="error">
                 Debe de seleccionar una opcion.
               </v-alert>
             </v-col>
@@ -24,17 +24,17 @@
      
 
             <uploadFile2 
-             :mostrarMensajeValidacion ="this.$store.state.uivars.uivars_error_seguimiento_seguimiento_plan_docto"
+             :mostrarMensajeValidacion ="this.$store.state.abordaje.abordaje_validacion_plan_docto"
           
-             directorio="/uploads/seguimiento"
+             directorio="/uploads/abordaje"
              :HayArchivo ="sihayarchivo"
             
              :nombreArchivo = "nombreDelArchivo"
              :incidenteid ="incidenteId"
              :archivoId="archivoId"
-             action_a_Ejecutar="action_seguimiento_plan"
-             modulo="seguimiento"
-             campoState="seguimiento_plan_docto">
+             action_a_Ejecutar="action_abordaje_plan_docto"
+             modulo="abordaje"
+             campoState="abordaje_plan_docto">
               </uploadFile2> 
          
             </v-col>
@@ -48,7 +48,7 @@
 
     export default {
       
-      name: 'cardPlanEnEjecucion', 
+      name: 'Abordaje_cardPlanEnEjecucion', 
 
       props :{
 
@@ -77,8 +77,8 @@
       methods : {
          asignarValor(event){
 
-            this.$store.dispatch("action_seguimiento_plan", event);
-             this.$store.dispatch("actions_uivars_error_seguimiento_seguimiento_plan",false);
+            this.$store.dispatch("action_abordaje_plan", event);
+            this.$store.dispatch("action_abordaje_validacion_plan",false);
          }
       }
 

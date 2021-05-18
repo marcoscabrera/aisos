@@ -42,6 +42,50 @@ context.commit('mutation_abordaje_documentos_docto',valor)  ;
    context.commit('mutation_abordaje_documentos_docto_nombre',valor);
  },
 
+
+ ///acciones para validacion
+
+  
+ 
+ action_abordaje_validacion_id ( context, valor) {   
+ 
+  context.commit("mutation_abordaje_validacion_id" , valor );
+
+},   
+
+
+action_abordaje_validacion_incidenteid ( context, valor) {   
+  context.commit("mutation_abordaje_validacion_incidenteid", valor );
+
+},   
+
+action_abordaje_validacion_status ( context, valor) {   
+  context.commit("mutation_abordaje_validacion_status", valor );
+
+},   
+
+action_abordaje_validacion_plan ( context, valor) {   
+  context.commit("mutation_abordaje_validacion_plan", valor );
+
+},   
+
+action_abordaje_validacion_plan_docto ( context, valor) {   
+  context.commit("mutation_abordaje_validacion_plan_docto", valor );
+
+},   
+
+
+action_abordaje_validacion_documentos ( context, valor) {   
+  context.commit("mutation_abordaje_validacion_documentos", valor );
+
+},   
+
+
+ action_abordaje_validacion_documentos_docto ( context, valor) {   
+  context.commit("mutation_abordaje_validacion_documentos_docto", valor )
+
+},   
+      
            
         
 

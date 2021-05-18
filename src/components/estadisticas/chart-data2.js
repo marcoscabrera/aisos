@@ -13,7 +13,16 @@ FF HUEHUETOCA
 FF TEHUACAN
 FF COMITAN
          */
-      labels: ['AF-TIJUANA', 'AF-MORELIA', 'AD-CDMX', 'AF TUXTLA', 'AF COMITAN', 'FF HUEHUETOCA', 'FF TEHUACAN', 'FF COMITAN'],
+      labels: [
+        'AF-TIJUANA',
+        'AF-MORELIA',
+        'AD-CDMX', 
+        'AF TUXTLA',
+        'AF COMITAN',
+        'FF HUEHUETOCA', 
+        'FF TEHUACAN',
+        'FF COMITAN'
+      ],
       datasets: [
         { // one line graph // "#FF0000",
        // "#00FF00"],

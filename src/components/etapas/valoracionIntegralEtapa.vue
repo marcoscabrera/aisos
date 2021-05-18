@@ -215,7 +215,7 @@ import validacionReporteInicial from   "@/components/etapas/validaciones/validac
 //import ComponenteConfirmacionIncidente from   "../etapasComponentesValoracion/ComponenteConfirmacionIncidente.vue";
 //import medidasCrud from "@/components/seguimiento/medidasCrud.vue";
 import validacionArchivo from  "@/components/etapas/validaciones/validacionArchivos.js";
-
+import apiPermisosimpresion from "@/apialdeas/apiPermisosimpresion.js";
 //import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
 
 export default {
@@ -393,8 +393,95 @@ export default {
 
       console.log("xx");
     },
-
+    /********************************************************
+     * Sustituye a la funcion solicitudImpresion2 y 21
+     * */ 
     solicitudImpresion(){
+
+
+   
+     console.log(" Permiso IMPRESIONVALORACIONINICIAL  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.IMPRESIONVALORACIONINTEGRAL)             
+     
+     if (this.$store.state.usuarios.usuarios_usuariologueado_rol.IMPRESIONVALORACIONINTEGRAL=='SI'){
+
+       //NOTA:
+       /*
+        AQUI VA EL CODIGO PARA REALIZAR LA IMPRESION .
+        por el momento visualizamos en la pantalla.
+         */
+
+
+        //codigo actualizado 8 de mayo
+        /*
+        
+        */
+                   let parametros  = { incidenteid:   this.$route.params.id ,etapa:'Valoracion Integral', tipo : 'sin autorizacion' };
+
+                   //impresiones_etapauno.obtenerValores(parametros,this.$store);
+
+                    let promesa = apiPermisosimpresion.Post_generarDocumentoDeImpresion(parametros,this.$store);
+                     promesa
+                    .then( response => { 
+
+                        console.log(JSON.stringify(response.data));
+                        console.log(" Nombre del reporte : " + response.data.nombrereporte);
+                        
+                        let directorio ="/apidatos/reportesetapas/" + response.data.nombrereporte;
+                        
+                        let link =  this.$store.state.urlServidor + directorio ;
+        
+                        this.$store.dispatch("actions_uivars_docto_a_ver",link);
+
+                       this.$router.push({
+                        name: "VisorPDF"
+                        });
+                        
+                        
+                        })
+                    .catch( error => { console.log(JSON.stringify(error.data))});
+                    
+             
+     
+
+
+     }else {
+
+
+       //realizamos la solicitud del permiso//
+       /*
+
+        actions_uivars_error_permisosimpresion_id
+        actions_uivars_error_permisosimpresion_usuarioid
+        actions_uivars_error_permisosimpresion_incidenteid
+        actions_uivars_error_permisosimpresion_etapa
+        actions_uivars_error_permisosimpresion_password
+        actions_uivars_error_permisosimpresion_respuesta
+        actions_uivars_error_permisosimpresion_usuarioidautorizo
+        actions_uivars_error_permisosimpresion_vigente
+        actions_uivars_error_permisosimpresion_fechapeticion
+        actions_uivars_error_permisosimpresion_fechaautorizacion
+
+       */
+       this.$store.dispatch('actions_permisosimpresion_incidenteid',this.$route.params.id);
+       this.$store.dispatch('actions_permisosimpresion_usuarioid', this.$store.state.usuarios.usuarios_usuariologueado.id);
+       this.$store.dispatch('actions_permisosimpresion_etapa', "Valoracion Integral");
+             
+      //-------------------------------------
+       //redireccionamos a pantalla
+      this.$router.push({
+          name: "PermisoImpresion",
+          params: { incidenteId: this.$route.params.id },
+        });
+
+
+     }//termina if del pedido
+    },
+
+
+
+    /******************************************** */
+
+    solicitudImpresion21(){
 
 
       // 
