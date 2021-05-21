@@ -97,6 +97,12 @@
 
       -->
     </v-row>
+    <v-row>
+      <v-col>
+         Version 1.1.1
+      </v-col>
+      </v-row>
+
   </v-container>
 </template>
 

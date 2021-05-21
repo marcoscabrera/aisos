@@ -176,15 +176,15 @@ export default {
       self.pdfdata.then(pdf => {
         self.numPages = pdf.numPages;
         window.onscroll = function() { 
-          changePage() 
-          stickyNav()  
+         // changePage() 
+         // stickyNav()  
         }
 
         // Get the offset position of the navbar
-        var sticky = document.getElementById('buttons')[0].offsetTop;
+       // var sticky = document.getElementById('buttons')[0].offsetTop;
 
         // Add the sticky class to the self.$refs.nav when you reach its scroll position. Remove "sticky" when you leave the scroll position
-        function stickyNav() {
+       /* function stickyNav() {
           if (window.pageYOffset >= sticky) {
            // $('#buttons')[0].classList.remove("hidden")
            console.log('hidden');
@@ -192,9 +192,9 @@ export default {
             //$('#buttons')[0].classList.add("hidden")
             console.log('add hidden');
           }
-        }
+        }*/
 
-        function changePage () {
+       /* function changePage () {
           var i = 1, count = Number(pdf.numPages);
           do {
             if(window.pageYOffset >= self.findPos(document.getElementById(i)) && 
@@ -206,7 +206,7 @@ export default {
           if (window.pageYOffset >= self.findPos(document.getElementById(i))) {
             self.page = i
           }
-        }
+        }*/
       });
     },
     findPos(obj) {
