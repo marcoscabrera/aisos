@@ -281,7 +281,7 @@ import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
 import validacionReporteInicial from   "@/components/etapas/validaciones/validacionReporteInicial.js";
 //import valoracionIntegralEtapa from '@/components/etapas/valoracionIntegralEtapa.vue';
 import impresiones_etapauno from '@/components/etapas/impresiones/impresiones_etapauno.js';
-
+import emailjs from 'emailjs-com';
 //import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
 
 export default {
@@ -310,6 +310,46 @@ export default {
   },
 
   methods: {
+
+
+    //se generar metodo para enviar correos 
+
+     enviarCorreos(correos,folio,tarea_realizada){
+
+       try {
+       
+
+         Object.entries(correos).forEach(entry => {
+
+         const [key,value] = entry;
+
+          let mails = value["correo"];
+
+          console.log("valor del email : " + mails);
+   
+          console.log(key);
+
+          let parametro = { 
+            para_quien : mails,
+            folio : folio,
+            tarea_realizada : tarea_realizada
+         };
+
+         
+          emailjs.send('service_ju06ig8', 'template_6xgsbah', parametro, 'user_MlW9ksxHwUdguhUW2NFHG');
+
+        });
+         
+       }catch(error){
+              
+              console.log(" error al enviar correos : " +error);
+
+       }
+        
+ 
+
+
+    },
    
    //se crea el array datos y se le asigna los valores de las variables 
    //que almacenan la informacion de esta etapa del reporte de incidente.
@@ -753,12 +793,12 @@ const  {
         
         //limpiar variables globales de incidente
         validacionReporteInicial.inicializarValoresDeIncidente(this.$store);
-         /*
-        this.$router.push({
-          name: "DenunciasDetalle",
-          params: { id: idRecuperado },
-        });*/
-      
+
+          /****************************************** */
+          let tarea_realizada = "Se ha creado un nuevo reporte de Incidente";
+          this.enviarCorreos(a["correos"],a["folio"],tarea_realizada);
+
+          /****************************** */
           this.$router.push({
           name: "Notificacionuno",
           params: { incidenteId: idRecuperado,folio:this.folio },

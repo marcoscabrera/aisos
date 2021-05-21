@@ -99,7 +99,7 @@
     </v-row>
     <v-row>
       <v-col>
-         Version 1.1.1
+            Version 1.1.2 
       </v-col>
       </v-row>
 
