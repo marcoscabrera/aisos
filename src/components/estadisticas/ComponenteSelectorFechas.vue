@@ -118,7 +118,7 @@
 </template>
 
 <script>
-
+import eventBus from "@/eventBus.js";
 import apiEstadisticas from '@/apialdeas/apiEstadisticas.js';
 export default {
     name :'SelectorFechaReportes',
@@ -143,6 +143,9 @@ export default {
 
        buscar(){
 
+           this.$store.dispatch("action_verEstadisticas",false);
+
+
          let parametros ={ fi : this.$store.state.estadisticas.fechaInicial,
                            ff : this.$store.state.estadisticas.fechaFinal,
                            tipo :this.$store.state.estadisticas.tipo}
@@ -156,9 +159,16 @@ export default {
              console.log(JSON.stringify(response.data));
 
              this.$store.dispatch("action_dato_graficas",response.data);
+             
+              console.log(JSON.stringify(response.data.grafica1.TotalIncidenteAbiertos));
+               
 
+              this.$store.dispatch("action_verEstadisticas",true);
+                    eventBus.$emit('crearLaGrafica');
 
-
+     console.log(this.$store.state.estadisticas.datos_graficas.grafica1.TotalIncidenteAbiertos);
+          //creamos la segunfa grafica
+  
        }
        
        )

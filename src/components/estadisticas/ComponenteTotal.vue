@@ -22,12 +22,17 @@
                <strong>Total De Incidentes de Desprotección Infantil</strong>
          </p>
         </v-col>
-        <v-col cols="12" xm="6" sm="3" md="3" lg="3"
-           align="center"
-         
+        <v-col cols="12"
+                xm="6" 
+                sm="3" 
+                md="3" 
+                lg="3"
+                align="center"        
         >
+        
          <p class="text-center">
-                              Abiertos 12 - 20%
+          
+          Abiertos {{this.datoAbierto}} - {{this.porcentajeAbiertos}}%
          
           
          </p>
@@ -37,7 +42,7 @@
           cols="12" xm="6" sm="3" md="3" lg="3"
         >
          <p class="text-center">
-                Cerrados 38 - 80%
+                Cerrados {{this.cerrados}} - {{this.porcentajeCerrados}}%
          </p>
         </v-col>
     
@@ -50,6 +55,36 @@
 
 <script>
 export default {
+
+
+
+  computed : {
+
+      datoAbierto() {
+
+        return this.$store.state.estadisticas.datos_graficas.grafica1.TotalIncidenteAbiertos;
+
+      },
+
+      cerrados() {
+          return this.$store.state.estadisticas.datos_graficas.grafica1.TotalIncidenteCerrados;
+
+      },
+
+      porcentajeAbiertos() {
+       return this.$store.state.estadisticas.datos_graficas.grafica1.porcentajeAbiertos;
+
+      },
+
+      porcentajeCerrados(){
+        return this.$store.state.estadisticas.datos_graficas.grafica1.porcentajeCerrado;
+
+      }
+
+
+  }
+
+
 
 }
 

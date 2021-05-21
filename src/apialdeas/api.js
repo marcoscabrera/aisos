@@ -73,8 +73,13 @@ export default {
           //return response.data;
         })
         .catch((error) => {
-            console.log(error);
-            console.log("aqui esta el error ?");
+            console.log(error.message);
+            console.log('Request failed with status code 401');
+
+            if(error.message =='Request failed with status code 401'){
+
+                this.$router.push('/login');
+            }
           reject(error);
         });
     });

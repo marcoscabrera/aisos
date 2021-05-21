@@ -8,6 +8,7 @@ import mutations from './mutations.js';
         fechaFinal : null,
         tipo : null,
         datos_graficas : null,
+        verEstadisticas: false,
     },
     mutations,
     actions 

@@ -1,18 +1,6 @@
-export const planetChartData = {
+export var planetChartData = {
     type: 'bar',
     data: {
-
-        /**
-         * 
-         * AF-TIJUANA
-AF-MORELIA
-AD-CDMX
-AF TUXTLA
-AF COMITAN
-FF HUEHUETOCA
-FF TEHUACAN
-FF COMITAN
-         */
       labels: [
         'AF-TIJUANA',
         'AF-MORELIA',

@@ -2,18 +2,23 @@
   <v-container name="contenedorestadisticas">
     <h2>en Estadisticas</h2>
     <ComponenteSelectorFechas></ComponenteSelectorFechas>
+
     <ComponenteTotal></ComponenteTotal>
+
+
+
     <ComponenteIncidentesProgramas></ComponenteIncidentesProgramas>
-     <ComponenteChartjs></ComponenteChartjs>
+     <!--<ComponenteChartjs></ComponenteChartjs> -->
    <!-- <ComponenteDatosIncidentesVarios></ComponenteDatosIncidentesVarios>
    -->
+   <!--
     <ComponenteTotalesSuma></ComponenteTotalesSuma>
     <ComponenteBarStack></ComponenteBarStack>
     <ComponenteVictimasTotales></ComponenteVictimasTotales>
     <ComponenteBarStackVictimas></ComponenteBarStackVictimas>
     <ComponenteAgresoresTotales></ComponenteAgresoresTotales>
 
-    <ComponenteBarStackAgresores></ComponenteBarStackAgresores>
+    <ComponenteBarStackAgresores></ComponenteBarStackAgresores> -->
   </v-container>
 </template>
 <script>
@@ -22,14 +27,15 @@ import  ComponenteIncidentesProgramas from '@/components/estadisticas/Componente
 import  ComponenteSelectorFechas from '@/components/estadisticas/ComponenteSelectorFechas.vue';
 //import  BarChart from '@/components/estadisticas/BarChart.vue';
 //import  ComponenteDatosIncidentesVarios from '@/components/estadisticas/ComponenteDatosIncidentesVarios.vue';
-import ComponenteChartjs  from '@/components/estadisticas/ComponenteChartjs.vue';
 import ComponenteTotal from '@/components/estadisticas/ComponenteTotal.vue';
-import ComponenteBarStack from '@/components/estadisticas/ComponenteBarStack.vue';
-import ComponenteTotalesSuma from '@/components/estadisticas/ComponenteTotalesSuma.vue';
-import ComponenteVictimasTotales from '@/components/estadisticas/ComponenteVictimasTotales.vue';
-import ComponenteBarStackVictimas from '@/components/estadisticas/ComponenteBarStackVictimas.vue';
-import ComponenteAgresoresTotales from '@/components/estadisticas//ComponenteAgresoresTotales.vue'
-import ComponenteBarStackAgresores from '@/components/estadisticas//ComponenteBarStackAgresores.vue'
+
+//import ComponenteChartjs  from '@/components/estadisticas/ComponenteChartjs.vue';
+//import ComponenteBarStack from '@/components/estadisticas/ComponenteBarStack.vue';
+//import ComponenteTotalesSuma from '@/components/estadisticas/ComponenteTotalesSuma.vue';
+//import ComponenteVictimasTotales from '@/components/estadisticas/ComponenteVictimasTotales.vue';
+//import ComponenteBarStackVictimas from '@/components/estadisticas/ComponenteBarStackVictimas.vue';
+//import ComponenteAgresoresTotales from '@/components/estadisticas//ComponenteAgresoresTotales.vue'
+//import ComponenteBarStackAgresores from '@/components/estadisticas//ComponenteBarStackAgresores.vue'
 export default {
   name: "Estadisticas",
 
@@ -38,10 +44,17 @@ export default {
   },
   components : {
     //ComponenteDatosIncidentesVarios
-    ComponenteIncidentesProgramas,ComponenteSelectorFechas
-    ,ComponenteChartjs,ComponenteTotal
-    ,ComponenteBarStack,ComponenteTotalesSuma,ComponenteVictimasTotales,ComponenteBarStackVictimas
-    ,ComponenteAgresoresTotales,ComponenteBarStackAgresores
+    ComponenteIncidentesProgramas,
+    ComponenteSelectorFechas,
+     ComponenteTotal,
+  //   ComponenteChartjs,
+   
+   // ComponenteBarStack,
+   // ComponenteTotalesSuma,
+    //ComponenteVictimasTotales,
+    //ComponenteBarStackVictimas
+    //,ComponenteAgresoresTotales,
+    //ComponenteBarStackAgresores
 
   } ,
 

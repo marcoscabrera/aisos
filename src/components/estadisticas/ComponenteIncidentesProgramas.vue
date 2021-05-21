@@ -6,54 +6,20 @@
          </v-col>
      </v-row>
      <v-row>
-         <v-col cols="12" xm="12" sm="6" md="4" lg="4">
-             <ComponenteDatoIncidente 
-             v-bind:abierto="abierto_tijuana"
-             v-bind:cerrado ="cerrado_tijuana"
-             v-bind:pendiente ="0"
-             identificador="c1" titulo ="ACOGIMIENTO FAMILIAR TIJUANA"></ComponenteDatoIncidente>
+         <v-col v-for="value in this.objetos"  :key="value.id" cols="12" xm="12" sm="6" md="4" lg="4">
+            <ComponenteDatoIncidente 
+               
+               :abierto="value.TotalIncidenteAbiertos"
+               :cerrado ="value.TotalIncidenteCerrados"
+               pendiente = 0
+               :identificador="value.programa" 
+               :titulo ="value.programa"> 
+               </ComponenteDatoIncidente> 
+             
+           
          </v-col>
-         <v-col cols="12" xm="12" sm="6" md="4" lg="4">
-             <ComponenteDatoIncidente
-             v-bind:abierto="abierto_morelia"
-             v-bind:cerrado ="cerrado_morelia"  
-              v-bind:pendiente ="0"           
-              identificador="c2" titulo ="ACOGIMIENTO FAMILIAR MORELIA"></ComponenteDatoIncidente>
-         </v-col>
-         <v-col cols="12" xm="12" sm="6" md="4" lg="4">
-             <ComponenteDatoIncidente
-             v-bind:abierto="abierto_cdmx"
-             v-bind:cerrado ="cerrado_cdmx" 
-              v-bind:pendiente ="0"
-              identificador="c3" titulo ="ACOGIMIENTO FAMILIAR CDMNX"></ComponenteDatoIncidente>
-         </v-col>
-         <v-col cols="12" xm="12" sm="6" md="4" lg="4">
-             <ComponenteDatoIncidente
-               v-bind:abierto="abierto_tuxtla"
-             v-bind:cerrado ="cerrado_tuxtal" 
-              v-bind:pendiente ="0"
-              identificador="c4" titulo ="ACOGIMIENTO FAMILIAR TUXTLA"></ComponenteDatoIncidente>
-         </v-col>
-         <v-col cols="12" xm="12" sm="6" md="4" lg="4">
-             <ComponenteDatoIncidente
-             v-bind:abierto="abierto_comitan"
-             v-bind:cerrado ="cerrado_comitan"
-              v-bind:pendiente ="0"
-              identificador="c5" titulo ="ACOGIMIENTO FAMILIAR COMITAN"></ComponenteDatoIncidente>
-         </v-col>
-         <v-col cols="12" xm="12" sm="6" md="4" lg="4">
-             <ComponenteDatoIncidente
-             v-bind:abierto="abierto_huehuetoca"
-             v-bind:cerrado ="abierto_huehuetoca"
-              v-bind:pendiente ="0"
-              identificador="c6" titulo ="FORTALECIMIENTO FAMILIAR HUEHUETOCA"></ComponenteDatoIncidente>
-         </v-col>
+
      </v-row>
-
-
-
-
-
 
   </v-container>
 </template>
@@ -62,11 +28,82 @@
 import ComponenteDatoIncidente from '@/components/estadisticas/ComponenteDatoIncidente.vue';
 
     export default {
+        name :"generadorComponentes",
 
         props :{
 
             datos :{ type:Array}
 
+        },
+
+        data() {
+
+                return {
+                    
+                    programas : [],
+                    objetos : null,
+                    partevar : '',
+                    todovar  : ''
+                }
+
+
+        },
+
+        mounted() {
+
+                 console.log(" grafica programas : " );
+
+                 console.log( this.$store.state.estadisticas.datos_graficas.grafica2);
+
+                 this.objetos = this.$store.state.estadisticas.datos_graficas.grafica2;
+
+                 this.objetos.forEach(this.convierte);
+
+
+              
+
+                let quitarUltimocaracterer  = "";  
+                console.log( this.partevar);
+                quitarUltimocaracterer  =  this.partevar.slice(0, -1);  
+
+                this.todovar  = "["+ quitarUltimocaracterer + "]";
+
+
+
+
+                 console.log( this.todovar);
+                 this.programas =  JSON.parse( this.todovar);
+                 console.log(  this.programas);
+        },
+
+        methods : {
+
+              convierte(value) {
+
+                let id = value.id;
+                let ti = value.TotalIncidenteAbiertos;
+                let tc = value.TotalIncidenteCerrados;
+                let p  = value.programa;
+                let pa = value.porcentajeAbiertos;
+                let pc = value.porcentajeCerrados;
+
+
+                let x = '{ "id":' +id +'  ,  "TotalIncidenteAbiertos" : '+ti+',  "TotalIncidenteCerrados" : ' +tc + ', "programa" :  "' + p + '" ,"porcentajeAbiertos" : '+pa+' , "porcentajeCerrados" :'+pc+'},';
+
+                this.partevar = this.partevar + x;
+              
+
+              }
+
+        },
+
+        computed : {
+
+            lprogramas (){
+
+            return this.$store.state.estadisticas.datos_graficas.grafica2;
+
+            }
         },
 
         components :{

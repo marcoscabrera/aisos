@@ -18,6 +18,14 @@ export default {
         
         state.datos_graficas = valor;
 
+    },
+
+    mutation_verEstadisticas (state, valor){
+
+           state.verEstadisticas = valor;
+
+
+
     }
 
 }

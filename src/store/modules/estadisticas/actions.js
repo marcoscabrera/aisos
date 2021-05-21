@@ -21,5 +21,10 @@ action_dato_graficas ( context , valor ) {
    
 }  ,
 
+action_verEstadisticas( context , valor ) { 
+    context.commit('mutation_verEstadisticas',valor)  
+   
+}  ,
+
 
 }

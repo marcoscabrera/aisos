@@ -37,6 +37,8 @@ data() {
 	blue: 'rgb(54, 162, 235)',
 	purple: 'rgb(153, 102, 255)',
 	grey: 'rgb(201, 203, 207)',
+  
+    labeles  :['AF-TIJUANA', 'AD-CDMX', 'AF-MORELIA', 'AF-TUXTLA', 'AF-COMITAN','FF-HUEHUETOCA','FF-TEHUACAN','FF-COMITAN'],
 
 
       options: {
@@ -59,8 +61,9 @@ data() {
 					}
 				},
 
+			
       barChartData: {
-			labels: ['AF-TIJUANA', 'AD-CDMX', 'AF-MORELIA', 'AF-TUXTLA', 'AF-COMITAN','FF-HUEHUETOCA','FF-TEHUACAN','FF-COMITAN'],
+			labels: this.labeles,
 			datasets: [{
 				label: 'Abuso Fisico',
 				backgroundColor: "rgb(255, 205, 86)",
