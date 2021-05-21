@@ -167,7 +167,7 @@ export default {
   methods: {
     imprime_el_canvas(){
          //printJS('1', 'html');
-          printJS(this.$store.state.uivars.uivars_docto_a_ver, 'pdf');
+          printJS(encodeURI(this.$store.state.uivars.uivars_docto_a_ver), 'pdf');
     },
     getPdf () {
       let srcx = this.$store.state.uivars.uivars_docto_a_ver ;  
