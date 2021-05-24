@@ -4,10 +4,10 @@
       :src.sync="archivo" 
       ref="pdfView"
       
-      :sidebarFeatureVisible="false"
+      sidebarFeatureVisible="true"
       :downloadFeatureVisible="false" 
       :dropzoneFeatureVisible="false" 
-      :toolbarVisible="false" 
+      toolbarVisible="true" 
       scale.sync="scale" 
     > 
         <template slot="right-toolbox"></template> <!-- Add more buttons/features on the right side of the toolbar -->
