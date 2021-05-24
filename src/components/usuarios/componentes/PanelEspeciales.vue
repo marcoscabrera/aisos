@@ -8,6 +8,7 @@
                         textoDescriptivo= 'VISIBILIDAD DE INCIDENTES'
                         :valor ="this.$store.state.roles.roles_VISIBILIDADDEINCIDENTES"
                         nombrePermiso="VISIBILIDAD DE INCIDENTES"
+
                         accion_A_ejecutar = "action_roles_VISIBILIDADDEINCIDENTES" 
                       v-bind:itemsOpciones = "['TODOS','PROGRAMA','PROPIOS']"
                     >
@@ -18,8 +19,9 @@
                         textoDescriptivo= 'AUTORIZACIÓN PARA IMPRESIONES'
                         :valor ="this.$store.state.roles.roles_AUTORIZAIMPRESION"
                         nombrePermiso="AUTORIZACIÓN PARA IMPRESIONES"
+                                             
                         accion_A_ejecutar = "action_roles_AUTORIZAIMPRESION" 
-                       v-bind:itemsOpciones = "['TODOS','PROGRAMA']"
+                       v-bind:itemsOpciones = "['SI','NO']"
                     >
                     </ComboPermisoComponenteGenerico>
 

@@ -13,7 +13,8 @@
     :expanded.sync="expanded"
     item-key="id"
     
-    sort-by="id"
+      :sort-by.sync="sortBy"
+      :sort-desc.sync="sortDesc"
     class="elevation-1"
     :loading="cargandoDatos"
     loading-text="Cargando... por favor sea paciente"
@@ -477,6 +478,11 @@ import validacionSeguimiento from '@/components/etapas/validaciones/validacionSe
 
 export default {
   data: () => ({
+
+     /*Variables para ordenar los datos del dashboard y se utilizan 
+     para configurar el Header */
+     sortBy  : 'id',
+     sortDesc : true,
 
     /* variables para ui */
     //visualiza u oculta el boton para mostrar el Boton de busquedas.

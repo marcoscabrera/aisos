@@ -74,7 +74,7 @@ export default {
         })
         .catch((error) => {
             console.log(error.message);
-            console.log('Request failed with status code 401');
+            
 
             if(error.message =='Request failed with status code 401'){
 

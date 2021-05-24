@@ -1,7 +1,9 @@
 <template>
  <v-container name ="visor">
 
-     <cp></cp> 
+    <!-- <cp></cp> -->
+   <!-- <ComponentePDFVueApp></ComponentePDFVueApp> -->
+   <ComponenteVuePdfViewer></ComponenteVuePdfViewer>
 
  </v-container>
 </template>
@@ -10,8 +12,10 @@
 
 //import  prueba from '@/components/manipulacionArchivos/prueba.vue'; 
 //import ComponentePDFvuever from  '@/components/manipulacionArchivos/ComponentePDFvuever.vue';
- import cp from  '@/components/manipulacionArchivos/cp.vue';
- 
+// import cp from  '@/components/manipulacionArchivos/cp.vue';
+
+//import ComponentePDFVueApp from '@/components/manipulacionArchivos/ComponentePDFVueApp.vue';
+ import ComponenteVuePdfViewer from '@/components/manipulacionArchivos/ComponenteVuePdfViewer.vue';
  export default {
 
         data() {
@@ -20,7 +24,10 @@
             }
         },
 
-        components :{ cp
+        components :{
+            ComponenteVuePdfViewer
+           //  ComponentePDFVueApp
+            //cp
           // prueba
                //PDFDocument
            // PDFV2,

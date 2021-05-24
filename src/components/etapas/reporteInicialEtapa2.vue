@@ -281,9 +281,10 @@ import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
 import validacionReporteInicial from   "@/components/etapas/validaciones/validacionReporteInicial.js";
 //import valoracionIntegralEtapa from '@/components/etapas/valoracionIntegralEtapa.vue';
 import impresiones_etapauno from '@/components/etapas/impresiones/impresiones_etapauno.js';
-import emailjs from 'emailjs-com';
+//import emailjs from 'emailjs-com';
 //import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
 
+import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
 export default {
   components: {
     barraDocumentosVue,
@@ -314,7 +315,7 @@ export default {
 
     //se generar metodo para enviar correos 
 
-     enviarCorreos(correos,folio,tarea_realizada){
+     /*enviarCorreos(correos,folio,tarea_realizada){
 
        try {
        
@@ -349,7 +350,7 @@ export default {
  
 
 
-    },
+    },*/
    
    //se crea el array datos y se le asigna los valores de las variables 
    //que almacenan la informacion de esta etapa del reporte de incidente.
@@ -791,14 +792,19 @@ const  {
 
         this.verBotonImpresion = false;
         
-        //limpiar variables globales de incidente
-        validacionReporteInicial.inicializarValoresDeIncidente(this.$store);
+          //limpiar variables globales de incidente
+          validacionReporteInicial.inicializarValoresDeIncidente(this.$store);
 
-          /****************************************** */
-          let tarea_realizada = "Se ha creado un nuevo reporte de Incidente";
-          this.enviarCorreos(a["correos"],a["folio"],tarea_realizada);
+          /*******************************************************************
+           * Enviamos los correos para notificar a los usuarios que tienen 
+           * este permiso activo
+           ****************************************************************/
+         
+         let tarea_realizada = "Se ha creado un nuevo reporte de Incidente";
+         
+          envioDeCorreos.enviarCorreos(a["correos"],a["folio"],tarea_realizada);
 
-          /****************************** */
+          /************************************************************* */
           this.$router.push({
           name: "Notificacionuno",
           params: { incidenteId: idRecuperado,folio:this.folio },

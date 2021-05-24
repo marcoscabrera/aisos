@@ -19,7 +19,7 @@
         <PanelArchivosComponentes></PanelArchivosComponentes>
         <PanelEvidenciaComponentes></PanelEvidenciaComponentes>
         <PanelRecibirCorreos></PanelRecibirCorreos>
-         <PanelEspeciales></PanelEspeciales>
+        <PanelEspeciales></PanelEspeciales>
         <!-- <v-row>
             <v-col>
                 <v-switch

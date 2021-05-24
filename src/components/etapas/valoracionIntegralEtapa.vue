@@ -218,6 +218,9 @@ import validacionArchivo from  "@/components/etapas/validaciones/validacionArchi
 import apiPermisosimpresion from "@/apialdeas/apiPermisosimpresion.js";
 //import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
 
+// envia los correos de notificacion
+import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
+
 export default {
   components: {
     barraDocumentosVue,
@@ -775,6 +778,21 @@ export default {
          // let ruta =`/notificaciondos/${this.incidenteid}/${this.folio}/${etapavaloracion_confirmaincidente}`;
          typeof response;
          // this.$router.push(ruta);
+          
+          /*******************************************************************
+           * Enviamos los correos para notificar a los usuarios que tienen 
+           * este permiso activo
+           ****************************************************************/
+         
+         let correosRecibidos = response.data["correos"];
+         console.log("Variable de correos");
+         console.log(correosRecibidos);
+         let tarea_realizada = "Se ha realizado la valoracion integral del reporte de Incidente";
+         
+          envioDeCorreos.enviarCorreos(correosRecibidos,this.folio,tarea_realizada);
+
+          /************************************************************* */
+ 
           this.$router.push({
           name: "Notificaciontres",
           params: { incidenteId:  this.incidenteid, folio:this.folio,esincidente :etapavaloracion_confirmaincidente },
@@ -793,11 +811,11 @@ export default {
 
      console.log(" Permiso EDITARANTESDECIERREDELAVALORACIONINTEGRAL  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARANTESDECIERREDELAVALORACIONINTEGRAL)             
 
-  if (this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARANTESDECIERREDELAVALORACIONINTEGRAL=='SI'){
+    if (this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARANTESDECIERREDELAVALORACIONINTEGRAL=='SI'){
 
-        this.ejecutar_actualizaValoracion();
+          this.ejecutar_actualizaValoracion();
 
-     }//termina if
+      }//termina if
 
     }
   },

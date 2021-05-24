@@ -385,6 +385,10 @@ export default {
     },
 
     irAevidencias() {
+      /* guardamos antes de que abandonemos la seccion */
+
+      this.guardar();
+      /************************************************ */
       let evidenciaId = this.$route.params.evidenciaId;
 
       this.$router.push({

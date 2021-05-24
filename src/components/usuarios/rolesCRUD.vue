@@ -297,6 +297,14 @@ activar(event,item) {
         this.$store.dispatch('action_IMPRESIONARCHIVOS',response.data[0]['IMPRESIONARCHIVOS']);
         this.$store.dispatch('action_VISUALIZACIONARCHIVOS',response.data[0]['VISUALIZACIONARCHIVOS']);
         
+        this.$store.dispatch('action_roles_RECIBECORREOS',response.data[0]['RECIBECORREOS']);
+     
+        this.$store.dispatch('action_roles_VISIBILIDADDEINCIDENTES',response.data[0]['VISIBILIDADDEINCIDENTES']);
+     
+        this.$store.dispatch('action_roles_AUTORIZAIMPRESION',response.data[0]['AUTORIZAIMPRESION']);
+     
+
+
         let tempActivo = true;
         response.data[0]['ACTIVO'] == 1 ? tempActivo = true : tempActivo = false
         this.$store.dispatch('action_roles_activo',tempActivo);
