@@ -13,9 +13,10 @@ export default {
 
     return api.axiospost(endpoint, parametros);
     },
+    
 
-    cargar__todos__los__conciencia(store){
-        let predicado = "/api/v0/conciencia";
+    cargar__todos__los__conciencia(parametro,store){
+        let predicado = "/api/v0/conciencia/tipo/"+ parametro;
         
 
         let apix = store.state.urlServidor;

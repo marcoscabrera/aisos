@@ -35,6 +35,7 @@ export default {
                         
   }  
  ,
+ 
  action_informe_docto ( context , valor ) { 
       context.commit('mutation_informe_docto',valor)  ;
                         

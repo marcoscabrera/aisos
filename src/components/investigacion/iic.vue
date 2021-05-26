@@ -143,7 +143,7 @@
           :loading="loading"
           :disabled="loading"
           color="green"
-          @click="guardar"
+          @click="guardar('s')"
           block
         >
           <v-icon right dark> mdi-check </v-icon>
@@ -163,6 +163,8 @@ import ArchivoImpresionComponente from "@/components/investigacion/componentesIn
 import apiInvestigacion from "@/apialdeas/apiInvestigacion.js";
 import barraDocumentos from "@/components/barradocumentos/barraDocumentos.vue";
 import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
+// envia los correos de notificacion
+import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
 
 //import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
 
@@ -254,7 +256,8 @@ export default {
     }
 
     },
-    guardar() {
+  
+    guardar(notificacion) {
       console.log(" guardar esta info");
       this.loading =true;
       let parametros = {
@@ -294,6 +297,32 @@ export default {
           if (response.data.estado=='cerrado'){
                    this.mensaje = 'Este registro ha sido completado';
                    this.tipoalerta = 'success';
+
+                   if(notificacion=="s"){
+
+                      /*******************************************************************
+                     * Enviamos los correos para notificar a los usuarios que tienen 
+                     * este permiso activo
+                     ****************************************************************/
+                  
+                  let correosRecibidos = response.data["correos"];
+                  console.log("Variable de correos");
+                  console.log(correosRecibidos);
+
+                  let tarea_realizada = "Se ha realizado la investigacion interna";
+                  
+                  this.$store.dispatch("action_notificacion_incidenteid",this.$store.state.investigacion.investigacion_incidenteid);
+                  this.$store.dispatch("action_notificacion_respuesta","investigacion");
+                  let respuesta ="Se ha completado el llenado de la investigacion interna del folio  #" +  this.folio;
+                  this.$store.dispatch("action_notificacion_texto_respuesta",respuesta);                 
+                 
+                   envioDeCorreos.enviarCorreos(correosRecibidos,this.folio,tarea_realizada);
+
+
+                  this.$router.push({ name: "NotificacionRespuesta"});
+                   
+
+                   }
            }
         })
         .catch((error) => {
@@ -379,7 +408,7 @@ export default {
         (this.informe_siHayArchivo =
           investigacion.informe_docto_Archivo.hayArchivo);
 
-      this.$store.dispatch("action_investigacion_informe_docto_nombre",this.this.informe_NombreArchivo);
+      this.$store.dispatch("action_investigacion_informe_docto_nombre",this.informe_NombreArchivo);
       this.$store.dispatch("action_informe_docto", this.informe_archivoId);
 
     },
@@ -387,9 +416,11 @@ export default {
     irAevidencias() {
       /* guardamos antes de que abandonemos la seccion */
 
-      this.guardar();
+      this.guardar("n");
       /************************************************ */
       let evidenciaId = this.$route.params.evidenciaId;
+
+    
 
       this.$router.push({
         name: "Evidencias",

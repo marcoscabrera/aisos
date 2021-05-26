@@ -129,7 +129,7 @@ import FoliosComponente  from "./componentesDenunciaLegal/FoliosComponente.vue";
 import barraDocumentos  from "@/components/barradocumentos/barraDocumentos.vue";
 import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
 //import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
-
+import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
 export default {
 
   components : {
@@ -307,7 +307,31 @@ export default {
           if (response.data.estado=='cerrado'){
                    this.mensaje = 'Este registro ha sido completado';
                    this.tipoalerta = 'success';
-           }
+                /*******************************************************************
+                * Enviamos los correos para notificar a los usuarios que tienen 
+                * este permiso activo
+                 ****************************************************************/
+                  
+                  let correosRecibidos = response.data["correos"];
+                  console.log("Variable de correos");
+                  console.log(correosRecibidos);
+
+                 // let tarea_realizada = "Se ha terminado de llenar";
+                  
+                  this.$store.dispatch("action_notificacion_incidenteid",this.$store.state.denuncias.denuncialegal_incidenteid);
+                  this.$store.dispatch("action_notificacion_respuesta","denuncia");
+                  let respuesta ="Se ha completado el llenado de la Denuncia del folio  #" +  this.folio;
+                  this.$store.dispatch("action_notificacion_texto_respuesta",respuesta);                 
+                 
+                   envioDeCorreos.enviarCorreos(correosRecibidos,this.folio,respuesta);
+
+
+                  this.$router.push({ name: "NotificacionRespuesta"});
+                   
+
+
+
+           }//termina estado cerrado
 
          }
        ).catch(

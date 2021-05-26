@@ -86,7 +86,7 @@ validacion_sePuedeCapturar(){
 
       conciencia_docto,
      
-      conciencia_estatusplan,
+     // conciencia_estatusplan,
  
 
      
@@ -108,9 +108,9 @@ validacion_sePuedeCapturar(){
    this.$store.dispatch('actions_uivars_error_conciencia_docto',r);   
    this.validarCaptura(r);
 
- r = validacionReporteInicial.existeInformacionParaCapturar(conciencia_estatusplan); 
+ /*r = validacionReporteInicial.existeInformacionParaCapturar(conciencia_estatusplan); 
    this.$store.dispatch('actions_uivars_error_conciencia_estatusplan',r);   
-   this.validarCaptura(r);
+   this.validarCaptura(r);*/
 
   return this.errores;
 
@@ -224,10 +224,10 @@ this.$store.dispatch('action_conciencia_tipo', response.data[0]['tipo']);
       let parametros = {
        
          id :  this.$store.state.conciencia.conciencia_id,
-        estatus :  this.$store.state.conciencia.conciencia_estatus,
+        estatus :this.$store.state.conciencia.conciencia_estatus,
         clasificacion : 'NO', //this.$store.state.conciencia.conciencia_clasificacion,
         docto :  this.$store.state.conciencia.conciencia_docto,
-        estatusplan :this.$store.state.conciencia.conciencia_estatusplan,
+        estatusplan :'No aplica' ,//this.$store.state.conciencia.conciencia_estatusplan,
         activo :  "1",
         tipo : tipoagrabar,
 

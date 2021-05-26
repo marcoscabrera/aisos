@@ -27,6 +27,7 @@ export default {
               state.investigacion_plan_docto   = valor 
             
  },
+ 
  mutation_informe_docto( state, valor) {   
               state.investigacion_informe_docto   = valor 
             

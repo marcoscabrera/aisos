@@ -344,7 +344,7 @@ import apiIncidentes from '@/apialdeas/apiIncidentes.js';
 import cardDocumentoEnCierre from '@/components/etapasComponentesCierre/cardDocumentoEnCierre.vue';
 import apiArchivos from '@/apialdeas/apiArchivos.js';
 import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
-
+import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
 
 //import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
 
@@ -692,6 +692,19 @@ export default {
           //nos lleva a notificacion de cierre.
 
          this.loading= false ;
+
+         /*******************************************************************
+         * Enviamos los correos para notificar a los usuarios que tienen 
+         * este permiso activo
+         ****************************************************************/
+                  
+           let correosRecibidos = response.data["correos"];
+           console.log("Variable de correos");
+           console.log(correosRecibidos);
+
+             
+          envioDeCorreos.enviarCorreos(correosRecibidos,this.folio,respuesta);                
+        
          
          this.$router.push({
           name: "Notificacioncuatro",

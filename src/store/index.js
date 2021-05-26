@@ -15,14 +15,14 @@ import permisosimpresion from './modules/permisosimpresion/permisosimpresion.js'
 import impresiones from './modules/impresiones/impresiones.js'
 import abordaje from './modules/abordaje/abordaje.js'
 import estadisticas from './modules/estadisticas/estadisticas.js'
-
+import notificacion from './modules/notificacion/notificacion.js'
 Vue.use(Vuex)
 //export default new Vuex.Store
 const store =  new Vuex.Store({
   state: {
-  urlServidor: 'http://127.0.0.1/apialdeas'
+  //urlServidor: 'http://127.0.0.1/apialdeas'
 
- //urlServidor : 'https://apialdeasproteccioninfantil2.azurewebsites.net',
+ urlServidor : 'https://apialdeasproteccioninfantil2.azurewebsites.net',
   
   },
   mutations: {
@@ -31,7 +31,7 @@ const store =  new Vuex.Store({
   },
   modules: {
     conciencia,usuarios, roles,incidentes,valoracion,uivars,seguimiento,denuncias,investigacion,evidencias,
-    permisosimpresion,impresiones,abordaje,estadisticas
+    permisosimpresion,impresiones,abordaje,estadisticas,notificacion
   }
 })
   

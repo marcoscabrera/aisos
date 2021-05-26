@@ -2,8 +2,10 @@
   <v-data-table
     :headers="headers"
     :items="conciencia"
-    sort-by="id"
+   
     class="elevation-1"
+    :sort-by.sync="sortBy"
+    :sort-desc.sync="sortDesc"
   >
     <template v-slot:top>
       <v-toolbar flat color="white">
@@ -35,7 +37,7 @@
 
      </template>
 
-    <!-- estatus del plan  -->
+    <!-- estatus del plan 
     <template v-slot:item.estatusplan="{ item }">
 
           <v-chip v-if="item.estatusplan=='Pendiente'"
@@ -50,7 +52,9 @@
             color="green"
           >Terminado</v-chip>
 
-     </template>
+     </template> -->
+
+
     <template v-slot:item.actions_editar="{ item }">
       <v-btn color="primary" dark dense @click="editItem(item)">
       <v-icon small class="mr-2" > mdi-pencil </v-icon>
@@ -87,7 +91,10 @@ export default {
   data: () => ({
     dialog: false,
     conciencia:[],
-
+     /*Variables para ordenar los datos del dashboard y se utilizan 
+     para configurar el Header */
+     sortBy  : 'id',
+     sortDesc : true,
     headers: [
       {
         text: "#",
@@ -99,7 +106,7 @@ export default {
         { text: 'id', value: 'id' },
         { text: 'estatus', value: 'estatus' },
        // { text: 'clasificacion', value: 'clasificacion' },
-        { text: 'Estado del Plan', value: 'estatusplan' },
+       // { text: 'Estado del Plan', value: 'estatusplan' },
         //{ text: 'activo', value: 'activo' },
 //{ text: 'tipo', value: 'tipo' },
 
@@ -148,7 +155,7 @@ export default {
     },
       
       esConciencia(registro){
-        console.log("registro " + registro);
+        console.log("registro :" + registro.tipo);
         return registro.tipo=="Conciencia";
 
       },
@@ -167,17 +174,18 @@ export default {
          var t = this.tipo.toLowerCase()
 
                                                 
-         let TodosLosConciencia = apiConciencia.cargar__todos__los__conciencia(this.$store);
+         let TodosLosConciencia = apiConciencia.cargar__todos__los__conciencia(this.tipo,this.$store);
 
          TodosLosConciencia
         .then( response => { 
           console.log(JSON.stringify(response.data));
 
-          let contenedor =response.data;
-
+         
            console.log("valor de t  " + t);
 
-          t=='conciencia' ? this.conciencia = contenedor.filter(this.esConciencia):this.conciencia = contenedor.filter(this.esPrevencion);
+           this.conciencia = response.data;
+
+        //  t=='Conciencia' ? this.conciencia = contenedor.filter(this.esConciencia):this.conciencia = contenedor.filter(this.esPrevencion);
   
          this.$store.dispatch('actions_uivars_tipo_conciencia_o_prevencion', this.tipo);
 

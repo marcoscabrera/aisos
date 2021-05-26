@@ -3,7 +3,7 @@
     <v-card-title> Plan y cronograma </v-card-title>
     <v-card-text>
       <v-row>
-        <v-col cols="12" xs="12" sm="6" md="6">
+       <!-- <v-col cols="12" xs="12" sm="6" md="6">
 
           <v-select
             :value="this.$store.state.conciencia.conciencia_estatusplan"
@@ -20,8 +20,8 @@
            Debe de seleccionar una opción
           </v-alert>
 
-        </v-col>
-        <v-col  cols="12" xs="12" sm="6" md="6">
+        </v-col> -->
+        <v-col  cols="12" xs="12" sm="12" md="12">
 
 
             <!-- <component :is="activarComponente" 

@@ -1,7 +1,7 @@
 <template>
   <pdf name ="visordos" :src="this.$store.state.uivars.uivars_docto_a_ver" :page="1">
     <template slot="loading">
-      loading content here...
+      Cargando el documento...
     </template>
   </pdf>
 </template>

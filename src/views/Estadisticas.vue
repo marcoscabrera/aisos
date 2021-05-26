@@ -5,9 +5,9 @@
     <ComponenteTotal v-if ="this.$store.state.estadisticas.verEstadisticas"></ComponenteTotal>
 
     <ComponenteIncidentesProgramas v-if ="this.$store.state.estadisticas.verEstadisticas"></ComponenteIncidentesProgramas>
-     <ComponenteBarStack></ComponenteBarStack>
+        <!--   <ComponenteBarStack></ComponenteBarStack>
     
-     <!-- 
+
        
        <ComponenteChartjs v-if ="this.$store.state.estadisticas.verEstadisticas"></ComponenteChartjs>
    
@@ -35,7 +35,7 @@ import ComponenteTotal from '@/components/estadisticas/ComponenteTotal.vue';
 
 //import  BarChart from '@/components/estadisticas/BarChart.vue';
 //import  ComponenteDatosIncidentesVarios from '@/components/estadisticas/ComponenteDatosIncidentesVarios.vue';
-import ComponenteBarStack from '@/components/estadisticas/ComponenteBarStack.vue';
+//import ComponenteBarStack from '@/components/estadisticas/ComponenteBarStack.vue';
 
 /*
 import ComponenteTotalesSuma from '@/components/estadisticas/ComponenteTotalesSuma.vue';
@@ -57,7 +57,7 @@ export default {
     ComponenteIncidentesProgramas,
     ComponenteSelectorFechas,
     ComponenteTotal,
-    ComponenteBarStack
+    //ComponenteBarStack
  //   ComponenteChartjs,
    
    // ,,

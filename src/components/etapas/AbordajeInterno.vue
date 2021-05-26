@@ -132,6 +132,7 @@ import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudP
 
 import FoliosComponente  from "@/components/denucialegal/componentesDenunciaLegal/FoliosComponente.vue";
 
+import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
 
 export default {
   components: {   
@@ -261,6 +262,27 @@ export default {
           if (response.data.estado=='cerrado'){
                    this.mensaje = 'Este registro ha sido completado';
                    this.tipoalerta = 'success';
+              /*******************************************************************
+                * Enviamos los correos para notificar a los usuarios que tienen 
+                * este permiso activo
+                 ****************************************************************/
+                  
+                  let correosRecibidos = response.data["correos"];
+                  console.log("Variable de correos");
+                  console.log(correosRecibidos);
+
+       
+                  
+                  this.$store.dispatch("action_notificacion_incidenteid",this.$store.state.abordaje.abordaje_incidenteid);
+                  this.$store.dispatch("action_notificacion_respuesta","abordaje");
+                  let respuesta ="Se ha completado el llenado de el Abordaje Interno del folio  #" +  this.folio;
+                  this.$store.dispatch("action_notificacion_texto_respuesta",respuesta);                 
+                 
+                   envioDeCorreos.enviarCorreos(correosRecibidos,this.folio,respuesta);                
+                   
+
+
+                  this.$router.push({ name: "NotificacionRespuesta"});
            }
 
 

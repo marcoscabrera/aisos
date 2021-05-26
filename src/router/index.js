@@ -17,6 +17,12 @@ const routes = [
     redirect: { name: 'Login' }
   },
   {
+    path: "/notificacionrespuesta",
+    name: "NotificacionRespuesta",
+    component: () =>
+      import(/* webpackChunckName:"notificacionrespuesta" */ "../views/NotificacionRespuesta.vue"),
+  },
+  {
     path: "/documentacionproyecto",
     name: "DocumentacionDelProyecto",
     component: () =>

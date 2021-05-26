@@ -128,7 +128,7 @@
 <script>
 import printJS from 'print-js'
 
-import apiBajarPdf from '@/apialdeas/apiBajarPdf.js'
+//import apiBajarPdf from '@/apialdeas/apiBajarPdf.js'
 import pdfvuer from 'pdfvuer'
 // import 'pdfjs-dist/build/pdf.worker.entry' // To be uncommented if you get error: Error: Setting up fake worker failed: "window.pdfjsWorker is undefined".
 //https://github.com/arkokoley/pdfvuer
@@ -217,9 +217,9 @@ export default {
     imprime_el_canvas(){
          //printJS('1', 'html');
          // printJS(encodeURI(this.$store.state.uivars.uivars_docto_a_ver), 'pdf');
-       apiBajarPdf.bajarPdf2(this.$store.state.uivars.uivars_docto_a_ver,this.$store);
+      // apiBajarPdf.bajarPdf2(this.$store.state.uivars.uivars_docto_a_ver,this.$store);
 
-     // this.printIframe(this.$store.state.uivars.uivars_docto_a_ver);
+     this.printIframe(this.$store.state.uivars.uivars_docto_a_ver);
        
        /*var blob = new Blob([byteArray],{type:'application/pdf'});
        var url = URL.createObjectURL(blob);

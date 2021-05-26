@@ -263,7 +263,7 @@ import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
 import validacionSeguimiento from "@/components/etapas/validaciones/validacionSeguimiento.js";
 
 //import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
-
+import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
 export default {
   components: {     
     cardProtocoloComponente,  
@@ -414,6 +414,28 @@ export default {
           if (response.data.estado=='cerrado'){
                    this.mensaje = 'Este registro ha sido completado';
                    this.tipoalerta = 'success';
+
+                /*******************************************************************
+                * Enviamos los correos para notificar a los usuarios que tienen 
+                * este permiso activo
+                 ****************************************************************/
+                  
+                  let correosRecibidos = response.data["correos"];
+                  console.log("Variable de correos");
+                  console.log(correosRecibidos);
+
+       
+                  
+                  this.$store.dispatch("action_notificacion_incidenteid",this.$store.state.seguimiento.seguimiento_incidenteid);
+                  this.$store.dispatch("action_notificacion_respuesta","seguimiento");
+                  let respuesta ="Se ha completado el llenado de seguimiento del folio  #" +  this.folio;
+                  this.$store.dispatch("action_notificacion_texto_respuesta",respuesta);                 
+                 
+                   envioDeCorreos.enviarCorreos(correosRecibidos,this.folio,respuesta);                
+                   
+                    this.$router.push({ name: "NotificacionRespuesta"});
+
+
            }
 
         }

@@ -141,7 +141,9 @@ export default {
       alert(" saldus");
     },
     regresarInvestigacion() {
-      let id = this.$route.params.incidenteid;
+
+      let id = this.$store.state.investigacion.investigacion_incidenteid;
+      console.log("investigacoinid :" + id);
       this.$router.push({
         name: "InvestigacionInterna",
         params: { incidenteId: id },

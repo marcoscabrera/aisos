@@ -1,8 +1,11 @@
 <template>
  <v-container name ="visor">
 
-    <!-- <cp></cp> -->
-   <!-- <ComponentePDFVueApp></ComponentePDFVueApp> -->
+ <!-- <cp></cp> 
+  <ComponentePDFVueApp></ComponentePDFVueApp>-->
+   
+   
+   <!-- esta el que funciona bien -->
    <ComponenteVuePdfViewer></ComponenteVuePdfViewer>
 
  </v-container>
@@ -12,10 +15,12 @@
 
 //import  prueba from '@/components/manipulacionArchivos/prueba.vue'; 
 //import ComponentePDFvuever from  '@/components/manipulacionArchivos/ComponentePDFvuever.vue';
-// import cp from  '@/components/manipulacionArchivos/cp.vue';
+//import cp from  '@/components/manipulacionArchivos/cp.vue';
 
 //import ComponentePDFVueApp from '@/components/manipulacionArchivos/ComponentePDFVueApp.vue';
- import ComponenteVuePdfViewer from '@/components/manipulacionArchivos/ComponenteVuePdfViewer.vue';
+
+//este es el que funciona
+import ComponenteVuePdfViewer from '@/components/manipulacionArchivos/ComponenteVuePdfViewer.vue';
  export default {
 
         data() {
@@ -25,9 +30,9 @@
         },
 
         components :{
-            ComponenteVuePdfViewer
-           //  ComponentePDFVueApp
-            //cp
+       ComponenteVuePdfViewer
+             //ComponentePDFVueApp
+           // cp
           // prueba
                //PDFDocument
            // PDFV2,
