@@ -42,7 +42,13 @@ const routes = [
     component: () =>
       import(/* webpackChunckName:"conciencia" */ "../views/Conciencia2.vue"),
   },
- 
+  {
+    path: "/ppd",
+    name: "PruebasDoctos",
+    meta: { requiresAuth : true },
+    component: () =>
+      import(/* webpackChunckName:"ppd" */ "../views/Pruebasdoctos.vue"),
+  },
   {
     path: "/parametros",
     name: "Parametros",
