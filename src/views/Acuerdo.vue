@@ -107,7 +107,7 @@ Federal de Protección de Datos Personales en Posesión de los Particulares, pod
 
      </v-col>
     </v-row>
-    <v-row>
+    <v-row v-if="sePuedeVer">
         <v-col>
             <v-btn color="red" dark block @click="cancelar">
                 No Acepto
@@ -137,6 +137,7 @@ import apiParametros from '@/apialdeas/apiParametros.js';
             return {
  
                   acuerdoprivacidad : '', 
+                  sePuedeVer : false
 
             }
         },
@@ -158,6 +159,8 @@ import apiParametros from '@/apialdeas/apiParametros.js';
           console.log(response.data.valor);
 
           this.acuerdoprivacidad = response.data.valor;
+          this.sePuedeVer = true;
+          
         })
         .catch((error) => {
           console.log(error);
