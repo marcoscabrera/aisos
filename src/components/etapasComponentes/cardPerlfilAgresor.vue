@@ -3,7 +3,7 @@
     <v-card-title> PERFIL DEL AGRESOR </v-card-title>
     <v-card-text>
       <v-row>
-        <v-col cols="12" xs="12" sm="4" md="4">
+        <v-col cols="12" xs="12" sm="12" md="4">
           <v-select
             :value="perfilagresor"
             :item-value="perfilagresor"
@@ -16,7 +16,7 @@
           >
           </v-select>
         </v-col>
-        <v-col cols="12" xs="12" sm="4" md="4">
+        <v-col cols="12" xs="12" sm="12" md="4">
           <v-select
             v-if="comboann"
             :value="tiponiveluno"
@@ -41,7 +41,7 @@
           >
           </v-select>
         </v-col>
-        <v-col cols="12" xs="12" sm="4" md="4">
+        <v-col cols="12" xs="12" sm="12" md="4">
           <v-select
             v-if="combocolaborador"
             :value="tiponiveldos"

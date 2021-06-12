@@ -165,7 +165,7 @@ import barraDocumentos from "@/components/barradocumentos/barraDocumentos.vue";
 import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
 // envia los correos de notificacion
 import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
-
+import apidoctosapoyo from '@/apialdeas/apiDoctosApoyo.js';
 //import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
 
 export default {
@@ -202,27 +202,27 @@ export default {
       informe_NombreArchivo: "",
       informe_siHayArchivo: false,
 
-      files: [
-        {
-          color: "blue",
-          icon: "mdi-adobe",
-          subtitle: "Descripcion breve de este docto",
-          title: "Manual de investigación interna",
-          link:
-            "https://onedrive.live.com/?authkey=%21AhxF5wMG%5FSJ00H0&cid=D1B73E758E4318E6&id=D1B73E758E4318E6%21718&parId=D1B73E758E4318E6%21690&o=OneUp",
-        },
-        {
-          color: "blue",
-          icon: "mdi-adobe",
-          subtitle: "Descripcion breve de este docto",
-          title: "Herramientas para investigacion interna",
-          link:
-            "https://onedrive.live.com/?authkey=%21AhxF5wMG%5FSJ00H0&cid=D1B73E758E4318E6&id=D1B73E758E4318E6%21709&parId=D1B73E758E4318E6%21690&o=OneUp",
-        },
-      ],
+      files: [ ],
     };
   },
   methods: {
+
+         //Esta funcion se encarga de consultar la API para recuperar los documentos que 
+         // se mostraran el componente Barradedocumentos
+  
+        async cargarTodosLosDoctos(categoria){
+          
+          typeof categoria;
+
+          let promesa = apidoctosapoyo.cargar__todos__los__doctosapoyo_por_categoria(categoria,this.$store);
+
+           promesa
+          .then( response => { 
+
+                 this.files  = response.data;
+          })
+         .catch( error => { console.log(JSON.stringify(error.data))});
+      },
          permisoImpresion(){
            
       console.log(" Permiso IMPRESIONINVESTIGACION  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.IMPRESIONINVESTIGACION)      ;
@@ -440,6 +440,8 @@ export default {
         console.log(JSON.stringify(response.data));
         this.investigacion = response.data[0];
         this.asignarVariables(this.investigacion);
+
+        this.cargarTodosLosDoctos("i");
       }).catch((error) => {
         console.log(JSON.stringify(error.data));
       });

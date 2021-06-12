@@ -37,8 +37,12 @@
          </v-col>
 
       <v-col cols="12" xs="12" md="6">
-        <barraDocumentosVue class="elevado"
-        :files="files"></barraDocumentosVue>
+        <!-- componente que muestra los documentos de ayuda -->
+          <barraDocumentosVue 
+          class="elevado"
+          :files = "archivos"
+          categoria = "vi">
+          </barraDocumentosVue>
       </v-col>
     </v-row>
 
@@ -126,9 +130,37 @@
           <v-card-title> </v-card-title>
           <v-card-text>
             <textareaRegistro :texto="registrohechos"></textareaRegistro>
+              <v-row>
+                <v-col cols="12" xm="12" sm="12" md="6" lg="6">
+                  En este espacio adjunta el acta de valoración.
+                </v-col>
+                <v-col cols="12" xm="12" sm="12" md="6" lg="6">
+                <!--  :mostrarMensajeValidacion ="this.$store.state.uivars.uivars_error_cardMedidasIntegrales"
+                -->
+                <uploadFile3 
+                directorio="/uploads/actas"
+                :HayArchivo ="sihayarchivo"
+                :datosDelArchivo = "objetoDatosArchivo"
+                :nombreArchivo = "nombreDelArchivo"
+                :incidenteid ="incidenteId"
+                :archivoId="archivoId"
+                tipoDeArchivo="*.pdf"
+                action_a_Ejecutar="action_etapainicial_actavaloracion"
+                modulo="actas"
+                campoState="etapainicial_actavaloracion">
+                  </uploadFile3> 
+
+
+
+              </v-col>
+            </v-row>
+
           </v-card-text>
         </v-card>
         <br>
+
+    <!-- =============================================== -->
+
 
     <!-- =============================================== -->
 
@@ -284,7 +316,13 @@ import impresiones_etapauno from '@/components/etapas/impresiones/impresiones_et
 //import emailjs from 'emailjs-com';
 //import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
 
+
 import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
+import eventBus from '@/eventBus.js';
+//import eventBus2 from '@/eventBus.js';
+import uploadFile3 from '@/components/manipulacionArchivos/uploadFIle3.vue';
+ import apidoctosapoyo from '@/apialdeas/apiDoctosApoyo.js';
+
 export default {
   components: {
     barraDocumentosVue,
@@ -299,7 +337,8 @@ export default {
     cardPerfilVictima,
     textareaMedidasProteccion,
     textareaTestigos,
-    BarraDeNavegacion
+    BarraDeNavegacion,
+    uploadFile3
    
 
   },
@@ -313,45 +352,23 @@ export default {
   methods: {
 
 
-    //se generar metodo para enviar correos 
+         //Esta funcion se encarga de consultar la API para recuperar los documentos que 
+         // se mostraran el componente Barradedocumentos
+  
+        async cargarTodosLosDoctos(categoria){
+          
+          typeof categoria;
 
-     /*enviarCorreos(correos,folio,tarea_realizada){
+          let promesa = apidoctosapoyo.cargar__todos__los__doctosapoyo_por_categoria('vi',this.$store);
 
-       try {
-       
+           promesa
+          .then( response => { 
 
-         Object.entries(correos).forEach(entry => {
+                 this.archivos  = response.data;
+          })
+         .catch( error => { console.log(JSON.stringify(error.data))});
+      },
 
-         const [key,value] = entry;
-
-          let mails = value["correo"];
-
-          console.log("valor del email : " + mails);
-   
-          console.log(key);
-
-          let parametro = { 
-            para_quien : mails,
-            folio : folio,
-            tarea_realizada : tarea_realizada
-         };
-
-         
-          emailjs.send('service_ju06ig8', 'template_6xgsbah', parametro, 'user_MlW9ksxHwUdguhUW2NFHG');
-
-        });
-         
-       }catch(error){
-              
-              console.log(" error al enviar correos : " +error);
-
-       }
-        
- 
-
-
-    },*/
-   
    //se crea el array datos y se le asigna los valores de las variables 
    //que almacenan la informacion de esta etapa del reporte de incidente.
    //para posteriormente pasar el array como parametro en funcion
@@ -422,11 +439,11 @@ export default {
                         console.log(JSON.stringify(response.data));
                         console.log(" Nombre del reporte : " + response.data.nombrereporte);
                         
-                        let directorio ="/apidatos/reportesetapas/" + response.data.nombrereporte;
+                        /*let directorio ="/apidatos/reportesetapas/" + response.data.nombrereporte;
                         
                         let link =  this.$store.state.urlServidor + directorio ;
-        
-                        this.$store.dispatch("actions_uivars_docto_a_ver",link);
+        */
+                        this.$store.dispatch("actions_uivars_docto_a_ver",response.data);
 
                        this.$router.push({
                         name: "VisorPDF"
@@ -488,9 +505,9 @@ export default {
 
       const  { 
       etapainicial_programa ,
-       etapainicial_fecha ,
-        etapainicial_involucrados,
-          etapainicial_elaboro,
+      etapainicial_fecha ,
+      etapainicial_involucrados,
+      etapainicial_elaboro,
       etapainicial_cargos,
       etapainicial_registrohechos,
       etapainicial_perfildelagresor,
@@ -499,7 +516,9 @@ export default {
       etapainicial_perfilvictima,
       etapainicial_recibeayuda,
       etapainicial_medidasproteccion,
-      etapainicial_incidenteconfirmado,etapainicial_testigos} =this.$store.state.incidentes;
+      etapainicial_incidenteconfirmado,
+      etapainicial_testigos,
+      etapainicial_actavaloracion} =this.$store.state.incidentes;
      
       console.log({ etapainicial_programa,
       etapainicial_fecha ,
@@ -513,7 +532,7 @@ export default {
       etapainicial_perfilvictima,
       etapainicial_recibeayuda,
       etapainicial_medidasproteccion,
-      etapainicial_incidenteconfirmado,etapainicial_testigos});
+      etapainicial_incidenteconfirmado,etapainicial_testigos,etapainicial_actavaloracion});
      
   
   },
@@ -622,7 +641,8 @@ const  {
       etapainicial_recibeayuda,
       etapainicial_medidasproteccion,
       etapainicial_incidenteconfirmado,
-      etapainicial_testigos} =this.$store.state.incidentes;
+      etapainicial_testigos,
+      etapainicial_actavaloracion} =this.$store.state.incidentes;
      
       /* usuario creador es el usuario logueado. */
       var etapa = 1;
@@ -639,15 +659,12 @@ const  {
         elaboro: etapainicial_elaboro,
         cargousuario: etapainicial_cargos,
         registrohechos: etapainicial_registrohechos,
-
         perfildelagresor: etapainicial_perfildelagresor,
-
         paadultocolaborador: etapainicial_paadultocolaborador,
         paadultocolaboradortipo: etapainicial_paadultocolaboradortipo,
         pafamilia: '',
         pafamiliatipo: '',
         adultoexterno: '',
-
         nnj: '',
         perfilvictima: etapainicial_perfilvictima,
         recibeayuda: etapainicial_recibeayuda,
@@ -663,6 +680,7 @@ const  {
         coloretapados: "yellow",
         coloretapatres: "yellow",
         coloretapacuatro: "yellow",
+        actavaloracion :etapainicial_actavaloracion
       };
 
       console.log("== valores del incidente ==");
@@ -719,7 +737,8 @@ const  {
       etapainicial_recibeayuda,
       etapainicial_medidasproteccion,
       etapainicial_incidenteconfirmado,
-      etapainicial_testigos} =this.$store.state.incidentes;
+      etapainicial_testigos,
+       etapainicial_actavaloracion} =this.$store.state.incidentes;
      
       /* usuario creador es el usuario logueado. */
       var usuarioCreador =this.$store.state.usuarios.usuarios_usuariologueado.id;
@@ -761,6 +780,7 @@ const  {
         coloretapados: "yellow",
         coloretapatres: "yellow",
         coloretapacuatro: "yellow",
+         actavaloracion :etapainicial_actavaloracion
       };
 
       console.log("== valores del incidente ==");
@@ -789,6 +809,14 @@ const  {
         this.modo = "update";
 
         this.folio = a["folio"];
+        /*************************************************************************
+         *  se asigna el valor del campo del docto para
+         *************************************************************************************/
+          eventBus.$emit('cargarArchivo',a["actavaloracion"] );
+        /*************************************************************************************/
+       
+
+
 
         this.verBotonImpresion = false;
         
@@ -908,7 +936,12 @@ const  {
       console.log("nombre programa " + this.nombrePrograma);
       /************************ */
 
-
+      /*************************************************************************
+       *  se asigna el valor del campo del docto para
+       *************************************************************************************/
+        eventBus.$emit('cargarArchivo',a["actavaloracion"] );
+       /*************************************************************************************/
+  
 
       this.involucrados = a.involucrados;
 
@@ -1058,11 +1091,22 @@ const  {
     },
 
     escogerProcedimiento() {
+
+     this.$store.dispatch("action_uivars_overlay",true);
       //recuperamos el paraemtro id de la ruta
       let parametroId = 0;
       parametroId = this.$route.params.id;
       console.log(parametroId);
       this.modo = "nuevo";
+
+       //console.log("antes de eventaBUs");
+
+        //eventBus2.$emit('cargarLosDoctos','vi' );
+        
+        //console.log("despues de eventaBUs");
+
+
+       this.cargarTodosLosDoctos('vi');
 
       if (parametroId == undefined) {
         console.log("valor de parametroID : " + parametroId);
@@ -1083,9 +1127,11 @@ const  {
 
           this.modo = "update";
           this.verBotonImpresion = false;
+          this.$store.dispatch("action_uivars_overlay",false);
         }).catch((error) => {
           console.log(JSON.stringify(error.response));
           this.modo = "update";
+          this.$store.dispatch("action_uivars_overlay",false);
         });
       }
     },
@@ -1094,10 +1140,18 @@ const  {
   created() {
     console.log("en created, valor de this.modo : " + this.modo);
     this.escogerProcedimiento();
+
+     //disparamos el evento en el componente 
+     //barraDocumentos
+
+   
   },
 
   data() {
     return {
+      archivos :[],
+      archivoId : 0,
+      sihayarchivo : false,
       usuarioCreador : '',
       mostarCalendario_y_selectorProgramas:true,
       nombrePrograma: '',
@@ -1181,36 +1235,7 @@ const  {
       date: new Date().toISOString().substr(0, 10),
 
       menu2: false,
-          files: [
-        {
-          color: 'blue',
-          icon: 'mdi-adobe',
-          subtitle: 'Descripcion breve de este docto',
-          title: 'Politica de Proteccion Infantil',
-          link :'https://onedrive.live.com/?authkey=%21AhxF5wMG%5FSJ00H0&cid=D1B73E758E4318E6&id=D1B73E758E4318E6%21703&parId=D1B73E758E4318E6%21690&o=OneUp'
-        },
-        {
-          color: 'blue',
-          icon: 'mdi-adobe',
-          subtitle: 'Descripcion breve de este docto',
-          title: 'Código de Conducta',
-          link :'https://onedrive.live.com/?authkey=%21AhxF5wMG%5FSJ00H0&cid=D1B73E758E4318E6&id=D1B73E758E4318E6%21709&parId=D1B73E758E4318E6%21690&o=OneUp'
-        },
-        {
-          color: 'blue',
-          icon: 'mdi-adobe',
-          subtitle: 'Descripcion breve de este docto',
-          title: 'Directorio de Emergencia',
-          link : ''
-        },
-        {
-          color: 'blue',
-          icon: 'mdi-adobe',
-          subtitle: 'Descripcion breve de este docto',
-          title: 'Violentometro',
-          link :'https://onedrive.live.com/?authkey=%21AhxF5wMG%5FSJ00H0&cid=D1B73E758E4318E6&id=D1B73E758E4318E6%21707&parId=D1B73E758E4318E6%21690&o=OneUp'
-        },
-      ],
+          files: [],
     };
   },
 };

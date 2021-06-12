@@ -33,8 +33,11 @@
       </v-col>
 
       <v-col cols="12" xs="12" md="6">
+        <!-- mustra los documentos como ayuda de esta seccion-->
         <barraDocumentosVue
-        :files="filesa"></barraDocumentosVue>
+        :files="archivos">
+        </barraDocumentosVue>
+
       </v-col>
     </v-row>
     <br>
@@ -214,12 +217,13 @@ import cardTipoRespuesta from "../etapasComponentesValoracion/cardTipoRespuesta.
 import validacionReporteInicial from   "@/components/etapas/validaciones/validacionReporteInicial.js";
 //import ComponenteConfirmacionIncidente from   "../etapasComponentesValoracion/ComponenteConfirmacionIncidente.vue";
 //import medidasCrud from "@/components/seguimiento/medidasCrud.vue";
-import validacionArchivo from  "@/components/etapas/validaciones/validacionArchivos.js";
+//import validacionArchivo from  "@/components/etapas/validaciones/validacionArchivos.js";
 import apiPermisosimpresion from "@/apialdeas/apiPermisosimpresion.js";
 //import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
 
 // envia los correos de notificacion
 import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
+import apidoctosapoyo from '@/apialdeas/apiDoctosApoyo.js';
 
 export default {
   components: {
@@ -242,6 +246,24 @@ export default {
   },
 
   methods: {
+
+        //Esta funcion se encarga de consultar la API para recuperar los documentos que 
+        // se mostraran el componente Barradedocumentos
+  
+        async cargarTodosLosDoctos(categoria){
+          
+        
+
+          let promesa = apidoctosapoyo.cargar__todos__los__doctosapoyo_por_categoria(categoria,this.$store);
+
+           promesa
+          .then( response => { 
+
+                 this.archivos  = response.data;
+          })
+         .catch( error => { console.log(JSON.stringify(error.data))});
+      },
+      /*-----------------------------------------------------------------*/
 
     guardar_noesunincidente(){
        
@@ -345,7 +367,7 @@ export default {
         etapavaloracion_niveldelincidente,
         etapavaloracion_tipodecaso,
         etapavaloracion_tipoderespuesta,
-        etapavaloracion_medidasintegrales
+       /// etapavaloracion_medidasintegrales
       } = this.$store.state.valoracion;
 
 
@@ -384,11 +406,12 @@ export default {
 
        //console.log(" valor de etapavaloracion_medidasintegrales " + etapavaloracion_medidasintegrales);
 
-       r =  validacionReporteInicial.existeInformacionParaCapturar_y_no_es_cero(etapavaloracion_medidasintegrales);
+     /*  r =  validacionReporteInicial.existeInformacionParaCapturar_y_no_es_cero(etapavaloracion_medidasintegrales);
        this.$store.dispatch('actions_uivars_error_cardMedidasIntegrales',r);
        this.validarCaptura(r);  
                                                                  
        validacionArchivo.valida_si_hay_un_valor_distinto_de_cero(etapavaloracion_medidasintegrales,this.$store);
+     */
       return this.errores;
 
     },
@@ -590,6 +613,15 @@ export default {
     },
 
    async cargarValoracionIntegral() {
+
+      //-----------------------------------------
+      // carga todos los documentos de ayuda
+      // dentro del componente Barradedocumentos 
+      //-----------------------------------------
+      this.cargarTodosLosDoctos("v integral");
+      //-----------------------------------------
+
+
 
       let idx = this.$route.params.id;
       console.log("valor de incidenteid " + idx);
@@ -836,6 +868,7 @@ export default {
   },
   data() {
     return {
+      archivos : [],
       verBotoneraconcierre :false,
       mostrarLaBotonera :false,
       ocultarConfirmacion: true,
@@ -916,72 +949,7 @@ export default {
 
       menu2: false,
 
-                filesa: [
-        {
-          color: 'blue',
-          icon: 'mdi-clipboard-text',
-          subtitle: 'Descripcion breve de este docto',
-          title: 'Politica de Proteccion Infantil',
-          link :'https://onedrive.live.com/?authkey=%21AhxF5wMG%5FSJ00H0&cid=D1B73E758E4318E6&id=D1B73E758E4318E6%21703&parId=D1B73E758E4318E6%21690&o=OneUp'
-        },
-        {
-          color: 'blue',
-          icon: 'mdi-adobe',
-          subtitle: 'Descripcion breve de este docto',
-          title: 'Código de Conducta',
-          link :'https://onedrive.live.com/?authkey=%21AhxF5wMG%5FSJ00H0&cid=D1B73E758E4318E6&id=D1B73E758E4318E6%21709&parId=D1B73E758E4318E6%21690&o=OneUp'
-        },
-        {
-          color: 'blue',
-          icon: 'mdi-adobe',
-          subtitle: 'Descripcion breve de este docto',
-          title: 'Directorio de Emergencia',
-          link : ''
-        },
-        {
-          color: 'blue',
-          icon: 'mdi-adobe',
-          subtitle: 'Descripcion breve de este docto',
-          title: 'Violentometro',
-          link :'https://onedrive.live.com/?authkey=%21AhxF5wMG%5FSJ00H0&cid=D1B73E758E4318E6&id=D1B73E758E4318E6%21707&parId=D1B73E758E4318E6%21690&o=OneUp'
-        },
-                {
-          color: 'yellow',
-          icon: 'mdi-adobe',
-          subtitle: 'Descripcion breve de este docto',
-          title:  'Documento de Denuncia y Respuesta',
-          link :'sin link'
-        },
-
-          {
-          color: 'yellow',
-          icon: 'mdi-adobe',
-          subtitle: 'Descripcion breve de este docto',
-          title:  'Procedimiento para Denuncia y Respuesta',
-          link :'sin link'
-        },
-           {
-          color: 'blue',
-          icon: 'mdi-adobe',
-          subtitle: 'Descripcion breve de este docto',
-          title:  'Guía de intervención PAS y CSP',
-          link :'https://onedrive.live.com/?authkey=%21AhxF5wMG%5FSJ00H0&cid=D1B73E758E4318E6&id=D1B73E758E4318E6%21700&parId=D1B73E758E4318E6%21690&o=OneUp'
-        },      
-             {
-          color: 'blue',
-          icon: 'mdi-adobe',
-          subtitle: 'Descripcion breve de este docto',
-          title:  'Guía de intervención Familiar PAS y CSP',
-          link :'https://onedrive.live.com/?authkey=%21AhxF5wMG%5FSJ00H0&cid=D1B73E758E4318E6&id=D1B73E758E4318E6%21704&parId=D1B73E758E4318E6%21690&o=OneUp'
-        },
-                     {
-          color: 'yellow',
-          icon: 'mdi-adobe',
-          subtitle: 'Descripcion breve de este docto',
-          title:  'Registro de Incidentes de Desprotección',
-          link :'sin link'
-        },               
-      ],
+      filesa: [ ],
     };
   },
 };

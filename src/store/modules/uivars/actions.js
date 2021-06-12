@@ -1,5 +1,11 @@
 export default {
+    
 
+    action_uivars_overlay(context,valor){
+
+        context.commit("mutation_uivars_overlay",valor);
+
+    },
 
      ////paramtros
 

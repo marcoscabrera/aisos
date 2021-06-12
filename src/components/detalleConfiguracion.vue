@@ -28,7 +28,12 @@
         ruta="parametros"
       ></cardConfiguracion>
     </v-row>
-
+    <v-row>
+      <cardConfiguracion
+        titulo="Documentos de Apoyo"
+        ruta="doctosapoyos"
+      ></cardConfiguracion>
+    </v-row>
     <!--<v-row>
       <cardConfiguracion titulo="Parentescos" ruta="parentesco">
       </cardConfiguracion>

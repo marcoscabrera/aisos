@@ -57,6 +57,21 @@ const routes = [
       import(/* webpackChunckName:"parametros" */ "../views/Parametros.vue"),
   },
   {
+    path: "/doctosapoyos",
+    name: "DoctosApoyo",
+    meta: { requiresAuth : true },
+    component: () =>
+      import(/* webpackChunckName:"doctosapoyos" */ "../components/catalogos/doctosapoyo/doctosapoyoCRUD.vue"),
+  },
+
+  {
+    path: "/nuevodoctosapoyo",
+    name: "NuevoDoctosApoyo",
+    meta: { requiresAuth : true },
+    component: () =>
+      import(/* webpackChunckName:"nuevodoctosapoyo" */ "../components/catalogos/doctosapoyo/Nuevodoctosapoyo.vue"),
+  }, 
+  {
     path: "/prevencion/:tipo",
     name: "Prevencion",
     meta: { requiresAuth : true },

@@ -90,6 +90,12 @@ export default {
     },               
          
 
+     mutation_etapainicial_actavaloracion (state, valor) { 
+        state.etapainicial_actavaloracion = valor;
+    },               
+        mutation_etapainicial_actavaloracion_docto (state, valor) { 
+            state.etapainicial_actavaloracion_docto = valor;
+        }, 
 
-
+     
 }

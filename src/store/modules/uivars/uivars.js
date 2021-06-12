@@ -15,6 +15,11 @@ state: {
 
     uivars_vermenuprincipal : false,
     //////////////////////////////////
+
+     
+    uivars_overlay :false,
+
+    ////////////////////////////////
     uivar_esincidente: false,
     uivars_puedevermenulateral : false,
     uivars_puedever_configuracion : false,

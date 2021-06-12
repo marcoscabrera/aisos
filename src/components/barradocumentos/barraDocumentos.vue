@@ -1,48 +1,57 @@
+
 <template>
   <v-expansion-panels>
-    <v-expansion-panel
-     
-    >
-      <v-expansion-panel-header>
-        Documentos de Consulta
-      </v-expansion-panel-header>
-      <v-expansion-panel-content>
+      <v-expansion-panel>
+          <v-expansion-panel-header>
+           Documentos de Consulta
+          </v-expansion-panel-header>
+          
+          <v-expansion-panel-content>
         
-    <v-list
-      subheader
-      two-line
-    >
-      <v-list-item @click="mostrarLink(file.link)"
-        v-for="file in files"
-        :key="file.title"
-      >
-        <v-list-item-avatar>
-          <v-icon
-            :class="file.color"
-            dark
-            v-text="file.icon"
-          ></v-icon>
-        </v-list-item-avatar>
+                <v-list
+                  subheader
+                  two-line>
+                  
+                  <v-list-item @click="mostrarLink(file.link)"
+                    v-for="file in files"
+                    :key="file.nombredocto"
+                  >
+                    <v-list-item-avatar>
+                      <v-icon
+                        class="blue"
+                        dark
+                        
+                      > mdi-adobe </v-icon>
+                    </v-list-item-avatar>
 
-        <v-list-item-content>
-          <v-list-item-title v-text="file.title"></v-list-item-title>
+                    <v-list-item-content>
+                      <v-list-item-title v-text="file.nombredocto"></v-list-item-title>
 
-          <v-list-item-subtitle v-text="file.subtitle"></v-list-item-subtitle>
-        </v-list-item-content>
+                      <v-list-item-subtitle v-text="file.descripcion"></v-list-item-subtitle>
+                    </v-list-item-content>
+                 
+                    <!--  <v-list-item-action>
+                      <v-btn icon>
+                        <v-icon color="grey lighten-1">mdi-information</v-icon>
+                      </v-btn>
+                    </v-list-item-action> -->
+                  </v-list-item>
 
-        <v-list-item-action>
-          <v-btn icon>
-            <v-icon color="grey lighten-1">mdi-information</v-icon>
-          </v-btn>
-        </v-list-item-action>
-      </v-list-item>
-    </v-list>   
-       </v-expansion-panel-content>
-    </v-expansion-panel>
+                </v-list>   
+
+  </v-expansion-panel-content>
+  </v-expansion-panel>
+
   </v-expansion-panels>
 </template>
 
 <script>
+
+
+import apidoctosapoyo from '@/apialdeas/apiDoctosApoyo.js';
+
+
+import eventBus2 from '@/eventBus.js';
 
 //Este componente nos permite desplegar una lista de documentos
 //Dichos documentos asesoran al usuario para que puede llenar adecuadamente
@@ -53,11 +62,80 @@
  
          props: {
            //El objeto que alberga la lista de documentos
-          files : Object
+          files : Object,
+          categoria : String
         },
+
+
+      mounted(){
+
+        try{
+         eventBus2.$on('cargarLosDoctos', (cat) => {
+                
+                console.log("en evento mounted ");
+                this.cargarTodosLosDoctos(cat);
+
+         });
+        }catch(error){
+           
+           console.log("  errore en mounted eventBus2 cargarLosDoctos " +  error);
+
+        }
+                    
+
+      },
+      
+      created(){
+
+         eventBus2.$on('cargarLosDoctos', (cat) => {
+
+           try {
+                
+                console.log("en evento created ");
+                this.cargarTodosLosDoctos(cat);
+           }catch(error){
+             console.log("  error "  + error);
+           }
+
+         });
+         
+         
+      },
    
 
       methods :{
+
+        cargarTodosLosDoctos(categoria){
+          
+          typeof categoria;
+          let promesa = apidoctosapoyo.cargar__todos__los__doctosapoyo(this.$store);
+
+           promesa
+          .then( response => { 
+
+               // console.log(JSON.stringify(response.data));
+               // let temp  =response.data;
+                
+                 console.log("antes de entrar al map");
+
+                 this.archivos  = response.data;
+
+               /* this.archivos = temp.map(  function (item){
+
+                     console.log(" categoria ." + categoria);
+                     return item.categoria == categoria;
+
+                });
+
+                 console.log(" archivos para mostrar : ");
+
+                console.log(this.archivos);*/
+
+            })
+          .catch( error => { console.log(JSON.stringify(error.data))});
+
+
+        },
         //@vuese
         //Este metodo recibe de parametro una cadena y es
         //usado cuando se da click en el documento
@@ -72,6 +150,8 @@
 
       data() {
         return {
+
+          archivos : []
 
         }
       },

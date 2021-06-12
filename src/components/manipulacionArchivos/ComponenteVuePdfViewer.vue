@@ -57,7 +57,7 @@
 </template>
 <script>
 import printJS from 'print-js';
-import apiBajarPdf from '@/apialdeas/apiBajarPdf.js';
+//import apiBajarPdf from '@/apialdeas/apiBajarPdf.js';
 import {PDFView} from 'vue_pdfjs_viewer';
 export default {
   components:{
@@ -96,11 +96,30 @@ export default {
 
       },
 
+       imprimircadena(){
+
+
+         printJS({printable: this.archivo, type: 'pdf', base64: true});
+
+      
+
+
+      },
+
        imprimir() {
+
 
            this.loading=true;
 
-           let imp =  apiBajarPdf.bajarPdf2(this.$store.state.uivars.uivars_docto_a_ver,this.$store);
+              var bin = atob(this.archivo);
+            this.elArchivo = 'data:application/pdf;base64,' + bin + "#toolbar=0";
+
+
+             this.loading=false;
+             this.verPDf = false;
+           //this.imprimircadena();
+
+         /*  let imp =  apiBajarPdf.bajarPdf2(this.$store.state.uivars.uivars_docto_a_ver,this.$store);
 
             imp
            .then( response => { 
@@ -110,7 +129,7 @@ export default {
                var bin = atob(b64);
             console.log('File Size:', Math.round(bin.length / 1024), 'KB');
             console.log('PDF Version:', bin.match(/^.PDF-([0-9.]+)/)[1]);
-           
+           */
             // Embed the PDF into the HTML page and show it to the user
            /* var obj = document.createElement('object');
             obj.style.width = '100%';
@@ -118,19 +137,17 @@ export default {
             obj.type = 'application/pdf';
             obj.data = 'data:application/pdf;base64,' + b64 +"#toolbar=0";
             document.body.appendChild(obj);*/
+           
 
-            this.elArchivo = 'data:application/pdf;base64,' + b64 + "#toolbar=0";
-
-
-             this.loading=false;
-             this.verPDf = false;
+          /*   this.loading=false;
+             this.verPDf = false;*/
                
              
-           } )
+           /*} )
            .catch( error => { 
                console.log(JSON.stringify(error.data));
                 this.loading=false;
-               });
+               });*/
          
        }
   

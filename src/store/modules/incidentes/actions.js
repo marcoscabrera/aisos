@@ -86,8 +86,17 @@ action_folio(context, valor){
 },
 action_etapainicial_testigoscierre( context,valor ){
        context.commit("setearetapainicia_testigoscierre",valor);
-}
+},
 
+
+action_etapainicial_actavaloracion( context,valor ){
+        context.commit("mutation_etapainicial_actavaloracion",valor);
+ },
+
+
+action_etapainicial_actavaloracion_docto( context,valor ){
+        context.commit("mutation_etapainicial_actavaloracion_docto",valor);
+ }
               
 /*
 */

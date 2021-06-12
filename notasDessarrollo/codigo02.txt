@@ -11,3 +11,16 @@ agrendo items a  la lista del navigation drawer
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+
+
+
+
+        
+         eventBus.$on('cargarDocot', (categoria) => {
+
+                this.cargarTodosLosDoctos(categoria);
+
+         });
+
+         disparar el evento de arriba 
+         eventBus.$emit('cargarArchivo',a["actavaloracion"] );

@@ -30,6 +30,10 @@ export default {
         etapainicial_testigos: '',
         etapainicial_incidente : '',
 
+
+        etapainicial_actavaloracion : '',
+        etapainicial_actavaloracion_docto: '',
+
         // cierre
         etapacierre_textocierre : '',
      

@@ -75,7 +75,7 @@ export default {
     return {
       textovi: "",
       numeroPalabras: 0,
-      mensaje : ' VALORACIÓN INICIAL (MAXIMO 250 PALABRAS) ',
+      mensaje : ' VALORACIÓN INTEGRAL (MAXIMO 250 PALABRAS) ',
       errores : ''
     };
   },

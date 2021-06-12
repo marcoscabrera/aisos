@@ -1,8 +1,10 @@
 <template>
 <v-container>
     <v-row>
-        <v-col>
-     <p class="text-justify">
+        <v-col >
+           <div v-html ="acuerdoprivacidad"></div>
+   
+  <!--   <p class="text-justify">
          <strong>Aviso de Privacidad Aldeas Infantiles SOS México</strong><br>
          Aldeas Infantiles SOS México es una Institución de Asistencia Privada, independiente, no gubernamental, sin inclinación religiosa y de desarrollo social, que tiene como principal objetivo la formación de familias para niños y niñas que han perdido la protección de sus padres, integrándolos en un sistema que les permita desarrollar una vida normal, logrando así convertirlos en jóvenes de provecho   </p>
  
@@ -100,7 +102,7 @@ Federal de Protección de Datos Personales en Posesión de los Particulares, pod
 
 <p  class="text-justify">
  <strong>Consiento que mis datos personales sean tratados para las finalidades   </strong>
-</p>
+</p> -->
 
 
      </v-col>
@@ -127,10 +129,42 @@ Federal de Protección de Datos Personales en Posesión de los Particulares, pod
 
 <script>
 import controlDeSesion from '@/sesion/controlDeSesion.js';
+import apiParametros from '@/apialdeas/apiParametros.js';
  
     export default {
 
+        data() {
+            return {
+ 
+                  acuerdoprivacidad : '', 
+
+            }
+        },
+
+        mounted(){
+
+         this.cargarAcuerdo();
+
+        },
+
         methods: {
+
+    cargarAcuerdo() {
+
+      var az3 = apiParametros.getParametro("acuerdoprivacidad", this.$store);
+     
+      az3
+        .then((response) => {
+          console.log(response.data.valor);
+
+          this.acuerdoprivacidad = response.data.valor;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+    },
+            
      mostrarMenuLateral(){
 
       let usurio = this.$store.state.usuarios.usuarios_usuariologueado;

@@ -1,5 +1,12 @@
 export default {
 
+
+    mutation_uivars_overlay(state,valor){
+
+        state.uivars_overlay= valor;
+
+    },
+
     
     mutation_uivars_vermenuprincipal(state,valor){
 

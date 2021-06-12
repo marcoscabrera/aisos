@@ -130,6 +130,8 @@ import barraDocumentos  from "@/components/barradocumentos/barraDocumentos.vue";
 import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
 //import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
 import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
+import apidoctosapoyo from '@/apialdeas/apiDoctosApoyo.js';
+
 export default {
 
   components : {
@@ -158,29 +160,32 @@ export default {
       medidasArchivo_id: '',
       medidasArchivo_nombreArchivo :'',
       medidasArchivo_sihayarchivo: false,
+      files :[]
 
-                files: [
-        {
-          color: 'blue',
-          icon: 'mdi-adobe',
-          subtitle: 'Descripcion breve de este docto',
-          title: 'Manual de investigación interna',
-          link :'https://onedrive.live.com/?authkey=%21AhxF5wMG%5FSJ00H0&cid=D1B73E758E4318E6&id=D1B73E758E4318E6%21718&parId=D1B73E758E4318E6%21690&o=OneUp'
-        },
-        {
-          color: 'blue',
-          icon: 'mdi-adobe',
-          subtitle: 'Descripcion breve de este docto',
-          title: 'Herramientas para investigacion interna',
-          link :'https://onedrive.live.com/?authkey=%21AhxF5wMG%5FSJ00H0&cid=D1B73E758E4318E6&id=D1B73E758E4318E6%21709&parId=D1B73E758E4318E6%21690&o=OneUp'
-        },
+      
        
-      ],
   
     };
   },
 
   methods: {
+
+         //Esta funcion se encarga de consultar la API para recuperar los documentos que 
+         // se mostraran el componente Barradedocumentos
+  
+        async cargarTodosLosDoctos(categoria){
+          
+          typeof categoria;
+
+          let promesa = apidoctosapoyo.cargar__todos__los__doctosapoyo_por_categoria(categoria,this.$store);
+
+           promesa
+          .then( response => { 
+
+                 this.files  = response.data;
+          })
+         .catch( error => { console.log(JSON.stringify(error.data))});
+      },
   
      permisoImpresion(){
            
@@ -372,6 +377,8 @@ export default {
 
 
        this.asignarVariables(this.denuncia);
+
+       this.cargarTodosLosDoctos("dl");
       })
       .catch( error => {
         console.log(error);

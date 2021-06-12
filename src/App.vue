@@ -116,6 +116,7 @@
     <v-main class="colorazul">
       <!-- Provides the application the proper gutter -->
       <v-container fluid >
+         
          <br>
         <ComponenteBarraDeNavegacion >
 
@@ -126,13 +127,24 @@
         <!--
         <DatosDelUsuarioComponente v-if="this.$store.state.uivars.uivars_hayUnUsuarioLogueado"></DatosDelUsuarioComponente>
          -->
+
+      <!--   <v-overlay :value="this.$store.state.uivars.uivars_overlay">
+         <v-progress-circular
+          indeterminate
+          size="64"
+         ></v-progress-circular> -->
         <router-view></router-view>
+
+     <!--   </v-overlay> -->
       </v-container>
     </v-main>
 
     <v-footer app>
       <!-- -->
     </v-footer>
+    
+ 
+
   </v-app>
 </template>
 

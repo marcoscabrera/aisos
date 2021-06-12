@@ -61,6 +61,27 @@
       </v-card>
       <!-- termina v-card -->
     </v-col>
+
+     <v-col cols="12" xs="12" sm="6" md="12">
+      <v-card>
+        <v-card-title>Acuerdo </v-card-title>
+        <v-card-text>Acuerdo de confidencialidad</v-card-text>
+        <v-list-item>
+         <!-- <v-text-field v-model="acuerdoprivacidad" label="acuerdo de privacidad"></v-text-field> -->
+           <wysiwyg v-model="acuerdoprivacidad" />
+        </v-list-item>
+        <v-card-actions>
+          <v-btn
+            primary
+            block
+            :loading="loading"
+            :disabled="loading"
+            @click="guardarParametro('acuerdoprivacidad',acuerdoprivacidad)"
+          >guardar</v-btn>
+        </v-card-actions>
+      </v-card>
+      <!-- termina v-card -->
+    </v-col>
   </v-row>
 </template>
 <script>
@@ -78,6 +99,8 @@ export default {
       correosoporte: "",
 
       versionapp: "",
+
+      acuerdoprivacidad : ""
     };
   },
 
@@ -134,7 +157,21 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+      /* -----------------------------------------------------*/
+              var az3 = apiParametros.getParametro("acuerdoprivacidad", this.$store);
+      az3
+        .then((response) => {
+          console.log(response.data.valor);
+
+          this.acuerdoprivacidad = response.data.valor;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };
 </script>
+<style>
+@import "~vue-wysiwyg/dist/vueWysiwyg.css";
+</style>
