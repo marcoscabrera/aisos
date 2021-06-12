@@ -1,9 +1,12 @@
 <template>
   <v-card width="100%">
-    <v-card-title> NIVEL DEL INCIDENTE </v-card-title>
+    <v-card-title> </v-card-title>
     <v-card-text>
       <v-row>
-        <v-col cols="12" xs="12" sm="6" md="6"> </v-col>
+        <v-col cols="12" xs="12" sm="6" md="6"  
+               class ="text-center font-weight-black px-4 pt-4 pb-3"> 
+              <h6>Nivel del Incidente</h6>
+         </v-col>
 
         <v-col cols="12" xs="12" sm="6" md="6">
           <v-select

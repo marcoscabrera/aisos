@@ -6,14 +6,17 @@
            <h2>Valoración Inicial</h2>
         </v-col>
         <v-col cols="12" xs="12" sm="12" md="6">
+      
 
-            <BarraDeNavegacion
-             activo_ri="0"
-             activo_vi="1"
-             activo_s="1"
-             activo_c="1"
-             >
-             </BarraDeNavegacion>
+                <BarraDeNavegacion    
+                 
+                    activo_ri="0"
+                    activo_vi="1"
+                    activo_s="1"
+                    activo_c="1"
+                >
+                </BarraDeNavegacion>
+             
        <!-- import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
         -->
         </v-col>
@@ -22,7 +25,7 @@
 
     <v-row>
       <v-col cols="12" xs="12" md="6">
-          <v-text-field
+          <v-text-field v-tooltip.bottom-start='tip1'
           id="labelFolio"
           class="cssnuevo"
            :value="generarFolio"
@@ -38,11 +41,25 @@
 
       <v-col cols="12" xs="12" md="6">
         <!-- componente que muestra los documentos de ayuda -->
+        
+         <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">   
+
           <barraDocumentosVue 
           class="elevado"
+          v-bind="attrs"
+          v-on="on"
+
           :files = "archivos"
           categoria = "vi">
           </barraDocumentosVue>
+
+              </template>
+              <span>
+Aquí podrás encontrar documentos de consulta que sabemos te serán de gran utilidad
+
+              </span>
+         </v-tooltip>
       </v-col>
     </v-row>
 
@@ -291,6 +308,13 @@
 
       </v-col>
     </v-row>
+
+    <v-overlay :value="overlay">
+      <v-progress-circular
+        indeterminate
+        size="64"
+      ></v-progress-circular>
+    </v-overlay>
   </v-container>
 </template>
 <script>
@@ -321,7 +345,18 @@ import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
 import eventBus from '@/eventBus.js';
 //import eventBus2 from '@/eventBus.js';
 import uploadFile3 from '@/components/manipulacionArchivos/uploadFIle3.vue';
- import apidoctosapoyo from '@/apialdeas/apiDoctosApoyo.js';
+import apidoctosapoyo from '@/apialdeas/apiDoctosApoyo.js';
+
+////////////////////////////////////////////////
+// necesarios para utilizar el tool-tip
+////////////////////////////////////////////////
+import Vue from 'vue';
+import { VTooltip, VPopover, VClosePopover } from 'v-tooltip';
+Vue.directive('tooltip', VTooltip);
+Vue.directive('close-popover', VClosePopover);
+Vue.component('v-popover', VPopover);
+///////////////////////////////////////////////
+
 
 export default {
   components: {
@@ -1110,6 +1145,7 @@ const  {
 
       if (parametroId == undefined) {
         console.log("valor de parametroID : " + parametroId);
+        this.overlay =false;
       } else {
         console.log("valor actual de parametroId : " + parametroId);
 
@@ -1127,11 +1163,13 @@ const  {
 
           this.modo = "update";
           this.verBotonImpresion = false;
-          this.$store.dispatch("action_uivars_overlay",false);
+          //this.$store.dispatch("action_uivars_overlay",false);
+          this.overlay =false;
         }).catch((error) => {
           console.log(JSON.stringify(error.response));
           this.modo = "update";
           this.$store.dispatch("action_uivars_overlay",false);
+           this.overlay =false;
         });
       }
     },
@@ -1139,6 +1177,7 @@ const  {
 
   created() {
     console.log("en created, valor de this.modo : " + this.modo);
+    this.overlay = true;
     this.escogerProcedimiento();
 
      //disparamos el evento en el componente 
@@ -1149,6 +1188,8 @@ const  {
 
   data() {
     return {
+      tip1 : 'No ',
+      overlay: false,
       archivos :[],
       archivoId : 0,
       sihayarchivo : false,

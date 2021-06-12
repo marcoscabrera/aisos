@@ -21,10 +21,29 @@ Vue.use(Vuex)
 //export default new Vuex.Store
 const store =  new Vuex.Store({
   state: {
- // urlServidor: 'http://127.0.0.1/apialdeas'
 
- urlServidor : 'https://apialdeasproteccioninfantil2.azurewebsites.net',
-  
+///////////////////////////////////////
+// LOCALHOST
+///////////////////////////////////////   
+
+//urlServidor: 'http://127.0.0.1/apialdeas'
+
+
+///////////////////////////////////////
+// API PRODUCCION
+///////////////////////////////////////  
+
+//urlServidor : 'https://apialdeasproteccioninfantil2.azurewebsites.net',
+
+
+///////////////////////////////////////
+// API DEMO
+/////////////////////////////////////// 
+
+urlServidor : 'https://apidemo2.azurewebsites.net', 
+
+
+
   },
   mutations: {
   },
