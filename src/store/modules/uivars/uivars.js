@@ -16,7 +16,8 @@ state: {
     uivars_vermenuprincipal : false,
     //////////////////////////////////
 
-     
+    regresar_A_despues_de_impresion : '',
+    
     uivars_overlay :false,
 
     ////////////////////////////////

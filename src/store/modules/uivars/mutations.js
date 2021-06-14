@@ -14,6 +14,10 @@ export default {
 
     },
 
+    mutation_regresar_A_despues_de_impresion(state,valor){
+        state.regresar_A_despues_de_impresion =valor;
+    },
+
     mmutation_uivars_esincidente(state,valor){
 
         state.uivar_esincidente= valor;

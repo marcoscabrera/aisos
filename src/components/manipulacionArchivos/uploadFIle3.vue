@@ -94,6 +94,7 @@ export default {
   },
   data() {
     return {
+      archivoID_por_si_las_dudas : '',
       MostrarBotonDeSubir :false,
       largo :true,
       recienSubido : '0',
@@ -121,8 +122,9 @@ export default {
         eventBus.$on('cargarArchivo', (archivoid) => {
            try{
       
+           this.archivoID_por_si_las_dudas = archivoid;
 
-           console.log("solicitando el docto al servidor " +archivoid );
+           console.log("solicitando el docto al servidor " + archivoid );
 
            this.solicitarDocumentoAServidor(archivoid);
          
@@ -186,17 +188,22 @@ export default {
     verArchivo(){
       //debemos checar si pueden ver archivos o no . 
 
-     UploadService.getFiles(this.archivoId, this.$store.state)
+     UploadService.getFiles( this.archivoID_por_si_las_dudas, this.$store.state)
      .then(
        response => {
        
 
         let directorio = response.data[0]['directorio'];
 
+        console.log(" valor de directorio " +directorio );
+
         let ni =response.data[0]['nombreinterno'];
+
+         console.log(" valor de link " + link );
 
         let link =  this.$store.state.urlServidor + directorio + '/'+ ni;
           
+        console.log(" valor de link " +link );
 
         this.$store.dispatch("actions_uivars_docto_a_ver",link);
         this.$store.dispatch("actions_uivars_ir_origen_que_solicito_docto",this.$router.currentRoute.path)

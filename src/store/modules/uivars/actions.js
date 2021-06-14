@@ -15,6 +15,11 @@ export default {
 
      },
 
+     action_regresar_A_despues_de_impresion(context,valor){
+
+        context.commit('mutation_regresar_A_despues_de_impresion',valor);
+     },
+
      actions_uivars_parametros(context,valor){
 
         context.commit("mutation_uivars_parametros",valor);

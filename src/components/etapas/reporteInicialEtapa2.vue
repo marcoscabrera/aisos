@@ -479,7 +479,17 @@ export default {
                         let link =  this.$store.state.urlServidor + directorio ;
       
                         this.$store.dispatch("actions_uivars_docto_a_ver",link);
-
+  
+                       /////////////////////////////////////////////
+                       // valores para regresar a esta pagina si se 
+                       // tiene que regresar despues de estar en imp
+                       // siones
+                       ////////////////////////////////////////////
+                        let ruta_A_regresar  = '/denuncias/' + this.$route.params.id;
+                        console.log("ruta_A_regresar : " + ruta_A_regresar);
+                        this.$store.dispatch("action_regresar_A_despues_de_impresion",ruta_A_regresar);
+                        /////////////////////////////////////////////
+        
                        this.$router.push({
                         name: "VisorPDF"
                         });

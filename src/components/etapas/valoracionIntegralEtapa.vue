@@ -197,6 +197,15 @@
         </v-btn>
       </v-col>
     </v-row>
+
+  <!-- animacion de carga de pagina -->
+    <v-overlay :value="overlay">
+      <v-progress-circular
+        indeterminate
+        size="64"
+      ></v-progress-circular>
+    </v-overlay>
+
   </v-container>
 </template>
 <script>
@@ -455,8 +464,23 @@ export default {
                         let directorio ="/apidatos/reportesetapas/" + response.data.nombrereporte;
                         
                         let link =  this.$store.state.urlServidor + directorio ;
-        
+
                         this.$store.dispatch("actions_uivars_docto_a_ver",link);
+
+                        
+                       /////////////////////////////////////////////
+                       // valores para regresar a esta pagina si se 
+                       // tiene que regresar despues de estar en imp
+                       // siones
+                       ////////////////////////////////////////////
+                       
+                        let ruta_A_regresar  = '/valoracionintegral/' + this.$route.params.id;
+                        console.log("ruta_A_regresar : " + ruta_A_regresar);
+                        this.$store.dispatch("action_regresar_A_despues_de_impresion",ruta_A_regresar);
+                         
+                        /////////////////////////////////////////////
+        
+
 
                        this.$router.push({
                         name: "VisorPDF"
@@ -722,6 +746,7 @@ export default {
             console.log(typeof idarchivo);
           idarchivo == '0'? this.planycronograma = '0':  this.descargarDatosDelArchivo(idarchivo, this.$store.state);
 
+          this.overlay = false;
 
         })
         .catch((error) => {
@@ -853,6 +878,16 @@ export default {
   },
 
   created() {
+    this.overlay = true ;
+       /////////////////////////////////////////////
+  // valores para regresar a esta pagina si se 
+  // tiene que regresar despues de estar en imp
+  // siones
+  ////////////////////////////////////////////
+   let ruta_A_regresar  = '/valoracionintegral/' + this.$route.params.id;
+    console.log("ruta_A_regresar : " + ruta_A_regresar);
+    this.$store.dispatch("action_regresar_A_despues_de_impresion",ruta_A_regresar);
+      /////////////////////////////////////////////
     let rolActual = this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARANTESDECIERREDELAVALORACIONINTEGRAL;
     
     if (rolActual == "SI"){
@@ -868,6 +903,7 @@ export default {
   },
   data() {
     return {
+      overlay :false,
       archivos : [],
       verBotoneraconcierre :false,
       mostrarLaBotonera :false,

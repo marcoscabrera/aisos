@@ -115,6 +115,16 @@
       </v-col>
     </v-row>
 
+
+  <!-- animacion de carga de pagina -->
+    <v-overlay :value="overlay">
+      <v-progress-circular
+        indeterminate
+        size="64"
+      ></v-progress-circular>
+    </v-overlay>
+
+
   </v-container>
 </template>
 <script>
@@ -471,15 +481,29 @@ action_abordaje_documentos_docto
       }).catch( error => {
               console.log(error);
       });
+    
+  /////////////////////////////////////////////
+  // valores para regresar a esta pagina si se 
+  // tiene que regresar despues de estar en imp
+  // siones
+  ////////////////////////////////////////////
+   let ruta_A_regresar  = '/abordajeinterno/' + this.$route.params.incidenteId;
+    console.log("ruta_A_regresar : " + ruta_A_regresar);
+    this.$store.dispatch("action_regresar_A_despues_de_impresion",ruta_A_regresar);
+      /////////////////////////////////////////////
+ 
 
+       this.overlay = false;
 
-    }
+    }// termina funcion cargarseguimientoes
 
 
   },
 
   mounted(){
-     
+
+    this.overlay =  true;
+ 
      this.cargarSeguimientos();
      
   },
@@ -488,6 +512,7 @@ action_abordaje_documentos_docto
 
   data() {
     return {
+      overlay : false,
       estado: '',
       mensaje : '',
       tipoalerta: '',

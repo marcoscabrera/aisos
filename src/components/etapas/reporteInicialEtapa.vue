@@ -834,6 +834,20 @@ export default {
 
   created() {
     console.log("en created, valor de this.modo : " + this.modo);
+
+      
+  /////////////////////////////////////////////
+  // valores para regresar a esta pagina si se 
+  // tiene que regresar despues de estar en imp
+  // siones
+  ////////////////////////////////////////////
+   let ruta_A_regresar  = this.$route.query.page;
+   let ruta_A_regresar2 = window.location.pathname;
+   console.log("this.$route.query.page : " + this.$route.query.page);
+   console.log(" window.location.pathname : " +ruta_A_regresar2);
+    this.$store.dispatch("action_regresar_A_despues_de_impresion",ruta_A_regresar);
+   /////////////////////////////////////////////
+        
     this.escogerProcedimiento();
   },
 

@@ -15,10 +15,21 @@
 
 
       <v-col cols="12" xs="12" sm="12" md="4" lg="4">
+               
+            <v-btn id="xx"
+                      color="primary"
+                      :loading="loading"
+                      block
+                      @click="regresar"
+                      >
+
+              Regresar
+
+          </v-btn>
 
 
-
-                   <v-btn id="xx"
+                   <!--
+                     <v-btn id="xx"
                       color="primary"
                       :loading="loading"
                       @click="imprimir"
@@ -29,7 +40,7 @@
                         </v-icon>
                        Imprimir
 
-                  </v-btn>
+                  </v-btn> -->
          
 
              </v-col>
@@ -41,7 +52,7 @@
       ref="pdfView"
       
       sidebarFeatureVisible="true"
-      downloadFeatureVisible="true" 
+      downloadFeatureVisible="false" 
       dropzoneFeatureVisible="true" 
       toolbarVisible="true" 
       scale.sync="scale" 
@@ -81,6 +92,17 @@ export default {
   },
 
   methods : {
+
+     regresar (){
+
+       let r = this.$store.state.uivars.regresar_A_despues_de_impresion;
+       let id = this.$store.state.uivars.id_regresar_A_despues_de_impresion;
+
+        typeof r ;
+        typeof id;
+
+        this.$router.push(r);
+     },
 
       hardcode(){
  this.archivo  = this.$store.state.uivars.uivars_docto_a_ver;

@@ -120,6 +120,17 @@
         </v-btn>
       </v-col>
     </v-row>
+
+
+  <!-- animacion de carga de pagina -->
+    <v-overlay :value="overlay">
+      <v-progress-circular
+        indeterminate
+        size="64"
+      ></v-progress-circular>
+    </v-overlay>
+
+
   </v-container>
 </template>
 <script>
@@ -144,6 +155,7 @@ export default {
 },
   data() {
     return {
+      overlay : false,
       tipoalerta : '',
       mensaje : '',
       itemsCargos: ["SI", "NO", "EN PROCESO"],
@@ -379,9 +391,21 @@ export default {
        this.asignarVariables(this.denuncia);
 
        this.cargarTodosLosDoctos("dl");
+      /////////////////////////////////////////////
+      // valores para regresar a esta pagina si se 
+      // tiene que regresar despues de estar en imp
+      // siones
+      ////////////////////////////////////////////
+      let ruta_A_regresar  = '/denuncialegal/' +this.$route.params.denunciaId;
+      console.log("ruta_A_regresar : " + ruta_A_regresar);
+       this.$store.dispatch("action_regresar_A_despues_de_impresion",ruta_A_regresar);
+     /////////////////////////////////////////////
+ 
+       this.overlay= false;
       })
       .catch( error => {
         console.log(error);
+        this.overlay= false;
       })
     }
   },
@@ -389,6 +413,9 @@ export default {
   mounted() {
   
     this.$nextTick( function(){
+
+      this.overlay = true;
+  
       this.cargarDenuncia();
     });
   },

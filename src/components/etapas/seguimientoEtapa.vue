@@ -249,6 +249,16 @@ SE CUENTA CON EL LLENADO DEL ACTA DE VALORACION DEL/DE LOS INCIDENTES
         </v-btn> 
       </v-col>
     </v-row>
+
+  <!-- animacion de carga de pagina -->
+    <v-overlay :value="overlay">
+      <v-progress-circular
+        indeterminate
+        size="64"
+      ></v-progress-circular>
+    </v-overlay>
+
+    
   </v-container>
 </template>
 <script>
@@ -691,14 +701,27 @@ export default {
               console.log(error);
       });
 
+       this.overlay= false;
 
-    }
+    }//termina de cargar seguimientos
 
 
   },
 
   mounted(){
+
+    this.overlay = true;
      
+  /////////////////////////////////////////////
+  // valores para regresar a esta pagina si se 
+  // tiene que regresar despues de estar en imp
+  // siones
+  ////////////////////////////////////////////
+     let ruta_A_regresar  = '/seguimiento';
+    console.log("ruta_A_regresar : " + ruta_A_regresar);
+    this.$store.dispatch("action_regresar_A_despues_de_impresion",ruta_A_regresar);
+  /////////////////////////////////////////////
+ 
      this.cargarSeguimientos();
      
   },
@@ -707,6 +730,7 @@ export default {
 
   data() {
     return {
+      overlay : false,
       tipoalerta : '',
       mensaje : '',
       errores : 0,

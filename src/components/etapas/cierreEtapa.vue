@@ -298,6 +298,7 @@
 
     <v-row>
       <v-col cols="12" xs="12" sm="12" md="4">
+       <!--
         <v-btn
          
           color="primary"
@@ -307,7 +308,8 @@
           <v-icon right dark> mdi-printer </v-icon>
           <v-spacer></v-spacer>
           Imprimir
-        </v-btn>
+        </v-btn>  
+        -->
       </v-col>
       <v-col cols="12" xs="12" sm="12" md="4">
         <v-btn
@@ -335,6 +337,16 @@
         </v-btn>
       </v-col>
     </v-row>
+
+  <!-- animacion de carga de pagina -->
+    <v-overlay :value="overlay">
+      <v-progress-circular
+        indeterminate
+        size="64"
+      ></v-progress-circular>
+    </v-overlay>
+
+
   </v-container>
 </template>
 <script>
@@ -612,7 +624,7 @@ export default {
           console.log(error);
         }
       );
-
+          this.overlay=false;
         }else {
           this.$router.push("/notificacionnoautorizado");
         }//termina visualizacion de cierre
@@ -768,8 +780,19 @@ export default {
   },
 
   mounted() {
-
+    
+    this.overlay=true;
    // if ($this.$nextTick){
+     /////////////////////////////////////////////
+  // valores para regresar a esta pagina si se 
+  // tiene que regresar despues de estar en imp
+  // siones
+  ////////////////////////////////////////////
+   let ruta_A_regresar  = '/cierre/'+  this.$route.params.id;
+    console.log("ruta_A_regresar : " + ruta_A_regresar);
+    this.$store.dispatch("action_regresar_A_despues_de_impresion",ruta_A_regresar);
+    /////////////////////////////////////////////
+ 
       this.cargarDatos();
   //  }
 
@@ -779,6 +802,7 @@ export default {
 
   data() {
     return {
+      overlay : false,
 
       ESTADODELSEGUIMIENTO : '',
       mostrarAlerta:false,
