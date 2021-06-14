@@ -474,11 +474,11 @@ export default {
                         console.log(JSON.stringify(response.data));
                         console.log(" Nombre del reporte : " + response.data.nombrereporte);
                         
-                        /*let directorio ="/apidatos/reportesetapas/" + response.data.nombrereporte;
+                        let directorio ="/apidatos/reportesetapas/" + response.data.nombrereporte;
                         
                         let link =  this.$store.state.urlServidor + directorio ;
-        */
-                        this.$store.dispatch("actions_uivars_docto_a_ver",response.data);
+      
+                        this.$store.dispatch("actions_uivars_docto_a_ver",link);
 
                        this.$router.push({
                         name: "VisorPDF"
