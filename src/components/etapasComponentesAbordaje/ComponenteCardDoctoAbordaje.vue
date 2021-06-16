@@ -23,7 +23,7 @@
             <v-col cols="12" xs="12" sm="6" md="6">
      
 
-            <uploadFile2 
+            <uploadFile2 v-if="verUploadComponente"
              :mostrarMensajeValidacion ="this.$store.state.abordaje.abordaje_validacion_plan_docto"
           
              directorio="/uploads/abordaje"
@@ -70,6 +70,7 @@
       data() {
 
           return {
+            verUploadComponente :true,
                itemsOpciones: ["SI", "NO", "POR CONFIRMAR"],
           }
       },
@@ -79,7 +80,16 @@
 
             this.$store.dispatch("action_abordaje_plan", event);
             this.$store.dispatch("action_abordaje_validacion_plan",false);
-         }
+            if(event == "NO"){
+              this.verUploadComponente=false;
+            }
+            if(event == "POR CONFIRMAR"){
+              this.verUploadComponente=false;
+            }
+            if(event == "SI"){
+              this.verUploadComponente=true;
+            }
+        }
       }
 
     }

@@ -8,11 +8,32 @@
           :value="texto"
           @input="asignarValor($event)"
         >
+                        <template v-slot:prepend>
+                <v-icon color="blue"
+                    @click="showAyuda = !showAyuda">
+                    mdi-help-circle
+                </v-icon>
+        </template>
         </v-textarea>
 
     <v-alert v-if="this.$store.state.abordaje.abordaje_validacion_status" type="error">
      Este Campo no debe de ir vacio y no debe de exceder el numero maximo de palabras
 
+    </v-alert>
+
+     <v-alert v-if="showAyuda" type="info">
+     Anote , de acuerdo a lo siguiente <br>
+     <ol>
+         <li>
+             a)opciona a
+         </li>
+         <li>
+             b)opcionab
+         </li>
+          <li>
+             c)opciona c
+         </li>
+     </ol>
     </v-alert>
 </v-col>
 </template>
@@ -24,10 +45,10 @@
 
         data(){
             return {
-
+                showAyuda :false,
                 textovi: "",
                 numeroPalabras: 0,
-                mensaje : ' VALORACIÓN INICIAL (MAXIMO 250 PALABRAS) ',
+                mensaje : '  (MAXIMO 250 PALABRAS) ',
                 errores : ''
 
             }

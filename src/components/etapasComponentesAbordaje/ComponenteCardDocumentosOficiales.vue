@@ -17,7 +17,7 @@
             </v-col>
             <v-col cols="12" xs="12" sm="6" md="6">
 
-                <uploadFile2 
+                <uploadFile2 v-if="verUploadComponente_plan"
                   :mostrarMensajeValidacion ="this.$store.state.abordaje.abordaje_validacion_documentos_docto"
           
                   directorio="/uploads/abordaje"
@@ -65,6 +65,7 @@
 
           return {
                itemsOpciones: ["SI APLICA", "NO APLICA"],
+               verUploadComponente_plan:true,
           }
       },
 
@@ -73,6 +74,13 @@
             
             this.$store.dispatch("action_abordaje_documentos", event);
             this.$store.dispatch("action_abordaje_validacion_documentos", event);
+            if(event == "NO APLICA"){
+              this.verUploadComponente_plan=false;
+            }
+
+                        if(event == "SI APLICA"){
+              this.verUploadComponente_plan=true;
+            }
             
          }
       }
