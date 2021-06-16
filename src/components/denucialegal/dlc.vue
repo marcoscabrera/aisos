@@ -340,8 +340,13 @@ export default {
                   let respuesta ="Se ha completado el llenado de la Denuncia del folio  #" +  this.folio;
                   this.$store.dispatch("action_notificacion_texto_respuesta",respuesta);                 
                  
-                   envioDeCorreos.enviarCorreos(correosRecibidos,this.folio,respuesta);
+                   console.log(" >>>>>>> valor  de parametro enviar correso : " + this.$store.state.uivars.uivars_parametros[6]["valor"] );
+      
+                   if (this.$store.state.uivars.uivars_parametros[6]["valor"]=='SI'){
 
+                   envioDeCorreos.enviarCorreos(correosRecibidos,this.folio,respuesta);
+                   
+                   }
 
                   this.$router.push({ name: "NotificacionRespuesta"});
                    

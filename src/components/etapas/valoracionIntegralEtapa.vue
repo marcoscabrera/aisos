@@ -845,9 +845,13 @@ export default {
          console.log("Variable de correos");
          console.log(correosRecibidos);
          let tarea_realizada = "Se ha realizado la valoracion integral del reporte de Incidente";
-         
-          envioDeCorreos.enviarCorreos(correosRecibidos,this.folio,tarea_realizada);
+          
+            console.log(" >>>>>>> valor  de parametro enviar correso : " + this.$store.state.uivars.uivars_parametros[6]["valor"] );
+      
+            if (this.$store.state.uivars.uivars_parametros[6]["valor"]=='SI'){
 
+          envioDeCorreos.enviarCorreos(correosRecibidos,this.folio,tarea_realizada);
+            }
           /************************************************************* */
  
           this.$router.push({
