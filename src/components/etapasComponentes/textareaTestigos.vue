@@ -12,12 +12,25 @@
 
     
     >
+            <template v-slot:prepend>
+                <v-icon color="blue"
+                    @click="showAyuda = !showAyuda">
+                    mdi-help-circle
+                </v-icon>
+        </template>
     </v-textarea>
 
     <v-alert v-if="this.$store.state.uivars.uivars_error_textareaTestigos" type="error">
      Este Campo no debe de ir vacio y no debe de exceder el numero maximo de palabras
   
     </v-alert>
+        <v-alert v-if="showAyuda" type="info">
+         Enliste los testigos que dieron fe de los actos <br> Ejemplo : <br>
+         <ol>
+           <ul>Sr. Julian Rojas -- Vecino </ul>
+           <ul>Sra. Rigoberta Menchu -- Vecina</ul>
+         </ol>
+       </v-alert>
   </v-col>
 </template>
 
@@ -69,6 +82,7 @@ export default {
 
   data() {
     return {
+      showAyuda:false,
       medidasproteccion: '',
       mensaje :'TESTIGO (250 PALABRAS)',
       errores:'',

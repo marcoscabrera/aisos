@@ -1,4 +1,4 @@
-import apiProgramas from '@/apialdeas/apiProgramas.js';
+
 <template>
   <v-col cols="12" xs="12" md="6">
     <v-select
@@ -9,13 +9,24 @@ import apiProgramas from '@/apialdeas/apiProgramas.js';
       dense
       filled
       @change="asignarValor($event)"
+      prepend-icon="mdi-information"
+      @click:prepend="verAyuda = !verAyuda"
     >
+      <template v-slot:prepend>
+        <v-icon color="blue"
+        @click="verAyuda = !verAyuda"
+        >mdi-help-circle</v-icon>
+        </template>
     </v-select>
+    
 
      <v-alert v-if="this.$store.state.uivars.uivars_error_seleccionarPrograma" type="error">
       Debe de escoger un Programa.
     </v-alert>
 
+     <v-alert v-if="verAyuda" type="info">
+     No te preocupes el programa se asigna automáticamente
+    </v-alert>
   </v-col>
 </template>
 
@@ -38,6 +49,7 @@ export default {
     return {
       programaSeleccionado: "",
       itemsUnidades: [],
+      verAyuda : false,
     };
   },
   created() {
@@ -45,6 +57,12 @@ export default {
     this.cargarProgramas2();
   },
   methods: {
+
+      mostrarAyuda(){
+
+       this.verAyuda !=  this.verAyuda;
+
+      },
         async cargarProgramas2() {
       
       //verficamos el rol del usuariologueado, si el rol es ==0 
@@ -54,7 +72,7 @@ export default {
       //let programaid = this.$store.state.usuarios.usuarios_usuariologueado.programa;
      let programaid =  this.$store.state.usuarios.usuarios_usuariologueado_rol.VISIBILIDADDEINCIDENTES;
       
-      console.log("valor de progrma id: " + programaid);
+     // console.log("valor de progrma id: " + programaid);
 
    
 
@@ -80,14 +98,14 @@ export default {
      if(programaid == 'PROGRAMA'){
        /* Este valor de progrima generalmente aplicara a usuarios que sean 
        directores de programa o alguien paracido a esa linea de mando */
-       console.log(" soli un programa : " +  this.$store.state.usuarios.usuarios_usuariologueado.programa);
+       //console.log(" soli un programa : " +  this.$store.state.usuarios.usuarios_usuariologueado.programa);
        let programActual =this.$store.state.usuarios.usuarios_usuariologueado.programa;
        this.itemsUnidades.push(programActual)   ;
      }
 
     if(programaid == 'PROPIOS'){
        /* Este tipo de usuarios solo son asistentes en la captura  */
-       console.log(" soli un programa : " +  this.$store.state.usuarios.usuarios_usuariologueado.programa);
+      // console.log(" soli un programa : " +  this.$store.state.usuarios.usuarios_usuariologueado.programa);
        let programActual =this.$store.state.usuarios.usuarios_usuariologueado.programa;
        this.itemsUnidades.push(programActual)   ;
      }
@@ -104,7 +122,7 @@ export default {
       let programaid = this.$store.state.usuarios.usuarios_usuariologueado.programa;
       let promesa = Promise;
       
-      console.log("valor de progrma id: " + programaid);
+      //console.log("valor de progrma id: " + programaid);
 
       programaid == 'TODOS' ?   promesa = apiProgramas.cargar__todo__los__programas(this.$store):
       
@@ -115,7 +133,8 @@ export default {
      
       promesa
         .then((response) => {
-          console.log("valor d los progrmas: " + JSON.stringify(response.data));
+          typeof response;
+      //    console.log("valor d los progrmas: " + JSON.stringify(response.data));
           //let programs = response.data;
 
          /* this.itemsUnidades = programs.map((program, index) => {
@@ -136,19 +155,19 @@ export default {
     asignarValor(evento) {
       /* el $event que se manda como parametro 
       es el que trae el valor del combo actual. */
-      console.log(
-        "valor del combobox de programa en etapa inicial:_ " + evento
-      );
+    //  console.log(
+  //      "valor del combobox de programa en etapa inicial:_ " + evento
+  //    );
 
-      console.log(evento);
+    //  console.log(evento);
       /*almacenamos en variable global */
       this.$store.dispatch("setear_programa", evento);
       this.$store.dispatch('actions_uivars_error_seleccionarPrograma',false);
       
-      console.log(
-        "valor de etapainicial_programa  " +
-          this.$store.state.incidentes.etapainicial_programa
-      );
+    //  console.log(
+   //     "valor de etapainicial_programa  " +
+    //      this.$store.state.incidentes.etapainicial_programa
+   //   );
     },
   },
 };

@@ -14,6 +14,10 @@ state: {
     //////////////////////////////////
 
     uivars_vermenuprincipal : false,
+
+     //////////////////////////////////
+
+     uivars_enviodecorreos : '',
     //////////////////////////////////
 
     regresar_A_despues_de_impresion : '',

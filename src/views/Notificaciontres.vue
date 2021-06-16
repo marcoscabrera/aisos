@@ -32,7 +32,7 @@
       </v-col>
 
       <v-col>
-        <v-btn @click="irAdenuncia" color="blue" block> Ver Reporte </v-btn>
+        <v-btn @click="irAdenuncia" color="blue" block> Regresar a la pantalla anterior </v-btn>
       </v-col>
     </v-row>
   </v-container>

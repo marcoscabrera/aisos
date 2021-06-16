@@ -23,7 +23,7 @@
                       @click="regresar"
                       >
 
-              Regresar
+              Regresar a la pantalla anterior
 
           </v-btn>
 

@@ -62,6 +62,27 @@
       <!-- termina v-card -->
     </v-col>
 
+
+    <v-col cols="12" xs="12" sm="6" md="12">
+      <v-card>
+        <v-card-title>Correos</v-card-title>
+        <v-card-text>Habilitar el envio de correos</v-card-text>
+        <v-list-item>
+          <v-text-field v-model="enviarcorreos" label="Habilitar el envio de correos"></v-text-field>
+        </v-list-item>
+        <v-card-actions>
+          <v-btn
+            primary
+            block
+            :loading="loading"
+            :disabled="loading"
+            @click="guardarParametro('enviarcorreos',enviarcorreos)"
+          >guardar</v-btn>
+        </v-card-actions>
+      </v-card>
+      <!-- termina v-card -->
+    </v-col>
+
      <v-col cols="12" xs="12" sm="6" md="12">
       <v-card>
         <v-card-title>Acuerdo </v-card-title>
@@ -168,6 +189,18 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+       /* -----------------------------------------------------*/
+      var az4 = apiParametros.getParametro("enviarcorreos", this.$store);
+      az4
+        .then((response) => {
+          console.log(response.data.valor);
+
+          this.enviarcorreos = response.data.valor;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    
     },
   },
 };

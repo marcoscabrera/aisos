@@ -9,10 +9,20 @@
       filled
       @change="asignarValor($event)"
     >
+
+      <template v-slot:prepend>
+        <v-icon color="blue"
+        @click="verAyuda = !verAyuda"
+        >mdi-help-circle</v-icon>
+      </template>
     </v-select>
 
      <v-alert v-if="this.$store.state.uivars.uivars_error_comboboxCargos" type="error">
      Debe de seleccionar un cargo
+    </v-alert>
+
+    <v-alert v-if="verAyuda" type="info">
+     Escoga una de las opciones 
     </v-alert>
   </v-col>
 </template>
@@ -26,6 +36,7 @@ export default {
     return {
       itemsCargos: [],
       cargo: this.quecargo,
+      verAyuda : false,
     };
   },
   /*"COLABORADOR SOS",
@@ -51,21 +62,21 @@ export default {
             return program.nombrecargo;
           });
 
-          console.table(this.itemsUnidades);
+         // console.table(this.itemsUnidades);
         })
         .catch((error) => {
           console.log(error);
         });
     },
     asignarValor(evento) {
-      console.log("cargo : " + evento);
+      //console.log("cargo : " + evento);
       this.$store.dispatch("setear_cargos", evento);
 
       this.$store.dispatch("actions_uivars_error_comboboxCargos", false);
       
-      console.log(
-        "cargo en state : " + this.$store.state.incidentes.etapainicial_cargos
-      );
+    //  console.log(
+     //   "cargo en state : " + this.$store.state.incidentes.etapainicial_cargos
+     // );
     },
   },
 };

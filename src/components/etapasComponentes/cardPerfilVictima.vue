@@ -1,6 +1,6 @@
 <template>
   <v-card width="100%">
-    <v-card-title> PERFIL DE LA VICTIMA</v-card-title>
+    <v-card-title> PERFIL DE LA VICTIMA <span class="paraCardTitulo"> Seleccione si es niño o niña y si recibe ayuda o no de Aldeas Infantiles </span></v-card-title>
     <v-card-text>
       <v-row>
         <v-col cols="12" xs="12" sm="12" md="6">
@@ -69,4 +69,16 @@ export default {
   },
 };
 </script>
+
+<style>
+.paraCardTitulo {
+  border: 1px;
+  border-color :black;
+  padding-left: 15px;
+  color: rgba(255, 0, 0, 0.6) !important;
+  font-size: 1.05rem;
+  text-transform: none
+}
+
+</style>
     

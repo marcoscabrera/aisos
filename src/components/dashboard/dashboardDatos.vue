@@ -1031,7 +1031,57 @@ export default {
 
     
     },
+    inicializar_incidente(){
+       
+
+
+  this.$store.dispatch('setear_Involucrados','');
+  
+  this.$store.dispatch('setear_Elaboro','');
+  this.$store.dispatch('setear_cargos','');
+
+  this.$store.dispatch('setear_RegistroHechos','');
+ 
+  this.$store.dispatch('setear_PerfilDelAgresor','');
+  this.$store.dispatch('setear_Paadultocolaborador','');
+  this.$store.dispatch('setear_Paadultocolaboradortipo','');
+  this.$store.dispatch('setear_Familiaorigen','');
+
+  this.$store.dispatch('setear_familiatipo','');
+  
+  this.$store.dispatch('setear_paadultoexterno','');
+  this.$store.dispatch('setear_nnj','');
+  this.$store.dispatch('setear_perfilvictima','');
+   
+  this.$store.dispatch('setear_recibeayuda','');
+   
+  this.$store.dispatch('setear_medidasproteccion','');
+  this.$store.dispatch('setear_incidenteconfirmado','');
+  
+  this.$store.dispatch('setear_testigos','');
+
+
+  this.$store.dispatch('action_textocierre','');
+
+this.$store.dispatch('action_folio','');
+this.$store.dispatch('action_etapainicial_testigoscierre','');
+
+
+this.$store.dispatch('action_etapainicial_actavaloracion','');
+
+
+
+this.$store.dispatch('action_etapainicial_actavaloracion_docto','');
+
+  
+
+
+    },///////termina
     irADenuncias() {
+      //antes de ir a denuncias ,debemos inicializar la variable 
+      //del estado en cuanto a incidentes.
+
+      this.inicializar_incidente();
       this.$router.push("/denuncias");
     },
     guardar__iradenuncias() {

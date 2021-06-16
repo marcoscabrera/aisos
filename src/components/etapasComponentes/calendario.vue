@@ -95,7 +95,7 @@ formatDate(date,displaytime) {
       
       const start = this.formatDate();
 
-      console.log(" La fecha de hoy : " + start);
+     // console.log(" La fecha de hoy : " + start);
       this.date = start;
 
        this.$store.dispatch('setear_FechaInicial',this.date);
@@ -107,7 +107,7 @@ formatDate(date,displaytime) {
 
     asignarFecha(evento){
      this.menu2=false;
-      console.log("este es el valor de $event en calendario " + evento);
+     // console.log("este es el valor de $event en calendario " + evento);
 
       
       
@@ -115,7 +115,7 @@ formatDate(date,displaytime) {
 
       this.$store.dispatch('actions_uivars_error_seleccionarFecha',false);
 
-      console.log("valor de la fecha : " + this.$store.state.incidentes.etapainicial_fecha);
+    //  console.log("valor de la fecha : " + this.$store.state.incidentes.etapainicial_fecha);
 
     }
   }

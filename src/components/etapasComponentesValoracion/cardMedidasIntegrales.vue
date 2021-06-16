@@ -6,6 +6,12 @@
         <v-col cols="12" xs="12" sm="6" md="6"               
                class ="text-center font-weight-black px-4 pt-4 pb-3"> 
               <h6> Medidas Integrales </h6>
+              
+                  En este espacio adjunta el documento de <strong>Medidas integrales</strong>. <br>
+                  En caso de no contar con el en este momento , lo podras adjuntar mas adelante 
+                  en el apartado de seguimiento.
+                
+              
         </v-col>
         <v-col  cols="12" xs="12" sm="6" md="6">
 

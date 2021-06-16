@@ -6,7 +6,7 @@
            <h2>Valoración Inicial</h2>
         </v-col>
         <v-col cols="12" xs="12" sm="12" md="6">
-      
+
 
                 <BarraDeNavegacion    
                  
@@ -16,6 +16,7 @@
                     activo_c="1"
                 >
                 </BarraDeNavegacion>
+
              
        <!-- import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
         -->
@@ -24,43 +25,60 @@
    
 
     <v-row>
-      <v-col cols="12" xs="12" md="6">
-          <v-text-field v-tooltip.bottom-start='tip1'
-          id="labelFolio"
-          class="cssnuevo"
-           :value="generarFolio"
-            label="FOLIO"
-            filled
-            disabled
-            background-color="#87CEFA"
+      <v-col cols="12" xs="12" md="6"  >
+
+         
+         
+              <v-text-field 
+                 id="labelFolio"
+                 class="cssnuevo "
+                :value="generarFolio"
+                 label="FOLIO"
+                 filled
+                 background-color="#87CEFA"
+              >
+                  <template v-slot:prepend>
+                    <v-icon color="blue"
+                    @click="showFolio = !showFolio">
+                      mdi-help-circle
+                    </v-icon>
+
+                  </template>
             
-          >
-        
-          </v-text-field>
+              </v-text-field>
+
+              <v-alert v-if="showFolio" type="info">
+                No te preocupes el folio se asigna automáticamente
+              </v-alert>
+
+
+
+
+
          </v-col>
 
       <v-col cols="12" xs="12" md="6">
-        <!-- componente que muestra los documentos de ayuda -->
-        
-         <v-tooltip bottom>
-              <template v-slot:activator="{ on, attrs }">   
+                <!-- componente que muestra los documentos de ayuda -->
+       <!-- <v-row>
+          <v-col cols="12" xs="1" md="1">
+            <v-icon color="blue" @click=" showDocumentos = !showDocumentos">
+                mdi-help-circle
+            </v-icon>
+          </v-col>
+          <v-col cols="12" xs="11" md="11"> -->
+            <barraDocumentosVue 
+            class="elevado"
+            :files = "archivos"
+            categoria = "vi">
+            </barraDocumentosVue>
+              
+              <v-alert  v-if="showDocumentos"   type="info">
+                Aquí podrás encontrar documentos de consulta que sabemos te serán de gran utilidad
+              </v-alert>            
+          <!--</v-col>
 
-          <barraDocumentosVue 
-          class="elevado"
-          v-bind="attrs"
-          v-on="on"
-
-          :files = "archivos"
-          categoria = "vi">
-          </barraDocumentosVue>
-
-              </template>
-              <span>
-Aquí podrás encontrar documentos de consulta que sabemos te serán de gran utilidad
-
-              </span>
-         </v-tooltip>
-      </v-col>
+        </v-row> -->
+      </v-col> <!-- termina columna -->
     </v-row>
 
     <!--Autor del documento -->
@@ -117,8 +135,25 @@ Aquí podrás encontrar documentos de consulta que sabemos te serán de gran uti
     <!-- seleccoin de programa y de fecha -->
     <v-row v-if="mostarCalendario_y_selectorProgramas">
 
-      <comboboxProgramaSeleccionado :programa="programaSeleccionado"
-      :error_programa="error_programa"></comboboxProgramaSeleccionado>
+
+       <v-tooltip v-model="showCombo" bottom>
+            <template v-slot:activator="{ on, attrs }">
+
+             <comboboxProgramaSeleccionado 
+                 v-on ="on"
+                 v-bind ="attrs"
+                 :programa="programaSeleccionado"
+                 :error_programa="error_programa"
+                  @click:append="showFolio = !showFolio">
+              </comboboxProgramaSeleccionado>
+            </template>
+            <span>
+              No te preocupes el programa se asigna automáticamente
+            </span>
+       </v-tooltip>
+     
+     
+     
       <calendario :fecha="date"></calendario>
     </v-row>
 
@@ -137,7 +172,23 @@ Aquí podrás encontrar documentos de consulta que sabemos te serán de gran uti
           <v-card-text>
             <v-row>
             <textfieldElaboro :quienelaboro="elaboro"></textfieldElaboro>
-            <comboboxCargos :quecargo="cargo"></comboboxCargos>
+
+
+            <v-tooltip bottom>
+               <template v-slot:activator="{ on, attrs }">
+                 <comboboxCargos
+                  v-on="on"
+                  v-bind="attrs" 
+                  :quecargo="cargo">
+
+                 </comboboxCargos>
+              </template>
+              <span>
+                Selecciona una opción
+              </span>
+            </v-tooltip>
+            
+            
             </v-row>
           </v-card-text>
         </v-card>
@@ -149,23 +200,21 @@ Aquí podrás encontrar documentos de consulta que sabemos te serán de gran uti
             <textareaRegistro :texto="registrohechos"></textareaRegistro>
               <v-row>
                 <v-col cols="12" xm="12" sm="12" md="6" lg="6">
-                  En este espacio adjunta el acta de valoración.
+                  En este espacio adjunta el <strong>Acta de Valoración</strong>. <br>
+                  En caso de no contar con ella , la podras adjuntar mas adelante 
+                  en el apartado de seguimiento.
                 </v-col>
                 <v-col cols="12" xm="12" sm="12" md="6" lg="6">
                 <!--  :mostrarMensajeValidacion ="this.$store.state.uivars.uivars_error_cardMedidasIntegrales"
                 -->
                 <uploadFile3 
                 directorio="/uploads/actas"
-                :HayArchivo ="sihayarchivo"
-                :datosDelArchivo = "objetoDatosArchivo"
-                :nombreArchivo = "nombreDelArchivo"
-                :incidenteid ="incidenteId"
                 :archivoId="archivoId"
                 tipoDeArchivo="*.pdf"
                 action_a_Ejecutar="action_etapainicial_actavaloracion"
                 modulo="actas"
                 campoState="etapainicial_actavaloracion">
-                  </uploadFile3> 
+               </uploadFile3> 
 
 
 
@@ -184,14 +233,23 @@ Aquí podrás encontrar documentos de consulta que sabemos te serán de gran uti
        <v-card width="100%" >
           <v-card-title> </v-card-title>
           <v-card-text>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
             <cardPerlfilAgresor
               :perfilagresor="perfildelagresor"
               :tiponiveluno="paadultocolaborador"
               :tiponiveldos="paadultocolaboradortipo"
               :vercomboniveluno="vercomboniveluno"
-              :vercomboniveldos ="vercomboniveldos"       
+              :vercomboniveldos ="vercomboniveldos" 
+              v-on="on"
+              v-bind="attrs"      
             >
             </cardPerlfilAgresor>
+            </template>
+            <span>
+              Selecciona una opción
+            </span>
+            </v-tooltip>
           </v-card-text>
         </v-card>
         <br>
@@ -266,21 +324,31 @@ Aquí podrás encontrar documentos de consulta que sabemos te serán de gran uti
         </v-btn>
       </v-col>
       <v-col cols="12" xs="12" sm="12" md="4">
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
         <v-btn
           :loading="loading"
           :disabled="loading"
           color="red"
           @click="guardar__iraDashboard"
           block
+
+          v-on ="on"
+          v-bind ="attrs"
+
         >
           <v-icon right dark> mdi-close </v-icon>
           <v-spacer></v-spacer>
           Cancelar
         </v-btn>
+        </template>
+        <span>Regresar al dashboard</span>
+        </v-tooltip>
+
       </v-col>
       <v-col cols="12" xs="12" sm="12" md="4">
-        <v-btn v-if="verBotonera"
-          :loading="loadingGuardar"
+        <v-btn v-if="verBotonera"  
+           :loading="loadingGuardar"
           :disabled="loadingGuardar"
           color="green"
           @click="guardar_incidente"
@@ -293,7 +361,7 @@ Aquí podrás encontrar documentos de consulta que sabemos te serán de gran uti
         </v-btn>
         
 
-        <v-btn v-if="verBotoneraconcierre"
+        <v-btn v-if="verBotoneraconcierre" 
           :loading="loadingGuardar"
           :disabled="loadingGuardar"
           color="green"
@@ -318,6 +386,9 @@ Aquí podrás encontrar documentos de consulta que sabemos te serán de gran uti
   </v-container>
 </template>
 <script>
+
+
+
 import barraDocumentosVue from "../barradocumentos/barraDocumentos.vue";
 import apiIncidentes from "@/apialdeas/apiIncidentes.js";
 import apiPermisosimpresion  from "@/apialdeas/apiPermisosimpresion.js";
@@ -350,11 +421,11 @@ import apidoctosapoyo from '@/apialdeas/apiDoctosApoyo.js';
 ////////////////////////////////////////////////
 // necesarios para utilizar el tool-tip
 ////////////////////////////////////////////////
-import Vue from 'vue';
+/*import Vue from 'vue';
 import { VTooltip, VPopover, VClosePopover } from 'v-tooltip';
 Vue.directive('tooltip', VTooltip);
 Vue.directive('close-popover', VClosePopover);
-Vue.component('v-popover', VPopover);
+Vue.component('v-popover', VPopover);*/
 ///////////////////////////////////////////////
 
 
@@ -789,8 +860,8 @@ const  {
       var usuarioCreador =this.$store.state.usuarios.usuarios_usuariologueado.id;
       var etapa = 1;
       /* ======================================== */
-      
-   
+      let id_docto_temp  = 0;
+       etapainicial_actavaloracion.length == 0 ? id_docto_temp = 0 : id_docto_temp = etapainicial_actavaloracion;
       /*==========================================*/
       var parametros = {
         programa: etapainicial_programa,
@@ -825,7 +896,7 @@ const  {
         coloretapados: "yellow",
         coloretapatres: "yellow",
         coloretapacuatro: "yellow",
-         actavaloracion :etapainicial_actavaloracion
+         actavaloracion :id_docto_temp
       };
 
       console.log("== valores del incidente ==");
@@ -835,21 +906,22 @@ const  {
       //let x = apiIncidentes.saludo(this.$store);
       // let x = apiIncidentes.nuevoUsuario(parametros, this.$store);
       x.then((response) => {
-        console.log(response.data);
+        //console.log(response.data);
+        typeof response.data;
         this.loadingGuardar = false;
         //redireccionamos
 
         let a = JSON.parse(response.data);
 
-        let atipo = typeof a;
+        //let atipo = typeof a;
 
-        console.log(atipo);
+        //console.log(atipo);
         let idRecuperado = a["id"];
 
         
         this.$store.dispatch('setear_Incidente',idRecuperado);
 
-        console.log("valor de idRecuperado  : " + idRecuperado);
+       // console.log("valor de idRecuperado  : " + idRecuperado);
 
         this.modo = "update";
 
@@ -857,7 +929,8 @@ const  {
         /*************************************************************************
          *  se asigna el valor del campo del docto para
          *************************************************************************************/
-          eventBus.$emit('cargarArchivo',a["actavaloracion"] );
+        if (id_docto_temp != 0) {
+        eventBus.$emit('cargarArchivo',a["actavaloracion"] ); }
         /*************************************************************************************/
        
 
@@ -872,11 +945,14 @@ const  {
            * Enviamos los correos para notificar a los usuarios que tienen 
            * este permiso activo
            ****************************************************************/
-         
-         let tarea_realizada = "Se ha creado un nuevo reporte de Incidente";
-         
-          envioDeCorreos.enviarCorreos(a["correos"],a["folio"],tarea_realizada);
+            console.log(" >>>>>>> valor  de parametro enviar correso : " + this.$store.state.uivars.uivars_parametros[6]["valor"] );
+      
+            if (this.$store.state.uivars.uivars_parametros[6]["valor"]=='SI'){
 
+               let tarea_realizada = "Se ha creado un nuevo reporte de Incidente";
+         
+               envioDeCorreos.enviarCorreos(a["correos"],a["folio"],tarea_realizada);
+            }
           /************************************************************* */
           this.$router.push({
           name: "Notificacionuno",
@@ -890,7 +966,7 @@ const  {
 
     }, //termina funcion
     nuevo_incidente() {
-      console.log(" Permiso ALTADEVALORACIONINICIAL  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.ALTADEVALORACIONINICIAL)             
+      //console.log(" Permiso ALTADEVALORACIONINICIAL  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.ALTADEVALORACIONINICIAL)             
      if (this.$store.state.usuarios.usuarios_usuariologueado_rol.ALTADEVALORACIONINICIAL=='SI'){
            
      
@@ -906,7 +982,7 @@ const  {
 
     update_incidente() {
 
-      this.guardar_nuevoIncidente2();
+      this.guardar_nuevoIncidente();
      
     },
    
@@ -934,27 +1010,27 @@ const  {
 
 
 
-      console.log("==>asignarAVariablesValoresDeConsulta<== : ");
+     // console.log("==>asignarAVariablesValoresDeConsulta<== : ");
       //console.log(JSON.stringify(respuesta.data));
       var a = respuesta.data;
-      console.log("valor de a " + a);
-       console.log(a);
-
+     // console.log("valor de a " + a);
+     //   console.log(a);
+        typeof a;
       /**************+++++++++++ 
        * si esta cerrado la etapa y se quiere modificar
        * solo si tiene el permiso podra
       */
       let abierto = a.coloretapauno;
       if (abierto == 'green'){
-         console.log(" verificando permiso de modificacion con estado cerrado");
+         //console.log(" verificando permiso de modificacion con estado cerrado");
          this.permisodemodificacion();
 
       }
       /********************* */
 
 
-      let nombrePrograma = a.nombreprograma;
-      console.log("nombre programa " + nombrePrograma);
+     // let nombrePrograma = a.nombreprograma;
+     // console.log("nombre programa " + nombrePrograma);
 
       this.usuarioCreador = a.usuarioCreador;
 
@@ -970,8 +1046,8 @@ const  {
           
          this.modo = "update";
          this.verBotonera=false;
-         console.log("folio :" + this.folio);
-         console.log("modo :" + this.modo);
+        // console.log("folio :" + this.folio);
+       //  console.log("modo :" + this.modo);
 
         }
        /************************************* */
@@ -1003,10 +1079,10 @@ const  {
      this.paadultocolaborador = a.paadultocolaborador;
      this.paadultocolaboradortipo = a.paadultocolaboradortipo;
 
-     console.log('-----------');
+     /*console.log('-----------');
      console.log(this.perfildelagresor);
      console.log(this.paadultocolaborador);
-     console.log(this.paadultocolaboradortipo);
+     console.log(this.paadultocolaboradortipo);*/
 
      
 
@@ -1017,11 +1093,11 @@ const  {
      this.incidenteconfirmado = a.incidenteconfirmado;
 
 
-     console.log("que variable es files : ") ;
+     //console.log("que variable es files : ") ;
 
-     let x = typeof this.files;
+     //let x = typeof this.files;
 
-     console.log(x);
+     //console.log(x);
 
       
    
@@ -1030,8 +1106,8 @@ const  {
 
       this.recibeayuda = a.recibeayuda;
 
-      console.log( " perfil victiam " + this.perfilvictima) ;
-       console.log( " perfil recibeayuda " + this.recibeayuda) ;
+     // console.log( " perfil victiam " + this.perfilvictima) ;
+       //console.log( " perfil recibeayuda " + this.recibeayuda) ;
 
        this.setearValores_para_impresion();
      
@@ -1042,8 +1118,8 @@ const  {
       console.log("==>asignarAVariablesValoresDeConsulta<== : ");
       //console.log(JSON.stringify(respuesta.data));
       var a = respuesta.data;
-      console.log("valor de a " + a);
-       console.log(a);
+      //console.log("valor de a " + a);
+       //console.log(a);
 
       /**************+++++++++++ 
        * si esta cerrado la etapa y se quiere modificar
@@ -1051,15 +1127,15 @@ const  {
       */
       let abierto = a[0]['coloretapauno'];
       if (abierto == 'green'){
-         console.log(" verificando permiso de modificacion con estado cerrado");
+       //  console.log(" verificando permiso de modificacion con estado cerrado");
          this.permisodemodificacion();
 
       }
       /********************* */
 
 
-      let nombrePrograma = a[0]['nombreprograma'];
-      console.log("nombre programa " + nombrePrograma);
+      //let nombrePrograma = a[0]['nombreprograma'];
+     // console.log("nombre programa " + nombrePrograma);
      
       this.folio = a[0]["folio"];
        /***************************************
@@ -1071,8 +1147,8 @@ const  {
           
          this.modo = "update";
          this.verBotonera=false;
-         console.log("folio :" + this.folio);
-         console.log("modo :" + this.modo);
+        // console.log("folio :" + this.folio);
+         //console.log("modo :" + this.modo);
 
         }
        /************************************* */
@@ -1094,10 +1170,10 @@ const  {
      this.paadultocolaborador = a[0]["paadultocolaborador"];
      this.paadultocolaboradortipo = a[0]["paadultocolaboradortipo"];
 
-     console.log('-----------');
+    /* console.log('-----------');
      console.log(this.perfildelagresor);
      console.log(this.paadultocolaborador);
-     console.log(this.paadultocolaboradortipo);
+     console.log(this.paadultocolaboradortipo);*/
 
      
 
@@ -1108,11 +1184,11 @@ const  {
      this.incidenteconfirmado = a[0]["incidenteconfirmado"];
 
 
-     console.log("que variable es files : ") ;
+    /* console.log("que variable es files : ") ;
 
      let x = typeof this.files;
 
-     console.log(x);
+     console.log(x);*/
 
       
    
@@ -1121,8 +1197,8 @@ const  {
 
       this.recibeayuda = a[0]["recibeayuda"];
 
-      console.log( " perfil victiam " + this.perfilvictima) ;
-       console.log( " perfil recibeayuda " + this.recibeayuda) ;
+    //  console.log( " perfil victiam " + this.perfilvictima) ;
+    //   console.log( " perfil recibeayuda " + this.recibeayuda) ;
      
     },
 
@@ -1130,7 +1206,7 @@ const  {
     permisodemodificacion(){
         
      let valor = this.$store.state.usuarios.usuarios_usuariologueado_rol.MODIFICACIONREAPERTURAVALORACIONINICIAL;
-       console.log(" verificando permiso de modificacion con estado cerrado : valor " + valor);
+       //console.log(" verificando permiso de modificacion con estado cerrado : valor " + valor);
       
      valor == "SI" ? this.verBotoneraconcierre = true : this.verBotoneraconcierre = false  ;
     },
@@ -1154,10 +1230,10 @@ const  {
        this.cargarTodosLosDoctos('vi');
 
       if (parametroId == undefined) {
-        console.log("valor de parametroID : " + parametroId);
+        //console.log("valor de parametroID : " + parametroId);
         this.overlay =false;
       } else {
-        console.log("valor actual de parametroId : " + parametroId);
+        //console.log("valor actual de parametroId : " + parametroId);
 
         let P_incidente = apiIncidentes.recuperarUnIncidente(
           parametroId,
@@ -1198,10 +1274,14 @@ const  {
 
   data() {
     return {
-      tip1 : 'No ',
+     showFolio: false,
+     showCombo :false,
+     showDocumentos :false,
+
+      tip1 : ' Existe este tooltiop ',
       overlay: false,
       archivos :[],
-      archivoId : 0,
+      archivoId : '0',
       sihayarchivo : false,
       usuarioCreador : '',
       mostarCalendario_y_selectorProgramas:true,
@@ -1291,19 +1371,30 @@ const  {
   },
 };
 </script>
-<style scoped>
-
- .cssnuevo{
-
-  
-    font-size: large;
-    font-weight: bold;
-    
-  }
-
-  .elevado{
-    z-index: 100;
-  }
-
+<style  >
+.para_span
+.tooltip { 
+width: 200px;
+background: #59c7f9;
+color: #ffffff;
+text-align: center;
+padding: 10px 20px 10px 20px;
+border-radius: 10px;
+top: calc(100% + 11px);
+left: 50%;
+transform: translate-x(-50%)
+ }
+.tooltip-box { 
+position: relative
+ }
+.triangle { 
+border-width: 0 6px 6px;
+border-color: transparent;
+border-bottom-color: #59c7f9;
+position: absolute;
+top: -6px;
+left: 50%;
+transform: translate-x(-50%)
+ }
 </style>
 

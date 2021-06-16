@@ -12,10 +12,20 @@
        auto-grow
        :error-messages="errores"
     >
+
+                <template v-slot:prepend>
+                <v-icon color="blue"
+                    @click="showAyuda = !showAyuda">
+                    mdi-help-circle
+                </v-icon>
+        </template>
     </v-textarea>
 
      <v-alert v-if="this.$store.state.uivars.uivars_error_textAreaInvolucrados" type="error">
       Este Campo no debe de ir vacio y no debe de exceder el numero maximo de palabras
+    </v-alert>
+     <v-alert v-if="showAyuda" type="info">
+       Anote los involucrados
     </v-alert>
   </v-col>
 </template>
@@ -63,8 +73,8 @@ export default {
 
     prop_to_local() {
       this.involucrados = this.texto;
-      console.log("asignando valor de :" + this.texto);
-      console.log("a valor de :" + this.involucrados);
+     //console.log("asignando valor de :" + this.texto);
+    //  console.log("a valor de :" + this.involucrados);
     },
     guardandoTexto(contenido) {
      // console.log("=====>valor del contendio en $event " + contenido);
@@ -90,7 +100,7 @@ export default {
     up() {
       /* igualamos los props con el texto. */
       this.involucrados = this.texto;
-      console.table([this.texto, this.involucrados]);
+     // console.table([this.texto, this.involucrados]);
     },
   },
   mounted() {
@@ -105,6 +115,7 @@ export default {
 
   data() {
     return {
+      showAyuda : false,
       limpiar: true,
       involucrados: "",
              numeroPalabras: 0,

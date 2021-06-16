@@ -1,6 +1,11 @@
 <template>
   <v-card width="100%">
-    <v-card-title> ¿ES UN INCIDENTE DE DESPROTECCIÓN INFANTIL? </v-card-title>
+    <v-card-title> ¿ES UN INCIDENTE DE DESPROTECCIÓN INFANTIL?
+        <span class="paraCardTitulo">
+          Seleccione una opcion
+        </span>
+      
+       </v-card-title>
     <v-card-text>
       <v-row>
         <v-col cols="12" xs="12" sm="12" md="4"> </v-col>
@@ -47,3 +52,14 @@ export default {
   },
 };
 </script>
+<style>
+.paraCardTitulo {
+  border: 1px;
+  border-color :black;
+  padding-left: 15px;
+  color: rgba(255, 0, 0, 0.6) !important;
+  font-size: 1.05rem;
+  text-transform: none
+}
+
+</style>

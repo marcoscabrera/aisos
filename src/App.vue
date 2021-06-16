@@ -273,7 +273,11 @@ export default {
             
             console.log( response.data[4]['valor'] );
             this.$store.dispatch('actions_uivars_parametro_imagenLogin', response.data[4]['valor']);
+
+            this.$store.dispatch('actions_uivars_parametros',response.data);
             
+            console.log(" valor de parametro enviarcorreos : " + this.$store.state.uivars.uivars_parametros[6]["valor"] );
+     
      
      } )
       .catch( error => { console.log(JSON.stringify(error.data))});

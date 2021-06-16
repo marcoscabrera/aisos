@@ -11,11 +11,27 @@
       :error-messages="errores"
       
     >
+                <template v-slot:prepend>
+                  <v-icon color="blue"
+                      @click="showAyuda = !showAyuda">
+                      mdi-help-circle
+                  </v-icon>
+              </template>
     </v-textarea>
 
-         <v-alert v-if="this.$store.state.uivars.uivars_error_textareaValoracion" type="error">
+    <v-alert v-if="this.$store.state.uivars.uivars_error_textareaValoracion" type="error">
       Este Campo no debe de ir vacio y no debe de exceder el numero maximo de palabras
     </v-alert>
+
+    <v-alert v-if="showAyuda" type="info">
+    Anote la valoracion integral, atendiendo los siguientes puntos: <br>
+    <ol>
+      <li>a) Describa </li>
+      <li>b) enfatize </li>
+       <li>c) concluya </li>
+    </ol>
+    </v-alert>
+
   </v-col>
 </v-row>
 </template>
@@ -73,6 +89,7 @@ export default {
 
   data() {
     return {
+      showAyuda :false,
       textovi: "",
       numeroPalabras: 0,
       mensaje : ' VALORACIÓN INTEGRAL (MAXIMO 250 PALABRAS) ',

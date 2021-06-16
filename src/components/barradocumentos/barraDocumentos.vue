@@ -1,9 +1,13 @@
-
 <template>
-  <v-expansion-panels>
-      <v-expansion-panel>
+
+  <v-expansion-panels width="98%"
+   >
+     
+
+
+      <v-expansion-panel   >
           <v-expansion-panel-header>
-           Documentos de Consulta
+           Documentos de Consulta que sabemos te serán de gran utilidad
           </v-expansion-panel-header>
           
           <v-expansion-panel-content>
@@ -43,6 +47,9 @@
   </v-expansion-panel>
 
   </v-expansion-panels>
+
+
+
 </template>
 
 <script>
@@ -72,7 +79,7 @@ import eventBus2 from '@/eventBus.js';
         try{
          eventBus2.$on('cargarLosDoctos', (cat) => {
                 
-                console.log("en evento mounted ");
+                console.log("en evento mounted the barra docuementos ");
                 this.cargarTodosLosDoctos(cat);
 
          });
@@ -91,7 +98,7 @@ import eventBus2 from '@/eventBus.js';
 
            try {
                 
-                console.log("en evento created ");
+                console.log("en evento created cargarLosDoctos");
                 this.cargarTodosLosDoctos(cat);
            }catch(error){
              console.log("  error "  + error);
@@ -150,7 +157,7 @@ import eventBus2 from '@/eventBus.js';
 
       data() {
         return {
-
+          showTip:false,
           archivos : []
 
         }

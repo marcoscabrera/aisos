@@ -12,10 +12,29 @@
       auto-grow
       :error-messages="errores"
     >
+         <template v-slot:prepend>
+        <v-icon color="blue"
+            @click="showAyuda = !showAyuda">
+            mdi-help-circle
+        </v-icon>
+
+      </template>
     </v-textarea>
 
     <v-alert v-if="this.$store.state.uivars.uivars_error_textareaRegistros" type="error">
       Este Campo no debe de ir vacio y no debe de exceder el numero maximo de palabras
+    </v-alert>
+
+    <v-alert v-if="showAyuda" type="info">
+      Aqui cuenta hasta con 250 palabras para describir los hechos <br>
+      de la siguiente manera:<br>
+      <ul>
+        <li>¿Cuales fueron los hechos?</li>
+        <li>¿En que fecha fue realizado?</li>
+        <li>¿Quienes participaron?</li>
+
+      </ul>
+
     </v-alert>
 
   </v-col>
@@ -66,7 +85,8 @@ export default {
   },
   data() {
     return {
-       limpiar: true,
+      showAyuda:false,
+      limpiar: true,
       registrohechos: this.texto,
       mensaje :'REGISTRO DE HECHOS (250 PALABRAS)',
       errores : '',

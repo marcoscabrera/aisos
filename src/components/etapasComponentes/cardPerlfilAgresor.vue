@@ -1,6 +1,6 @@
 <template>
   <v-card width="100%">
-    <v-card-title> PERFIL DEL AGRESOR </v-card-title>
+    <v-card-title> PERFIL DEL AGRESOR  <span class="paraCardTitulo"> Selecciona una opcion</span> </v-card-title>
     <v-card-text>
       <v-row>
         <v-col cols="12" xs="12" sm="12" md="4">
@@ -14,7 +14,11 @@
            
             @change="cambioEnPerfil($event)"
           >
+
           </v-select>
+          <v-alert v-if="verAyuda" type="info">
+              Escoga una opción en este y los controles siguientes
+          </v-alert>
         </v-col>
         <v-col cols="12" xs="12" sm="12" md="4">
           <v-select
@@ -91,13 +95,13 @@ export default {
     },
 
     asignarOpcionColaborador_familia(valor){
-      console.log("valor en asignarOpcionColaborador_familia " +valor );
+     // console.log("valor en asignarOpcionColaborador_familia " +valor );
 
       this.$store.dispatch('setear_Paadultocolaboradortipo',valor);
     },
     cambioEnComboann(evento) {
 
-      console.log(evento);
+      //console.log(evento);
       
      this.$store.dispatch('setear_Paadultocolaborador', evento);
 
@@ -121,11 +125,11 @@ export default {
       this.combofamiliarorigen = true;
     },
     cambioEnPerfil(evento) {
-      console.log("--------------");
-      console.log(" componente CardPerfilAgresor");
-      console.log("--------------");
+     // console.log("--------------");
+//console.log(" componente CardPerfilAgresor");
+    //  console.log("--------------");
 
-      console.log(" valro " + evento);
+//console.log(" valro " + evento);
       /* guardando */
 
       this.$store.dispatch('setear_PerfilDelAgresor',evento);
@@ -167,14 +171,14 @@ export default {
   
   mounted() {
     //this.inicializarValores();
-    console.log("en mountede cardperfilagresor")
+   // console.log("en mountede cardperfilagresor")
     const { perfilagresor, tiponiveluno,tiponiveldos} = this;
     console.log({ perfilagresor, tiponiveluno,tiponiveldos});
    
   },
     beforeUpdate() {
     //this.inicializarValores();
-    console.log("en beforeUpdate cardperfilagresor")
+   // console.log("en beforeUpdate cardperfilagresor")
     const { perfilagresor, tiponiveluno,tiponiveldos} = this;
     console.log({ perfilagresor, tiponiveluno,tiponiveldos});
 
@@ -201,6 +205,7 @@ export default {
   },
   data() {
     return {
+      verAyuda :false,
       opcioncombocolaborador :'',
       adulto: false,
       pares: false,
@@ -249,3 +254,14 @@ export default {
   },
 };
 </script>
+<style>
+.paraCardTitulo {
+  border: 1px;
+  border-color :black;
+  padding-left: 15px;
+  color: rgba(255, 0, 0, 0.6) !important;
+  font-size: 1.05rem;
+  text-transform: none
+}
+
+</style>

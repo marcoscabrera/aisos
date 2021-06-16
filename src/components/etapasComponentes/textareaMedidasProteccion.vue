@@ -12,12 +12,24 @@
 
     
     >
+        <template v-slot:prepend>
+                <v-icon color="blue"
+                    @click="showAyuda = !showAyuda">
+                    mdi-help-circle
+                </v-icon>
+        </template>
     </v-textarea>
 
     <v-alert v-if="this.$store.state.uivars.uivars_error_textareaMedidas" type="error">
       Este Campo no debe de ir vacio y no debe de exceder el numero maximo de palabras
     </v-alert>
-
+    <v-alert v-if="showAyuda" type="info">
+      Anote las medidas que se llevaran a cabo <br>Ejemplo : <br>
+      <ol>
+        <li>Se realiza visita al domicilio del niño o niña en cuestion</li>
+        <li>Se manda a revision medica si es necesario</li>
+      </ol>
+    </v-alert>
   </v-col>
 </template>
 
@@ -68,6 +80,7 @@ export default {
 
   data() {
     return {
+      showAyuda:false,
       medidasproteccion: '',
       mensaje :'MEDIDAS DE PROTECCIÓN INMEDIATA (250 PALABRAS)',
       errores:'',

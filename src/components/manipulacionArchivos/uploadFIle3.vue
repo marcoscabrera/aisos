@@ -121,6 +121,10 @@ export default {
 
         eventBus.$on('cargarArchivo', (archivoid) => {
            try{
+
+           
+           console.log(" en envento eventbus.on cargarArchivo ");
+           console.log(" valor del parametro archivoid :" + archivoid);
       
            this.archivoID_por_si_las_dudas = archivoid;
 
@@ -242,7 +246,9 @@ export default {
 
       try {
 
-
+       
+        console.log("solicitando documento en cuestion ");
+      
 
        UploadService.getFiles(archivoIdABuscar, this.$store.state).then(response => {
       // this.fileInfos = response.data;
