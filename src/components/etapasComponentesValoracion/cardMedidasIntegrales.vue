@@ -4,10 +4,11 @@
     <v-card-text>
       <v-row>
         <v-col cols="12" xs="12" sm="6" md="6"               
-               class ="text-center font-weight-black px-4 pt-4 pb-3"> 
-              <h6> Medidas Integrales </h6>
+               class ="text-center "> 
+              <h6 class="font-weight-black px-4 pt-4 pb-3"> Acta de valoración Integral </h6>
               
-                  En este espacio adjunta el documento de <strong>Medidas integrales</strong>. <br>
+              
+                  En este espacio adjunta el documento de <strong>Acta de Valoración Integral</strong>. <br>
                   En caso de no contar con el en este momento , lo podras adjuntar mas adelante 
                   en el apartado de seguimiento.
                 

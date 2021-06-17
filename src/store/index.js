@@ -34,7 +34,7 @@ const store =  new Vuex.Store({
 ///////////////////////////////////////  
 
 urlServidor : 'https://apiproteccioninfantil3.azurewebsites.net',
-
+   
 
 ///////////////////////////////////////
 // API DEMO

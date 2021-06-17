@@ -200,7 +200,7 @@
             <textareaRegistro :texto="registrohechos"></textareaRegistro>
               <v-row>
                 <v-col cols="12" xm="12" sm="12" md="6" lg="6">
-                  En este espacio adjunta el <strong>Acta de Valoración</strong>. <br>
+                  En este espacio adjunta el <strong>Acta de Hechos</strong>. <br>
                   En caso de no contar con ella , la podras adjuntar mas adelante 
                   en el apartado de seguimiento.
                 </v-col>
