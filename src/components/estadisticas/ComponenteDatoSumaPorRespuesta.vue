@@ -26,8 +26,7 @@
       </v-row>
       <v-row>
         <v-col>
-         <p class="text-center">Denuncia  <strong> 10 </strong> - I. Interna  <strong> 5 </strong> - Abordaja <strong> 9</strong> 
-          </p>
+        
         </v-col>
       </v-row>
     </v-card-text>
@@ -68,8 +67,38 @@ import planetChartData from './chart-data.js';
 	purple: 'rgb(153, 102, 255)',
 	grey: 'rgb(201, 203, 207)'
  */
-        mounted () {
-   this.createChart('identificador_respuesta');
+   mounted () {
+     const ctx = document.getElementById('identificador_respuesta');
+    const datos =  this.$store.state.estadisticas.datos_graficas.grafica_tipoderespuesta.datos;
+    const etiquetas =  this.$store.state.estadisticas.datos_graficas.grafica_tipoderespuesta.labels;
+    const colores  = this.$store.state.estadisticas.datos_graficas.grafica_tipoderespuesta.colores;
+    const datax = {
+    datasets: [{
+      label: 'Tipos de Respuestas',
+        data: datos,
+        backgroundColor : colores,
+        borderColor: [
+          "#CDA776",
+          "#989898"
+        ],
+        borderWidth: [1, 1]
+    }],
+
+    // These labels appear in the legend and in the tooltips when hovering different arcs
+    labels: etiquetas
+} ;//termina datax
+
+const myChart = new Chart(ctx, {
+      type: 'pie',
+      data: datax,
+      options:{
+      responsive: true
+},
+    });
+
+    typeof myChart;
+
+
 },
 /*
 

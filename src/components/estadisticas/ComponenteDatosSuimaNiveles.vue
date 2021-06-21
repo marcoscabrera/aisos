@@ -26,8 +26,8 @@
       </v-row>
       <v-row>
         <v-col>
-          <p class="text-center">Bajo  <strong> 10 </strong> - Alto  <strong> 10 </strong> - Criticos<strong> 5</strong> 
-          </p>
+         <!-- <p class="text-center">Bajo  <strong> 10 </strong> - Alto  <strong> 10 </strong> - Criticos<strong> 5</strong> 
+          </p> -->
         </v-col>
       </v-row>
     </v-card-text>
@@ -59,30 +59,43 @@ import planetChartData from './chart-data.js';
                 default: 0
             }
         },
-/*
-	red: 'rgb(255, 99, 132)',
-	orange: 'rgb(255, 159, 64)',
-	yellow: 'rgb(255, 205, 86)',
-	green: 'rgb(75, 192, 192)',
-	blue: 'rgb(54, 162, 235)',
-	purple: 'rgb(153, 102, 255)',
-	grey: 'rgb(201, 203, 207)'
- */
-        mounted () {
-   this.createChart('identificador_niveles');
+
+   mounted () {
+
+
+    const ctx = document.getElementById('identificador_niveles');
+    const datos =  this.$store.state.estadisticas.datos_graficas.grafica_tiponivel.datos;
+    const etiquetas =  this.$store.state.estadisticas.datos_graficas.grafica_tiponivel.labels;
+    const colores  = this.$store.state.estadisticas.datos_graficas.grafica_tiponivel.colores;
+    const datax = {
+    datasets: [{
+      label: 'Tipos de Nivel',
+        data: datos,
+        backgroundColor : colores,
+        borderColor: [
+          "#CDA776",
+          "#989898"
+        ],
+        borderWidth: [1, 1]
+    }],
+
+    // These labels appear in the legend and in the tooltips when hovering different arcs
+    labels: etiquetas
+} ;//termina datax
+
+const myChart = new Chart(ctx, {
+      type: 'pie',
+      data: datax,
+      options:{
+      responsive: true
 },
-/*
+    });
 
-	red: 'rgb(255, 99, 132)',
-	orange: 'rgb(255, 159, 64)',
-	yellow: 'rgb(255, 205, 86)',
-	green: 'rgb(75, 192, 192)',
-	blue: 'rgb(54, 162, 235)',
-	purple: 'rgb(153, 102, 255)',
-	grey: 'rgb(201, 203, 207)',
+    typeof myChart;
 
 
-*/
+},
+
 data() {
   return {
     planetChartData: planetChartData,

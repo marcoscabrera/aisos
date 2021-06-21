@@ -2,7 +2,7 @@
  <v-container name="xxxxx">
      <v-row>
          <v-col cols="12">
-            <h3>Numero de Incidentes por Programa</h3>
+            <h3>Numero de Incidentes por Programa ..</h3>
          </v-col>
      </v-row>
      <v-row>

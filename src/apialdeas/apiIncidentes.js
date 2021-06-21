@@ -7,7 +7,7 @@ export default {
     },
 
     saludo(store) {
-        let predicado = "/hola";
+  let predicado = "/hola";
 
     let apix = store.state.urlServidor;
 

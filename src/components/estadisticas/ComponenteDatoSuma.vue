@@ -8,7 +8,7 @@
       <!-- <v-list-item-title class="subheadline">
           {{titulo}}
         </v-list-item-title> -->
-        <v-list-item-subtitle class="text-center"><strong>Total Tipologia</strong></v-list-item-subtitle>
+        <v-list-item-subtitle class="text-center"><strong>Total Topologia</strong></v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
 
@@ -26,7 +26,7 @@
       </v-row>
       <v-row>
         <v-col>
-          <p class="text-center">Interno  <strong> 10 </strong> - <strong> 5</strong> externos
+           <p class="text-center">Interno  <strong> {{this.$store.state.estadisticas.datos_graficas.grafica_topologia[0]}} </strong> - <strong> {{this.$store.state.estadisticas.datos_graficas.grafica_topologia[1]}} </strong> externos
           </p>
         </v-col>
       </v-row>
@@ -59,25 +59,57 @@ import planetChartData from './chart-data.js';
                 default: 0
             }
         },
-/*
-	red: 'rgb(255, 99, 132)',
-	orange: 'rgb(255, 159, 64)',
-	yellow: 'rgb(255, 205, 86)',
-	green: 'rgb(75, 192, 192)',
-	blue: 'rgb(54, 162, 235)',
-	purple: 'rgb(153, 102, 255)',
-	grey: 'rgb(201, 203, 207)'
- */
+
         mounted () {
-   this.createChart('identificador');
+  // this.createChart('identificador');
+
+     const datos_interno  =this.$store.state.estadisticas.datos_graficas.grafica_topologia[0];
+     const datos_externo  =this.$store.state.estadisticas.datos_graficas.grafica_topologia[1];
+      
+
+      const datax = {
+    datasets: [{
+      label: 'Internos vs Externos',
+        data: [datos_interno,datos_externo],
+        backgroundColor : [
+          "rgb(255, 205, 86)",
+          "rgb(54, 162, 235)"],
+        borderColor: [
+          "#CDA776",
+          "#989898"
+        ],
+        borderWidth: [1, 1]
+    }],
+
+    // These labels appear in the legend and in the tooltips when hovering different arcs
+    labels: [
+        'Internos',
+        'Externos'
+      
+    ]
+} ;//termina datax
+
+      const ctx = document.getElementById("identificador");
+      console.log(ctx);
+
+    const myChart = new Chart(ctx, {
+      type: 'pie',
+      data: datax,
+      options: {
+      responsive: true
+      }
+    });
+       typeof myChart;
 },
 data() {
   return {
+
     planetChartData: planetChartData,
+
     datax : {
     datasets: [{
       label: 'Internos vs Externos',
-        data: [10, 5],
+        data: this.$store.state.datos_graficas.grafica_topologia,
         backgroundColor : [
           "rgb(255, 205, 86)",
           "rgb(54, 162, 235)"],

@@ -69,8 +69,38 @@ import planetChartData from './chart-data.js';
 	grey: 'rgb(201, 203, 207)'
  */
         mounted () {
-   this.createChart('identificador_tipos');
+     const ctx = document.getElementById('identificador_tipos');
+    const datos =  this.$store.state.estadisticas.datos_graficas.grafica_tipodecasos.datos;
+    const etiquetas =  this.$store.state.estadisticas.datos_graficas.grafica_tipodecasos.labels;
+    const colores  = this.$store.state.estadisticas.datos_graficas.grafica_tipodecasos.colores;
+    const datax = {
+    datasets: [{
+      label: 'Tipos de Casos',
+        data: datos,
+        backgroundColor : colores,
+        borderColor: [
+          "#CDA776",
+          "#989898"
+        ],
+        borderWidth: [1, 1]
+    }],
+
+    // These labels appear in the legend and in the tooltips when hovering different arcs
+    labels: etiquetas
+} ;//termina datax
+
+const myChart = new Chart(ctx, {
+      type: 'pie',
+      data: datax,
+      options:{
+      responsive: true
 },
+    });
+
+    typeof myChart;
+
+
+},//termina mounted,
 /*
 
 	red: 'rgb(255, 99, 132)',

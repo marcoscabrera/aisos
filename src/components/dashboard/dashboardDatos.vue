@@ -5,8 +5,10 @@
  correguir abordaje interno
 
 -->
-  <template>
+ <template>
+
   <v-data-table width ="100%"
+
     :headers="headers"
     :items="incidentes"
     :single-expand="singleExpand"
@@ -241,14 +243,18 @@
 
     <template v-slot:item.tipoderespuesta="{ item }" >
 
-      <v-btn x-small 
-      block  
-      :color="item.colorestadorespuesta"
+      <v-btn  v-if="item.tipoderespuesta == 'INVESTIGACION INTERNA'"
+        x-small 
+        block  
+       :color="item.colorestadorespuesta"
        dark 
        dense
        class="letrasNegras"
-        @click="ir_a_respuesta(item)"
-         v-if="item.tipoderespuesta == 'INVESTIGACION INTERNA'">
+       @click="ir_a_respuesta(item)"
+
+
+        >
+
        <span color="black"> Investigacion </span>
       </v-btn>
 
@@ -471,10 +477,12 @@
 
 
 <script>
+
 import apiIncidentes from "@/apialdeas/apiIncidentes.js";
 import apiProgramas from  "@/apialdeas/apiProgramas.js"; 
 import validacionSeguimiento from '@/components/etapas/validaciones/validacionSeguimiento.js';
 //import PanelDenunciaComponentes from '@/components/usuarios/componentes/PanelDenunciaComponentes.vue';
+
 
 export default {
   data: () => ({
@@ -608,7 +616,9 @@ export default {
     },
   },
 
+
   created() {
+    //lo primero que se ejecuta
     this.initialize();
   },
 
@@ -882,7 +892,8 @@ export default {
     console.log(this.puedeVerCierre);
     
     permisosDeRol.ALTADEVALORACIONINICIAL == "SI" ?  this.puedeCrearUnNuevoIncidente = true : this.puedeCrearUnNuevoIncidente = false;
-     console.log("   this.puedeCrearUnNuevoIncidente : " + this.puedeCrearUnNuevoIncidente);
+    
+    console.log("   this.puedeCrearUnNuevoIncidente : " + this.puedeCrearUnNuevoIncidente);
 
     //permisosDeRol.ALTADEVALORACIONINTEGRAL == "SI" ?  this.puedeCrearUnNuevoIncidente = true : this.puedeCrearUnNuevoIncidente = false;
    
@@ -1090,6 +1101,7 @@ this.$store.dispatch('action_etapainicial_actavaloracion_docto','');
     
 
     initialize() {
+      
       this.cargandoDatos = true; //esto activa la animacion de loading de la tabla
       
       /*
@@ -1098,6 +1110,7 @@ this.$store.dispatch('action_etapainicial_actavaloracion_docto','');
       Revisar clsIncidentes_todosLosIncidetes.php
       */
       let usuarioLogueadoID = this.$store.state.usuarios.usuarios_usuariologueado.id;
+    
       let getIncidentes = apiIncidentes.recuperarTodosLosIncidentes(
         usuarioLogueadoID ,this.$store
       );
@@ -1107,7 +1120,8 @@ this.$store.dispatch('action_etapainicial_actavaloracion_docto','');
           //console.table(response.data);
 
           this.incidentes = response.data;
-          this.ocultar ==false? this.headers =this.headers2 : this.headers= this.headers1;
+
+          this.ocultar ==false ? this.headers =this.headers2 : this.headers= this.headers1;
          
           this.cargandoDatos = false; //termina la animacion de la tabla loading
          
@@ -1157,6 +1171,7 @@ this.$store.dispatch('action_etapainicial_actavaloracion_docto','');
 
 
 <style scoped >
+
   .margen_5px{
     margin-left: 5px;
   } 

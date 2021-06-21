@@ -5,16 +5,28 @@
     <ComponenteTotal v-if ="this.$store.state.estadisticas.verEstadisticas"></ComponenteTotal>
 
     <ComponenteIncidentesProgramas v-if ="this.$store.state.estadisticas.verEstadisticas"></ComponenteIncidentesProgramas>
-        <!--   <ComponenteBarStack></ComponenteBarStack>
     
+     <ComponenteBarStack v-if ="this.$store.state.estadisticas.verEstadisticas"
+     >
+     </ComponenteBarStack>
 
-       
-       <ComponenteChartjs v-if ="this.$store.state.estadisticas.verEstadisticas"></ComponenteChartjs>
-   
-       <ComponenteDatosIncidentesVarios></ComponenteDatosIncidentesVarios>
+     <ComponenteDatosIncidentesVarios v-if ="this.$store.state.estadisticas.verEstadisticas">
+
+     </ComponenteDatosIncidentesVarios>
   
+      <ComponenteTotalesSuma v-if ="this.$store.state.estadisticas.verEstadisticas">
+
+      </ComponenteTotalesSuma>
+     
+     
+     
+        <!--  
+       <ComponenteChartjs v-if ="this.$store.state.estadisticas.verEstadisticas"></ComponenteChartjs>
+     
+     
+     
    
-    <ComponenteTotalesSuma></ComponenteTotalesSuma>
+  
    
     <ComponenteVictimasTotales></ComponenteVictimasTotales>
     <ComponenteBarStackVictimas></ComponenteBarStackVictimas>
@@ -30,15 +42,15 @@
 import  ComponenteIncidentesProgramas from '@/components/estadisticas/ComponenteIncidentesProgramas.vue';
 import  ComponenteSelectorFechas from '@/components/estadisticas/ComponenteSelectorFechas.vue';
 import ComponenteTotal from '@/components/estadisticas/ComponenteTotal.vue';
+import ComponenteBarStack from '@/components/estadisticas/ComponenteBarStack.vue';
+import  ComponenteDatosIncidentesVarios from '@/components/estadisticas/ComponenteDatosIncidentesVarios.vue';
+import ComponenteTotalesSuma from '@/components/estadisticas/ComponenteTotalesSuma.vue';
 
 //import ComponenteChartjs  from '@/components/estadisticas/ComponenteChartjs.vue';
 
 //import  BarChart from '@/components/estadisticas/BarChart.vue';
-//import  ComponenteDatosIncidentesVarios from '@/components/estadisticas/ComponenteDatosIncidentesVarios.vue';
-//import ComponenteBarStack from '@/components/estadisticas/ComponenteBarStack.vue';
 
 /*
-import ComponenteTotalesSuma from '@/components/estadisticas/ComponenteTotalesSuma.vue';
 import ComponenteVictimasTotales from '@/components/estadisticas/ComponenteVictimasTotales.vue';
 import ComponenteBarStackVictimas from '@/components/estadisticas/ComponenteBarStackVictimas.vue';
 import ComponenteAgresoresTotales from '@/components/estadisticas//ComponenteAgresoresTotales.vue'
@@ -53,15 +65,17 @@ export default {
     };
   },
   components : {
-    //ComponenteDatosIncidentesVarios
+    
     ComponenteIncidentesProgramas,
     ComponenteSelectorFechas,
     ComponenteTotal,
-    //ComponenteBarStack
- //   ComponenteChartjs,
+    ComponenteBarStack,
+    ComponenteDatosIncidentesVarios,
+    ComponenteTotalesSuma,
+    //ComponenteChartjs,
    
    // ,,
-   //ComponenteTotalesSuma,
+ 
     //ComponenteVictimasTotales,
    // ComponenteBarStackVictimas
     //,ComponenteAgresoresTotales,

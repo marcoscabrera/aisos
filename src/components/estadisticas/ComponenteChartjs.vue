@@ -12,7 +12,7 @@
       </v-list-item-content>
     </v-list-item>
 
-       <canvas id="planet-chart">
+       <canvas id="planet-chart31">
 
        </canvas>
   </v-card>
@@ -38,7 +38,7 @@ mounted () {
            try{
 
 
-           this.createChart('planet-chart');
+           this.createChart('planet-chart31');
          
            }catch(error){
              

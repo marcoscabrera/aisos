@@ -164,10 +164,11 @@ export default {
                
 
               this.$store.dispatch("action_verEstadisticas",true);
-                    eventBus.$emit('crearLaGrafica');
 
-     console.log(this.$store.state.estadisticas.datos_graficas.grafica1.TotalIncidenteAbiertos);
-          //creamos la segunfa grafica
+               eventBus.$emit('crearLaGrafica');
+
+              console.log(this.$store.state.estadisticas.datos_graficas.grafica1.TotalIncidenteAbiertos);
+             //creamos la segunfa grafica
   
        }
        
