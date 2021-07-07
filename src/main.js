@@ -4,12 +4,12 @@ import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify';
 import wysiwyg from 'vue-wysiwyg';
+import VueAzureUploader from 'vue-azure-blob-upload';
 
 
 
-
+Vue.use(VueAzureUploader);
 Vue.use(wysiwyg, {}); // config is optional. more below
-
 Vue.config.productionTip = false
 
 

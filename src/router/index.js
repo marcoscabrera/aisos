@@ -114,6 +114,13 @@ const routes = [
       import(/* webpackChunckName:"visorpdf2" */ "../views/VisorPDF.vue"),
   },
   {
+    path: "/ut",
+    name: "uploadtest",
+    meta: { requiresAuth : true },
+    component: () =>
+      import(/* webpackChunckName:"estadisticas" */ "../views/azuretest.vue"),
+  },
+  {
     path: "/estadisticas",
     name: "Estadisticas",
     meta: { requiresAuth : true },

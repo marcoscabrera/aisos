@@ -1,0 +1,382 @@
+<template>
+  <div>
+    <v-bottom-navigation v-if="HayArchivo == true" >
+                <v-btn 
+                  @click="verArchivo"
+                 >
+                  <span>{{ nombre_de_archivo_original }}</span>
+
+                  <v-icon color="green" :large="largo">mdi-file-document</v-icon>
+                </v-btn>
+
+                <v-btn 
+                  @click="editarArchivo"
+                 >
+                  <span>Editar</span>
+
+                  <v-icon color="warning" :large="largo">mdi-file-edit-outline</v-icon>
+                </v-btn>
+    </v-bottom-navigation>
+
+
+
+   <!-- <div v-if="currentFile">
+      <div>
+        <v-progress-linear
+          v-model="progress"
+          color="light-blue"
+          height="25"
+          reactive
+        >
+          <strong>{{ progress }} %</strong>
+        </v-progress-linear>
+      </div>
+    </div> -->
+
+    <v-row v-if="HayArchivo == false" no-gutters justify="center" align="center">
+      <v-col cols="8">
+        <v-file-input
+          show-size
+          label="Adjunta tu documento"
+         
+          accept="application/pdf"
+          @change="selectFile"
+          @click:clear="mostrarbotonUpload"
+        ></v-file-input>
+      </v-col>
+
+      <v-col cols="4" class="pl-2">
+
+          <v-btn v-if="loading" color="primary"
+          dark
+          small
+          disabled="true"
+          :loading = "loading">
+          
+          
+          <v-icon right dark>mdi-cloud-upload</v-icon>
+        </v-btn>
+
+
+        <v-btn v-if="MostrarBotonDeSubir" color="success"
+          dark
+          small
+         :loading="loading"
+           @click="subir_archivo_a_azure">
+          Subiendo
+          
+        </v-btn>
+
+
+        <v-btn v-if="subiook" color="success"
+          dark
+          small
+       
+           >
+          <v-icon color="white">
+            mdi-check-circle
+          </v-icon>
+          
+        </v-btn>
+
+        <v-btn v-if="subionotok" color="warning"
+          dark
+          small
+       
+           >
+          <v-icon color="white">
+            mdi-close-circle
+          </v-icon>
+          
+        </v-btn>
+      </v-col>
+    </v-row>
+
+    <v-alert v-if="message" border="left" color="blue-grey" dark>
+      {{ message }}
+    </v-alert>
+
+    <v-alert v-if="mostrarMensajeValidacion" type="error">
+      Este campo no debe ir vacio
+    </v-alert>
+
+   
+
+  
+  </div>
+</template>
+<script>
+// basado en este .
+import UploadService from "./UploadFilesService";
+//import UploadServiceAzure from "./uploadFilesAzure.js";
+import eventBus from '@/eventBus.js';
+
+import {
+
+    BlobServiceClient 
+  } from "@azure/storage-blob";
+
+export default {
+  name: "uploadFile4",
+  
+
+  props : {
+
+    archivoId         : {type:String , default :'0'},
+    incidenteid       : {type:String , default :'0'},
+    directorio        : {type:String , default :''},
+    nombreArchivo     : {type:String , default :'' },
+    action_a_Ejecutar : {type:String,  default :''},
+    modulo            : {type:String,  default: 'general'},
+    campoState        : {type:String},
+    datosDelArchivo   : {type:Array},
+    HayArchivo        : {type:Boolean},
+    mostrarMensajeValidacion : {Type: Boolean,default :false},
+    tipoDeArchivo :{ type:String ,default :'application/pdf'}
+
+  },
+  data() {
+    return {
+
+      blobSasUrl  :'https://demorebelbotstorage.blob.core.windows.net/?sv=2020-08-04&ss=bfqt&srt=sco&sp=rwdlacuptfx&se=2021-08-01T01:51:06Z&st=2021-07-06T17:51:06Z&spr=https,http&sig=nnESarekFSmXul3PehyweM4GHbuXEUa9dNwuj%2F1ZGdw%3D',
+      sasToken: '?sv=2020-08-04&ss=bfqt&srt=sco&sp=rwdlacuptfx&se=2021-08-01T01:51:06Z&st=2021-07-06T17:51:06Z&spr=https,http&sig=nnESarekFSmXul3PehyweM4GHbuXEUa9dNwuj%2F1ZGdw%3D',
+      subiook:false,
+      subionotok: false,
+      loading:false,
+      
+     
+      archivoID_por_si_las_dudas : '',
+      MostrarBotonDeSubir :false,
+      largo :true,
+      recienSubido : '0',
+      sihayarchivo : false,
+      currentFile: undefined,
+      progress: 0,
+      message: "",
+     
+      nombre_de_archivo_original : '',
+      elArchivo :  '',
+
+      fileInfos: [],
+      rules: [
+      files => !files || !files.some(file => file.size > 10_485_760) || 'El archivo debe ser menor a 10 MB!'
+    ],
+      rules2 :[ (value) => value.type != 'aplication/pdf' || 'EL formato de archivo no esta permitido'
+      ]
+    };
+  },
+  
+
+   mounted() {
+
+
+        eventBus.$on('cargarArchivo', (archivoid) => {
+           try{
+
+         
+           console.log(" en envento eventbus.on cargarArchivo ");
+           console.log(" valor del parametro archivoid :" + archivoid);
+            this.archivoID_por_si_las_dudas = archivoid;
+           console.log("solicitando el docto al servidor " + archivoid );
+           this.solicitarDocumentoAServidor(archivoid);
+       
+           }catch(error){
+            
+             console.log(error);
+
+           }
+    });
+
+  
+  },
+
+  methods: {
+
+    editarArchivo(){
+       this.HayArchivo= false;
+    },
+
+    mostrarbotonUpload(){
+      console.log("mostrar bton upload");
+      this.MostrarBotonDeSubir= false;
+    },
+
+
+
+
+
+     /*
+     * Esta funcion solicita
+     *
+     */
+    solicitarDocumentoAServidor(archivoIdABuscar) {
+
+      try {
+
+       
+      console.log("solicitando documento en cuestion ");
+      
+
+       UploadService.getFiles(archivoIdABuscar, this.$store.state).then(response => {
+      // this.fileInfos = response.data;
+        
+          console.log("datos recuperados del archivo en cuestion ");
+      
+          console.log(JSON.stringify(response.data));
+          
+          this.fileInfos=response.data[0];
+
+          console.log(" fileinfos : " + this.fileInfos);
+
+          this.elArchivo =response.data[0]['nombreOriginal'];
+          this.nombre_de_archivo_original = response.data[0]['nombreOriginal'];
+
+          let idElArchvio = JSON.stringify(response.data[0]['id']);
+
+         this.$store.dispatch(this.action_a_Ejecutar,idElArchvio);
+        
+          console.log(">>>>>>>>>>>>>>> ");
+         // console.log(">> " + this.$store.state[this.modulo][this.campoState]);
+         console.log(">>>>>>>>>>>>>>> ");
+
+     
+         console.log("datos recuperados elArchivo ");
+         console.log(this.elArchivo);
+         this.HayArchivo = true;
+
+       // this.elArchivo == '' ? this.sihayarchivo=false :this.sihayarchivo=true;
+      
+    })
+      }catch(error) {
+
+        console.log("error en solicitar documento al servidor "  + error);
+      }
+
+    },
+
+
+     /*
+     Es funcion se activa cuadno se ha seleccionado un  archivo e inmediatamente despues que se
+     el archivo se ha detectado se dispara la funcion para subir el archivo al servidor 
+
+     */
+      selectFile(file) {
+
+      this.progress = 0;
+
+      this.currentFile = file;
+
+      this.subir_archivo_a_azure( );
+    },
+
+
+    // [Browsers only] A helper method used to convert a browser Blob into string.
+  async  blobToString(blob) {
+
+    const fileReader = new FileReader();
+
+    return new Promise((resolve, reject) => {
+      fileReader.onloadend = (ev) => {
+        resolve(ev.target.result);
+      };
+      fileReader.onerror = reject;
+      fileReader.readAsText(blob);
+     });
+
+
+  },
+
+
+  async bajar_un_blob_and_convertirlo_a_cadena() {
+
+
+    const account = "demorebelbotstorage";
+    const sas = this.sasGT
+    const containerName = "contenedorpdf";
+    const blobName = "acta_nacimiento_marcoscabrera.pdf";
+
+    const blobServiceClient = new BlobServiceClient(`https://${account}.blob.core.windows.net${sas}`);
+
+     const containerClient = blobServiceClient.getContainerClient(containerName);
+     const blobClient = containerClient.getBlobClient(blobName);
+
+  // Get blob content from position 0 to the end
+  // In browsers, get downloaded data by accessing downloadBlockBlobResponse.blobBody
+  const downloadBlockBlobResponse = await blobClient.download();
+  const downloaded = await this.blobToString(await downloadBlockBlobResponse.blobBody);
+  console.log("Downloaded blob content", downloaded);
+
+  },
+
+  async subir_archivo_a_azure(){
+   
+   /* Mostramos el boton verde que dice subiendo 
+   y activamos la animacion del loader
+   */
+    this.MostrarBotonDeSubir=true;
+    this.loading=true;
+    /* ------------------------------------*/
+
+     this.subionotok=false;
+     this.subiook=false;
+
+
+
+  // let   blobSasUrl = this.$store.state.uivars.uivars_parametros[7]["valor"];
+   let blobSasUrl  =this.blobSasUrl; //'https://demorebelbotstorage.blob.core.windows.net/?sv=2020-02-10&ss=bfqt&srt=sco&sp=rwdlacuptfx&se=2021-07-03T05:03:51Z&st=2021-06-26T21:03:51Z&spr=https,http&sig=gelyqB%2FBuM6m2vI621zyIDRKbq8GCOOSGJwQGLM6FRA%3D';
+     
+    let b =this.$store.state.uivars.uivars_parametros[7]["valor"];
+
+    if(b == blobSasUrl) {  console.log("son iguales "); }else { console.log("no son iguales"); }
+
+
+
+    //console.log(blobSasUrl);
+    //console.log(b);
+
+   let file =  this.currentFile;
+
+    console.log("subiendo un archivo a Azure");
+  
+      let blobServiceClient = new BlobServiceClient(blobSasUrl);
+     
+     const containerClient = blobServiceClient.getContainerClient("contenedorpdf");
+
+     //console.log(containerClient);
+
+     //const file2 = document.getElementById("file2").files[0];
+     console.log(file);
+     const promises = [];
+
+      try{
+           
+           //console.log(" filename " + file2.name );
+           const blockBlobClient = containerClient.getBlockBlobClient(file.name);
+           promises.push(blockBlobClient.uploadBrowserData(file));
+
+      }catch(error){
+        console.log(error);
+        /*ocultar animacion */
+         this.MostrarBotonDeSubir=false;
+         this.loading=false;
+         this.subionotok=true;
+        return "error";
+      }
+      
+       await Promise.all(promises);
+       
+       /*Ocultamos las animciones*/
+       this.MostrarBotonDeSubir=false;
+       this.loading = false;
+       this.subiook=true;
+
+       return "ok";
+
+
+
+  },
+
+  }
+};
+</script>
+

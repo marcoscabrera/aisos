@@ -23,6 +23,7 @@
     "propdoc": "^0.9.3",
     "vue": "^2.6.11",
     "vue-apexcharts": "^1.6.0",
+    "vue-azure-blob-upload": "0.0.6",
     "vue-chartjs": "^3.5.1",
     "vue-html2pdf": "^1.8.0",
     "vue-pdf-app": "^2.0.0",
@@ -31,7 +32,10 @@
     "vue_pdfjs_viewer": "^0.1.11",
     "vuetify": "^2.4.4",
     "vuex": "^3.6.2",
-    "worker-loader": "^3.0.8"
+    "worker-loader": "^3.0.8",
+    "@azure/storage-blob": "^12.0.0",
+    "@types/dotenv": "^4.0.3",
+    "dotenv": "^6.0.0"
   },
   "devDependencies": {
     "@mdi/font": "^5.9.55",
