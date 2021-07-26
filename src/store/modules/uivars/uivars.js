@@ -53,7 +53,7 @@ state: {
     uivars_error_cardNivelIncidente :false,
     uivars_error_cardTipoCaso :false,
     uivars_error_cardTipoRespuesta :false,
-    
+   
     uivars_error_cardMedidasIntegrales:false,
 
 

@@ -33,6 +33,10 @@
         titulo="Documentos de Apoyo"
         ruta="doctosapoyos"
       ></cardConfiguracion>
+            <cardConfiguracion
+        titulo="mantenimiento"
+        ruta="mantenimiento"
+      ></cardConfiguracion>
     </v-row>
     <!--<v-row>
       <cardConfiguracion titulo="Parentescos" ruta="parentesco">

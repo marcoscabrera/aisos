@@ -35,13 +35,13 @@ const store =  new Vuex.Store({
 
 
 
-//urlServidor : 'https://apiproteccioninfantil3.azurewebsites.net',
+urlServidor : 'https://apiproteccioninfantil3.azurewebsites.net',
    
 
 ///////////////////////////////////////
 // API DEMO
 /////////////////////////////////////// 
-urlServidor : 'https://apidemo2.azurewebsites.net',
+//urlServidor : 'https://apidemo2.azurewebsites.net',
 
 
 
@@ -51,8 +51,18 @@ urlServidor : 'https://apidemo2.azurewebsites.net',
   actions: {
   },
   modules: {
-    conciencia,usuarios, roles,incidentes,valoracion,uivars,seguimiento,denuncias,investigacion,evidencias,
-    permisosimpresion,impresiones,abordaje,estadisticas,notificacion,
+    conciencia,usuarios, roles,
+    incidentes,
+    valoracion,uivars,
+    seguimiento,
+    denuncias,
+    investigacion,
+    evidencias,
+    permisosimpresion,
+    impresiones,
+    abordaje,
+    estadisticas,
+    notificacion,
     doctosapoyo
   }
 })

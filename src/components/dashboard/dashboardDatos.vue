@@ -1011,6 +1011,9 @@ export default {
       console.log(" id : " + id );
 
       this.$store.dispatch("setear_Incidente",id);
+      this.$store.dispatch("actions_uivars_error_textareaValoracion","");
+
+      //setear los valores de validacion a cero o vacio
 
 
        if(   this.puedeverValoracionIntegral  != false){
