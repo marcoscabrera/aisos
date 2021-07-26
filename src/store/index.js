@@ -30,7 +30,7 @@ const store =  new Vuex.Store({
 
 
 ///////////////////////////////////////
-// API PRODUCCION **
+// API PRODUCCION ** esto es el eserver de purbeas
 ///////////////////////////////////////  
 
 
