@@ -107,7 +107,7 @@
     </v-row>
     <v-row>
       <v-col>
-            Version 1.1.5
+            Version 1.1.6
       </v-col>
       </v-row>
 
