@@ -324,7 +324,7 @@ export default {
        UploadService.getFiles(id_sin_comillas, this.$store.state).then(response => {
       // this.fileInfos = response.data;
         
-        console.log("datos recuperados del archivo en cuestion ");
+        console.log("datosxxxx recuperados del archivo en cuestion ");
       
         console.log(JSON.stringify(response.data));
           
