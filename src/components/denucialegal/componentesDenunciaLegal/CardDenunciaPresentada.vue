@@ -65,7 +65,7 @@
 
       methods : {
          asignarValor(event){
-
+            /* comentario */
             this.$store.dispatch("action_denuncialegal_denunciapresentada", event);
          }
       }
