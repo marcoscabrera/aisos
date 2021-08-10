@@ -1,16 +1,15 @@
 <template>
-  
+    
       <v-card width="100%">
-        <v-card-title>IMPLEMENTAR MEDIDAS DISCIPLINARIAS LIGADAS AL RESULTADO DE LAS
-          DENUNCIAS </v-card-title>
+        <v-card-title>INFORMA A ENTE RECTOR </v-card-title>
         <v-card-text>
           <v-row>
             <v-col cols="12" xs="12" sm="6" md="6">
              <v-select
-                :value="valorcombo"
+                :value="this.$store.state.denuncias.denuncialegal_informaenterector"
                 :item-value="valorcombo"
                 :items="itemsOpciones"
-                label="MEDIDAS"
+                label="ESTADO"
                 dense
                 filled
                 @change="asignarValor($event)"
@@ -23,61 +22,50 @@
                 placeholder=" Adjuntar  minuta de reunion de valoracion integral con Concenso y firmas"
             
               -->
-              <!--  <uploadFile2 
-                 directorio="/uploads/denuncia"
-                :HayArchivo ="sihayarchivo"
-                :nombreArchivo = "nombreDelArchivo"
-                :incidenteid ="incidenteId"
-                :archivoId="archivoId"
-                action_a_Ejecutar="action_medidasd_docto"
-                modulo="denuncias"
-                campoState="denuncialegal_medidasd_docto">
-                </uploadFile2> -->
-                <uploadFile4
-                  :archivoId ="this.$store.state.denuncias.denuncialegal_medidasd_docto"
-                 action_a_Ejecutar ="action_medidasd_docto"
-                 >
-
-                </uploadFile4>
+                <uploadFile4  
+                 :archivoId ="this.$store.state.denuncias.denuncialegal_docto_informaenterector"
+                 action_a_Ejecutar ="action_denuncialegal_docto_informaenterector">
+                >
+                </uploadFile4> 
                </v-col>
           </v-row>
         </v-card-text>
       </v-card>
-
+    
 </template>
 
 <script >
    // import Vue from 'vue'
-import uploadFile4 from '@/components/manipulacionArchivos/uploadFile4.vue';
+   import uploadFile4 from  '@/components/manipulacionArchivos/uploadFile4.vue'
 
     export default {
 
-        name :'MedidasDisciplinariasComponente',
+        name :'ConsensoComponente',
 
         props :{
           valorcombo    : { type:String , default: ''},
           incidenteId   : { type: String , default : '0'},
           archivoId     : {type:String, default :'0'},
-          action_plan      :{type:Boolean , default :false},
+          action_plan      :{type:String , default :''},
           nombreDelArchivo:{ type:String , default : 'Sin asignar'},
           sihayarchivo:{type:Boolean , default :false},
         },
-
         components : {
-               
-               uploadFile4
+          
+          uploadFile4
+           
         },
            data() {
 
           return {
-               itemsOpciones: ["SI", "NO", "POR CONFIRMAR"],
+               itemsOpciones: ["SI", "NO","NO APLICA","POR CONFIRMAR"],
           }
       },
 
       methods : {
          asignarValor(event){
 
-            this.$store.dispatch("action_medidasd", event);
+            this.$store.dispatch("denuncialegal_informaenterector", event);
          }
       }
 

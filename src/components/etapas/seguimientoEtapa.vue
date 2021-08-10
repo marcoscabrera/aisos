@@ -103,7 +103,65 @@
 
     <!-- =============================================== -->
 
+
+    <CardConsensoNacional>
+
+    </CardConsensoNacional>
+   <br>
+    <CardInformaPatronato>
+
+    </CardInformaPatronato>
     
+   <br>
+     
+     <CardInformeRegional>
+
+     </CardInformeRegional>
+         <v-card width="100%">
+        <v-card-title> INFORMA A OFICINA REGIONAL </v-card-title>
+        <v-card-text>
+          <v-row>
+            <v-col cols="12" xs="12" sm="6" md="6">
+              <v-select
+                :value="valorcombo"
+                :item-value="valorcombo"
+                :items="itemsOpciones"
+                label="Informa a Oficina regional"
+                dense
+                filled
+                @change="asignarValor($event)"
+              >
+              </v-select>
+            </v-col>
+            <v-col cols="12" xs="12" sm="6" md="6">
+
+                <uploadFile2 
+                 :mostrarMensajeValidacion ="this.$store.state.uivars.uivars_error_seguimiento_seguimiento_documentos_docto"
+          
+                directorio="/uploads/abordaje"
+                :HayArchivo ="sihayarchivo"
+                
+                :nombreArchivo = "nombreDelArchivo"
+                :incidenteid ="incidenteId"
+                :archivoId="archivoId"
+                action_a_Ejecutar="action_abordaje_documentos"
+                modulo="abordaje"
+                campoState="seguimiento_documentos_docto">
+                </uploadFile2> 
+
+
+            
+
+                <v-alert dense
+                    border="left"
+                    type="warning"> No Obligatorio
+                    </v-alert>
+            </v-col>
+          </v-row>
+
+        </v-card-text>
+      </v-card>
+   <br>
    <cardNotificacionDIF
 
         :incidenteId ="incidenteIdPE"
@@ -117,7 +175,24 @@
    <!-- =============================================== -->
 
  
+  <cardAsesoriaLegal>
 
+  </cardAsesoriaLegal>
+   <br>
+
+   <cardAsesoriaEmocional>
+
+   </cardAsesoriaEmocional>
+   <br>
+   <CardMedidasDisciplinarias>
+
+   </CardMedidasDisciplinarias>
+<br>
+
+<CardDenunciaPresentada>
+
+</CardDenunciaPresentada>
+<br>
    <cardNotificacionAutoridad v-if="esDenuncia"
         :incidenteId ="incidenteIdPE"
         :archivoId ="seguimiento.notificacionautoridad_docto"
@@ -177,6 +252,12 @@ SE CUENTA CON EL LLENADO DEL ACTA DE VALORACION DEL/DE LOS INCIDENTES
     <br />
     <!-- =============================================== -->
 
+
+    <CardActaDeHechos>
+
+    </CardActaDeHechos>
+    <br>
+   
       <!--
          SE CUENTA CON UN PLAN DE RECUPERACIÓN EMOCIONAL CON SEGUIMIENTO
        -->
@@ -193,13 +274,13 @@ SE CUENTA CON EL LLENADO DEL ACTA DE VALORACION DEL/DE LOS INCIDENTES
     <br />
     <!-- =============================================== -->
 
-        <cardProtocoloComponente 
+   <!--     <cardProtocoloComponente 
         :valorcombo="seguimiento.protocolosos"
         :esDenuncia="esDenuncia"
         :incidenteId="incidenteId"
         :textoRespuesta="tipoderespuesta">
 
-        </cardProtocoloComponente>
+        </cardProtocoloComponente> -->
 
 
     <!-- =============================================== -->
@@ -264,28 +345,36 @@ SE CUENTA CON EL LLENADO DEL ACTA DE VALORACION DEL/DE LOS INCIDENTES
 <script>
 //import barraDocumentosVue from "../barradocumentos/barraDocumentos.vue"; //
 //import seguimientoCRUD from "@/components/seguimiento/seguimientoCRUD.vue";
-
 import seguimientoEtapa from '@/components/etapas/seguimientoEtapa.js'
 import apiArchivos from '@/apialdeas/apiArchivos.js';
-import cardProtocoloComponente  from  '@/components/etapasComponentesSeguimiento/cardProtocoloComponente.vue'
+//import cardProtocoloComponente  from  '@/components/etapasComponentesSeguimiento/cardProtocoloComponente.vue'
 import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
 /* importar en el componente , antes del export defaiñt*/
 import validacionSeguimiento from "@/components/etapas/validaciones/validacionSeguimiento.js";
-
 //import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
 import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
+
+
 export default {
   components: {     
-    cardProtocoloComponente,  
+    //cardProtocoloComponente,  
      BarraDeNavegacion,          
    // textAreaRegistroDelEstatus : () => import('@/components/etapasComponentesSeguimiento/textAreaRegistroDelEstatus.vue'),
    // cardPlanEnEjecucion :()=> import('@/components/etapasComponentesSeguimiento/cardPlanEnEjecucion.vue'),
-    cardNotificacionDIF :()=> import('@/components/etapasComponentesSeguimiento/cardNotificacionDIF.vue'),
+  CardDenunciaPresentada :()=> import('@/components/etapasComponentesSeguimiento/CardDenunciaPresentada.vue'),
+  CardInformaPatronato :()=> import('@/components/etapasComponentesSeguimiento/CardInformaPatronato.vue'),
+  CardConsensoNacional :()=> import('@/components/etapasComponentesSeguimiento/CardConsensoNacional.vue'),
+  cardAsesoriaLegal    :()=> import('@/components/etapasComponentesSeguimiento/CardAsesoriaLegal.vue'),
+  cardAsesoriaEmocional :()=>import('@/components/etapasComponentesSeguimiento/CardAsesoriaEmocional.vue'),
+  cardInformeRegional :()=> import('@/components/etapasComponentesSeguimiento/CardInformeRegional.vue'),
+ CardMedidasDisciplinarias :()=> import('@/components/etapasComponentesSeguimiento/CardMedidasDisciplinarias.vue'),
+  cardNotificacionDIF :()=> import('@/components/etapasComponentesSeguimiento/cardNotificacionDIF.vue'),
     cardNotificacionAutoridad :()=> import('@/components/etapasComponentesSeguimiento/cardNotificacionAutoridad.vue'),
     cardNotificacionPFN  :()=> import('@/components/etapasComponentesSeguimiento/cardNotificacionPFN.vue'),
     cardNotificacionPersona :() => import('@/components/etapasComponentesSeguimiento/cardNotificacionPersona.vue'),
     cardActaDeValoracion :() => import('@/components/etapasComponentesSeguimiento/cardActaDeValoracion.vue'),
     cardPlanRecuperacion :() => import('@/components/etapasComponentesSeguimiento/cardPlanRecuperacion.vue'),
+   CardActaDeHechos :() => import('@/components/etapasComponentesSeguimiento/CardActaDeHechos.vue'),
    // cardDocumentosOficiales:() => import('@/components/etapasComponentesSeguimiento/cardDocumentosOficiales.vue')
 
   },

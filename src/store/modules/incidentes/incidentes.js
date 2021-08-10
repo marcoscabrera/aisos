@@ -32,7 +32,7 @@ export default {
 
 
         etapainicial_actavaloracion : '',
-        etapainicial_actavaloracion_docto: '',
+        etapainicial_actavaloracion_docto: '0',
 
         // cierre
         etapacierre_textocierre : '',

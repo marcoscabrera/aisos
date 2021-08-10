@@ -21,6 +21,7 @@
              v-bind="asignandoProps">            
               </component>     -->  
           
+           <!--
             <uploadFile2 
              :mostrarMensajeValidacion ="this.$store.state.uivars.uivars_error_cardMedidasIntegrales"
              directorio="/uploads/medidasintegrales"
@@ -34,6 +35,13 @@
                       modulo="valoracion"
                       campoState="etapavaloracion_medidasintegrales">
               </uploadFile2> 
+              -->
+
+              <uploadFile4
+               :archivoId ="this.$store.state.valoracion.etapavaloracion_medidasintegrales"
+                action_a_Ejecutar ="action_medidasintegrales"
+              >
+              </uploadFile4>
 
       
 
@@ -51,7 +59,7 @@ export default {
 
   components : {
 
-    uploadFile2:() => import("@/components/manipulacionArchivos/uploadFile2.vue")
+    uploadFile4:() => import("@/components/manipulacionArchivos/uploadFile4.vue")
   },
   props: {
      archivoId : { type:String ,default :'0'},

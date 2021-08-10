@@ -1,8 +1,8 @@
 <template>
   <div>
-    <v-bottom-navigation v-if="HayArchivo == true" >
+  <!--  <v-bottom-navigation v-if="this.archivoEnLinea" >
                 <v-btn 
-                  @click="verArchivo"
+                 
                  >
                   <span>{{ nombre_de_archivo_original }}</span>
 
@@ -16,7 +16,7 @@
 
                   <v-icon color="warning" :large="largo">mdi-file-edit-outline</v-icon>
                 </v-btn>
-    </v-bottom-navigation>
+    </v-bottom-navigation> -->
 
 
 
@@ -33,8 +33,9 @@
       </div>
     </div> -->
 
-    <v-row v-if="HayArchivo == false" no-gutters justify="center" align="center">
-      <v-col cols="8">
+    <v-row  no-gutters justify="center" align="center">
+     
+      <v-col cols="8" v-if="ocultarFileinput">
         <v-file-input
           show-size
           label="Adjunta tu documento"
@@ -45,11 +46,14 @@
         ></v-file-input>
       </v-col>
 
+       <component v-bind:is="el_componente" v-bind="resetProps"/>
+
+
       <v-col cols="4" class="pl-2">
 
           <v-btn v-if="loading" color="primary"
           dark
-          small
+          large
           disabled="true"
           :loading = "loading">
           
@@ -82,7 +86,7 @@
         <v-btn v-if="subionotok" color="warning"
           dark
           small
-       
+          @click ="mostrarFileInput"
            >
           <v-icon color="white">
             mdi-close-circle
@@ -92,7 +96,7 @@
       </v-col>
     </v-row>
 
-    <v-alert v-if="message" border="left" color="blue-grey" dark>
+    <v-alert :color="color" :type="tipoAlerta" v-if="message" border="left"  dark>
       {{ message }}
     </v-alert>
 
@@ -111,6 +115,10 @@ import UploadService from "./UploadFilesService";
 //import UploadServiceAzure from "./uploadFilesAzure.js";
 import eventBus from '@/eventBus.js';
 
+import apiDoctos from '@/apialdeas/apiDoctos.js';
+
+import ComponenteDocumentoEnLinea from './ComponenteDocumentoEnLinea.vue';
+
 import {
 
     BlobServiceClient 
@@ -118,6 +126,13 @@ import {
 
 export default {
   name: "uploadFile4",
+
+  components : {
+    ComponenteDocumentoEnLinea
+  },
+
+
+ 
   
 
   props : {
@@ -135,14 +150,41 @@ export default {
     tipoDeArchivo :{ type:String ,default :'application/pdf'}
 
   },
+
+  computed :{
+
+     resetProps() {
+
+       let x = {};
+       
+       if( this.archivoId =="0"){
+          console.log("valor");
+       }else {
+
+          x = { 
+                 id                         : this.archivoId,
+                 nombre_de_archivo_original : this.nombre_de_archivo_original }
+
+         console.log("valor de x resetprops "+ JSON.stringify(x));
+     }
+
+     return x;
+
+   }
+  },
   data() {
     return {
 
-      blobSasUrl  :'https://demorebelbotstorage.blob.core.windows.net/?sv=2020-08-04&ss=bfqt&srt=sco&sp=rwdlacuptfx&se=2021-08-01T01:51:06Z&st=2021-07-06T17:51:06Z&spr=https,http&sig=nnESarekFSmXul3PehyweM4GHbuXEUa9dNwuj%2F1ZGdw%3D',
-      sasToken: '?sv=2020-08-04&ss=bfqt&srt=sco&sp=rwdlacuptfx&se=2021-08-01T01:51:06Z&st=2021-07-06T17:51:06Z&spr=https,http&sig=nnESarekFSmXul3PehyweM4GHbuXEUa9dNwuj%2F1ZGdw%3D',
+      blobSasUrl  :'https://demorebelbotstorage.blob.core.windows.net/contenedorpdf?sp=racwdl&st=2021-08-05T18:42:30Z&se=2021-12-02T03:42:30Z&sv=2020-08-04&sr=c&sig=k2gd8q5fNmbasodAAs6ygz%2FXUmFKOWK8EjHpJJqtn40%3D',
+      sasToken: 'sp=racwdl&st=2021-08-05T18:42:30Z&se=2021-12-02T03:42:30Z&sv=2020-08-04&sr=c&sig=k2gd8q5fNmbasodAAs6ygz%2FXUmFKOWK8EjHpJJqtn40%3D',
       subiook:false,
       subionotok: false,
       loading:false,
+      tipoAlerta : "info",
+      color:'Red',
+      archivoEnLinea : false,
+      ocultarFileinput : true,
+      el_componente : '',
       
      
       archivoID_por_si_las_dudas : '',
@@ -170,7 +212,7 @@ export default {
    mounted() {
 
 
-        eventBus.$on('cargarArchivo', (archivoid) => {
+      /*  eventBus.$on('cargarArchivo', (archivoid) => {
            try{
 
          
@@ -182,6 +224,46 @@ export default {
        
            }catch(error){
             
+             console.log(error);
+
+           }
+    });*/
+
+           typeof ComponenteDocumentoEnLinea;
+
+           if (this.archivoId=='0'){
+
+              console.log(" <<< valor de archivoId >>> " +this.archivoId );
+
+           }else{
+              
+              console.log(" <<< valor de archivoId >>> " +this.archivoId );
+              
+              this.ocultarFileinput= false;
+             // this.archivoEnLinea= true;
+              //this.nombre_de_archivo_original =  this.elArchivo;    
+             // this.subionotok= true;
+
+            
+
+             this.solicitarDocumentoAServidor( this.archivoId);
+
+           }
+
+            
+            eventBus.$on('cargarArchivo_con_id', () => {
+           try{
+
+         
+           console.log(" en envento eventbus.on cargarArchivo_con_id ");
+           console.log(" valor del parametro archivoid :" + this.archivoId);
+           this.archivoID_por_si_las_dudas = this.archivoId;
+          // console.log("solicitando el docto al servidor " + archivoid );
+           this.solicitarDocumentoAServidor( this.archivoID_por_si_las_dudas);
+       
+           }catch(error){
+             
+             console.log("puido haber ocurrido un error");
              console.log(error);
 
            }
@@ -201,6 +283,26 @@ export default {
       this.MostrarBotonDeSubir= false;
     },
 
+    /*
+     * ocultamos el campo de archivo y palomista
+     */
+
+    mostrarFileInput() {
+
+
+         /*  antes borramos el blob en el sevidor */
+
+         this.ocultarFileinput= true;
+         this.archivoEnLinea= false;
+         this.nombre_de_archivo_original =  "";  
+         this.subionotok = false;
+
+         this.$store.dispatch(this.action_a_Ejecutar,'0');
+         this.el_componente="";
+        // this.subionotok= true;
+
+
+    },
 
 
 
@@ -215,18 +317,20 @@ export default {
 
        
       console.log("solicitando documento en cuestion ");
+      let id_sin_comillas = archivoIdABuscar.replaceAll('"', '')
       
+     if (id_sin_comillas == '0') return;
 
-       UploadService.getFiles(archivoIdABuscar, this.$store.state).then(response => {
+       UploadService.getFiles(id_sin_comillas, this.$store.state).then(response => {
       // this.fileInfos = response.data;
         
           console.log("datos recuperados del archivo en cuestion ");
       
           console.log(JSON.stringify(response.data));
           
-          this.fileInfos=response.data[0];
+          //this.fileInfos=response.data[0];
 
-          console.log(" fileinfos : " + this.fileInfos);
+         // console.log(" fileinfos : " + this.fileInfos);
 
           this.elArchivo =response.data[0]['nombreOriginal'];
           this.nombre_de_archivo_original = response.data[0]['nombreOriginal'];
@@ -235,18 +339,46 @@ export default {
 
          this.$store.dispatch(this.action_a_Ejecutar,idElArchvio);
         
-          console.log(">>>>>>>>>>>>>>> ");
+        //  console.log(">>>>>>>>>>>>>>> ");
          // console.log(">> " + this.$store.state[this.modulo][this.campoState]);
-         console.log(">>>>>>>>>>>>>>> ");
+        // console.log(">>>>>>>>>>>>>>> ");
+
+         this.ocultarFileinput= false;
+         this.archivoEnLinea= true;
+         this.nombre_de_archivo_original =  this.elArchivo;    
+         this.subionotok= true;
+
+         this.el_componente = "ComponenteDocumentoEnLinea";
+
+         
+        /* console.log( this.ocultarFileinput );
+          console.log( this.archivoEnLinea );
+           console.log( this.nombre_de_archivo_original );
 
      
          console.log("datos recuperados elArchivo ");
-         console.log(this.elArchivo);
-         this.HayArchivo = true;
+         console.log(this.elArchivo);*/
+
+       //  this.$forceUpdate(); 
+        // this.HayArchivo = true;
+
+
 
        // this.elArchivo == '' ? this.sihayarchivo=false :this.sihayarchivo=true;
       
-    })
+    }).catch(
+      error => {
+         typeof error;
+         console.log("cacheando el error");
+         
+         this.ocultarFileinput= true;
+         this.archivoEnLinea= false;
+         this.nombre_de_archivo_original = "";    
+        // this.subionotok= true;
+      }
+    );
+
+
       }catch(error) {
 
         console.log("error en solicitar documento al servidor "  + error);
@@ -313,6 +445,10 @@ export default {
    /* Mostramos el boton verde que dice subiendo 
    y activamos la animacion del loader
    */
+  /********************
+   * 
+   */
+    this.message = "";
     this.MostrarBotonDeSubir=true;
     this.loading=true;
     /* ------------------------------------*/
@@ -359,24 +495,109 @@ export default {
         /*ocultar animacion */
          this.MostrarBotonDeSubir=false;
          this.loading=false;
-         this.subionotok=true;
+         this.subionotok=true
         return "error";
       }
       
-       await Promise.all(promises);
        
-       /*Ocultamos las animciones*/
-       this.MostrarBotonDeSubir=false;
-       this.loading = false;
-       this.subiook=true;
 
-       return "ok";
+       await Promise.all(promises).then(
+          response => {
+            typeof response;
+
+                   /*Ocultamos las animciones*/
+           this.MostrarBotonDeSubir=false;
+           this.loading = false;
+           this.subiook=true;
+           /*--------------------------------------*/
+           /* Grabamos el archivo  
+                        'incidenteId'    => $datos['incidenteId'],
+             'nombreOriginal' => $datos['nombreOriginal'],
+             'ext'            => $datos['ext'],
+             'fechaCreacion'  => $date,
+             'fechaUpdate'    => $date,
+             'nombreinterno'  =>  $datos['nombreinterno'],
+             'directorio'     =>  $datos['directorio'],
+           */
+           /*--------------------------------------*/
+          
+             let t = new Date().getTime();
+
+
+             console.log("nombre del archivo a grabar enb base dedeats " + file.name );
+           
+            let parametros = {
+                   
+                   incidenteId : '0',
+                   nombreOriginal :  file.name,
+                   nombreinterno : 'docto_' + t.toString(),
+                   directorio : 'contenedorpdf',
+                   ext : 'pdf'
+
+                   
+            };
+            
+            
+            let p =    apiDoctos.nuevo__docto_subido_a_cloud(parametros, this.$store);
+
+            p.then(
+              response => {
+
+               typeof response;
+               console.log(" valor de response : " +  JSON.stringify(response));
+
+               this.archivoId = response.data.id;
+               this.nombre_de_archivo_original  = response.data.nombreOriginal;
+               this.archivoEnLinea =true;
+               this.ocultarFileinput = false;
+               this.subionotok= true;
+
+               this.$store.dispatch(this.action_a_Ejecutar,response.data.id);
+
+                this.subiook=false;
+                this.el_componente = "ComponenteDocumentoEnLinea";
+
+               console.log(" Valor de archivoId " +  this.archivoId);
+
+              }
+            ).catch(
+              error => {
+
+                typeof error;
+                  console.log(" valor de error : " +  JSON.stringify(error));
+              }
+            );
+            
+          /*----------------------------------------*/
+
+          return "ok";
+                
+
+          }
+       ).catch( error => { 
+          typeof error;
+          console.log("- ocurrio un error " );
+          console.log(error);
+          this.MostrarBotonDeSubir=false;
+          this.loading=false;
+          this.subionotok=true;
+          this.message="Ocurrio un error";
+          this.tipoAlerta ="error";
+          this.color="Red";
+           return "error";
+       });
+
+      // console.log("Valor de la promesa ");
+
+      // console.log(promises);
+       
 
 
 
-  },
+
+   }
 
   }
-};
+}
 </script>
 

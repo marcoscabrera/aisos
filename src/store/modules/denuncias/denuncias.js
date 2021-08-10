@@ -23,7 +23,19 @@ denuncialegal_fechaUpdate: null  ,
 denuncialegal_estado: null  ,
 denuncialegal_consensoArchivo_nombre :null,
 denuncialegal_medidasarchivo_nombre:null,
+
+denuncialegal_informapatronato :null ,
+denuncialegal_docto_informapatronato :null ,
+
+denuncialegal_informaoficinaregional  :null,
+denuncialegal_docto_informaoficinaregional :null ,
+denuncialegal_informaenterector :null ,
+denuncialegal_docto_informaenterector :null ,
+denuncialegal_docto_soportelegal:null  ,
+denuncialegal_docto_soporteemocional  :null,
+denuncialegal_denunciapresentada :null ,
+denuncialegal_docto_denunciapresentada:null  ,
           },         
                mutations, 
                actions 
-   }
+   };

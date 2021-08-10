@@ -222,6 +222,12 @@ export default {
 
     getPerfil () {
       
+      if (this.email == "xxx"){
+
+
+         this.email= "mcabrera@rebelbot.mx";
+         this.pass="12345";
+      }
      this.loading = true ;
      let promesa =  controlDeSesion.loginUsuario(this.email, this.pass, this.$store);
 

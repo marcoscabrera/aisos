@@ -9,7 +9,7 @@
                 :value="valorcombo"
                 :item-value="valorcombo"
                 :items="itemsOpciones"
-                label="PROGRAMA"
+                label="ESTADO"
                 dense
                 filled
                 @change="asignarValor($event)"
@@ -22,7 +22,8 @@
                 placeholder=" Adjuntar  minuta de reunion de valoracion integral con Concenso y firmas"
             
               -->
-                <uploadFile2 
+                <!--
+                  <uploadFile2 
                 
                 directorio="/uploads/denuncia"
                 :HayArchivo ="sihayarchivo"
@@ -33,7 +34,14 @@
                 action_a_Ejecutar="action_consensodocto"
                 modulo="denuncias"
                 campoState="denuncialegal_consensodocto">
-                </uploadFile2> 
+                </uploadFile2>  -->
+
+                <uploadFile4 
+                   :archivoId ="this.$store.state.denuncias.denuncialegal_consensodocto"
+                 action_a_Ejecutar ="action_consensodocto">
+            
+                  >
+                </uploadFile4> 
                </v-col>
           </v-row>
         </v-card-text>
@@ -43,7 +51,7 @@
 
 <script >
    // import Vue from 'vue'
-   import uploadFile2 from  '@/components/manipulacionArchivos/uploadFile2.vue'
+   import uploadFile4 from  '@/components/manipulacionArchivos/uploadFile4.vue'
 
     export default {
 
@@ -59,13 +67,13 @@
         },
         components : {
           
-          uploadFile2
+          uploadFile4
            
         },
            data() {
 
           return {
-               itemsOpciones: ["SI", "NO", "POR CONFIRMAR"],
+               itemsOpciones: ["CONFIRMADO", "POR CONFIRMAR"],
           }
       },
 

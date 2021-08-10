@@ -60,35 +60,32 @@
     <v-card-title> ¿SE CONFIRMA QUE EL EVENTO ES UN INCIDENTE ? </v-card-title>
     <v-card-text>
       <v-row>
-        <v-col cols="12" xs="12" sm="6" md="6">
+        <v-col cols="12" xs="12" sm="4" md="4">
           <v-btn color="green" dark dense block
           @click="confirmacionIclick('NO ES UN INCIDENTE')">
             No es un incidente     
           </v-btn>    
         
         </v-col>
-        <v-col cols="12" xs="12" sm="6" md="6">
+        <v-col cols="12" xs="12" sm="4" md="4">
 
            <v-btn color="red" dark dense block
            @click="confirmacionIclick('SI ES UN INCIDENTE')">
            Si es un incidente     
           </v-btn>  
-        <!--  <v-select
-            :value="confirmacion"
-            :item-value="confirmacion"
-            :items="itemsOpciones"
-            label="CONFIRMAR INCIDENTE"
-            dense
-            filled
-            @change="asignarValor($event)"
-          >
-          </v-select> -->
+        </v-col>
 
-         <v-alert v-if="this.$store.state.uivars.uivars_error_cardConfirmacion" type="error">
+        <v-col cols="12" xs="12" sm="4" md="4">
+
+           <v-btn color="blue" dark dense block
+           @click="confirmacionIclick('INVESTIGACION')">
+           Se requiere Investigacion    
+          </v-btn>  
+        </v-col>
+        
+        <v-alert v-if="this.$store.state.uivars.uivars_error_cardConfirmacion" type="error">
            Debe de confirmar si es un incidente o no .
         </v-alert>
-
-        </v-col>
       </v-row>
     </v-card-text>
   </v-card>
@@ -655,6 +652,10 @@ export default {
     
       res
         .then((response) => {
+
+         this.$store.dispatch("action_medidasintegrales",response.data[0]["medidasintegrales"])
+
+
           console.log("Datos de la valoracionIntegral ");
           console.log(JSON.stringify(response.data));
 
@@ -808,6 +809,7 @@ export default {
         etapavaloracion_confirmaincidente,
         etapavaloracion_tipoderespuesta,
         etapavaloracion_medidasintegrales,
+        //etapavaloracion_medidasintegrales_docto
       } = this.$store.state.valoracion;
 
       var parmetros = {
@@ -822,6 +824,7 @@ export default {
         confirmaincidente: "SI ES UN INCIDENTE",
         tipoderespuesta: etapavaloracion_tipoderespuesta,
         medidasintegrales:  etapavaloracion_medidasintegrales,
+       // medidasintegrales_docto : etapavaloracion_medidasintegrales_docto,
         estado : 'cerrado'
       };
 

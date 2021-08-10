@@ -207,14 +207,22 @@
                 <v-col cols="12" xm="12" sm="12" md="6" lg="6">
                 <!--  :mostrarMensajeValidacion ="this.$store.state.uivars.uivars_error_cardMedidasIntegrales"
                 -->
-                <uploadFile3 
+              <!--  <uploadFile3 
                 directorio="/uploads/actas"
                 :archivoId="archivoId"
                 tipoDeArchivo="*.pdf"
                 action_a_Ejecutar="action_etapainicial_actavaloracion"
                 modulo="actas"
                 campoState="etapainicial_actavaloracion">
-               </uploadFile3> 
+               </uploadFile3>  -->
+
+
+               <uploadFile4
+                 :archivoId ="this.$store.state.incidentes.etapainicial_actavaloracion_docto"
+                 action_a_Ejecutar ="action_etapainicial_actavaloracion_docto"
+               >
+
+               </uploadFile4>
 
 
 
@@ -415,7 +423,8 @@ import impresiones_etapauno from '@/components/etapas/impresiones/impresiones_et
 import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
 import eventBus from '@/eventBus.js';
 //import eventBus2 from '@/eventBus.js';
-import uploadFile3 from '@/components/manipulacionArchivos/uploadFIle3.vue';
+//import uploadFile3 from '@/components/manipulacionArchivos/uploadFIle3.vue';
+import uploadFile4 from '@/components/manipulacionArchivos/uploadFile4.vue';
 import apidoctosapoyo from '@/apialdeas/apiDoctosApoyo.js';
 
 ////////////////////////////////////////////////
@@ -444,7 +453,8 @@ export default {
     textareaMedidasProteccion,
     textareaTestigos,
     BarraDeNavegacion,
-    uploadFile3
+    ////uploadFile3,
+    uploadFile4
    
 
   },
@@ -854,14 +864,16 @@ const  {
       etapainicial_medidasproteccion,
       etapainicial_incidenteconfirmado,
       etapainicial_testigos,
-       etapainicial_actavaloracion} =this.$store.state.incidentes;
+       etapainicial_actavaloracion_docto
+       } =this.$store.state.incidentes;
      
+      console.log(" valor del documento :" + this.$store.state.incidentes.etapainicial_actavaloracion_docto);
       /* usuario creador es el usuario logueado. */
       var usuarioCreador =this.$store.state.usuarios.usuarios_usuariologueado.id;
       var etapa = 1;
       /* ======================================== */
-      let id_docto_temp  = 0;
-       etapainicial_actavaloracion.length == 0 ? id_docto_temp = 0 : id_docto_temp = etapainicial_actavaloracion;
+     // let id_docto_temp  = 0;
+     //  etapainicial_actavaloracion.length == 0 ? id_docto_temp = 0 : id_docto_temp = etapainicial_actavaloracion;
       /*==========================================*/
       var parametros = {
         programa: etapainicial_programa,
@@ -896,11 +908,12 @@ const  {
         coloretapados: "yellow",
         coloretapatres: "yellow",
         coloretapacuatro: "yellow",
-         actavaloracion :id_docto_temp
+        
+        actavaloracion_docto : etapainicial_actavaloracion_docto
       };
 
-      console.log("== valores del incidente ==");
-      console.log(JSON.stringify(parametros));
+     // console.log("== valores del incidente ==");
+      //console.log(JSON.stringify(parametros));
 
       let x = apiIncidentes.nuevoIncidente(parametros, this.$store);
       //let x = apiIncidentes.saludo(this.$store);
@@ -911,17 +924,17 @@ const  {
         this.loadingGuardar = false;
         //redireccionamos
 
-        let a = JSON.parse(response.data);
-
+        //let a = JSON.parse(response.data);
+        let a = response.data;
         //let atipo = typeof a;
 
-        //console.log(atipo);
-        let idRecuperado = a["id"];
+        console.log("valor de idRecuperado  : " +  response.data.id);
+        let idRecuperado = response.data.id;
 
         
         this.$store.dispatch('setear_Incidente',idRecuperado);
 
-       // console.log("valor de idRecuperado  : " + idRecuperado);
+       console.log("valor de idRecuperado  : " + idRecuperado);
 
         this.modo = "update";
 
@@ -929,14 +942,20 @@ const  {
         /*************************************************************************
          *  se asigna el valor del campo del docto para
          *************************************************************************************/
-        if (id_docto_temp != 0) {
-        eventBus.$emit('cargarArchivo',a["actavaloracion"] ); }
+       // if (id_docto_temp != 0) {
+              //eventBus.$emit('cargarArchivo',a["actavaloracion"] ); 
+            //////////////////////////////////////////
+
+           // eventBus.$emit('cargarArchivo_con_id');
+
+            ///////////////////////////////////////////
+             // }
         /*************************************************************************************/
        
 
+         
 
-
-        this.verBotonImpresion = false;
+          this.verBotonImpresion = false;
         
           //limpiar variables globales de incidente
           validacionReporteInicial.inicializarValoresDeIncidente(this.$store);
@@ -945,6 +964,8 @@ const  {
            * Enviamos los correos para notificar a los usuarios que tienen 
            * este permiso activo
            ****************************************************************/
+            console.log(" >>>>>>> valor  de parametro enviar correso : " + this.$store.state.uivars.uivars_parametros[6]["valor"] );
+      
             console.log(" >>>>>>> valor  de parametro enviar correso : " + this.$store.state.uivars.uivars_parametros[6]["valor"] );
       
             if (this.$store.state.uivars.uivars_parametros[6]["valor"]=='SI'){
@@ -960,7 +981,8 @@ const  {
         });
 
       }).catch((error) => {
-        console.log(error.data);
+        console.log("Error en guardar Incidente ");
+        console.log(error);
         this.loadingGuardar = false;
       });
 
@@ -1060,9 +1082,10 @@ const  {
       /*************************************************************************
        *  se asigna el valor del campo del docto para
        *************************************************************************************/
-        eventBus.$emit('cargarArchivo',a["actavaloracion"] );
+        //eventBus.$emit('cargarArchivo',a["actavaloracion"] );
        /*************************************************************************************/
   
+      this.$store.dispatch("action_etapainicial_actavaloracion_docto",a.actavaloracion_docto);
 
       this.involucrados = a.involucrados;
 
@@ -1231,6 +1254,7 @@ const  {
 
       if (parametroId == undefined) {
         //console.log("valor de parametroID : " + parametroId);
+        eventBus.$emit('cargarArchivo_con_id');
         this.overlay =false;
       } else {
         //console.log("valor actual de parametroId : " + parametroId);
@@ -1249,8 +1273,11 @@ const  {
 
           this.modo = "update";
           this.verBotonImpresion = false;
+
           //this.$store.dispatch("action_uivars_overlay",false);
           this.overlay =false;
+
+
         }).catch((error) => {
           console.log(JSON.stringify(error.response));
           this.modo = "update";

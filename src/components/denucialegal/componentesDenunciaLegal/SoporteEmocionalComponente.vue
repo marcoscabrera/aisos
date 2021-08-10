@@ -41,6 +41,27 @@
               </v-select>
             </v-col>
           </v-row>
+          <!--  --------------------------------->
+
+           <v-row>
+                <v-col cols="12" xm="12" sm="12" md="6" lg="6">
+                  En este espacio adjunta el documento 
+                  que acredita el soporte de un asesor legal.
+                </v-col>
+
+                <v-col cols="12" xm="12" sm="12" md="6" lg="6">
+      
+                <uploadFile4
+                  :archivoId ="this.$store.state.denuncias.denuncialegal_docto_soporteemocional"
+                 action_a_Ejecutar ="action_denuncialegal_docto_soporteemocional">
+
+                </uploadFile4>
+
+
+              </v-col>
+            </v-row>
+
+          <!-- ---------------------------------->
         </v-card-text>
       </v-card>
   
@@ -48,10 +69,15 @@
 
 <script >
   
-
+     import uploadFile4 from '@/components/manipulacionArchivos/uploadFile4.vue';
+ 
     export default {
 
         name : 'SoporteEmocionalComponente.vue', 
+
+        components : {
+             uploadFile4
+        },
 
         props : {
 

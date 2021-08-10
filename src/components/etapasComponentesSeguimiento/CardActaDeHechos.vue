@@ -1,6 +1,7 @@
 <template>
       <v-card width="100%">
-        <v-card-title>SE INFORMA AL ENTE RECTOR  </v-card-title>
+        <v-card-title>   SE CUENTA CON EL LLENADO DEL ACTA DE HECHOS 
+ </v-card-title>
         <v-card-text>
           <v-row>
             <v-col cols="12" xs="12" sm="6" md="6">
@@ -8,7 +9,7 @@
                 :value="valorcombo"
                 :item-value="valorcombo"
                 :items="itemsOpciones"
-                label="PROGRAMA"
+                label="ACTA DE HECHOS"
                 dense
                 filled
                 @change="asignarValor($event)"
@@ -18,7 +19,7 @@
             <v-col cols="12" xs="12" sm="6" md="6">
              <!-- aqui va fileupload -->
                 <uploadFile2 
-                 :mostrarMensajeValidacion ="this.$store.state.uivars.uivars_error_seguimiento_seguimiento_notificaciondif_docto"
+                 :mostrarMensajeValidacion ="this.$store.state.uivars.uivars_error_seguimiento_seguimiento_actavaloracion_docto"
           
                 directorio="/uploads/seguimiento"
                 :HayArchivo ="sihayarchivo"
@@ -26,19 +27,11 @@
                 :nombreArchivo = "nombreDelArchivo"
                 :incidenteid ="incidenteId"
                 :archivoId="archivoId"
-                action_a_Ejecutar="action_notificaciondif_docto"
+                action_a_Ejecutar="action_actavaloracion_docto"
                 modulo="seguimiento"
-                campoState="seguimiento_notificaciondif_docto">
+                campoState="seguimiento_actavaloracion_docto">
                 </uploadFile2> 
-               
-                    <v-alert dense
-                    border="left"
-                    type="warning"> No Obligatorio
-                    </v-alert>
-
-
-
-            </v-col>-
+            </v-col>
           </v-row>
         </v-card-text>
       </v-card>
@@ -49,7 +42,7 @@
 
 export default {
 
-      name: 'cardNotificacionDIF', 
+      name: 'cardNotificacionPersona', 
 
       props :{
 
@@ -71,19 +64,18 @@ export default {
       data() {
 
           return {
-               itemsOpciones: ["SI", "NO", "POR CONFIRMAR", "NO APLICA"],
+               itemsOpciones: ["SI", "NO", "POR CONFIRMAR"],
           }
       },
 
       methods : {
          asignarValor(event){
 
-            this.$store.dispatch("action_notificaciondif", event);
+            this.$store.dispatch("action_actavaloracion", event);
          }
       }
 
     }
-
 </script>
 
 <style scoped>

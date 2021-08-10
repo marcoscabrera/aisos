@@ -77,5 +77,45 @@ state.denuncialegal_fechaUpdate   = valor;
 mutation_estado( state, valor) {   
 state.denuncialegal_estado   = valor; 
 
-}
+},
+mutation_denuncialegal_informapatronato( state, valor) {   
+    state.denuncialegal_informapatronato = valor 
+  
+},
+mutation_denuncialegal_docto_informapatronato( state, valor) {   
+    state.denuncialegal_docto_informapatronato = valor 
+  
+},
+mutation_denuncialegal_informaoficinaregional( state, valor) {   
+    state.denuncialegal_informaoficinaregional = valor 
+  
+},
+mutation_denuncialegal_docto_informaoficinaregional( state, valor) {   
+    state.denuncialegal_docto_informaoficinaregional = valor 
+  
+},
+mutation_denuncialegal_informaenterector( state, valor) {   
+    state.denuncialegal_informaenterector = valor 
+  
+},
+mutation_denuncialegal_docto_informaenterector( state, valor) {   
+    state.denuncialegal_docto_informaenterector = valor 
+  
+},
+mutation_denuncialegal_docto_soportelegal( state, valor) {   
+    state.denuncialegal_docto_soportelegal = valor 
+  
+},
+mutation_denuncialegal_docto_soporteemocional( state, valor) {   
+    state.denuncialegal_docto_soporteemocional = valor 
+  
+},
+mutation_denuncialegal_denunciapresentada( state, valor) {   
+    state.denuncialegal_denunciapresentada = valor 
+  
+},
+mutation_denuncialegal_docto_denunciapresentada( state, valor) {   
+    state.denuncialegal_docto_denunciapresentada = valor 
+  
+},
  }
