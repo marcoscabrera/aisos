@@ -324,18 +324,18 @@ export default {
        UploadService.getFiles(id_sin_comillas, this.$store.state).then(response => {
       // this.fileInfos = response.data;
         
-          console.log("datos recuperados del archivo en cuestion ");
+        console.log("datos recuperados del archivo en cuestion ");
       
-          console.log(JSON.stringify(response.data));
+        console.log(JSON.stringify(response.data));
           
           //this.fileInfos=response.data[0];
 
          // console.log(" fileinfos : " + this.fileInfos);
 
-          this.elArchivo =response.data[0]['nombreOriginal'];
-          this.nombre_de_archivo_original = response.data[0]['nombreOriginal'];
+        this.elArchivo =response.data[0]['nombreOriginal'];
+        this.nombre_de_archivo_original = response.data[0]['nombreOriginal'];
 
-          let idElArchvio = JSON.stringify(response.data[0]['id']);
+         let idElArchvio = JSON.stringify(response.data[0]['id']);
 
          this.$store.dispatch(this.action_a_Ejecutar,idElArchvio);
         
