@@ -288,9 +288,9 @@
         </v-card>
         <br>
 
-    <v-row>
+   <!-- <v-row>
       <esunincidente :incidente="incidenteconfirmado"></esunincidente>
-    </v-row>
+    </v-row> -->
     <br>
 
     <v-card width="100%" >
@@ -408,7 +408,7 @@ import textfieldElaboro from "@/components/etapasComponentes/textfieldElaboro.vu
 import comboboxCargos from "@/components/etapasComponentes/comboboxCargos.vue";
 import textareaRegistro from "@/components/etapasComponentes/textareaRegistro.vue";
 import cardPerlfilAgresor from "@/components/etapasComponentes/cardPerlfilAgresor.vue";
-import esunincidente from "@/components/etapasComponentes/esunincidente.vue";
+//import esunincidente from "@/components/etapasComponentes/esunincidente.vue";
 import cardPerfilVictima from "@/components/etapasComponentes/cardPerfilVictima.vue";
 import textareaMedidasProteccion from "@/components/etapasComponentes/textareaMedidasProteccion.vue";
 import textareaTestigos from "@/components/etapasComponentes/textareaTestigos.vue";
@@ -448,7 +448,7 @@ export default {
     comboboxCargos,
     textareaRegistro,
     cardPerlfilAgresor,
-    esunincidente,
+    //esunincidente,
     cardPerfilVictima,
     textareaMedidasProteccion,
     textareaTestigos,
@@ -676,7 +676,7 @@ export default {
             etapainicial_perfilvictima,
            etapainicial_recibeayuda,
           etapainicial_medidasproteccion,
-          etapainicial_incidenteconfirmado,
+          //etapainicial_incidenteconfirmado,
           etapainicial_testigos
            } =this.$store.state.incidentes;
 
@@ -717,9 +717,9 @@ export default {
     this.$store.dispatch('actions_uivars_error_textareaMedidas',r);
     this.validarCaptura(r);
 
-   r = validacionReporteInicial.existeInformacionParaCapturar(  etapainicial_incidenteconfirmado);
-    this.$store.dispatch('actions_uivars_error_comboesunincidente',r);
-    this.validarCaptura(r);
+    // r = validacionReporteInicial.existeInformacionParaCapturar(  etapainicial_incidenteconfirmado);
+    // this.$store.dispatch('actions_uivars_error_comboesunincidente',r);
+    //this.validarCaptura(r);
 
 
        r = validacionReporteInicial.existeInformacionParaCapturar(  etapainicial_testigos);
@@ -862,7 +862,7 @@ const  {
       etapainicial_perfilvictima,
       etapainicial_recibeayuda,
       etapainicial_medidasproteccion,
-      etapainicial_incidenteconfirmado,
+     // etapainicial_incidenteconfirmado,
       etapainicial_testigos,
        etapainicial_actavaloracion_docto
        } =this.$store.state.incidentes;
@@ -897,7 +897,7 @@ const  {
         perfilvictima: etapainicial_perfilvictima,
         recibeayuda: etapainicial_recibeayuda,
         medidasproinmediatasdiatas:etapainicial_medidasproteccion,
-        incidenteconfirmado: etapainicial_incidenteconfirmado, //incidenteconfirmado,
+        incidenteconfirmado: 'NO', //incidenteconfirmado,
         testigos: etapainicial_testigos,
         etapa: etapa,
         etapauno: "visible",
