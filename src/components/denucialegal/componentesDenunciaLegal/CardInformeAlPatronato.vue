@@ -1,7 +1,9 @@
 <template>
     
       <v-card width="100%">
-        <v-card-title>INFORMA AL PATRONATO </v-card-title>
+        <v-card-title>INFORMA AL PATRONATO
+           <span class="paraCardTitulo"> Documento Adjunto es Opcional</span> 
+           </v-card-title>
         <v-card-text>
           <v-row>
             <v-col cols="12" xs="12" sm="6" md="6">
@@ -26,7 +28,7 @@
                 placeholder=" Adjuntar  minuta de reunion de valoracion integral con Concenso y firmas"
             
               -->
-                <uploadFile4
+                <uploadFile4 v-if="verCombo"
                 :archivoId ="this.$store.state.denuncias.denuncialegal_docto_informapatronato"
                  action_a_Ejecutar ="action_denuncialegal_docto_informapatronato">
                 </uploadFile4> 
@@ -63,13 +65,16 @@
 
           return {
                itemsOpciones: ["SI", "NO","NO APLICA","POR CONFIRMAR"],
+               varCombo: true
           }
       },
 
       methods : {
          asignarValor(event){
-
+            event == "SI" ? this.verCombo = true : this.verCombo= false;
             this.$store.dispatch("action_denuncialegal_informapatronato", event);
+
+            
          }
       }
 

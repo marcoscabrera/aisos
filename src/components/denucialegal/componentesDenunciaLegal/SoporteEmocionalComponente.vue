@@ -4,6 +4,7 @@
       <v-card width="100%">
         <v-card-title >
           SOPORTE EMOCIONAL PARA LOS NNAJ INVOLUCRADOS
+           <span class="paraCardTitulo"> Documento Adjunto es Obligatorio</span> 
         </v-card-title>
         <v-card-text>
           <v-row>

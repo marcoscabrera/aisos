@@ -1,7 +1,9 @@
 <template>
     
       <v-card width="100%">
-        <v-card-title>CONSENSO NACIONAL PARA DENUNCIA </v-card-title>
+        <v-card-title>CONSENSO NACIONAL PARA DENUNCIA
+           <span class="paraCardTitulo"> Documento Adjunto es Obligatorio</span> 
+           </v-card-title>
         <v-card-text>
           <v-row>
             <v-col cols="12" xs="12" sm="6" md="6">
@@ -36,7 +38,8 @@
                 campoState="denuncialegal_consensodocto">
                 </uploadFile2>  -->
 
-                <uploadFile4 
+               
+                <uploadFile4 v-if="verCombo"
                    :archivoId ="this.$store.state.denuncias.denuncialegal_consensodocto"
                  action_a_Ejecutar ="action_consensodocto">
             
@@ -74,6 +77,7 @@
 
           return {
                itemsOpciones: ["CONFIRMADO", "POR CONFIRMAR"],
+               verCombo:true,
           }
       },
 
@@ -81,6 +85,9 @@
          asignarValor(event){
 
             this.$store.dispatch("action_consenso", event);
+            
+            event == "CONFIRMADO"? this.verCombo = true : this.verCombo = false;
+
          }
       }
 

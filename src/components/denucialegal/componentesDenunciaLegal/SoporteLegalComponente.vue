@@ -2,7 +2,9 @@
 
 
       <v-card width="100%">
-        <v-card-title>SOPORTE DE UN ASESOR LEGAL </v-card-title>
+        <v-card-title>SOPORTE DE UN ASESOR LEGAL
+           <span class="paraCardTitulo"> Documento Adjunto es Obligatorio</span> 
+           </v-card-title>
         <v-card-text>
           <v-row>
             <v-col cols="12" xs="12" sm="12" md="4">

@@ -119,6 +119,7 @@
           color="red"
        
           block
+          @click="regresar_al_dashboard"
         >
           <v-icon right dark> mdi-close </v-icon>
           <v-spacer></v-spacer>
@@ -208,6 +209,15 @@ export default {
   },
 
   methods: {
+
+
+        regresar_al_dashboard() {
+           
+                this.$router.push({
+                name: "Dashboard"
+              });
+
+        },
 
          //Esta funcion se encarga de consultar la API para recuperar los documentos que 
          // se mostraran el componente Barradedocumentos
@@ -534,3 +544,14 @@ this.$store.dispatch('action_denuncialegal_docto_denunciapresentada',datos.docto
   },
 };
 </script>
+<style>
+
+.paraCardTitulo {
+  border: 1px;
+  border-color :black;
+  padding-left: 15px;
+  color: rgba(255, 0, 0, 0.6) !important;
+  font-size: 1.05rem;
+  text-transform: none
+}
+</style>

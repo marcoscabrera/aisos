@@ -2,7 +2,11 @@
   
       <v-card width="100%">
         <v-card-title>IMPLEMENTAR MEDIDAS DISCIPLINARIAS LIGADAS AL RESULTADO DE LAS
-          DENUNCIAS </v-card-title>
+          DENUNCIAS 
+
+          <span class="paraCardTitulo"> Documento adjunto es obligatorio</span> 
+          
+          </v-card-title>
         <v-card-text>
           <v-row>
             <v-col cols="12" xs="12" sm="6" md="6">
@@ -33,7 +37,7 @@
                 modulo="denuncias"
                 campoState="denuncialegal_medidasd_docto">
                 </uploadFile2> -->
-                <uploadFile4
+                <uploadFile4 v-if="verCombo"
                   :archivoId ="this.$store.state.denuncias.denuncialegal_medidasd_docto"
                  action_a_Ejecutar ="action_medidasd_docto"
                  >
@@ -71,12 +75,13 @@ import uploadFile4 from '@/components/manipulacionArchivos/uploadFile4.vue';
 
           return {
                itemsOpciones: ["SI", "NO", "POR CONFIRMAR"],
+               verCombo :true
           }
       },
 
       methods : {
          asignarValor(event){
-
+            event == "SI" ? this.verCombo = true : this.verCombo= false;
             this.$store.dispatch("action_medidasd", event);
          }
       }

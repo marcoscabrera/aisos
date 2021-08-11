@@ -1,7 +1,9 @@
 <template>
     
       <v-card width="100%">
-        <v-card-title>DENUNCIA PRESENTADA </v-card-title>
+        <v-card-title>DENUNCIA PRESENTADA 
+          <span class="paraCardTitulo"> Documento Adjunto es Obligatorio</span> 
+        </v-card-title>
         <v-card-text>
           <v-row>
             <v-col cols="12" xs="12" sm="6" md="6">
@@ -22,7 +24,7 @@
                 placeholder=" Adjuntar  minuta de reunion de valoracion integral con Concenso y firmas"
             
               -->
-                <uploadFile4 
+                <uploadFile4 v-if="verCombo"
                    :archivoId ="this.$store.state.denuncias.denuncialegal_docto_denunciapresentada"
                  action_a_Ejecutar ="action_denuncialegal_docto_denunciapresentada">
             
@@ -60,12 +62,14 @@
 
           return {
                itemsOpciones: ["SI", "NO","PENDIENTE"],
+               verCombo : true
           }
       },
 
       methods : {
          asignarValor(event){
             /* comentario */
+            event == "SI" ? this.verCombo = true : this.verCombo = false;
             this.$store.dispatch("action_denuncialegal_denunciapresentada", event);
          }
       }
