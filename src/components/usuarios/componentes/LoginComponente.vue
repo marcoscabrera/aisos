@@ -107,7 +107,7 @@
     </v-row>
     <v-row>
       <v-col>
-            Version 1.1.6
+            Version {{this.$store.state.version}}
       </v-col>
       </v-row>
 
