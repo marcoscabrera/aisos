@@ -14,6 +14,7 @@
              activo_vi="1"
              activo_s="0"
              activo_c="1"
+             verSeguimiento = false
              ></BarraDeNavegacion>
 
         </v-col>

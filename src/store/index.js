@@ -43,7 +43,7 @@ const store =  new Vuex.Store({
 /////////////////////////////////////// 
 urlServidor : 'https://apidemo2.azurewebsites.net',
 
-version: '1.1.8',
+version: '1.1.8 Servidor Pruebas',
 
 
 

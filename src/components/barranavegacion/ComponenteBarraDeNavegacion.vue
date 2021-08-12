@@ -73,7 +73,13 @@
 import controlDeSesion   from '@/sesion/controlDeSesion.js';
 export default {
  
-
+ props : {
+    verRespuesta   : Boolean,
+    verSeguimiento : Boolean,
+    verInicial     : Boolean,
+    verIntegral    : Boolean,
+    verCierre      : Boolean
+ },
  methods : {
 
      cerrarSesion(){

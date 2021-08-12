@@ -16,32 +16,32 @@
       </v-btn>
     
 
-    <v-btn  @click="IR_a_ri" :clase ="claseResponsive">
+    <v-btn v-if="verInicial" @click="IR_a_ri" :clase ="claseResponsive">
       <span class ="d-none d-sm-flex">Inicial</span>
 
       <v-icon>mdi-file-document-edit-outline</v-icon>
     </v-btn >
 
-    <v-btn    @click="IR_a_vi" :clase ="claseResponsive">
+    <v-btn  v-if="verIntegral"  @click="IR_a_vi" :clase ="claseResponsive">
       <span class ="d-none d-sm-flex">Integral</span>
 
       <v-icon>mdi-file-cog-outline</v-icon>
     </v-btn>
 
 
-    <v-btn    @click="IR_a_Respuesta" :clase ="claseResponsive">
+    <v-btn  v-if="verRespuesta"  @click="IR_a_Respuesta" :clase ="claseResponsive">
       <span class ="d-none d-sm-flex">Respuesta</span>
 
       <v-icon>mdi-file-document-edit-outline</v-icon>
     </v-btn>
 
-    <v-btn   @click="ir_al_seguimiento"  :clase ="claseResponsive">
+    <v-btn v-if="verSeguimiento"  @click="ir_al_seguimiento"  :clase ="claseResponsive">
       <span class ="d-none d-sm-flex">Seguimiento</span>
 
       <v-icon>mdi-clipboard-check-outline</v-icon>
     </v-btn>
 
-    <v-btn   @click="ir_al_cierre" :clase ="claseResponsive">
+    <v-btn v-if="verCierre"  @click="ir_al_cierre" :clase ="claseResponsive">
       <span class ="d-none d-sm-flex">Cierre</span>
       <v-icon>mdi-map-marker</v-icon>
     </v-btn>
@@ -65,6 +65,13 @@ import apiIncidentes from '@/apialdeas/apiIncidentes.js';
             activo_c: {
                type : String
             },
+          
+          verRespuesta   : { type : Boolean ,default : true},
+          verSeguimiento : { type : Boolean ,default : true},
+          verInicial     : { type : Boolean ,default : true},
+          verIntegral    : { type : Boolean ,default : true},
+          verCierre      : { type : Boolean ,default : true}
+ 
         },
 
         data() {
