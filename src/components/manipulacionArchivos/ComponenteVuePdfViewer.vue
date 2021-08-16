@@ -28,11 +28,11 @@
           </v-btn>
 
 
-                   <!--
+                   
                      <v-btn id="xx"
                       color="primary"
                       :loading="loading"
-                      @click="imprimir"
+                      @click="imprimir_el_canvas"
                       >
 
                         <v-icon>
@@ -40,27 +40,33 @@
                         </v-icon>
                        Imprimir
 
-                  </v-btn> -->
+                  </v-btn> 
          
 
              </v-col>
     </v-row>
 
   <div id="app" style="height:593px" v-if="verPDf">
+    <!-- 
+
+         downloadFeatureVisible="false"
+        <template slot="right-toolbox"></template> Add more buttons/features on the right side of the toolbar 
+        <template slot="left-toolbox"></template>  Add more buttons/features on the left side of the toolbar 
+        <template slot="error"></template> Change the error message design 
+        <template slot="loading"></template>  Change the pdf loader design
+      -->
     <PDFView
       :src.sync="archivo" 
       ref="pdfView"
-      
-      sidebarFeatureVisible="true"
-      downloadFeatureVisible="false" 
-      dropzoneFeatureVisible="true" 
-      toolbarVisible="true" 
+      :downloadFeatureVisible="false"
+      sidebarFeatureVisible=false
+      dropzoneFeatureVisible=false
+      toolbarVisible=false
       scale.sync="scale" 
     > 
-        <template slot="right-toolbox"></template> <!-- Add more buttons/features on the right side of the toolbar -->
-        <template slot="left-toolbox"></template> <!-- Add more buttons/features on the left side of the toolbar -->
-        <template slot="error"></template> <!-- Change the error message design -->
-        <template slot="loading"></template> <!-- Change the pdf loader design -->
+    <template slot="left-toolbox">
+
+    </template>
     </PDFView>
   </div>
   <embed id="pdfin" :src="elArchivo" type="application/pdf" width="100%" height="600px" />
@@ -103,17 +109,18 @@ export default {
 
         this.$router.push(r);
      },
-
+      
+      /* ESTE ES EL METODO ACTUAL*/
       hardcode(){
- this.archivo  = this.$store.state.uivars.uivars_docto_a_ver;
+           this.archivo  = this.$store.state.uivars.uivars_docto_a_ver;
       },
 
       imprimir_el_canvas(){
 
 
-          printJS(this.archivo, 'pdf');
+         // printJS(this.archivo, 'pdf');
 
-      
+          printJS('page-1', 'html');
 
 
       },

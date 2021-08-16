@@ -14,7 +14,12 @@
              activo_vi="1"
              activo_s="0"
              activo_c="1"
-             verSeguimiento = false
+            
+             verInicial     
+             verIntegral 
+            
+             verCierre
+             verRespuesta 
              ></BarraDeNavegacion>
 
         </v-col>
@@ -100,7 +105,7 @@
     
     <br > -->
 
-    <h4>ACCIONES A REALIZAR</h4>
+    <!-- <h4>ACCIONES A REALIZAR</h4> -->
 
     <!-- =============================================== -->
 

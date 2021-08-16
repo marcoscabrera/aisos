@@ -16,32 +16,32 @@
       </v-btn>
     
 
-    <v-btn v-if="verInicial" @click="IR_a_ri" :clase ="claseResponsive">
+    <v-btn v-if="inicial" @click="IR_a_ri" :clase ="claseResponsive">
       <span class ="d-none d-sm-flex">Inicial</span>
 
       <v-icon>mdi-file-document-edit-outline</v-icon>
     </v-btn >
 
-    <v-btn  v-if="verIntegral"  @click="IR_a_vi" :clase ="claseResponsive">
+    <v-btn  v-if="integral"  @click="IR_a_vi" :clase ="claseResponsive">
       <span class ="d-none d-sm-flex">Integral</span>
 
       <v-icon>mdi-file-cog-outline</v-icon>
     </v-btn>
 
 
-    <v-btn  v-if="verRespuesta"  @click="IR_a_Respuesta" :clase ="claseResponsive">
+    <v-btn  v-if="respuesta"  @click="IR_a_Respuesta" :clase ="claseResponsive">
       <span class ="d-none d-sm-flex">Respuesta</span>
 
       <v-icon>mdi-file-document-edit-outline</v-icon>
     </v-btn>
 
-    <v-btn v-if="verSeguimiento"  @click="ir_al_seguimiento"  :clase ="claseResponsive">
+    <v-btn v-if=" seguimiento"  @click="ir_al_seguimiento"  :clase ="claseResponsive">
       <span class ="d-none d-sm-flex">Seguimiento</span>
 
       <v-icon>mdi-clipboard-check-outline</v-icon>
     </v-btn>
 
-    <v-btn v-if="verCierre"  @click="ir_al_cierre" :clase ="claseResponsive">
+    <v-btn v-if="cierre"  @click="ir_al_cierre" :clase ="claseResponsive">
       <span class ="d-none d-sm-flex">Cierre</span>
       <v-icon>mdi-map-marker</v-icon>
     </v-btn>
@@ -66,28 +66,84 @@ import apiIncidentes from '@/apialdeas/apiIncidentes.js';
                type : String
             },
           
-          verRespuesta   : { type : Boolean ,default : true},
-          verSeguimiento : { type : Boolean ,default : true},
-          verInicial     : { type : Boolean ,default : true},
-          verIntegral    : { type : Boolean ,default : true},
-          verCierre      : { type : Boolean ,default : true}
+          verRespuesta   : { type : Boolean ,default : false},
+          verSeguimiento : { type : Boolean ,default : false},
+          verInicial     : { type : Boolean ,default : false},
+          verIntegral    : { type : Boolean ,default : false},
+          verCierre      : { type : Boolean ,default : false}
  
+        },
+
+        computed : {
+
+   
+          inicial() {
+            let x = false;
+            this.verInicial == true  ? x = true  : x =  false;
+
+            return x;
+          },
+
+           integral() {
+            let x = false;
+            this.verIntegral == true  ? x = true  : x =  false;
+
+            return x;
+          },
+
+          seguimiento() {
+            let x = false;
+            this.verSeguimiento == true  ? x = true  : x =  false;
+
+            return x;
+          },
+          cierre() {
+        
+            let x = false;
+            this.verCierre == true  ? x = true  : x =  false;
+
+            return x;
+
+          },
+          respuesta(){
+            let x = false;
+            this.verRespuesta == true  ? x = true  : x =  false;
+
+            return x;
+          }
+
+
+
         },
 
         data() {
 
             return {
 
-              claseResponsive : ''
+              claseResponsive : '',
+              verSeg : true,
+              verIni : true,
+              verInt :true,
+              verRes :true,
+              verC : true,
             }
             },
 
             mounted () {
+//this.actualizarProps();
               this.buscarVersionViewport( ) ;
             },
 
 
         methods: {
+          actualizarProps() {
+             
+        this.verInicial       == true  ? this.verIni = true  : this.verIni = false;
+        this.verIntegral      == true  ? this.verInt = true  : this.verInt = false;
+        this.verSeguimiento   == true  ? this.verSeg = true  : this.verSeg = false;
+        this.verCierre        == true  ? this.verC   = true  : this.verC   = false;
+        this.verRespuesta     == true  ?  this.verRes = true : this.verRes = false;
+          },
   buscarVersionViewport( ) {
         
         

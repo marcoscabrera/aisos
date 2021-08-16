@@ -13,6 +13,11 @@
              activo_vi="true"
              activo_s="true"
              activo_c="true"
+             verInicial       
+             verIntegral 
+             verSeguimiento 
+             verCierre
+            
              ></BarraDeNavegacion>
 <!-- 
 

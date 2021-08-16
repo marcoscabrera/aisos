@@ -83,7 +83,7 @@
           
         </v-btn>
 
-        <v-btn v-if="subionotok" color="warning"
+      <!--  <v-btn v-if="subionotok" color="warning"
           dark
           small
           @click ="mostrarFileInput"
@@ -92,7 +92,7 @@
             mdi-close-circle
           </v-icon>
           
-        </v-btn>
+        </v-btn> -->
       </v-col>
     </v-row>
 

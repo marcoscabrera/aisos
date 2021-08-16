@@ -14,6 +14,12 @@
                     activo_vi="1"
                     activo_s="1"
                     activo_c="1"
+                       
+                    verIntegral
+                    verSeguimiento
+                    verCierre 
+                    verRespuesta 
+
                 >
                 </BarraDeNavegacion>
 

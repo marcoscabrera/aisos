@@ -2,7 +2,7 @@
  <v-container name ="visor">
 
  <!-- <cp></cp> 
-  <ComponentePDFVueApp></ComponentePDFVueApp>-->
+<ComponentePDFVueApp></ComponentePDFVueApp>-->
    
    
    <!-- esta el que funciona bien -->
@@ -30,6 +30,7 @@ import ComponenteVuePdfViewer from '@/components/manipulacionArchivos/Componente
         },
 
         components :{
+            
        ComponenteVuePdfViewer
              //ComponentePDFVueApp
            // cp

@@ -6,7 +6,7 @@
            </v-card-title>
         <v-card-text>
           <v-row>
-            <v-col cols="12" xs="12" sm="6" md="6">
+            <v-col cols="12" xs="12" sm="4" md="4">
              <v-select
                 :value="this.$store.state.denuncias.denuncialegal_informaenterector"
                 :item-value="valorcombo"
@@ -19,7 +19,7 @@
              </v-select>
             </v-col>
 
-               <v-col cols="12" xs="12" sm="6" md="6">
+               <v-col cols="12" xs="12" sm="8" md="8">
              <!-- aqui va fileupload
                 placeholder=" Adjuntar  minuta de reunion de valoracion integral con Concenso y firmas"
             

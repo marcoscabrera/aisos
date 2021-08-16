@@ -12,6 +12,11 @@
              activo_vi="0"
              activo_s="1"
              activo_c="1"
+
+             verInicial      
+             verSeguimiento
+             verCierre
+             verRespuesta 
              ></BarraDeNavegacion>
 
         </v-col>

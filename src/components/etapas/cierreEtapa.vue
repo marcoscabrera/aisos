@@ -12,6 +12,10 @@
              activo_vi="1"
              activo_s="1"
              activo_c="1"
+             verInicial    
+             verIntegral 
+             verSeguimiento 
+             verRespuesta 
              >
              </BarraDeNavegacion>
        <!-- import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
