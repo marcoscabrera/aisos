@@ -1,0 +1,184 @@
+ //cargarSeguimientos(){
+      /*
+       Este id es el id del incidendte
+       lo debemos de buscar en la tabla de idseguimiento
+
+      */
+     
+
+
+
+
+    //  datos.then( response => {
+        
+
+     
+      //si se muestra o no 
+    /*  this.tipoderespuesta== 'DENUNCIA PENAL' ? this.verDenuncia_o_investigacion= true 
+      : this.tipoderespuesta == 'INVESTIGACION INTERNA' ? this.verDenuncia_o_investigacion= true 
+      : this.verDenuncia_o_investigacion= false;
+      
+      console.log(" tipoderespuesta >> " + this.tipoderespuesta);
+      
+      console.log(" verDenuncia_o_investigacion >> " + this.verDenuncia_o_investigacion);*/
+      
+      /* *******************************************************/
+     
+      /******************** 
+
+       */
+
+       /******************
+
+       console.log(this.seguimiento.plan_docto);
+       console.log(this.seguimiento.planrecuperacion_docto);
+       console.log(this.seguimiento.notificacionpfn_docto);
+       console.log(this.seguimiento.notificaciondif_docto);
+       console.log(this.seguimiento.notificacionautoridad_docto);
+       console.log(this.seguimiento.notificaciondenunciante_docto);
+       console.log(this.seguimiento.documentos_docto);
+       console.log(this.seguimiento.actavaloracion_docto);
+      */
+
+
+      // let archivo_plan_docto = apiArchivos.conseguirArchivo(this.seguimiento.plan_docto, this.$store.state);
+     //  let archivo_planrecuperacion_docto = apiArchivos.conseguirArchivo(this.seguimiento.planrecuperacion_docto, this.$store.state);
+     //  let archivo_notificacionpfn_docto = apiArchivos.conseguirArchivo(this.seguimiento.notificacionpfn_docto, this.$store.state);
+      // let archivo_notificaciondif_docto = apiArchivos.conseguirArchivo(this.seguimiento.notificaciondif_docto, this.$store.state);
+      // let archivo_notificacionautoridad_docto = apiArchivos.conseguirArchivo(this.seguimiento.notificacionautoridad_docto, this.$store.state);
+      // let archivo_notificaciondenunciante_docto = apiArchivos.conseguirArchivo(this.seguimiento.notificaciondenunciante_docto, this.$store.state);
+       //let archivo_documentos_docto = apiArchivos.conseguirArchivo(this.seguimiento.documentos_docto, this.$store.state);
+     // let archivo_actavaloracion_docto = apiArchivos.conseguirArchivo(this.seguimiento.actavaloracion_docto, this.$store.state);
+       
+
+
+
+       /* --------------------------------------------------------------- */
+       /*archivo_plan_docto.then(
+         response => {
+           //console.log("archivo_plan_docto :" + JSON.stringify(response.data));
+
+           this.data_plan_docto = this.checkArray(  response.data[0]);
+          
+          this.$store.dispatch('action_seguimiento_plan_docto_nombre', this.data_plan_docto['nombreOriginal']);
+ 
+         }
+       ).catch(
+         error=> {
+           console.log(" error " + JSON.stringify(error.data));
+         }
+       );*/
+       /* --------------------------------------------------------------- */
+      /* archivo_planrecuperacion_docto.then(
+         response => {
+           //console.log("archivo_planrecuperacion_docto :" + JSON.stringify(response.data));
+          // this.data_planrecuperacion_docto = response.data[0];
+            this.data_planrecuperacion_docto = this.checkArray(   response.data[0] );
+             this.$store.dispatch('action_seguimiento_planrecuperacion_docto_nombre', this.data_planrecuperacion_docto['nombreOriginal']);
+
+        }
+       ).catch(
+         error=> {
+           console.log(" error " + JSON.stringify(error.data));
+         }
+       );
+       /* --------------------------------------------------------------- */
+     /*  archivo_notificacionpfn_docto.then(
+         response => {
+          // console.log("archivo_planrecuperacion_docto :" + JSON.stringify(response.data));
+        // this.data_notificacionpfn_docto = response.data[0];
+          this.data_notificacionpfn_docto  =  this.checkArray(  response.data[0] );
+         
+            this.$store.dispatch('action_seguimiento_notificacionpfn_docto_nombre', this.data_notificacionpfn_docto['nombreOriginal']);
+
+         }
+       ).catch(
+/error=> {
+         //  console.log(" error " + JSON.stringify(error.data));
+         }
+       );
+       /* --------------------------------------------------------------- */
+      /* archivo_notificaciondif_docto.then(
+         //response => {
+          // console.log("archivo_notificaciondif_docto :" + JSON.stringify(response.data));
+        //  this.data_notificaciondif_docto =response.data[0];
+         this.data_notificaciondif_docto =  this.checkArray(   response.data[0] );
+         this.$store.dispatch('action_seguimiento_notificaciondif_docto_nombre', this.data_notificaciondif_docto['nombreOriginal']);
+
+        }
+       ).catch(
+         error=> {
+           console.log(" error " + JSON.stringify(error.data));
+         }
+       );
+       /* --------------------------------------------------------------- */
+      /* archivo_notificacionautoridad_docto.then(
+         response => {
+         //  console.log("archivo_notificacionautoridad_docto :" + JSON.stringify(response.data));
+         //this.data_notificacionautoridad_docto = response.data[0];
+            this.data_notificacionautoridad_docto =this.checkArray(   response.data[0] );
+               this.$store.dispatch('action_seguimiento_notificacionautoridad_docto_nombre', this.data_notificacionautoridad_docto['nombreOriginal']);
+
+        
+       }
+       ).catch(
+         error=> {
+           console.log(" error " + JSON.stringify(error.data));
+         }
+       );
+       /* --------------------------------------------------------------- */
+      /* archivo_notificaciondenunciante_docto.then(
+         response => {
+         //  console.log("archivo_notificaciondenunciante_docto :" + JSON.stringify(response.data));
+      // this.data_notificaciondenunciante_docto = response.data[0];
+         this.data_notificaciondenunciante_docto = this.checkArray(  response.data[0] );
+          this.$store.dispatch('action_seguimiento_notificaciodenunciante_docto_nombre', this.data_notificaciondenunciante_docto['nombreOriginal']);
+
+       }
+       ).catch(
+         error=> {
+           console.log(" error " + JSON.stringify(error.data));
+         }
+       );
+       /* --------------------------------------------------------------- */
+      /* archivo_documentos_docto.then(
+         response => {
+           //console.log("archivo_documentos_docto :" + JSON.stringify(response.data));
+     
+          // this.data_documento_docto= response.data[0];
+             this.data_documento_docto =  this.checkArray(   response.data[0] );
+              this.$store.dispatch('action_seguimiento_documentos_docto_nombre', this.data_documento_docto['nombreOriginal']);
+
+      }
+       ).catch(
+         error=> {
+           console.log(" error " + JSON.stringify(error.data));
+         }
+       );*/
+       /* --------------------------------------------------------------- */
+      /* archivo_actavaloracion_docto.then(
+         response => {
+          //console.log("archivo_actavaloracion_docto :" + JSON.stringify(response.data));
+         
+        // this.data_actavaloracion_docto = response.data[0];
+            this.data_actavaloracion_docto = this.checkArray(  response.data[0] );
+              this.$store.dispatch('action_seguimiento_actavaloracion_docto_nombre', this.data_actavaloracion_docto['nombreOriginal']);
+
+        }
+       ).catch(
+         error=> {
+           console.log(" error " + JSON.stringify(error.data));
+         }
+       );
+       /*===================================================================*/
+
+     // }).catch( error => {
+            //  console.log(error);
+    // });
+
+       
+
+   // }//termina de cargar seguimientos
+
+
+ // },

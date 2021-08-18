@@ -104,7 +104,88 @@ mutation_seguimiento_notificacionpfn_docto_nombre( state, valor) {
     state.seguimiento_notificacionpfn_docto_nombre    =valor;
 },
 
+       /*
+        Se agregan los nuevos elementos,
+        estos surgen por la modifiaciones de seguimiento
+        que practicamente se ha covertido en una vista dinamica
+        mas que una sola tabla.
+        */
+        mutation_seguimiento_tipoderespuesta( state, valor) {
+        state.seguimiento_tipoderespuesta =valor;
+        },
 
+        
+        mutation_seguimiento_estatus_consenso( state, valor) {
+        state.estatus_consenso   =valor;
+        },
+
+        mutation_seguimiento_estatus_medidas( state, valor) {
+        state.estatus_medidas   =valor;
+        },
+
+
+        mutation_seguimiento_estatus_denuncia( state, valor) {
+        state.estatus_denuncia  =valor;
+        },
+
+        mutation_seguimiento_estatus_notificacionpfn( state, valor) {
+        state.estatus_notificacionpfn  =valor;
+        },
+
+        mutation_seguimiento_estatus_notificaciondenunciante( state, valor) {
+        state.estatus_notificaciondenunciante =valor;
+        },
+
+
+        mutation_seguimiento_estatus_planrecuperacion( state, valor) {
+            state.estatus_planrecuperacion =valor;
+        },
+
+
+        mutation_seguimiento_id_consensodocto( state, valor) {
+        state.id_consensodocto = valor;
+        },
+
+
+        mutation_seguimiento_id_denunciadocto( state, valor) {
+
+        state.id_denunciadocto = valor;
+
+        },
+
+        
+        mutation_seguimiento_id_medidasdocto( state, valor) {
+
+        state.id_medidasdocto  = valor;
+        },
+
+
+        mutation_seguimiento_id_Notificacionpfn( state, valor){
+        state.id_Notificacionpfn  = valor;
+        },
+
+
+        mutation_seguimiento_id_NotificacionDenunciante( state, valor){
+        state.id_NotificacionDenunciante = valor;
+        },
+
+
+        mutation_seguimiento_id_NotificacionPlan( state, valor){
+        state.id_NotificacionPlan   = valor;
+        },
+
+
+        mutation_seguimiento_id_ActaHechos( state, valor){
+
+        state.id_ActaHechos    = valor;
+
+        },
+
+        mutation_seguimiento_id_ActaValoracion( state, valor){
+
+            state.id_ActaValoracion    = valor;
+    
+            }
 
 
 }

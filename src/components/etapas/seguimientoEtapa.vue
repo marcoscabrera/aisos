@@ -110,118 +110,30 @@
     <!-- =============================================== -->
 
 
-    <CardConsensoNacional>
+    <CardConsensoNacional v-if="verConsensoNacional">
 
     </CardConsensoNacional>
    <br>
-    <CardInformaPatronato>
-
-    </CardInformaPatronato>
     
-   <br>
-     
-     <CardInformeRegional>
-
-     </CardInformeRegional>
-         <v-card width="100%">
-        <v-card-title> INFORMA A OFICINA REGIONAL </v-card-title>
-        <v-card-text>
-          <v-row>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-select
-                :value="valorcombo"
-                :item-value="valorcombo"
-                :items="itemsOpciones"
-                label="Informa a Oficina regional"
-                dense
-                filled
-                @change="asignarValor($event)"
-              >
-              </v-select>
-            </v-col>
-            <v-col cols="12" xs="12" sm="6" md="6">
-
-                <uploadFile2 
-                 :mostrarMensajeValidacion ="this.$store.state.uivars.uivars_error_seguimiento_seguimiento_documentos_docto"
-          
-                directorio="/uploads/abordaje"
-                :HayArchivo ="sihayarchivo"
-                
-                :nombreArchivo = "nombreDelArchivo"
-                :incidenteid ="incidenteId"
-                :archivoId="archivoId"
-                action_a_Ejecutar="action_abordaje_documentos"
-                modulo="abordaje"
-                campoState="seguimiento_documentos_docto">
-                </uploadFile2> 
-
-
-            
-
-                <v-alert dense
-                    border="left"
-                    type="warning"> No Obligatorio
-                    </v-alert>
-            </v-col>
-          </v-row>
-
-        </v-card-text>
-      </v-card>
-   <br>
-   <cardNotificacionDIF
-
-        :incidenteId ="incidenteIdPE"
-        :archivoId ="seguimiento.notificaciondif_docto"
-        :nombreDelArchivo="data_notificaciondif_docto.nombreOriginal"
-        :sihayarchivo="data_notificaciondif_docto.hayArchivo"
-        :valorcombo="seguimiento.notificaciondif"
-   >
-   </cardNotificacionDIF>
-   <br>
-   <!-- =============================================== -->
-
- 
-  <cardAsesoriaLegal>
-
-  </cardAsesoriaLegal>
-   <br>
-
-   <cardAsesoriaEmocional>
-
-   </cardAsesoriaEmocional>
-   <br>
-   <CardMedidasDisciplinarias>
+   <CardMedidasDisciplinarias v-if="verMedidasDisciplinarias">
 
    </CardMedidasDisciplinarias>
-<br>
+   <br>
+   
+    <CardDenunciaPresentada  v-if='verDenunciaPresentada'>
 
-<CardDenunciaPresentada>
+    </CardDenunciaPresentada>
+    <br>
 
-</CardDenunciaPresentada>
-<br>
-   <cardNotificacionAutoridad v-if="esDenuncia"
-        :incidenteId ="incidenteIdPE"
-        :archivoId ="seguimiento.notificacionautoridad_docto"
-        :nombreDelArchivo="data_notificacionautoridad_docto.nombreOriginal"
-        :sihayarchivo="data_notificacionautoridad_docto.hayArchivo"
-        :valorcombo="seguimiento.notificacionautoridad"
-    >
-   </cardNotificacionAutoridad>
+    <CardActaDeHechos v-if='verActaDeHechos'>
+
+    </CardActaDeHechos>
+
    <br>
 
- 
-
    <!-- =============================================== -->
-     <cardNotificacionPFN
-      
-       :incidenteId ="incidenteIdPE"
-
-        :archivoId ="seguimiento.notificacionpfn_docto"
-        :nombreDelArchivo="data_notificacionpfn_docto.nombreOriginal"
-        :sihayarchivo="data_notificacionpfn_docto.hayArchivo"
-        :valorcombo="seguimiento.notificacionpfn"
-   
-    ></cardNotificacionPFN>
+     <cardNotificacionPFN v-if ="verNotificacionPFN" >
+     </cardNotificacionPFN>
     <br >
 
     <!-- =============================================== -->
@@ -229,45 +141,23 @@
     <!-- =============================================== 
      SE NOTIFICO A LA PERSONA DENUNCIANTE
     -->
-   
- 
-      <cardNotificacionPersona
-        :incidenteId ="incidenteIdPE"
 
-        :archivoId ="seguimiento.notificaciondenunciante_docto"
-        :nombreDelArchivo="data_notificaciondenunciante_docto.nombreOriginal"
-        :sihayarchivo="data_notificaciondenunciante_docto.hayArchivo"
-        :valorcombo="seguimiento.notificaciodenunciante"
-      ></cardNotificacionPersona>
+      <cardNotificacionPersona v-if="verNotificacionPD" >
+      </cardNotificacionPersona>
   <br />
     <!-- =============================================== -->
 
 
-      <!--
-SE CUENTA CON EL LLENADO DEL ACTA DE VALORACION DEL/DE LOS INCIDENTES
-       
-       -->
-      <cardActaDeValoracion
-        :incidenteId ="incidenteIdPE"
-        :archivoId ="seguimiento.actavaloracion_docto"
-        :nombreDelArchivo="data_actavaloracion_docto.nombreOriginal"
-        :sihayarchivo="data_actavaloracion_docto.hayArchivo"
-        :valorcombo="seguimiento.actavaloracion"
-      ></cardActaDeValoracion>
-    <!-- =============================================== -->
-    <br />
-    <!-- =============================================== -->
+  
 
 
-    <CardActaDeHechos>
 
-    </CardActaDeHechos>
-    <br>
+  
    
       <!--
          SE CUENTA CON UN PLAN DE RECUPERACIÓN EMOCIONAL CON SEGUIMIENTO
        -->
-      <cardPlanRecuperacion
+      <cardPlanRecuperacion v-if="verPlanRecuperacionEmo"
         :incidenteId ="incidenteIdPE"
         :archivoId ="seguimiento.planrecuperacion_docto"
         :nombreDelArchivo="data_planrecuperacion_docto.nombreOriginal"
@@ -292,6 +182,56 @@ SE CUENTA CON EL LLENADO DEL ACTA DE VALORACION DEL/DE LOS INCIDENTES
     <!-- =============================================== -->
 
     <br>
+       <br>
+    
+    <CardInformaPatronato v-if="verInformaPatronato">
+    </CardInformaPatronato>
+  
+    
+   <br>
+     
+     <CardInformeRegional v-if="verInformaRegional">
+
+     </CardInformeRegional>
+
+   <br>
+   <cardNotificacionDIF v-if="verNotificacionDIF"
+
+        :incidenteId ="incidenteIdPE"
+        :archivoId ="seguimiento.notificaciondif_docto"
+        :nombreDelArchivo="data_notificaciondif_docto.nombreOriginal"
+        :sihayarchivo="data_notificaciondif_docto.hayArchivo"
+        :valorcombo="seguimiento.notificaciondif"
+   >
+   </cardNotificacionDIF>
+   <br>
+   <!-- =============================================== -->
+
+ 
+  <cardAsesoriaLegal v-if="verAsesoriaLegal">
+
+  </cardAsesoriaLegal>
+   <br>
+
+   <cardAsesoriaEmocional v-if="verAsesoriaEmocional">
+
+   </cardAsesoriaEmocional>
+
+
+  
+<br>
+
+  <!-- <cardNotificacionAutoridad v-if="esDenuncia"
+        :incidenteId ="incidenteIdPE"
+        :archivoId ="seguimiento.notificacionautoridad_docto"
+        :nombreDelArchivo="data_notificacionautoridad_docto.nombreOriginal"
+        :sihayarchivo="data_notificacionautoridad_docto.hayArchivo"
+        :valorcombo="seguimiento.notificacionautoridad"
+    >
+   </cardNotificacionAutoridad>
+   <br>
+
+  -->
     <v-alert :type="tipoalerta">
        {{mensaje}}
     </v-alert>
@@ -362,9 +302,9 @@ import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
 
 
 export default {
-  components: {     
-    //cardProtocoloComponente,  
-     BarraDeNavegacion,          
+   components: {     
+   //cardProtocoloComponente,  
+   BarraDeNavegacion,          
    // textAreaRegistroDelEstatus : () => import('@/components/etapasComponentesSeguimiento/textAreaRegistroDelEstatus.vue'),
    // cardPlanEnEjecucion :()=> import('@/components/etapasComponentesSeguimiento/cardPlanEnEjecucion.vue'),
   CardDenunciaPresentada :()=> import('@/components/etapasComponentesSeguimiento/CardDenunciaPresentada.vue'),
@@ -373,18 +313,130 @@ export default {
   cardAsesoriaLegal    :()=> import('@/components/etapasComponentesSeguimiento/CardAsesoriaLegal.vue'),
   cardAsesoriaEmocional :()=>import('@/components/etapasComponentesSeguimiento/CardAsesoriaEmocional.vue'),
   cardInformeRegional :()=> import('@/components/etapasComponentesSeguimiento/CardInformeRegional.vue'),
- CardMedidasDisciplinarias :()=> import('@/components/etapasComponentesSeguimiento/CardMedidasDisciplinarias.vue'),
+  CardMedidasDisciplinarias :()=> import('@/components/etapasComponentesSeguimiento/CardMedidasDisciplinarias.vue'),
   cardNotificacionDIF :()=> import('@/components/etapasComponentesSeguimiento/cardNotificacionDIF.vue'),
-    cardNotificacionAutoridad :()=> import('@/components/etapasComponentesSeguimiento/cardNotificacionAutoridad.vue'),
-    cardNotificacionPFN  :()=> import('@/components/etapasComponentesSeguimiento/cardNotificacionPFN.vue'),
-    cardNotificacionPersona :() => import('@/components/etapasComponentesSeguimiento/cardNotificacionPersona.vue'),
-    cardActaDeValoracion :() => import('@/components/etapasComponentesSeguimiento/cardActaDeValoracion.vue'),
-    cardPlanRecuperacion :() => import('@/components/etapasComponentesSeguimiento/cardPlanRecuperacion.vue'),
-   CardActaDeHechos :() => import('@/components/etapasComponentesSeguimiento/CardActaDeHechos.vue'),
-   // cardDocumentosOficiales:() => import('@/components/etapasComponentesSeguimiento/cardDocumentosOficiales.vue')
+  //cardNotificacionAutoridad :()=> import('@/components/etapasComponentesSeguimiento/cardNotificacionAutoridad.vue'),
+  cardNotificacionPFN  :()=> import('@/components/etapasComponentesSeguimiento/cardNotificacionPFN.vue'),
+  cardNotificacionPersona :() => import('@/components/etapasComponentesSeguimiento/cardNotificacionPersona.vue'),
+  //cardActaDeValoracion :() => import('@/components/etapasComponentesSeguimiento/cardActaDeValoracion.vue'),
+  cardPlanRecuperacion :() => import('@/components/etapasComponentesSeguimiento/cardPlanRecuperacion.vue'),
+  CardActaDeHechos :() => import('@/components/etapasComponentesSeguimiento/CardActaDeHechos.vue'),
+  // cardDocumentosOficiales:() => import('@/components/etapasComponentesSeguimiento/cardDocumentosOficiales.vue')
 
   },
 
+
+  data() {
+    return {
+
+      /********************************************
+      VARIABLES PARA OCULTAR/MOSTRAR LOS COMPONENTES
+      SEGUN SEA EL TIPO DE RESPUESTA
+      ******************************************** */
+
+      verConsensoNacional         :false,
+      verMedidasDisciplinarias    : false,
+      verActaDeHechos             : false,
+      verDenunciaPresentada       : false,
+      verInformaPatronato         : false,
+      verInformaRegional          : false,
+      verNotificacionDIF          : false,
+      verAsesoriaLegal            : false,
+      verAsesoriaEmocional        : false,
+      verNotificacionPFN          : false ,
+      verNotificacionPD           : false,
+      verPlanRecuperacionEmo      : false,
+
+      /************************************************ */
+
+     
+     /*************************************************
+     LA VARIABLE OCULTA/MUESTRA LA ANIMACION DE CARGAR 
+     DE LA PAGINA 
+     **************************************************/
+      overlay : false,
+      /************************************************/
+
+
+     /*************************************************
+     LA VARIABLE RECIBE EL VALOR DEL FOLIO DEL INCIDENTE
+     **************************************************/
+       folio :'sin asignar',
+    
+    /**************************************************/
+
+
+
+      tipoalerta : '',
+      mensaje : '',
+      errores : 0,
+      tipoderespuesta : '',
+      esDenuncia : false,
+      verDenuncia_o_investigacion : false,
+
+      data_plan_docto : [],
+      data_planrecuperacion_docto: [],
+      data_notificacionpfn_docto: [],
+      data_notificaciondif_docto: [],
+      data_notificacionautoridad_docto: [],
+      data_notificaciondenunciante_docto: [],
+      data_documento_docto: [],
+      data_actavaloracion_docto: [],
+
+      seguimiento:[],
+
+      incidenteId:'',
+     
+      incidenteIdPE :"",
+
+      archivoIdPE : "",
+      nombreDelArchivoPE : "",
+      sihayarchivoPE: "",
+      planenejecucion: "",
+
+
+     
+      loading : false,
+
+      registroDelStatus: "",
+      planrecuperacion: "",
+    
+      doctooficial: "",
+
+      notificaciondif: "",
+
+      notificacionautoridad: "",
+
+      notificacionpfn: "",
+
+      notificaciondenunciante: "",
+
+      adulto: false,
+
+      pares: false,
+
+      itemsOpciones: ["SI", "NO", "POR CONFIRMAR"],
+
+      itemsUnidades: ["Unidad SOS Tijuana", "Unidad SOS CDMX"],
+
+      itemsCargos: ["Cuidador", "Mamá SOS", "Papá SOS"],
+      itemsFamilia: [
+        "Papá",
+        "Mamá",
+        "Hermano",
+        "Hermana",
+        "Padrastro",
+        "Madrastra",
+        "Tio",
+      ],
+
+      perfilAgresor: null,
+
+      date: new Date().toISOString().substr(0, 10),
+
+      menu2: false,
+    };
+  },
   
   computed: {
     generarFolio() {
@@ -608,14 +660,10 @@ export default {
     /***
     
     
-     */
-    cargarSeguimientos(){
-      /*
-       Este id es el id del incidendte
-       lo debemos de buscar en la tabla de idseguimiento
+       */
 
-      */
-     
+    cargarSeguimientos(){
+
       let id = this.$route.params.id;
       this.incidenteIdPE = id;
 
@@ -623,191 +671,58 @@ export default {
 
       let  datos = seguimientoEtapa.cargarDatosSeguimiento(id,this.$store);
 
-      datos.then( response => {
 
-      this.folio = response.data[0]["folio"];
-      //setear el valor del filio para reporte de impresion 
-      this.$store.dispatch("action_folio",this.folio);
-      
-      this.incidenteId =response.data[0]["incidenteid"];
-      /* *******************************************************/
+      datos.then(
 
-      this.tipoderespuesta = response.data[0]["tipoderespuesta"];
-
-      this.tipoderespuesta == 'DENUNCIA LEGAL' ? this.esDenuncia=true : this.esDenuncia =false;
-      
-      //si se muestra o no 
-    /*  this.tipoderespuesta== 'DENUNCIA PENAL' ? this.verDenuncia_o_investigacion= true 
-      : this.tipoderespuesta == 'INVESTIGACION INTERNA' ? this.verDenuncia_o_investigacion= true 
-      : this.verDenuncia_o_investigacion= false;
-      
-      console.log(" tipoderespuesta >> " + this.tipoderespuesta);
-      
-      console.log(" verDenuncia_o_investigacion >> " + this.verDenuncia_o_investigacion);*/
-      
-      /* *******************************************************/
-      this.seguimiento = response.data[0];
-
-      seguimientoEtapa.asignarVariablesGLobales( this.seguimiento ,this.$store );
-
-      /******************** 
-
-       */
-
-       /******************
-
-       console.log(this.seguimiento.plan_docto);
-       console.log(this.seguimiento.planrecuperacion_docto);
-       console.log(this.seguimiento.notificacionpfn_docto);
-       console.log(this.seguimiento.notificaciondif_docto);
-       console.log(this.seguimiento.notificacionautoridad_docto);
-       console.log(this.seguimiento.notificaciondenunciante_docto);
-       console.log(this.seguimiento.documentos_docto);
-       console.log(this.seguimiento.actavaloracion_docto);
-      */
-
-
-      // let archivo_plan_docto = apiArchivos.conseguirArchivo(this.seguimiento.plan_docto, this.$store.state);
-       let archivo_planrecuperacion_docto = apiArchivos.conseguirArchivo(this.seguimiento.planrecuperacion_docto, this.$store.state);
-       let archivo_notificacionpfn_docto = apiArchivos.conseguirArchivo(this.seguimiento.notificacionpfn_docto, this.$store.state);
-       let archivo_notificaciondif_docto = apiArchivos.conseguirArchivo(this.seguimiento.notificaciondif_docto, this.$store.state);
-       let archivo_notificacionautoridad_docto = apiArchivos.conseguirArchivo(this.seguimiento.notificacionautoridad_docto, this.$store.state);
-       let archivo_notificaciondenunciante_docto = apiArchivos.conseguirArchivo(this.seguimiento.notificaciondenunciante_docto, this.$store.state);
-       //let archivo_documentos_docto = apiArchivos.conseguirArchivo(this.seguimiento.documentos_docto, this.$store.state);
-       let archivo_actavaloracion_docto = apiArchivos.conseguirArchivo(this.seguimiento.actavaloracion_docto, this.$store.state);
-       
-
-
-
-       /* --------------------------------------------------------------- */
-       /*archivo_plan_docto.then(
-         response => {
-           //console.log("archivo_plan_docto :" + JSON.stringify(response.data));
-
-           this.data_plan_docto = this.checkArray(  response.data[0]);
-          
-          this.$store.dispatch('action_seguimiento_plan_docto_nombre', this.data_plan_docto['nombreOriginal']);
- 
-         }
-       ).catch(
-         error=> {
-           console.log(" error " + JSON.stringify(error.data));
-         }
-       );*/
-       /* --------------------------------------------------------------- */
-       archivo_planrecuperacion_docto.then(
-         response => {
-           //console.log("archivo_planrecuperacion_docto :" + JSON.stringify(response.data));
-          // this.data_planrecuperacion_docto = response.data[0];
-            this.data_planrecuperacion_docto = this.checkArray(   response.data[0] );
-             this.$store.dispatch('action_seguimiento_planrecuperacion_docto_nombre', this.data_planrecuperacion_docto['nombreOriginal']);
-
-        }
-       ).catch(
-         error=> {
-           console.log(" error " + JSON.stringify(error.data));
-         }
-       );
-       /* --------------------------------------------------------------- */
-       archivo_notificacionpfn_docto.then(
-         response => {
-          // console.log("archivo_planrecuperacion_docto :" + JSON.stringify(response.data));
-        // this.data_notificacionpfn_docto = response.data[0];
-          this.data_notificacionpfn_docto  =  this.checkArray(  response.data[0] );
-         
-           this.$store.dispatch('action_seguimiento_notificacionpfn_docto_nombre', this.data_notificacionpfn_docto['nombreOriginal']);
-
-         }
-       ).catch(
-         error=> {
-           console.log(" error " + JSON.stringify(error.data));
-         }
-       );
-       /* --------------------------------------------------------------- */
-       archivo_notificaciondif_docto.then(
-         response => {
-          // console.log("archivo_notificaciondif_docto :" + JSON.stringify(response.data));
-        //  this.data_notificaciondif_docto =response.data[0];
-         this.data_notificaciondif_docto =  this.checkArray(   response.data[0] );
-         this.$store.dispatch('action_seguimiento_notificaciondif_docto_nombre', this.data_notificaciondif_docto['nombreOriginal']);
-
-        }
-       ).catch(
-         error=> {
-           console.log(" error " + JSON.stringify(error.data));
-         }
-       );
-       /* --------------------------------------------------------------- */
-       archivo_notificacionautoridad_docto.then(
-         response => {
-         //  console.log("archivo_notificacionautoridad_docto :" + JSON.stringify(response.data));
-         //this.data_notificacionautoridad_docto = response.data[0];
-            this.data_notificacionautoridad_docto =this.checkArray(   response.data[0] );
-               this.$store.dispatch('action_seguimiento_notificacionautoridad_docto_nombre', this.data_notificacionautoridad_docto['nombreOriginal']);
+        response => {
 
         
-       }
-       ).catch(
-         error=> {
-           console.log(" error " + JSON.stringify(error.data));
-         }
-       );
-       /* --------------------------------------------------------------- */
-       archivo_notificaciondenunciante_docto.then(
-         response => {
-         //  console.log("archivo_notificaciondenunciante_docto :" + JSON.stringify(response.data));
-      // this.data_notificaciondenunciante_docto = response.data[0];
-         this.data_notificaciondenunciante_docto = this.checkArray(  response.data[0] );
-          this.$store.dispatch('action_seguimiento_notificaciodenunciante_docto_nombre', this.data_notificaciondenunciante_docto['nombreOriginal']);
+          typeof apiArchivos;
+          console.log(response.data);
+          console.log(response.data.msg);
+          console.log(response.data.respuesta.folio);
+          console.log(" Tipo de Respuesta " +  response.data.respuesta.tipoderespuesta);
+      
+          this.folio =response.data.respuesta.folio;
+         //setear el valor del filio para reporte de impresion 
+         this.$store.dispatch("action_folio",this.folio);
+      
+         this.incidenteId =response.data.respuesta.incidenteid;
+        /* *******************************************************/
 
-       }
-       ).catch(
-         error=> {
-           console.log(" error " + JSON.stringify(error.data));
-         }
-       );
-       /* --------------------------------------------------------------- */
-      /* archivo_documentos_docto.then(
-         response => {
-           //console.log("archivo_documentos_docto :" + JSON.stringify(response.data));
-     
-          // this.data_documento_docto= response.data[0];
-             this.data_documento_docto =  this.checkArray(   response.data[0] );
-              this.$store.dispatch('action_seguimiento_documentos_docto_nombre', this.data_documento_docto['nombreOriginal']);
+         this.tipoderespuesta = response.data.respuesta.tipoderespuesta;
 
-      }
-       ).catch(
-         error=> {
-           console.log(" error " + JSON.stringify(error.data));
-         }
-       );*/
-       /* --------------------------------------------------------------- */
-       archivo_actavaloracion_docto.then(
-         response => {
-          //console.log("archivo_actavaloracion_docto :" + JSON.stringify(response.data));
-         
-        // this.data_actavaloracion_docto = response.data[0];
-            this.data_actavaloracion_docto = this.checkArray(  response.data[0] );
-              this.$store.dispatch('action_seguimiento_actavaloracion_docto_nombre', this.data_actavaloracion_docto['nombreOriginal']);
+        //this.tipoderespuesta == 'DENUNCIA LEGAL' ? this.esDenuncia=true : this.esDenuncia =false;
+         this.seguimiento =response.data.respuesta;
+         seguimientoEtapa.asignarVariablesGLobales( this.seguimiento ,this.$store );
+
+        /***************************************************************
+        CON ESTO DECIDIMOS QUE COMPONENTES MOSTRAR SEGUN EL TIPO DE
+        RESPUESTA   #ocultar     
+        **************************************************************** */
+  
+        if ( this.tipoderespuesta == 'DENUNCIA LEGAL'){
+            
+            this.verConsensoNacional       = true ;
+            this.verMedidasDisciplinarias  = true ;
+            this.verDenunciaPresentada     = true ;
+            this.verNotificacionPFN        = true ;
+            this.verNotificacionPD         = true ;
+            this.verActaDeHechos           = true ;
+            this.verPlanRecuperacionEmo    = true ;
+
 
         }
-       ).catch(
-         error=> {
-           console.log(" error " + JSON.stringify(error.data));
-         }
-       );
-       /*===================================================================*/
+         this.overlay= false;
 
-      }).catch( error => {
-              console.log(error);
-      });
-
-       this.overlay= false;
-
-    }//termina de cargar seguimientos
+        }
+      );//termina then 
 
 
+    },// termina funcion
   },
+
+   
 
   mounted(){
 
@@ -818,7 +733,7 @@ export default {
   // tiene que regresar despues de estar en imp
   // siones
   ////////////////////////////////////////////
-     let ruta_A_regresar  = '/seguimiento';
+    let ruta_A_regresar  = '/seguimiento';
     console.log("ruta_A_regresar : " + ruta_A_regresar);
     this.$store.dispatch("action_regresar_A_despues_de_impresion",ruta_A_regresar);
   /////////////////////////////////////////////
@@ -828,80 +743,6 @@ export default {
   },
 
 
-
-  data() {
-    return {
-      overlay : false,
-      tipoalerta : '',
-      mensaje : '',
-      errores : 0,
-      tipoderespuesta : '',
-      esDenuncia : false,
-      verDenuncia_o_investigacion : false,
-
-      data_plan_docto : [],
-      data_planrecuperacion_docto: [],
-      data_notificacionpfn_docto: [],
-      data_notificaciondif_docto: [],
-      data_notificacionautoridad_docto: [],
-      data_notificaciondenunciante_docto: [],
-      data_documento_docto: [],
-      data_actavaloracion_docto: [],
-
-      seguimiento:[],
-
-      incidenteId:'',
-     
-      incidenteIdPE :"",
-
-      archivoIdPE : "",
-      nombreDelArchivoPE : "",
-      sihayarchivoPE: "",
-      planenejecucion: "",
-
-
-      folio :'sin asignar',
-      loading : false,
-
-      registroDelStatus: "",
-      planrecuperacion: "",
-    
-      doctooficial: "",
-
-      notificaciondif: "",
-
-      notificacionautoridad: "",
-
-      notificacionpfn: "",
-
-      notificaciondenunciante: "",
-
-      adulto: false,
-
-      pares: false,
-
-      itemsOpciones: ["SI", "NO", "POR CONFIRMAR"],
-
-      itemsUnidades: ["Unidad SOS Tijuana", "Unidad SOS CDMX"],
-
-      itemsCargos: ["Cuidador", "Mamá SOS", "Papá SOS"],
-      itemsFamilia: [
-        "Papá",
-        "Mamá",
-        "Hermano",
-        "Hermana",
-        "Padrastro",
-        "Madrastra",
-        "Tio",
-      ],
-
-      perfilAgresor: null,
-
-      date: new Date().toISOString().substr(0, 10),
-
-      menu2: false,
-    };
-  },
 };
 </script>
 

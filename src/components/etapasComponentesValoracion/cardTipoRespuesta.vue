@@ -47,10 +47,10 @@ export default {
   },
   data() {
     return {
-      
+     // "INVESTIGACION INTERNA",
       itemsOpciones: [
         "DENUNCIA LEGAL",
-        "INVESTIGACION INTERNA",
+        
         "ABORDAJE INTERNO",
       ],
       seleccionDP: "",

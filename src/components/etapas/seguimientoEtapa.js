@@ -17,29 +17,84 @@ export default {
 
     asignarVariablesGLobales(datos,store){
 
-            console.log('datos   ');
+                     /*
+                     incidente, folio ,tipoderespuesta
+                      'estatus_consenso'                => $estatusConsenso ,
+                      'estatus_medidas'                 => $estatusMedidas,
+                      'estatus_denuncia'                => $estatusDenunciaPresentada,
+                      'estatus_notificacionpfn'         => $estatus_notificacionpfn,
+                      'estatus_notificaciondenunciante' => $estatus_notificaciondenunciante,
+                      'estatus_planrecuperacion'        => $estatus_planrecuperacion,
+                      'id_consensodocto'                => $idDocumentoConsenso,
+                      'id_denunciadocto'                => $idDenuciaPresentada,
+                      'id_medidasdocto'                 => $idmedidasdisciplinarias,
+                      'id_Notificacionpfn'              => $idNotificacionpfn,
+                      'id_NotificacionDenunciante'      => $idNotificacionDenunciante,
+                      'id_NotificacionPlan'             => $idNotificacionPlan,
+                      'id_ActaHechos'                   => $idActavaloracion,
+                      'id_ActaHechos'                   => $idActaHechos
 
-            console.log(datos);
+
+                        */
+
+            //console.log('datos   ');
+
+           // console.log(datos);
 
             // APLICAR PARSE? POR QUE DATOS ES UN OBJETO.
+
             console.log('datos.seguimiento_incidenteid');
             console.log(datos.incidenteid) ;
-           
             store.dispatch("setear_Incidente",datos.incidenteid);
 
-            console.log("atos.protocolosos : " + datos.incidenteid) ;
-            let datos_protocolosos = JSON.stringify(datos.protocolosos) ;
-            store.dispatch('action_protocolosos'    ,  datos_protocolosos );
+           // console.log("atos.protocolosos : " + datos.incidenteid) ;
+            //let datos_protocolosos = JSON.stringify(datos.protocolosos) ;
+            //store.dispatch('action_protocolosos'    ,  datos_protocolosos );
 
            let datos_incidenteid = JSON.stringify(datos.incidenteid);
-           let datos_status = JSON.stringify(datos.status) ;
+           //let datos_status = JSON.stringify(datos.status) ;
            let datos_plan = JSON.stringify(datos.plan) ;
             store.dispatch('action_incidenteid', datos_incidenteid) ;
-            store.dispatch('action_status',datos_status ) ;
+           // store.dispatch('action_status',datos_status ) ;
             store.dispatch('action_plan',datos_plan ) ;
+             
+            store.dispatch('action_seguimiento_tipoderespuesta',datos.tipoderespuesta ) ;
+              
+            store.dispatch('action_seguimiento_estatus_consenso',datos.estatus_consenso ) ;
+
+            store.dispatch('action_seguimiento_estatus_medidas',datos.estatus_medidas ) ;
+
+            store.dispatch('action_seguimiento_estatus_denuncia',datos.estatus_denuncia ) ;
+
+            store.dispatch('action_seguimiento_estatus_notificacionpfn',datos.estatus_notificacionpfn ) ;
+
+            store.dispatch('action_seguimiento_estatus_notificaciondenunciante',datos.estatus_notificaciondenunciante ) ;
+
+            store.dispatch('action_seguimiento_estatus_planrecuperacion',datos.estatus_palnrecuperacion ) ;
+        
+            store.dispatch('action_seguimiento_id_consensodocto',datos.id_consensodocto ) ;
+           
+            store.dispatch('action_seguimiento_id_denunciadocto',datos.id_denunciadocto ) ;
+
+            store.dispatch('action_seguimiento_id_medidasdocto',datos.id_medidasdocto ) ;
+       
+            store.dispatch('action_seguimiento_id_Notificacionpfn',datos.id_Notificacionpfn ) ;
+       
+            store.dispatch('action_seguimiento_id_NotificacionDenunciante',datos.NotificacionDenunciante ) ;
+       
+            store.dispatch('action_seguimiento_id_ActaHechos',datos.id_ActaHechos ) ;
+         
+            store.dispatch('action_seguimiento_id_ActaValoracion',datos.id_ActaValoracion ) ;
+          
+          
+            /*
+               
+      
+
+            */
 
 
-            let datos_documentos = JSON.stringify(datos.documentos);
+          /*  let datos_documentos = JSON.stringify(datos.documentos);
             let datos_notificaciondif = JSON.stringify(datos.notificaciondif) ;
             let datos_notificacionautoridad = JSON.stringify(datos.notificacionautoridad) ;
             store.dispatch('action_documentos', datos_documentos ) ;
@@ -80,8 +135,42 @@ export default {
             store.dispatch('action_notificaciodenunciante_docto' ,  datos_notificaciondenunciante_docto  ); 
             store.dispatch('action_planrecuperacion_docto'    ,  datos_planrecuperacion_docto) ;
             store.dispatch('action_plan_docto'    ,  datos_plan_docto );
+            */
 
-           
+            /*
+
+               action_seguimiento_tipoderespuesta
+       
+                action_seguimiento_estatus_consenso
+        
+                action_seguimiento_estatus_medidas
+        
+                action_seguimiento_estatus_denuncia
+        
+                action_seguimiento_estatus_notificacionpfn
+        
+                action_seguimiento_estatus_notificaciondenunciante
+
+                action_seguimiento_estatus_planrecuperacion        
+        
+                action_seguimiento_id_consensodocto        
+        
+                action_seguimiento_id_denunciadocto       
+                
+                action_seguimiento_id_medidasdocto
+                
+                action_seguimiento_id_Notificacionpfn
+        
+                action_seguimiento_id_NotificacionDenunciante
+        
+                action_seguimiento_id_NotificacionPlan
+        
+                action_seguimiento_id_ActaHechos
+        
+                action_seguimiento_id_ActaValoracion
+      
+
+            */
 
     }
   /*

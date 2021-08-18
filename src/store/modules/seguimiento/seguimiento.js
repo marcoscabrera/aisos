@@ -36,6 +36,43 @@ import actions from './actions.js';
         seguimiento_notificaciondif_docto_nombre      :null,
         seguimiento_notificacionautoridad_docto_nombre:null,
         seguimiento_notificacionpfn_docto_nombre      :null,
-     },   
-     mutations,
-      actions               }
+
+        /*
+        Se agregan los nuevos elementos,
+        estos surgen por la modifiaciones de seguimiento
+        que practicamente se ha covertido en una vista dinamica
+        mas que una sola tabla.
+        */
+         seguimiento_tipoderespuesta : null,
+
+         estatus_consenso   : null,
+
+         estatus_medidas   : null,
+
+         estatus_denuncia  : null,
+
+         estatus_notificacionpfn  : null,
+
+         estatus_notificaciondenunciante : null,
+
+         estatus_planrecuperacion : null,
+
+         id_consensodocto : '0',
+
+         id_denunciadocto : '0',
+
+         id_medidasdocto  : '0',
+
+         id_Notificacionpfn  : '0',
+
+         id_NotificacionDenunciante : '0',
+
+         id_NotificacionPlan   : '0',
+
+         id_ActaHechos    : '0',
+         
+         id_ActaValoracion : '0'
+
+ }, 
+        mutations, actions 
+   }

@@ -5,7 +5,7 @@
           <v-row>
             <v-col cols="12" xs="12" sm="6" md="6">
               <v-select
-                :value="valorcombo"
+                :value="this.$store.state.seguimiento.estatus_notificacionpfn"
                 :item-value="valorcombo"
                 :items="itemsOpciones"
                 label="PROGRAMA"
@@ -17,19 +17,12 @@
             </v-col>
             <v-col cols="12" xs="12" sm="6" md="6">
              <!-- aqui va fileupload -->
-                <uploadFile2 
-                :mostrarMensajeValidacion ="this.$store.state.uivars.uivars_error_seguimiento_seguimiento_notificacionpfn_docto"
-          
-                directorio="/uploads/seguimiento"
-                :HayArchivo ="sihayarchivo"
-                
-                :nombreArchivo = "nombreDelArchivo"
-                :incidenteid ="incidenteId"
-                :archivoId="archivoId"
-                action_a_Ejecutar="action_notificacionpfn_docto"
-                modulo="seguimiento"
-                campoState="seguimiento_notificacionpfn_docto">
-                </uploadFile2> 
+
+                <uploadFile4 v-if="verCombo"
+                   :archivoId ="this.$store.state.seguimiento.id_Notificacionpfn"
+                   action_a_Ejecutar ="action_seguimiento_id_Notificacionpfn">      
+                </uploadFile4> 
+
             </v-col>
           </v-row>
         </v-card-text>
@@ -56,7 +49,7 @@ export default {
 
       components : {
            
-           uploadFile2 : () => import('@/components/manipulacionArchivos/uploadFile2.vue')
+           uploadFile4 : () => import('@/components/manipulacionArchivos/uploadFile4.vue')
 
       },
 
@@ -64,13 +57,16 @@ export default {
 
           return {
                itemsOpciones: ["SI", "NO", "POR CONFIRMAR"],
+               verCombo : true
           }
       },
 
       methods : {
          asignarValor(event){
 
-            this.$store.dispatch("action_notificacionpfn", event);
+             event == "SI" ? this.verCombo = true : this.verCombo = false;
+
+            this.$store.dispatch("action_seguimiento_estatus_notificacionpfn", event);
          }
       }
 

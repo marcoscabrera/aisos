@@ -1,12 +1,12 @@
 <template>
       <v-card width="100%">
-        <v-card-title>   SE CUENTA CON EL LLENADO DEL ACTA DE HECHOS 
+        <v-card-title>    ACTA DE HECHOS Y ACTA DE VALORACION
  </v-card-title>
         <v-card-text>
           <v-row>
             <v-col cols="12" xs="12" sm="6" md="6">
-              <v-select
-                :value="valorcombo"
+              <!-- <v-select
+                :value="this.$store.state.seguimiento."
                 :item-value="valorcombo"
                 :items="itemsOpciones"
                 label="ACTA DE HECHOS"
@@ -14,10 +14,15 @@
                 filled
                 @change="asignarValor($event)"
               >
-              </v-select>
+              </v-select> -->
+
+              <uploadFile4
+               :archivoId ="this.$store.state.seguimiento.id_ActaHechos"
+                action_a_Ejecutar ="action_seguimiento_id_ActaHechos">
+              </uploadFile4>
             </v-col>
             <v-col cols="12" xs="12" sm="6" md="6">
-             <!-- aqui va fileupload -->
+             <!-- aqui va fileupload 
                 <uploadFile2 
                  :mostrarMensajeValidacion ="this.$store.state.uivars.uivars_error_seguimiento_seguimiento_actavaloracion_docto"
           
@@ -30,7 +35,13 @@
                 action_a_Ejecutar="action_actavaloracion_docto"
                 modulo="seguimiento"
                 campoState="seguimiento_actavaloracion_docto">
-                </uploadFile2> 
+                </uploadFile2> -->
+                
+                <uploadFile4
+                :archivoId ="this.$store.state.seguimiento.id_ActaValoracion"
+                action_a_Ejecutar ="action_seguimiento_id_ActaValoracion">
+              </uploadFile4>
+
             </v-col>
           </v-row>
         </v-card-text>
@@ -57,7 +68,7 @@ export default {
 
       components : {
            
-           uploadFile2 : () => import('@/components/manipulacionArchivos/uploadFile2.vue')
+           uploadFile4 : () => import('@/components/manipulacionArchivos/uploadFile4.vue')
 
       },
 
