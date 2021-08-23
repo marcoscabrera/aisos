@@ -185,7 +185,10 @@ mutation_seguimiento_notificacionpfn_docto_nombre( state, valor) {
 
             state.id_ActaValoracion    = valor;
     
-            }
+            },
+       
+        mutation_seguimiento_doctosCargados( state,valor)
+            {state.doctosCargados = valor; },
 
 
 }

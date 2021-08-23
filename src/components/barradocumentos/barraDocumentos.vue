@@ -69,7 +69,7 @@ import eventBus2 from '@/eventBus.js';
  
          props: {
            //El objeto que alberga la lista de documentos
-          files : Object,
+          files : Array,
           categoria : String
         },
 

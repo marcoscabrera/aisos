@@ -130,7 +130,10 @@
     </CardActaDeHechos>
 
    <br>
+   <cardActaDeValoracion v-if='verActaDeHechos'>
 
+   </cardActaDeValoracion>
+   <br>
    <!-- =============================================== -->
      <cardNotificacionPFN v-if ="verNotificacionPFN" >
      </cardNotificacionPFN>
@@ -300,6 +303,8 @@ import validacionSeguimiento from "@/components/etapas/validaciones/validacionSe
 //import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
 import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
 
+//import { mapState } from 'vuex';
+
 
 export default {
    components: {     
@@ -318,7 +323,7 @@ export default {
   //cardNotificacionAutoridad :()=> import('@/components/etapasComponentesSeguimiento/cardNotificacionAutoridad.vue'),
   cardNotificacionPFN  :()=> import('@/components/etapasComponentesSeguimiento/cardNotificacionPFN.vue'),
   cardNotificacionPersona :() => import('@/components/etapasComponentesSeguimiento/cardNotificacionPersona.vue'),
-  //cardActaDeValoracion :() => import('@/components/etapasComponentesSeguimiento/cardActaDeValoracion.vue'),
+  cardActaDeValoracion :() => import('@/components/etapasComponentesSeguimiento/cardActaDeValoracion.vue'),
   cardPlanRecuperacion :() => import('@/components/etapasComponentesSeguimiento/cardPlanRecuperacion.vue'),
   CardActaDeHechos :() => import('@/components/etapasComponentesSeguimiento/CardActaDeHechos.vue'),
   // cardDocumentosOficiales:() => import('@/components/etapasComponentesSeguimiento/cardDocumentosOficiales.vue')
@@ -363,7 +368,12 @@ export default {
      **************************************************/
        folio :'sin asignar',
     
-    /**************************************************/
+    /**************************************************
+      VARIABLE PARA OBSERVAR SI TODOS LOS DOCUMENTOS HAN
+      TERMINADO DE CARGARSE
+    **************************************************/
+
+       doctosListos : this.$store.state.seguimiento.doctosCargados,
 
 
 
@@ -439,9 +449,20 @@ export default {
   },
   
   computed: {
-    generarFolio() {
+    
+     generarFolio() {
       return "Folio # " + this.folio; 
     }
+  },
+
+  watch: {
+      
+      "$store.state.seguimiento.doctosCargados" : function(newValue,oldValue) {
+       typeof oldValue;
+       // console.log("Valor del nv: "        + newValue);
+       // console.log("valor del Old value :" + oldValue);
+       newValue == 8 ? this.overlay =false : this.overlay= true;
+      }
   },
 
   methods: {
@@ -497,10 +518,129 @@ export default {
       console.log(" Revisar Errores ");
     },
 
+
+
+   
+    guardarRegistro2() {
+          // 
+    
+    console.log(" Permiso EDITARDESEGUIMIENTO  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARDESEGUIMIENTO)             
+ 
+  if (this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARDESEGUIMIENTO=='SI'){
+
+     
+       this.loading = true;
+      //incidenteIdPE,
+
+      /*
+        
+
+            //nuevos parametros
+         incidenteid, folio ,tipoderespuesta
+        'estatus_consenso'                => $estatusConsenso ,
+        'estatus_medidas'                  => $estatusMedidas,
+        'estatus_denuncia'                => $estatusDenunciaPresentada,
+        'estatus_notificacionpfn'         => $estatus_notificacionpfn,
+        'estatus_notificaciondenunciante' => $estatus_notificaciondenunciante,
+        'estatus_planrecuperacion'        => $estatus_planrecuperacion,
+        'id_consensodocto'                => $idDocumentoConsenso,
+        'id_denunciadocto'                => $idDenuciaPresentada,
+        'id_medidasdocto'                 => $idmedidasdisciplinarias,
+        'id_Notificacionpfn'              => $idNotificacionpfn,
+        'id_NotificacionDenunciante'      => $idNotificacionDenunciante,
+        'id_NotificacionPlan'             => $idNotificacionPlan,
+        'id_Actavaloracion'               => $idActavaloracion,
+        'id_ActaHechos'                   => $idActaHechos
+
+      */
+     
+     let parametros = {
+
+        incidenteid                     :   this.incidenteIdPE,        
+        folio                           :   this.folio,
+        tipoderespuesta                 :   this.tipoderespuesta,
+        estatus_consenso                :   this.$store.state.seguimiento.estatus_consenso    ,           
+        estatus_medidas                 :   this.$store.state.seguimiento.estatus_medidas   ,          
+        estatus_denuncia                :   this.$store.state.seguimiento.estatus_denuncia  ,         
+        estatus_notificacionpfn         :   this.$store.state.seguimiento.estatus_notificacionpfn  ,  
+        estatus_notificaciondenunciante :   this.$store.state.seguimiento.estatus_notificaciondenunciante   ,
+        estatus_planrecuperacion        :   this.$store.state.seguimiento.estatus_planrecuperacion      ,
+        id_consensodocto                :   this.$store.state.seguimiento.id_consensodocto      ,
+        id_denunciadocto                :   this.$store.state.seguimiento.id_denunciadocto     , 
+        id_medidasdocto                 :   this.$store.state.seguimiento.id_medidasdocto      ,
+        id_Notificacionpfn              :   this.$store.state.seguimiento.id_Notificacionpfn      ,
+        id_NotificacionDenunciante      :   this.$store.state.seguimiento.id_NotificacionDenunciante    , 
+        id_NotificacionPlan             :   this.$store.state.seguimiento.id_NotificacionPlan     ,
+        id_Actavaloracion               :   this.$store.state.seguimiento.id_ActaValoracion     ,
+        id_ActaHechos                   :   this.$store.state.seguimiento.id_ActaHechos     ,
+     };
+
+      console.log(" parametros nuevo seguimiento " + JSON.stringify(parametros));
+
+      let update = seguimientoEtapa.updateSeguimiento(parametros, this.$store);
+
+      update.then(
+        response =>{
+          console.log( JSON.stringify(response.data));
+           console.log( 'actualizado seguimiento: ' + response.data.estado);
+          this.loading = false;
+
+          console.log("estado :: "  + response.data.estado );
+         
+          if (response.data.estado  =='abierto'){
+                   this.mensaje = 'La información ha sido guardada.';
+                   this.tipoalerta = 'warning';
+           }
+
+          if (response.data.estado=='cerrado'){
+                   this.mensaje = 'Este registro ha sido completado';
+                   this.tipoalerta = 'success';
+
+                /*******************************************************************
+                * Enviamos los correos para notificar a los usuarios que tienen 
+                * este permiso activo
+                 ****************************************************************/
+                  
+                  let correosRecibidos = response.data["correos"];
+                  console.log("Variable de correos");
+                  console.log(correosRecibidos);
+
+       
+                  
+                  this.$store.dispatch("action_notificacion_incidenteid",this.$store.state.seguimiento.seguimiento_incidenteid);
+                  this.$store.dispatch("action_notificacion_respuesta","seguimiento");
+                  let respuesta ="Se ha completado el llenado de seguimiento del folio  #" +  this.folio;
+                  this.$store.dispatch("action_notificacion_texto_respuesta",respuesta);                 
+                   
+
+                     console.log(" >>>>>>> valor  de parametro enviar correso : " + this.$store.state.uivars.uivars_parametros[6]["valor"] );
+      
+                       if (this.$store.state.uivars.uivars_parametros[6]["valor"]=='SI'){
+
+
+                          envioDeCorreos.enviarCorreos(correosRecibidos,this.folio,respuesta);                
+                       }
+                    this.$router.push({ name: "NotificacionRespuesta"});
+
+
+           }
+
+        }
+      ).catch(
+         error =>{
+          console.log( JSON.stringify(error.data));
+            this.loading = false;
+        }
+      );
+    }//cierra el if del permiso EDITARDESEGUIMIENTO
+
+    },
+
     guardarRegistro() {
           // 
-          console.log(" Permiso EDITARDESEGUIMIENTO  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARDESEGUIMIENTO)             
-     if (this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARDESEGUIMIENTO=='SI'){
+    
+   
+  if (this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARDESEGUIMIENTO=='SI'){
 
      
        this.loading = true;
@@ -525,6 +665,23 @@ export default {
             actavaloracion_docto       
             planrecuperacion_docto     
             plan_docto    
+
+            //nuevos parametros
+                   incidenteid, folio ,tipoderespuesta
+        'estatus_consenso'                => $estatusConsenso ,
+        'estatus_medidas'                  => $estatusMedidas,
+        'estatus_denuncia'                => $estatusDenunciaPresentada,
+        'estatus_notificacionpfn'         => $estatus_notificacionpfn,
+        'estatus_notificaciondenunciante' => $estatus_notificaciondenunciante,
+        'estatus_planrecuperacion'        => $estatus_planrecuperacion,
+        'id_consensodocto'                => $idDocumentoConsenso,
+        'id_denunciadocto'                => $idDenuciaPresentada,
+        'id_medidasdocto'                 => $idmedidasdisciplinarias,
+        'id_Notificacionpfn'              => $idNotificacionpfn,
+        'id_NotificacionDenunciante'      => $idNotificacionDenunciante,
+        'id_NotificacionPlan'             => $idNotificacionPlan,
+        'id_Actavaloracion'               => $idActavaloracion,
+        'id_ActaHechos'                   => $idActaHechos
 
       */
      
@@ -613,15 +770,18 @@ export default {
     },
 
     guardarSeguimiento(){
+      
        typeof validacionSeguimiento;
-      /* let resultadoValidacion = validacionSeguimiento.validacion_sePuedeCapturar(this.$store);
+     
 
-       resultadoValidacion > 0 ? this.revisarErrrores() : this.guardarRegistro();
-*/     
-      // validacionSeguimiento.validacion_sePuedeCapturar(this.$store);
-       this.guardarRegistro();
+      /*************************************************
+       *  SE ACTUALIZA PROCESO 
+       *************************************************/
+       this.guardarRegistro2();
      
     },
+
+
     guardar__iraDashboard() {
       this.$router.push("/dashboard");
     },
@@ -669,6 +829,16 @@ export default {
 
       console.log("valor de id en seguimiento " + id);
 
+      /***************************************************************************
+       * activamos el loading
+       **************************************************************************/
+       this.loading = true;
+      /****************************************************************************
+       * SETEAMOS A 0 EL VALOR BANDERA QUE INDICA QUE TODOS LOS DOCUEMNTOS
+       * SE HAN MOSTRADO YA EN LA PANTALLA
+       *++************************************************************************/
+         this.$store.dispatch("action_seguimiento_doctosCargados", 0);
+      /************************************************************************/
       let  datos = seguimientoEtapa.cargarDatosSeguimiento(id,this.$store);
 
 
@@ -713,11 +883,14 @@ export default {
 
 
         }
-         this.overlay= false;
+         //this.overlay= false;
 
         }
-      );//termina then 
-
+      )//termina then 
+      .catch( error => {
+            this.overlay = false;
+            console.log(" error :" + error);
+      });
 
     },// termina funcion
   },

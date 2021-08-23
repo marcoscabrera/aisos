@@ -223,7 +223,7 @@
                </uploadFile3>  -->
 
 
-               <uploadFile4
+               <uploadFile4 v.if="verActaDeHechos"
                  :archivoId ="this.$store.state.incidentes.etapainicial_actavaloracion_docto"
                  action_a_Ejecutar ="action_etapainicial_actavaloracion_docto"
                >
@@ -430,7 +430,7 @@ import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
 import eventBus from '@/eventBus.js';
 //import eventBus2 from '@/eventBus.js';
 //import uploadFile3 from '@/components/manipulacionArchivos/uploadFIle3.vue';
-import uploadFile4 from '@/components/manipulacionArchivos/uploadFile4.vue';
+//import uploadFile4 from '@/components/manipulacionArchivos/uploadFile4.vue';
 import apidoctosapoyo from '@/apialdeas/apiDoctosApoyo.js';
 
 ////////////////////////////////////////////////
@@ -460,7 +460,7 @@ export default {
     textareaTestigos,
     BarraDeNavegacion,
     ////uploadFile3,
-    uploadFile4
+    uploadFile4 : ()  => import("@/components/manipulacionArchivos/uploadFile4.vue")
    
 
   },
@@ -469,6 +469,25 @@ export default {
     generarFolio() {
       return "Folio # " + this.folio; 
     }
+  },
+
+  watch :{
+
+    "$store.state.incidentes.etapainicial_actavaloracion_docto": function() {
+       
+       /* Observamos el valor de esta variable, que guarda el valor del documento 
+       de acta de hechos */
+        
+        console.log("monitoreando el valor de $store.state.incidentes.etapainicial_actavaloracion_docto " + this.$store.state.incidentes.etapainicial_actavaloracion_docto);
+       /* Para mostrar el componente uploadFile4 */
+       eventBus.$emit('cargarArchivo_con_id',this.$store.state.incidentes.etapainicial_actavaloracion_docto);
+       this.verActaDeHechos = true;
+
+
+
+    }
+
+
   },
 
   methods: {
@@ -622,12 +641,6 @@ export default {
      }//termina if del pedido
     },
 
-
-
-
-
-
-
     guardar__iraDashboard() {
       this.$router.push("/dashboard");
     },
@@ -774,7 +787,7 @@ const  {
       etapainicial_medidasproteccion,
       etapainicial_incidenteconfirmado,
       etapainicial_testigos,
-      etapainicial_actavaloracion} =this.$store.state.incidentes;
+      etapainicial_actavaloracion_docto} =this.$store.state.incidentes;
      
       /* usuario creador es el usuario logueado. */
       var etapa = 1;
@@ -812,7 +825,7 @@ const  {
         coloretapados: "yellow",
         coloretapatres: "yellow",
         coloretapacuatro: "yellow",
-        actavaloracion :etapainicial_actavaloracion
+        actavaloracion_docto :etapainicial_actavaloracion_docto
       };
 
       console.log("== valores del incidente ==");
@@ -1030,7 +1043,8 @@ const  {
 
     //********************************** */
 
-        asignarAVariablesValoresDeConsulta2(respuesta) {
+  asignarAVariablesValoresDeConsulta2(respuesta) {
+
     //mostramos el programa y la fecha.
     this.estamosActualizando=true;
     //ocultamos los programas y el seleccionador de fecha
@@ -1056,10 +1070,6 @@ const  {
       }
       /********************* */
 
-
-     // let nombrePrograma = a.nombreprograma;
-     // console.log("nombre programa " + nombrePrograma);
-
       this.usuarioCreador = a.usuarioCreador;
 
       
@@ -1082,18 +1092,10 @@ const  {
       this.date = a.fechaAlta;
       this.programaSeleccionado = a.programa;
       this.nombrePrograma = a.nombreprograma;
-      console.log("nombre programa " + this.nombrePrograma);
+       console.log("nombre programa " + this.nombrePrograma);
       /************************ */
-
-      /*************************************************************************
-       *  se asigna el valor del campo del docto para
-       *************************************************************************************/
-        //eventBus.$emit('cargarArchivo',a["actavaloracion"] );
-       /*************************************************************************************/
-  
-      this.$store.dispatch("action_etapainicial_actavaloracion_docto",a.actavaloracion_docto);
-
       this.involucrados = a.involucrados;
+      /*------------------------------------------------------------*/
 
      // console.log(this.involucrados);
 
@@ -1119,28 +1121,26 @@ const  {
 
       this.testigos = a.testigos;
 
-     this.incidenteconfirmado = a.incidenteconfirmado;
-
-
-     //console.log("que variable es files : ") ;
-
-     //let x = typeof this.files;
-
-     //console.log(x);
-
-      
-   
-
+      this.incidenteconfirmado = a.incidenteconfirmado;
       this.perfilvictima = a.perfilvictima;
 
       this.recibeayuda = a.recibeayuda;
 
-     // console.log( " perfil victiam " + this.perfilvictima) ;
-       //console.log( " perfil recibeayuda " + this.recibeayuda) ;
+       /*************************************************************************
+       *  se asigna el valor del campo del docto para
+       *************************************************************************************/
+      this.$store.dispatch("action_etapainicial_actavaloracion_docto",a.actavaloracion_docto);
+      this.verActaDeHechos = true;     
+      eventBus.$emit('cargarArchivo_con_id');
+       /*************************************************************************************/
+  
 
-       this.setearValores_para_impresion();
+
+     this.setearValores_para_impresion();
      
-    },
+    }, //termina funcioin
+
+
 
    /******************************* */
     asignarAVariablesValoresDeConsulta(respuesta) {
@@ -1260,7 +1260,7 @@ const  {
 
       if (parametroId == undefined) {
         //console.log("valor de parametroID : " + parametroId);
-        eventBus.$emit('cargarArchivo_con_id');
+       //eventBus.$emit('cargarArchivo_con_id');
         this.overlay =false;
       } else {
         //console.log("valor actual de parametroId : " + parametroId);
@@ -1269,6 +1269,14 @@ const  {
           parametroId,
           this.$store
         );
+        
+        /******************************************************************
+        RESETEAMOS EL VALOR DEL DOCUMENTO DE ACTA DE HECHOS PARA NO CARGAR 
+        VALORES QUE SE HALLAN CARGADO CON  ANTERIORIRIDAD
+        ******************************************************************** */
+        this.$store.dispatch('action_etapainicial_actavaloracion_docto',0);
+        /********************************************************************/
+
 
         P_incidente.then((response) => {
           console.log("recuperando los datos del incidente ");
@@ -1294,7 +1302,7 @@ const  {
     },
   },
 
-  created() {
+  mounted() {
     console.log("en created, valor de this.modo : " + this.modo);
     this.overlay = true;
     this.escogerProcedimiento();
@@ -1307,6 +1315,7 @@ const  {
 
   data() {
     return {
+      verActaDeHechos: false,
      showFolio: false,
      showCombo :false,
      showDocumentos :false,

@@ -19,11 +19,14 @@
         </v-col>
     </v-row>
     <br>
-
+    
+    <v-alert type="warning">
+      Este componente esta en proceso de actualizacion.
+    </v-alert>
     <!-- -->
 
         <!-- pediente la fecha -->
-    <FoliosComponente 
+    <FoliosComponente v-if="ocultar"
     :folio="folio"
     :foliodenuncia ="folioabordaje"
     :date="fecha"
@@ -33,7 +36,7 @@
 
     <!-- =============================================== -->
     <br >
-    <v-card width="100%" >
+    <v-card width="100%"  v-if="ocultar">
     <ComponenteTextAreaStatus :texto="texto">
     </ComponenteTextAreaStatus>
 
@@ -46,7 +49,7 @@
     <!-- =============================================== -->
        <!-- abordaje_plan -->
        
-      <ComponenteCardDoctoAbordaje
+      <ComponenteCardDoctoAbordaje v-if="ocultar"
         :incidenteId ="incidenteIdPE"
         :archivoId ="abordaje.plan_docto"
         :nombreDelArchivo="data_plan_docto.nombreOriginal"
@@ -58,7 +61,7 @@
       <!-- ==========================================  -->
 
     
-    <ComponenteCardDocumentosOficiales
+    <ComponenteCardDocumentosOficiales v-if="ocultar"
         :incidenteId ="incidenteIdPE"
 
         :archivoId ="abordaje.documentos_docto"
@@ -69,12 +72,12 @@
     
 
     <br> 
-    <v-alert :type="tipoalerta">
+    <v-alert :type="tipoalerta" v-if="ocultar">
        {{mensaje}}
     </v-alert>
     <br>
 
-    <v-row>
+    <v-row v-if="ocultar">
       <v-col cols="12" xs="12" sm="12" md="4">
         <v-btn
           :loading="loading"
@@ -517,6 +520,7 @@ action_abordaje_documentos_docto
 
   data() {
     return {
+      ocultar :false,
       overlay : false,
       estado: '',
       mensaje : '',

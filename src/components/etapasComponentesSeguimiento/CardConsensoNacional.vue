@@ -3,7 +3,7 @@
         <v-card-title> CONSCENSO NACIONAL </v-card-title>
         <v-card-text>
           <v-row>
-            <v-col cols="12" xs="12" sm="6" md="6">
+            <v-col cols="12" xs="12" sm="4" md="4">
               <v-select
                 :value="this.$store.state.seguimiento.estatus_consenso"
                 :item-value="valorcombo"
@@ -15,7 +15,7 @@
               >
               </v-select>
             </v-col>
-            <v-col cols="12" xs="12" sm="6" md="6">
+            <v-col cols="12" xs="12" sm="8" md="8">
 
               <!--  <uploadFile2 
                  :mostrarMensajeValidacion ="this.$store.state.uivars.uivars_error_seguimiento_seguimiento_documentos_docto"
@@ -32,8 +32,9 @@
                 </uploadFile2>  -->
                 <uploadFile4 v-if="verCombo"
                    :archivoId ="this.$store.state.seguimiento.id_consensodocto"
-                   action_a_Ejecutar ="action_seguimiento_id_consensodocto">
-            
+                   action_a_Ejecutar ="action_seguimiento_id_consensodocto"
+                   :variableContador=  "this.$store.state.seguimiento.doctosCargados"
+                   action_variableContador ="action_seguimiento_doctosCargados">
                 
                   </uploadFile4>
 

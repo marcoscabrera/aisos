@@ -1,36 +1,20 @@
 <template>
       <v-card width="100%">
-        <v-card-title>   SE CUENTA CON EL LLENADO DEL ACTA DE VALORACION DEL/DE LOS INCIDENTES
+        <v-card-title>    ACTA DE VALORACION 
  </v-card-title>
         <v-card-text>
           <v-row>
-            <v-col cols="12" xs="12" sm="6" md="6">
-              <v-select
-                :value="valorcombo"
-                :item-value="valorcombo"
-                :items="itemsOpciones"
-                label="ACTA VALORACION"
-                dense
-                filled
-                @change="asignarValor($event)"
-              >
-              </v-select>
+            <v-col cols="12" xs="12" sm="4" md="4">
+
             </v-col>
-            <v-col cols="12" xs="12" sm="6" md="6">
+            <v-col cols="12" xs="12" sm="8" md="8">
              <!-- aqui va fileupload -->
-                <uploadFile2 
-                 :mostrarMensajeValidacion ="this.$store.state.uivars.uivars_error_seguimiento_seguimiento_actavaloracion_docto"
-          
-                directorio="/uploads/seguimiento"
-                :HayArchivo ="sihayarchivo"
-                
-                :nombreArchivo = "nombreDelArchivo"
-                :incidenteid ="incidenteId"
-                :archivoId="archivoId"
-                action_a_Ejecutar="action_actavaloracion_docto"
-                modulo="seguimiento"
-                campoState="seguimiento_actavaloracion_docto">
-                </uploadFile2> 
+                <uploadFile4 
+                :archivoId ="this.$store.state.seguimiento.id_ActaValoracion"
+                action_a_Ejecutar ="action_seguimiento_id_ActaValoracion"
+                :variableContador=  "this.$store.state.seguimiento.doctosCargados"
+                action_variableContador ="action_seguimiento_doctosCargados">              
+                </uploadFile4> 
             </v-col>
           </v-row>
         </v-card-text>
@@ -57,7 +41,7 @@ export default {
 
       components : {
            
-           uploadFile2 : () => import('@/components/manipulacionArchivos/uploadFile2.vue')
+           uploadFile4 : () => import('@/components/manipulacionArchivos/uploadFile4.vue')
 
       },
 
@@ -71,7 +55,7 @@ export default {
       methods : {
          asignarValor(event){
 
-            this.$store.dispatch("action_actavaloracion", event);
+            this.$store.dispatch("action_seguimiento_id_ActaValoracion", event);
          }
       }
 

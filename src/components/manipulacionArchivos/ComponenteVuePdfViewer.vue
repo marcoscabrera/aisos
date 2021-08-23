@@ -29,7 +29,7 @@
 
 
                    
-                     <v-btn id="xx"
+                 <!--    <v-btn id="xx"
                       color="primary"
                       :loading="loading"
                       @click="imprimir_el_canvas"
@@ -40,13 +40,13 @@
                         </v-icon>
                        Imprimir
 
-                  </v-btn> 
+                  </v-btn>  -->
          
 
              </v-col>
     </v-row>
 
-  <div id="app" style="height:593px" v-if="verPDf">
+  <div id="app" style="width:100% height:593px" v-if="verPDf">
     <!-- 
 
          downloadFeatureVisible="false"
@@ -179,7 +179,6 @@ export default {
                });*/
          
        }
-  
 
   }
 }

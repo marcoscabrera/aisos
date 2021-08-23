@@ -71,7 +71,9 @@ import actions from './actions.js';
 
          id_ActaHechos    : '0',
          
-         id_ActaValoracion : '0'
+         id_ActaValoracion : '0',
+
+         doctosCargados : 0 ,
 
  }, 
         mutations, actions 

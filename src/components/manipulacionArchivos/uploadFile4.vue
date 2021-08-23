@@ -1,37 +1,6 @@
 <template>
   <div>
-  <!--  <v-bottom-navigation v-if="this.archivoEnLinea" >
-                <v-btn 
-                 
-                 >
-                  <span>{{ nombre_de_archivo_original }}</span>
-
-                  <v-icon color="green" :large="largo">mdi-file-document</v-icon>
-                </v-btn>
-
-                <v-btn 
-                  @click="editarArchivo"
-                 >
-                  <span>Editar</span>
-
-                  <v-icon color="warning" :large="largo">mdi-file-edit-outline</v-icon>
-                </v-btn>
-    </v-bottom-navigation> -->
-
-
-
-   <!-- <div v-if="currentFile">
-      <div>
-        <v-progress-linear
-          v-model="progress"
-          color="light-blue"
-          height="25"
-          reactive
-        >
-          <strong>{{ progress }} %</strong>
-        </v-progress-linear>
-      </div>
-    </div> -->
+  
 
     <v-row  no-gutters justify="center" align="center">
      
@@ -119,16 +88,14 @@ import apiDoctos from '@/apialdeas/apiDoctos.js';
 
 import ComponenteDocumentoEnLinea from './ComponenteDocumentoEnLinea.vue';
 
-import {
-
-    BlobServiceClient 
-  } from "@azure/storage-blob";
+import { BlobServiceClient } from "@azure/storage-blob";
 
 export default {
-  name: "uploadFile4",
 
+  name: "uploadFile4",
+ 
   components : {
-    ComponenteDocumentoEnLinea
+      ComponenteDocumentoEnLinea
   },
 
 
@@ -137,17 +104,19 @@ export default {
 
   props : {
 
-    archivoId         : {type:String , default :'0'},
-    incidenteid       : {type:String , default :'0'},
-    directorio        : {type:String , default :''},
-    nombreArchivo     : {type:String , default :'' },
-    action_a_Ejecutar : {type:String,  default :''},
-    modulo            : {type:String,  default: 'general'},
-    campoState        : {type:String},
-    datosDelArchivo   : {type:Array},
-    HayArchivo        : {type:Boolean},
-    mostrarMensajeValidacion : {Type: Boolean,default :false},
-    tipoDeArchivo :{ type:String ,default :'application/pdf'}
+    archivoId                 : {type:String , default :'0'},
+    incidenteid               : {type:String , default :'0'},
+    directorio                : {type:String , default :''},
+    nombreArchivo             : {type:String , default :'' },
+    action_a_Ejecutar         : {type:String,  default :''},
+    modulo                    : {type:String,  default: 'general'},
+    campoState                : {type:String},
+    datosDelArchivo           : {type:Array},
+    HayArchivo                : {type:Boolean},
+    mostrarMensajeValidacion  : {Type: Boolean,default :false},
+    tipoDeArchivo             : { type:String ,default :'application/pdf'},
+    variableContador          : {type : Number, default : 0},
+    action_variableContador   : {type : String, default : 'general'},
 
   },
 
@@ -175,35 +144,36 @@ export default {
   data() {
     return {
 
-      blobSasUrl  :'https://demorebelbotstorage.blob.core.windows.net/contenedorpdf?sp=racwdl&st=2021-08-05T18:42:30Z&se=2021-12-02T03:42:30Z&sv=2020-08-04&sr=c&sig=k2gd8q5fNmbasodAAs6ygz%2FXUmFKOWK8EjHpJJqtn40%3D',
-      sasToken: 'sp=racwdl&st=2021-08-05T18:42:30Z&se=2021-12-02T03:42:30Z&sv=2020-08-04&sr=c&sig=k2gd8q5fNmbasodAAs6ygz%2FXUmFKOWK8EjHpJJqtn40%3D',
-      subiook:false,
-      subionotok: false,
-      loading:false,
-      tipoAlerta : "info",
-      color:'Red',
-      archivoEnLinea : false,
+      blobSasUrl       : 'https://demorebelbotstorage.blob.core.windows.net/contenedorpdf?sp=racwdl&st=2021-08-05T18:42:30Z&se=2021-12-02T03:42:30Z&sv=2020-08-04&sr=c&sig=k2gd8q5fNmbasodAAs6ygz%2FXUmFKOWK8EjHpJJqtn40%3D',
+      sasToken         : 'sp=racwdl&st=2021-08-05T18:42:30Z&se=2021-12-02T03:42:30Z&sv=2020-08-04&sr=c&sig=k2gd8q5fNmbasodAAs6ygz%2FXUmFKOWK8EjHpJJqtn40%3D',
+      subiook          : false,
+      subionotok       : false,
+      loading          : false,
+      tipoAlerta       : "info",
+      color            : 'Red',
+      archivoEnLinea   : false,
       ocultarFileinput : true,
-      el_componente : '',
+      el_componente    : '',
       
      
-      archivoID_por_si_las_dudas : '',
-      MostrarBotonDeSubir :false,
-      largo :true,
-      recienSubido : '0',
-      sihayarchivo : false,
-      currentFile: undefined,
-      progress: 0,
-      message: "",
+      archivoID_por_si_las_dudas  : '',
+      MostrarBotonDeSubir         : false,
+      largo                       : true,
+      recienSubido                : '0',
+      sihayarchivo                : false,
+      currentFile                 : undefined,
+      progress                    : 0,
+      message                     : "",
      
-      nombre_de_archivo_original : '',
-      elArchivo :  '',
+      nombre_de_archivo_original  : '',
+      elArchivo                   :  '',
 
-      fileInfos: [],
-      rules: [
+      fileInfos                   : [],
+      rules                       : [
       files => !files || !files.some(file => file.size > 10_485_760) || 'El archivo debe ser menor a 10 MB!'
     ],
-      rules2 :[ (value) => value.type != 'aplication/pdf' || 'EL formato de archivo no esta permitido'
+      rules2                     :[
+                                    (value) => value.type != 'aplication/pdf' || 'EL formato de archivo no esta permitido'
       ]
     };
   },
@@ -233,7 +203,7 @@ export default {
 
            if (this.archivoId=='0'){
 
-              console.log(" <<< valor de archivoId >>> " +this.archivoId );
+              console.log(" <<< valor de archivoId >>> " + this.archivoId );
 
            }else{
               
@@ -251,13 +221,22 @@ export default {
            }
 
             
-            eventBus.$on('cargarArchivo_con_id', () => {
+            eventBus.$on('cargarArchivo_con_id', (id = 0) => {
            try{
-
-         
+           
+           console.log("valor de id " + id);
            console.log(" en envento eventbus.on cargarArchivo_con_id ");
+           
            console.log(" valor del parametro archivoid :" + this.archivoId);
-           this.archivoID_por_si_las_dudas = this.archivoId;
+           if (id == 0){ 
+               //typeof id;
+                 this.archivoID_por_si_las_dudas = this.archivoId;
+           }else {
+                 this.archivoID_por_si_las_dudas = id;
+           }
+
+          
+         
           // console.log("solicitando el docto al servidor " + archivoid );
            this.solicitarDocumentoAServidor( this.archivoID_por_si_las_dudas);
        
@@ -289,15 +268,20 @@ export default {
 
     mostrarFileInput() {
 
-
+        console.log(" action en ejecucion : " + this.action_a_Ejecutar );
+        /*
+        https://michaelnthiessen.com/avoid-mutating-prop-directly/
+        */
+       // this.archivoId=0;
+        this.$store.dispatch(this.action_a_Ejecutar,"En espera");
+         //this.$store.dispatch(this.action_a_Ejecutar,'0');
          /*  antes borramos el blob en el sevidor */
 
          this.ocultarFileinput= true;
          this.archivoEnLinea= false;
          this.nombre_de_archivo_original =  "";  
          this.subionotok = false;
-
-         this.$store.dispatch(this.action_a_Ejecutar,'0');
+       
          this.el_componente="";
         // this.subionotok= true;
 
@@ -350,6 +334,19 @@ export default {
 
          this.el_componente = "ComponenteDocumentoEnLinea";
 
+         /****************************************
+          * activamos la variable contador
+          ****************************************/
+          if (this.action_variableContador === 'general'){
+              console.log("NO hacemos sumatoria");
+          }else {
+          let contador  = this.variableContador;
+          contador = contador + 1;
+          //console.log(this.action_variableContador);
+          console.log(this.variableContador);
+          console.log(contador);
+          this.$store.dispatch(this.action_variableContador,contador);
+          }
          
         /* console.log( this.ocultarFileinput );
           console.log( this.archivoEnLinea );
@@ -369,7 +366,7 @@ export default {
     }).catch(
       error => {
          typeof error;
-         console.log("cacheando el error");
+         console.log("cacheando el error" + error);
          
          this.ocultarFileinput= true;
          this.archivoEnLinea= false;

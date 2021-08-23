@@ -196,7 +196,12 @@ action_documentos_docto   ( context , valor ) {
         
                     context.commit('mutation_seguimiento_id_ActaValoracion'    ,valor);
             
-                  }
+                  },
+
+                action_seguimiento_doctosCargados( context, valor){
+
+                    context.commit('mutation_seguimiento_doctosCargados',valor);
+                }
         
         
 

@@ -3,7 +3,7 @@
         <v-card-title>   SE NOTIFICO A LA PERSONA DENUNCIANTE </v-card-title>
         <v-card-text>
           <v-row>
-            <v-col cols="12" xs="12" sm="6" md="6">
+            <v-col cols="12" xs="12" sm="4" md="4">
               <v-select
                 :value="this.$store.state.seguimiento.estatus_notificaciondenunciante"
                 :item-value="valorcombo"
@@ -15,12 +15,13 @@
               >
               </v-select>
             </v-col>
-            <v-col cols="12" xs="12" sm="6" md="6">
+            <v-col cols="12" xs="12" sm="8" md="8">
              <!-- aqui va fileupload -->
                 <uploadFile4 v-if="verCombo"
                     :archivoId ="this.$store.state.seguimiento.id_NotificacionDenunciante"
-                    action_a_Ejecutar ="action_seguimiento_id_NotificacionDenunciante">
-            
+                    action_a_Ejecutar ="action_seguimiento_id_NotificacionDenunciante"
+                    :variableContador=  "this.$store.state.seguimiento.doctosCargados"
+                    action_variableContador ="action_seguimiento_doctosCargados">            
                 </uploadFile4> 
 
 

@@ -70,7 +70,7 @@ export default {
 
             store.dispatch('action_seguimiento_estatus_notificaciondenunciante',datos.estatus_notificaciondenunciante ) ;
 
-            store.dispatch('action_seguimiento_estatus_planrecuperacion',datos.estatus_palnrecuperacion ) ;
+            store.dispatch('action_seguimiento_estatus_planrecuperacion',datos.estatus_planrecuperacion ) ;
         
             store.dispatch('action_seguimiento_id_consensodocto',datos.id_consensodocto ) ;
            
@@ -80,11 +80,13 @@ export default {
        
             store.dispatch('action_seguimiento_id_Notificacionpfn',datos.id_Notificacionpfn ) ;
        
-            store.dispatch('action_seguimiento_id_NotificacionDenunciante',datos.NotificacionDenunciante ) ;
+            store.dispatch('action_seguimiento_id_NotificacionPlan',datos.id_NotificacionPlan ) ;
+       
+            store.dispatch('action_seguimiento_id_NotificacionDenunciante',datos.id_NotificacionDenunciante ) ;
        
             store.dispatch('action_seguimiento_id_ActaHechos',datos.id_ActaHechos ) ;
          
-            store.dispatch('action_seguimiento_id_ActaValoracion',datos.id_ActaValoracion ) ;
+            store.dispatch('action_seguimiento_id_ActaValoracion',datos.id_Actavaloracion ) ;
           
           
             /*

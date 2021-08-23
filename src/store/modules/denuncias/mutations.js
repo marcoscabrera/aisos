@@ -115,7 +115,11 @@ mutation_denuncialegal_denunciapresentada( state, valor) {
   
 },
 mutation_denuncialegal_docto_denunciapresentada( state, valor) {   
-    state.denuncialegal_docto_denunciapresentada = valor 
+    state.denuncialegal_docto_denunciapresentada = valor ;
   
 },
+
+mutation_denuncialegal_doctosCargados (state,valor){
+    state.denuncialegal_doctosCargados = valor;
+}
  }

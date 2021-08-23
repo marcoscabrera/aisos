@@ -54,7 +54,9 @@
       
                 <uploadFile4
                   :archivoId ="this.$store.state.denuncias.denuncialegal_docto_soporteemocional"
-                 action_a_Ejecutar ="action_denuncialegal_docto_soporteemocional">
+                  action_a_Ejecutar ="action_denuncialegal_docto_soporteemocional"
+                  :variableContador=  "this.$store.state.denuncias.denuncialegal_doctosCargados"
+                   action_variableContador ="action_denuncialegal_doctosCargados">
 
                 </uploadFile4>
 

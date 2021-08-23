@@ -139,7 +139,13 @@ action_denuncialegal_denunciapresentada ( context , valor ) {
 action_denuncialegal_docto_denunciapresentada ( context , valor ) { 
     context.commit('mutation_denuncialegal_docto_denunciapresentada',valor);  
    
-}  
+}  ,
+
+action_denuncialegal_doctosCargados( context, valor ){
+    console.log("cambiando el valor de doctosCargados a :" + valor);
+    context.commit('mutation_denuncialegal_doctosCargados', valor);
+    
+}
 
   };
 

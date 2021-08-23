@@ -35,6 +35,7 @@ denuncialegal_docto_soportelegal:null  ,
 denuncialegal_docto_soporteemocional  :null,
 denuncialegal_denunciapresentada :null ,
 denuncialegal_docto_denunciapresentada:null  ,
+denuncialegal_doctosCargados : 0,
           },         
                mutations, 
                actions 

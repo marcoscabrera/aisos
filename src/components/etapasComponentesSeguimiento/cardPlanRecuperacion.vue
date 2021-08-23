@@ -4,9 +4,9 @@
        </v-card-title>
         <v-card-text>
           <v-row>
-            <v-col cols="12" xs="12" sm="6" md="6">
+            <v-col cols="12" xs="12" sm="4" md="4">
               <v-select
-                :value="valorcombo"
+                :value="this.$store.state.seguimiento.estatus_planrecuperacion"
                 :item-value="valorcombo"
                 :items="itemsOpciones"
                 label="PLAN RECUPERACION EMOCIONAL"
@@ -16,21 +16,16 @@
               >
               </v-select>
             </v-col>
-            <v-col cols="12" xs="12" sm="6" md="6">
+            <v-col cols="12" xs="12" sm="8" md="8">
              <!-- aqui va fileupload -->
-                <uploadFile2 
-                :mostrarMensajeValidacion ="this.$store.state.uivars.uivars_error_seguimiento_seguimiento_planrecuperacion_docto"
-          
-                directorio="/uploads/seguimiento"
-                :HayArchivo ="sihayarchivo"
+                <uploadFile4 v-if="verCombo"
+                  :archivoId ="this.$store.state.seguimiento.id_NotificacionPlan"
+                   action_a_Ejecutar ="action_seguimiento_id_NotificacionPlan"
+                  :variableContador=  "this.$store.state.seguimiento.doctosCargados"
+                  action_variableContador ="action_seguimiento_doctosCargados">    
+                </uploadFile4>
                 
-                :nombreArchivo = "nombreDelArchivo"
-                :incidenteid ="incidenteId"
-                :archivoId="archivoId"
-                action_a_Ejecutar="action_planrecuperacion_docto"
-                modulo="seguimiento"
-                campoState="seguimiento_planrecuperacion_docto">
-                </uploadFile2> 
+              
             </v-col>
           </v-row>
         </v-card-text>
@@ -57,7 +52,7 @@ export default {
 
       components : {
            
-           uploadFile2 : () => import('@/components/manipulacionArchivos/uploadFile2.vue')
+           uploadFile4 : () => import('@/components/manipulacionArchivos/uploadFile4.vue')
 
       },
 
@@ -65,13 +60,17 @@ export default {
 
           return {
                itemsOpciones: ["SI", "NO", "POR CONFIRMAR"],
+               verCombo : true,
           }
       },
 
       methods : {
-         asignarValor(event){
 
-            this.$store.dispatch("action_planrecuperacion", event);
+         asignarValor(event){
+           
+             event == "SI" ? this.verCombo = true : this.verCombo = false;
+             this.$store.dispatch("action_seguimiento_estatus_planrecuperacion", event);
+
          }
       }
 

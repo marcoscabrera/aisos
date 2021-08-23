@@ -774,7 +774,7 @@ export default {
           this.nombreDelArchivo = JSON.stringify(response.data[0]['nombreOriginal']);
 
           // nombre del archivo original para impresion
-          this.$store.dispatch('etapavaloracion_medidasintegrales_docto', this.nombreDelArchivo);
+          this.$store.dispatch('action_medidasintegrales_docto', this.nombreDelArchivo);
           console.log(" nombreOriginal :" + this.nombreDelArchivo);
           this.hayPlan =true;
 

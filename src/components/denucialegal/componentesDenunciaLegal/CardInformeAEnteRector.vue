@@ -26,8 +26,10 @@
               -->
                 <uploadFile4 v-if="verCombo" 
                  :archivoId ="this.$store.state.denuncias.denuncialegal_docto_informaenterector"
-                 action_a_Ejecutar ="action_denuncialegal_docto_informaenterector">
-                >
+                 action_a_Ejecutar ="action_denuncialegal_docto_informaenterector"
+                 :variableContador=  "this.$store.state.denuncias.denuncialegal_doctosCargados"
+                 action_variableContador ="action_denuncialegal_doctosCargados">
+                 
                 </uploadFile4> 
                </v-col>
           </v-row>

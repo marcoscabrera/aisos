@@ -96,11 +96,14 @@ export default {
       this.$router.push("/configuracion");
     },
     irADashboard() {
-       this.$store.dispatch("actions_uivars_vermenuprincipal",false);
+
+      this.$store.dispatch("action_denuncialegal_doctosCargados",0);
+      this.$store.dispatch("actions_uivars_vermenuprincipal",false);
     
       this.$router.push("/dashboard");
     },
     irADenuncias() {
+      this.$store.dispatch("action_denuncialegal_doctosCargados",0);
        this.$store.dispatch("actions_uivars_vermenuprincipal",false);
     
       this.$router.push("/denuncias");

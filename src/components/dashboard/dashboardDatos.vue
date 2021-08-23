@@ -929,6 +929,11 @@ export default {
         "INVESTIGACION INTERNA",
         "ABORDAJE INTERNO", 
         "EN PROCESO DE VALORACION",*/
+      
+      //---------------------------------------------------------
+      // INICIALIZAMOS CONTADOR DE DOCUMENTOS PARA DENUNCIA
+      //---------------------------------------------------------
+      this.$store.dispatch("action_denuncialegal_doctosCargados",0);
 
       console.log("ir a " + valor.tipoderespuesta);
 
@@ -957,11 +962,16 @@ export default {
       if (valor.tipoderespuesta == "ABORDAJE INTERNO") {
         this.$store.dispatch("setear_Incidente",valor.id);
 
-         this.$router.push(
+        /* this.$router.push(
+           { name: "AbordajeInterno", 
+           params: { incidenteId: valor.id } });
+        */
+
+       this.$router.push(
            { name: "AbordajeInterno", 
            params: { incidenteId: valor.id } });
        
-      }
+      }//termina abordaje interno
       
        if (valor.tipoderespuesta == "En Proceso de Valoracion") {
          this.$store.dispatch("setear_Incidente",valor.id);
@@ -1027,9 +1037,11 @@ export default {
          this.$store.dispatch("setear_Incidente",id);
 
          validacionSeguimiento.inicializar_captura_De_errores(this.$store);
+
       if(   this.puedeVerSeguimiento  != false){
             console.log(" valor de id :  " + id);
-            this.$router.push({ name: "Seguimiento", params: { id: id } });
+           // this.$router.push({ name: "Seguimiento", params: { id: id } });
+             this.$router.push({ name: "Actualizacion"});
        }
 
     
@@ -1040,7 +1052,11 @@ export default {
 
 
             if(   this.puedeVerCierre  != false){
-            this.$router.push({ name: "Cierre", params: { incidenteId: id } });
+
+            //this.$router.push({ name: "Cierre", params: { incidenteId: id } });
+           this.$router.push({ name: "Actualizacion" });
+
+
        }
 
     
