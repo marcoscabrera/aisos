@@ -46,7 +46,7 @@
              </v-col>
     </v-row>
 
-  <div id="app" style="width:100% height:593px" v-if="verPDf">
+
     <!-- 
 
          downloadFeatureVisible="false"
@@ -54,7 +54,9 @@
         <template slot="left-toolbox"></template>  Add more buttons/features on the left side of the toolbar 
         <template slot="error"></template> Change the error message design 
         <template slot="loading"></template>  Change the pdf loader design
-      -->
+      --> 
+       <div id="app" style="width:100%" v-if="verPDf">
+
     <PDFView
       :src.sync="archivo" 
       ref="pdfView"
@@ -69,6 +71,8 @@
     </template>
     </PDFView>
   </div>
+
+
   <embed id="pdfin" :src="elArchivo" type="application/pdf" width="100%" height="600px" />
   </v-container>
 </template>
@@ -183,12 +187,17 @@ export default {
   }
 }
 </script>
-<style>
+<style scope>
 
 #download {
 
 display: none !important;
 
+
+}
+#app {
+   
+  width: 100%;
 
 }
 

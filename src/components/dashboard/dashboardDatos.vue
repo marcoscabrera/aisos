@@ -1040,8 +1040,8 @@ export default {
 
       if(   this.puedeVerSeguimiento  != false){
             console.log(" valor de id :  " + id);
-           // this.$router.push({ name: "Seguimiento", params: { id: id } });
-             this.$router.push({ name: "Actualizacion"});
+           this.$router.push({ name: "Seguimiento", params: { id: id } });
+           //  this.$router.push({ name: "Actualizacion"});
        }
 
     

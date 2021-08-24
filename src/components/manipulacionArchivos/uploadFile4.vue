@@ -3,7 +3,11 @@
   
 
     <v-row  no-gutters justify="center" align="center">
-     
+      
+      <v-col>
+        
+      </v-col>
+      
       <v-col cols="8" v-if="ocultarFileinput">
         <v-file-input
           show-size

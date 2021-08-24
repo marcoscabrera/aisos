@@ -106,6 +106,9 @@
 
     <br>   
 
+    <v-alert v-if="verAlerta" :type="this.tipoalerta">
+      {{this.mensaje}}
+    </v-alert>
     <v-row>
       <v-col cols="12" xs="12" sm="12" md="4">
         <v-btn
@@ -191,6 +194,7 @@ export default {
     return {
       overlay : false,
       numerosDoctos_a_Cargar : 0,
+      verAlerta:false,
       tipoalerta : '',
       mensaje : '',
       itemsCargos: ["SI", "NO", "EN PROCESO"],
@@ -219,11 +223,11 @@ export default {
 
   watch : {
 
-     "$store.state.denuncias.denuncialegal_doctosCargados" : function(newValue,oldValue) {
+     /*"$store.state.denuncias.denuncialegal_doctosCargados" : function(newValue,oldValue) {
          
          this.mostrandoComponenteFU(newValue,oldValue);
 
-      }
+      }*/
 
   },
 
@@ -355,10 +359,10 @@ export default {
        eventBus.$emit('cargarArchivo_con_id');
 
       ///////////////////////////////////////////
-      if (this.numeroDoctos_a_Cargar==0){
+    
         
         this.overlay= false;
-      }
+     
  
        //
 
@@ -376,6 +380,9 @@ export default {
          ****************************************************************/
     
           regresar_al_dashboard() {
+
+                     this.varDoctos = false;
+                     this.verAlerta = false;
                 
                       this.$router.push({
                       name: "Dashboard"
@@ -532,6 +539,8 @@ tieneUnValor(  valor ){
 
     guardarDenuncia(){
 
+       this.verAlerta = false ;
+
        this.loading = true;
 
        let denunciaObj = this.$store.state.denuncias;
@@ -612,6 +621,8 @@ tieneUnValor(  valor ){
            if (response.data.estado=='guardado'){
 
                   this.asignarVariables(response.data.denuncia);
+
+                   this.verAlerta = true ;
                 
                    this.mensaje = 'La información ha sido guardada.';
                    this.tipoalerta = 'warning';
@@ -673,11 +684,20 @@ tieneUnValor(  valor ){
 
 
      permisoImpresion(){
+
+
            
       console.log(" Permiso IMPRESIONDENUNCIA  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.IMPRESIONDENUNCIA)      ;
 
      if ( this.$store.state.usuarios.usuarios_usuariologueado_rol.IMPRESIONDENUNCIA=='SI'){
         
+         //-----------------------------------------------
+         // para evitar leals de memoria
+         //----------------------------------------------
+         this.varDoctos = false;
+         this.verAlerta = false;
+         //----------------------------------------------
+
          this.$router.push({
           name: "ReporteImpresionDenuncia"
         });
@@ -724,7 +744,7 @@ tieneUnValor(  valor ){
       this.$store.dispatch("action_denuncialegal_doctosCargados",0);
       //---------------------------------------------------------------
 
-      //this.overlay = true;
+      this.overlay = true;
   
       this.cargarDenuncia();
 

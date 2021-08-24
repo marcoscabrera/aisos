@@ -640,6 +640,9 @@ export default {
 
    async cargarValoracionIntegral() {
 
+      this.$store.dispatch("action_medidasintegrales_docto",0);
+
+
       //-----------------------------------------
       // carga todos los documentos de ayuda
       // dentro del componente Barradedocumentos 
@@ -902,6 +905,9 @@ export default {
       /////////////////////////////////////////////
     let rolActual = this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARANTESDECIERREDELAVALORACIONINTEGRAL;
     
+    this.$store.dispatch("action_medidasintegrales_docto",0);
+
+
     if (rolActual == "SI"){
       this.cargarValoracionIntegral();
     }else {

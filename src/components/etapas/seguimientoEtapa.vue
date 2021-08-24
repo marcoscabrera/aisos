@@ -457,12 +457,12 @@ export default {
 
   watch: {
       
-      "$store.state.seguimiento.doctosCargados" : function(newValue,oldValue) {
+   /*   "$store.state.seguimiento.doctosCargados" : function(newValue,oldValue) {
        typeof oldValue;
        // console.log("Valor del nv: "        + newValue);
        // console.log("valor del Old value :" + oldValue);
     //   newValue == 8 ? this.overlay =false : this.overlay= true;
-      }
+      }*/
   },
 
   methods: {
@@ -883,7 +883,7 @@ export default {
 
 
         }
-         //this.overlay= false;
+         this.overlay= false;
 
         }
       )//termina then 
@@ -899,7 +899,7 @@ export default {
 
   mounted(){
 
-   // this.overlay = true;
+    this.overlay = true;
      
   /////////////////////////////////////////////
   // valores para regresar a esta pagina si se 
