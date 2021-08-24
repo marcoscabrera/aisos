@@ -240,7 +240,10 @@ export default {
        typeof oldValue;
 
        console.log(" numero de componentes a cargar" + this.numerosDoctos_a_Cargar + " y valor de oldValue = "+ oldValue);
-
+      if (this.numerosDoctos_a_Cargar == 0 ){
+       // this.overlay=false;
+        return;
+      }else {
        if (newValue > this.numerosDoctos_a_Cargar) {
 
          this.$store.dispatch("action_denuncialegal_doctosCargados",0);
@@ -256,10 +259,11 @@ export default {
            this.overlay =false;
           // this.$store.dispatch("action_denuncialegal_doctosCargados",0);
         }else {
-           this.overlay =true;
+           this.overlay =false;
         }
        // >= this.numerosDoctos_a_Cargar ?  : this.overlay= true;
 
+      }
 
     },// termina  funcion 
 
@@ -276,25 +280,28 @@ export default {
       //
       //---------------------------------------------------------------
 
-      let denunciaId = this.$route.params.denunciaId;
-   
-      let denuncia = apiDenuncias.cargar__denuncialegal(denunciaId,this.$store)
-
+ 
       //----------------------------------------------------------------
       //SE INICIALIZA A 0 LA VARIABLE QUE CONTROLA CUANTO COMPONENTES
       // UPLOADFILE4 TIENEN UN DOCUMENTO PARA MOSTRAR-- REVISAR watch
       //---------------------------------------------------------------
       this.$store.dispatch("action_denuncialegal_doctosCargados",0);
       //---------------------------------------------------------------
+
+
+     let denunciaId = this.$route.params.denunciaId;
+       console.log(" denunciaId " + denunciaId);
+   
+     let denuncia = apiDenuncias.cargar__denuncialegal(denunciaId,this.$store)
       
 
       denuncia
       .then( response => {
 
 
-        //console.log("--------------------------------");
-        //console.log(  JSON.stringify( response.data  ));
-        //console.log("--------------------------------");
+        console.log("--------------------------------");
+        console.log(  JSON.stringify( response.data  ));
+        console.log("--------------------------------");
 
         this.folio = response.data[0]["folio"];
         this.denuncia=response.data[0];
@@ -348,8 +355,12 @@ export default {
        eventBus.$emit('cargarArchivo_con_id');
 
       ///////////////////////////////////////////
+      if (this.numeroDoctos_a_Cargar==0){
+        
+        this.overlay= false;
+      }
  
-       //this.overlay= false;
+       //
 
       })
       .catch( error => {
@@ -485,6 +496,11 @@ let suma  =    medidasd_docto               +
                docto_denunciapresentada ;
 
 this.numerosDoctos_a_Cargar = suma;
+console.log("valor de this.numerosDoctos_a_Cargar " + this.numerosDoctos_a_Cargar);
+
+if ( this.numeroDoctos_a_Cargar == 0){
+  this.overlay= false;
+}
 
 }, // termina funcion asignarVariables
 
@@ -707,13 +723,19 @@ tieneUnValor(  valor ){
       //---------------------------------------------------------------
       this.$store.dispatch("action_denuncialegal_doctosCargados",0);
       //---------------------------------------------------------------
-    this.$nextTick( function(){
 
-      this.overlay = true;
+      //this.overlay = true;
   
       this.cargarDenuncia();
 
-    });
+      
+   /* this.$nextTick( function(){
+       this.overlay = true;
+  
+      this.cargarDenuncia();
+
+    
+    }); */
   },
 };
 

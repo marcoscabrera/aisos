@@ -15,8 +15,8 @@
     :expanded.sync="expanded"
     item-key="id"
     
-      :sort-by.sync="sortBy"
-      :sort-desc.sync="sortDesc"
+    :sort-by.sync="sortBy"
+    :sort-desc.sync="sortDesc"
     class="elevation-1"
     :loading="cargandoDatos"
     loading-text="Cargando... por favor sea paciente"

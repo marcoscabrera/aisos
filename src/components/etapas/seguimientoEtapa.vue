@@ -461,7 +461,7 @@ export default {
        typeof oldValue;
        // console.log("Valor del nv: "        + newValue);
        // console.log("valor del Old value :" + oldValue);
-       newValue == 8 ? this.overlay =false : this.overlay= true;
+    //   newValue == 8 ? this.overlay =false : this.overlay= true;
       }
   },
 
@@ -832,7 +832,7 @@ export default {
       /***************************************************************************
        * activamos el loading
        **************************************************************************/
-       this.loading = true;
+      // this.loading = true;
       /****************************************************************************
        * SETEAMOS A 0 EL VALOR BANDERA QUE INDICA QUE TODOS LOS DOCUEMNTOS
        * SE HAN MOSTRADO YA EN LA PANTALLA
@@ -899,7 +899,7 @@ export default {
 
   mounted(){
 
-    this.overlay = true;
+   // this.overlay = true;
      
   /////////////////////////////////////////////
   // valores para regresar a esta pagina si se 
