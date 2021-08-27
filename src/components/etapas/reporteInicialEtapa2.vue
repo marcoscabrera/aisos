@@ -595,6 +595,13 @@ export default {
                         console.log("ruta_A_regresar : " + ruta_A_regresar);
                         this.$store.dispatch("action_regresar_A_despues_de_impresion",ruta_A_regresar);
                         /////////////////////////////////////////////
+                           //--------------------------------------------------------------------
+                        //ComponenteVuePdfViewer en la vista visorPDF 
+                        //descargamos el componente en caso de que este halla sido cargado 
+                        // con anterioridad
+                        //--------------------------------------------------------------------
+                        this.$store.dispatch("action_uivar_verComponenteVuePdfViewer",true);
+                        //--------------------------------------------------------------------
         
                        this.$router.push({
                         name: "VisorPDF"
@@ -1304,6 +1311,13 @@ const  {
 
   mounted() {
     console.log("en created, valor de this.modo : " + this.modo);
+    //--------------------------------------------------------------------
+    //ComponenteVuePdfViewer en la vista visorPDF 
+    //descargamos el componente en caso de que este halla sido cargado 
+    // con anterioridad
+    //--------------------------------------------------------------------
+    this.$store.dispatch("action_uivar_verComponenteVuePdfViewer",false);
+    //--------------------------------------------------------------------
     this.overlay = true;
     this.escogerProcedimiento();
 

@@ -1053,8 +1053,8 @@ export default {
 
             if(   this.puedeVerCierre  != false){
 
-            //this.$router.push({ name: "Cierre", params: { incidenteId: id } });
-           this.$router.push({ name: "Actualizacion" });
+           this.$router.push({ name: "Cierre", params: { incidenteId: id } });
+          // this.$router.push({ name: "Actualizacion" });
 
 
        }

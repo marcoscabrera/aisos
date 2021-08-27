@@ -105,8 +105,11 @@ export default {
 
      regresar (){
 
-       let r = this.$store.state.uivars.regresar_A_despues_de_impresion;
+       let  r = this.$store.state.uivars.regresar_A_despues_de_impresion;
        let id = this.$store.state.uivars.id_regresar_A_despues_de_impresion;
+
+       console.log(" valor de r  " + r);
+       console.log(" valor de id " + id);
 
         typeof r ;
         typeof id;

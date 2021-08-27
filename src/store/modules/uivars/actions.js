@@ -7,6 +7,12 @@ export default {
 
     },
 
+    action_uivar_verComponenteVuePdfViewer(context,valor){
+
+        context.commit("mutation_uivars_verComponenteVuePdfViewer",valor);
+
+    },
+
      ////paramtros
 
      actions_uivars_vermenuprincipal(context,valor){

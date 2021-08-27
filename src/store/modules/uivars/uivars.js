@@ -24,6 +24,8 @@ state: {
     
     uivars_overlay :false,
 
+    verComponenteVuePdfViewer:  false,
+
     ////////////////////////////////
     uivar_esincidente: false,
     uivars_puedevermenulateral : false,

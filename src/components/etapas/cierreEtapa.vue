@@ -8,10 +8,7 @@
         <v-col cols="12" xs="12" sm="12" md="6">
 
             <BarraDeNavegacion
-             activo_ri="0"
-             activo_vi="1"
-             activo_s="1"
-             activo_c="1"
+     
              verInicial    
              verIntegral 
              verSeguimiento 
@@ -112,63 +109,18 @@
 </v-card-text>
 </v-card>
 <br>
-      <v-card width="100%">
-        <v-card-title>
-        </v-card-title>
-        <v-card-text>
-    <v-row>
-      <v-col cols="12">
-        <v-textarea
-          filled
-          name="input-7-7"
-          label=" DECLARATORIA (250 PALABRAS) "
-           v-model="texto"
-           :placeholder ="place" 
-           @input="asignarEvento($event)"
-        >
-                        <template v-slot:prepend>
-                  <v-icon color="blue"
-                      @click="showAyuda = !showAyuda">
-                      mdi-help-circle
-                  </v-icon>
-              </template>
-        </v-textarea>
-      <v-alert v-if="this.$store.state.uivars.uivars_error_incidente_textocierre" type="error">
-      Este Campo no debe de ir vacio y no debe de exceder el numero maximo de palabras
-     </v-alert>
 
-     <v-alert v-if="showAyuda" type="info">
-              Redacte la declaratorio ,tome como guia lo siguiente <br>
-              <ol>
-              <li>  A Qué hechos concretos se dio respuesta</li>
-               <li> Qué acciones se realizaron</li>
-               <li> Con quiénes se realizaron</li>
-               <li> Quién las realizó</li>
-               <li> Cómo se realizaron</li>
-               <li> Cuando se realizaron</li>
-               <li> A quienes se contactó para notificar los hechos</li>
-               <li> Instancias involucradas en el abordaje</li>
-               <li> Documentos probatorios del abordaje.</li>
-               <li> Conclusión de resultados del abordaje.  </li>
-              
-              </ol>
-              </v-alert>
 
-      </v-col>
-    </v-row>
-</v-card-text>
-</v-card>
-<br>
-    <!-- =============================================== -->
-
-    <h4>ACCIONES REALIZADAS PARA CIERRE DE INCIDENTE</h4>
+     <!-- 
+      <h4>ACCIONES REALIZADAS PARA CIERRE DE INCIDENTE</h4>
+      -->
 
     <!-- =============================================== -->
 
  
       <cardDocumentoEnCierre 
 
-       labelCheckbox= "SE NOTIFICO AL SISTEMA DIF "
+       labelCheckbox= "SE NOTIFICO AL ENTE RECTOR "
         
        :inputValueCheckbox ="Archivo_notificaciondif.hayArchivo"
 
@@ -253,7 +205,7 @@
       
       <cardDocumentoEnCierre 
 
-       labelCheckbox= "SE CUENTA CON EL LLENADO DEL ACTA DE VALORACIÓN DEL/DE LOS INCIDENTES/S"
+       labelCheckbox= " ACTA DE VALORACIÓN DEL INCIDENTE"
         
       :inputValueCheckbox ="Archivo_notificacionValoracion.hayArchivo"
 
@@ -273,7 +225,7 @@
 
     
 
-            <cardDocumentoEnCierre 
+      <cardDocumentoEnCierre 
 
        labelCheckbox= "SE CUENTA CON UN PLAN DE RECUPERACIÓN EMOCIONAL CON SEGUIMIENTO"
         
@@ -292,7 +244,54 @@
     <!-- =============================================== -->
     <br />
     <!-- =============================================== -->
+      <v-card width="100%">
+        <v-card-title>
+        </v-card-title>
+        <v-card-text>
+    <v-row>
+      <v-col cols="12">
+        <v-textarea
+          filled
+          name="input-7-7"
+          label=" DECLARATORIA (250 PALABRAS) "
+           v-model="texto"
+           :placeholder ="place" 
+           @input="asignarEvento($event)"
+        >
+                        <template v-slot:prepend>
+                  <v-icon color="blue"
+                      @click="showAyuda = !showAyuda">
+                      mdi-help-circle
+                  </v-icon>
+              </template>
+        </v-textarea>
+      <v-alert v-if="this.$store.state.uivars.uivars_error_incidente_textocierre" type="error">
+      Este Campo no debe de ir vacio y no debe de exceder el numero maximo de palabras
+     </v-alert>
 
+     <v-alert v-if="showAyuda" type="info">
+              Redacte la declaratorio ,tome como guia lo siguiente <br>
+              <ol>
+              <li>  A Qué hechos concretos se dio respuesta</li>
+               <li> Qué acciones se realizaron</li>
+               <li> Con quiénes se realizaron</li>
+               <li> Quién las realizó</li>
+               <li> Cómo se realizaron</li>
+               <li> Cuando se realizaron</li>
+               <li> A quienes se contactó para notificar los hechos</li>
+               <li> Instancias involucradas en el abordaje</li>
+               <li> Documentos probatorios del abordaje.</li>
+               <li> Conclusión de resultados del abordaje.  </li>
+              
+              </ol>
+              </v-alert>
+
+      </v-col>
+    </v-row>
+</v-card-text>
+</v-card>
+<br>
+    <!-- =============================================== -->
     
       <v-card width="100%">
         <v-card-title>

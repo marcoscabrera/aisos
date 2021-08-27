@@ -7,6 +7,10 @@ export default {
 
     },
 
+    mutation_uivars_verComponenteVuePdfViewer(state,valor){
+        state.verComponenteVuePdfViewer =valor;
+    },
+
     
     mutation_uivars_vermenuprincipal(state,valor){
 

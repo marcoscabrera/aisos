@@ -6,7 +6,8 @@
    
    
    <!-- esta el que funciona bien -->
-   <ComponenteVuePdfViewer></ComponenteVuePdfViewer>
+   <ComponenteVuePdfViewer v-if="this.$store.state.uivars.verComponenteVuePdfViewer"
+   ></ComponenteVuePdfViewer>
 
  </v-container>
 </template>
