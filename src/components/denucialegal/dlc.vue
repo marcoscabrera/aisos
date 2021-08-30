@@ -165,55 +165,57 @@
 
 <script>
 
-//
-//import apiIncidentes from "@/apialdeas/apiIncidentes.js";
-import apiDenuncias from "@/apialdeas/apiDenuncias.js";
-import FoliosComponente  from "./componentesDenunciaLegal/FoliosComponente.vue";
-import barraDocumentos  from "@/components/barradocumentos/barraDocumentos.vue";
-import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
-//import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
 import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
 import apidoctosapoyo from '@/apialdeas/apiDoctosApoyo.js';
 import eventBus from '@/eventBus.js';
+import apiDenuncias from "@/apialdeas/apiDenuncias.js";
+import FoliosComponente  from "./componentesDenunciaLegal/FoliosComponente.vue";
+
+//import barraDocumentos  from "@/components/barradocumentos/barraDocumentos.vue";
+//import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
+//import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
+//import apiIncidentes from "@/apialdeas/apiIncidentes.js";
 
 export default {
 
   components : {
-    FoliosComponente,barraDocumentos,BarraDeNavegacion,
-    ConsensoComponente : () => import('./componentesDenunciaLegal/ConsensoComponente.vue'),
-    CardInformeAlPatronato :() => import('./componentesDenunciaLegal/CardInformeAlPatronato.vue'),
-    CardInformaOficinaRegional :() => import('./componentesDenunciaLegal/CardInformaOficinaRegional.vue'),
-    CardInformeAEnteRector :() => import('./componentesDenunciaLegal/CardInformeAEnteRector.vue'),
-    CardDenunciaPresentada :() => import('./componentesDenunciaLegal/CardDenunciaPresentada.vue'),
-    SoporteLegalComponente  : () => import('./componentesDenunciaLegal/SoporteLegalComponente.vue'),
-    SoporteEmocionalComponente : () => import('./componentesDenunciaLegal/SoporteEmocionalComponente.vue'),
+    FoliosComponente,
+    barraDocumentos                 : () => import('@/components/barradocumentos/barraDocumentos.vue'),
+    BarraDeNavegacion               : () => import('@/components/etapas/BarraDeNavegacion.vue'),
+    ConsensoComponente              : () => import('./componentesDenunciaLegal/ConsensoComponente.vue'),
+    CardInformeAlPatronato          : () => import('./componentesDenunciaLegal/CardInformeAlPatronato.vue'),
+    CardInformaOficinaRegional      : () => import('./componentesDenunciaLegal/CardInformaOficinaRegional.vue'),
+    CardInformeAEnteRector          : () => import('./componentesDenunciaLegal/CardInformeAEnteRector.vue'),
+    CardDenunciaPresentada          : () => import('./componentesDenunciaLegal/CardDenunciaPresentada.vue'),
+    SoporteLegalComponente          : () => import('./componentesDenunciaLegal/SoporteLegalComponente.vue'),
+    SoporteEmocionalComponente      : () => import('./componentesDenunciaLegal/SoporteEmocionalComponente.vue'),
     MedidasDisciplinariasComponente : () => import('./componentesDenunciaLegal/MedidasDisciplinariasComponente.vue'),
-    TextoAcercaDeLasMedidas : () => import('./componentesDenunciaLegal/TextoAcercaDeLasMedidas.vue')
+    TextoAcercaDeLasMedidas         : () => import('./componentesDenunciaLegal/TextoAcercaDeLasMedidas.vue')
 },
   data() {
     return {
-      overlay : false,
-      numerosDoctos_a_Cargar : 0,
-      verAlerta:false,
-      tipoalerta : '',
-      mensaje : '',
-      itemsCargos: ["SI", "NO", "EN PROCESO"],
-      loading: false,
+      overlay                       : false,
+      numerosDoctos_a_Cargar        : 0,
+      verAlerta                     : false,
+      tipoalerta                    : '',
+      mensaje                       : '',
+      itemsCargos                   : ["SI", "NO", "EN PROCESO"],
+      loading                       : false,
 
-      folio :'',
-      foliodenuncia :'',
-      denuncia :[],
+      folio                         : '',
+      foliodenuncia                 : '',
+      denuncia                      : [],
 
-      varDoctos : false,
+      varDoctos                     : false,
 
-      consensoArchivo_id:'',
-      consensoArchivo_nombreArchivo :'',
-      consensoArchivo_sihayarchivo : false,
+      consensoArchivo_id            : '',
+      consensoArchivo_nombreArchivo : '',
+      consensoArchivo_sihayarchivo  : false,
 
-      medidasArchivo_id: '',
-      medidasArchivo_nombreArchivo :'',
-      medidasArchivo_sihayarchivo: false,
-      files :[]
+      medidasArchivo_id             : '',
+      medidasArchivo_nombreArchivo  : '',
+      medidasArchivo_sihayarchivo   : false,
+      files                         : []
 
       
        

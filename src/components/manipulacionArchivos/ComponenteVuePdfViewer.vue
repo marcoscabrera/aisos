@@ -104,7 +104,14 @@ export default {
   methods : {
 
      regresar (){
+       
 
+       /*
+       Cambiamos a false el valor de esta variable para ocultar el componente
+       ComponenteVuePdfViewer  buscando que la web app sea mas rapida
+        */
+       this.$store.dispatch("action_uivar_verComponenteVuePdfViewer",false);
+      
        let  r = this.$store.state.uivars.regresar_A_despues_de_impresion;
        let id = this.$store.state.uivars.id_regresar_A_despues_de_impresion;
 

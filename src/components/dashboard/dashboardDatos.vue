@@ -47,7 +47,7 @@
               <v-btn color="primary"   
               dark 
               class="mb-2 d-none d-sm-flex d-sm-none d-md-flex" 
-              @click="togglecols">
+              @click.stop.prevent="togglecols">
                 <v-icon>
                   mdi-toggle-switch
                 </v-icon>
@@ -59,7 +59,7 @@
               <v-btn v-if="mostrarBotonDeBusquedas"
                  color="primary" 
                  dark class="mb-2 margen_5px" 
-                 @click="mostrarLasBarrasDeBusqueda">
+                 @click.stop.prevent="mostrarLasBarrasDeBusqueda">
                  <v-icon>
                  mdi-file-find
                 </v-icon>
@@ -73,7 +73,7 @@
 
               <v-btn color="primary" 
                dark class="mb-2 margen_5px" 
-               @click="cargarTodosLosIncidentes">
+               @click.stop.prevent="cargarTodosLosIncidentes">
                  <v-icon>
                  mdi-update
                 </v-icon>
@@ -88,7 +88,7 @@
                v-if="puedeCrearUnNuevoIncidente"
                 dark 
                 class="mb-2 margen_5px" 
-                @click="irADenuncias">
+                @click.stop.prevent="irADenuncias">
                 <v-icon class="d-flex d-sm-flex d-md-none">
                   mdi-text-box-plus-outline
                 </v-icon>
@@ -182,7 +182,7 @@
                               dark
                               dense
                               block
-                              @click="filtrarEnBaseDeDatos"
+                              @click.stop.prevent="filtrarEnBaseDeDatos"
                               >
                               <v-icon>
                                 mdi-magnify
@@ -250,7 +250,7 @@
        dark 
        dense
        class="letrasNegras"
-       @click="ir_a_respuesta(item)"
+       @click.stop.prevent="ir_a_respuesta(item)"
 
 
         >
@@ -266,7 +266,7 @@
           
           dense
           class="letrasNegras"
-           @click="ir_a_respuesta(item)"
+           @click.stop.prevent="ir_a_respuesta(item)"
       >
          Abordaje Interno
       </v-btn>
@@ -278,7 +278,7 @@
           block
           dense
           class="letrasNegras"
-           @click="ir_a_respuesta(item)"
+           @click.stop.prevent="ir_a_respuesta(item)"
         
       >
          Denuncia
@@ -296,7 +296,7 @@
        dark dense 
        block
        class="letrasNegras"
-       @click="irAnoesunincidente(item)">
+       @click.stop.prevent="irAnoesunincidente(item)">
         NO ES UN INCIDENTE
       </v-btn>
 
@@ -307,7 +307,7 @@
         dense
         block
         class="letrasNegras"
-        @click="irACierre(item.id)"
+        @click.stop.prevent="irACierre(item.id)"
       >
          CERRADO
       </v-btn>
@@ -319,7 +319,7 @@
         dense
         block
         class="letrasNegras"
-        @click="irAValoracionIntegral(item.id)"
+        @click.stop.prevent="irAValoracionIntegral(item.id)"
       >
         EN ESPERA DE VALORACION INTEGRAL
       </v-btn>
@@ -331,7 +331,7 @@
         dense
         block
         class="letrasNegras"
-        @click="ir_a_respuesta(item)"
+        @click.stop.prevent="ir_a_respuesta(item)"
       >
         EN {{item.tipoderespuesta}}
       </v-btn>
@@ -343,7 +343,7 @@
         dense
         block
         class="letrasNegras"
-       @click="irASeguimiento(item.id)"
+        @click.stop.prevent="irASeguimiento(item.id)"
       >
        EN SEGUIMIENTO
       </v-btn>
@@ -356,7 +356,7 @@
         dense
         block
         class="letrasNegras"
-     @click="irACierre(item.id)"
+        @click.stop.prevent="irACierre(item.id)"
       >
        EN ESPERA DE CIERRE
       </v-btn>    
@@ -374,7 +374,7 @@
         :color="item.coloretapauno"
         dark
         
-        @click="irAValoracionInicial(item.id)"
+        @click.stop.prevent="irAValoracionInicial(item.id)"
       >
        <span class="letrasNegras">
          VI
@@ -391,7 +391,7 @@
         fab
         :color="item.coloretapados"
         dark
-        @click="irAValoracionIntegral(item.id)"
+        @click.stop.prevent="irAValoracionIntegral(item.id)"
       >
        <span class="letrasNegras">
         VI
@@ -409,7 +409,7 @@
         fab
         :color="item.coloretapatres"
         dark
-        @click="irASeguimiento(item.id)"
+        @click.stop.prevent="irASeguimiento(item.id)"
       >
        <span class="letrasNegras">         
         S
@@ -425,7 +425,7 @@
         fab
         :color="item.coloretapacuatro"
         dark
-        @click="irACierre(item.id)"
+        @click.stop.prevent="irACierre(item.id)"
       >
           <span class="letrasNegras">
             C
@@ -442,7 +442,7 @@
         fab
         :color="colorvi"
         dark
-        @click="irAValoracionInicial(item.id)"
+        @click.stop.prevent="irAValoracionInicial(item.id)"
       >
         vI</v-btn
       >
@@ -451,7 +451,7 @@
         x-small
         fab
         :color="colorvintegral"
-        @click="irAValoracionIntegral(item.id)"
+        @click.stop.prevent="irAValoracionIntegral(item.id)"
         >VI</v-btn
       >
       <v-btn
@@ -459,7 +459,7 @@
         x-small
         fab
         :color="colors"
-        @click="irA('/seguimiento')"
+        @click.stop.prevent="irA('/seguimiento')"
         >S</v-btn
       >
       <v-btn
@@ -467,7 +467,7 @@
         x-small
         fab
         :color="colorc"
-        @click="irACierre(item.id)"
+        @click.stop.prevent="irACierre(item.id)"
         >C</v-btn
       >
     </template>

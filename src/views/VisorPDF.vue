@@ -53,8 +53,10 @@ import ComponenteVuePdfViewer from '@/components/manipulacionArchivos/Componente
             }
         },
         mounted () {
+            this.$store.dispatch("action_uivar_verComponenteVuePdfViewer",true);
             this.cargarDocto();
         },
+         
         
     }
 </script>

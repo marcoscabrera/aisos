@@ -243,6 +243,8 @@ export default {
          
           // console.log("solicitando el docto al servidor " + archivoid );
            this.solicitarDocumentoAServidor( this.archivoID_por_si_las_dudas);
+           var event = Event;
+           event.stopPropagation;
        
            }catch(error){
              

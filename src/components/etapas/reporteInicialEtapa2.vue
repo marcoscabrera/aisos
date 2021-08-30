@@ -45,7 +45,7 @@
               >
                   <template v-slot:prepend>
                     <v-icon color="blue"
-                    @click="showFolio = !showFolio">
+                    @click.stop.prevent="showFolio = !showFolio">
                       mdi-help-circle
                     </v-icon>
 
@@ -329,7 +329,7 @@
           :loading="loading"
           :disabled="verBotonImpresion"
           color="primary"
-          @click="solicitudImpresion"
+          @click.stop.prevent="solicitudImpresion"
           block
         >
           <v-icon right dark> mdi-printer </v-icon>
@@ -344,7 +344,7 @@
           :loading="loading"
           :disabled="loading"
           color="red"
-          @click="guardar__iraDashboard"
+          @click.stop.prevent="guardar__iraDashboard"
           block
 
           v-on ="on"
@@ -365,7 +365,7 @@
            :loading="loadingGuardar"
           :disabled="loadingGuardar"
           color="green"
-          @click="guardar_incidente"
+          @click.stop.prevent="guardar_incidente"
           block
           
         >
@@ -379,7 +379,7 @@
           :loading="loadingGuardar"
           :disabled="loadingGuardar"
           color="green"
-          @click="update_incidente_u"
+          @click.stop.prevent="update_incidente_u"
           block
           
         >
@@ -403,35 +403,37 @@
 
 
 
-import barraDocumentosVue from "../barradocumentos/barraDocumentos.vue";
+//import barraDocumentosVue from "../barradocumentos/barraDocumentos.vue";
 import apiIncidentes from "@/apialdeas/apiIncidentes.js";
 import apiPermisosimpresion  from "@/apialdeas/apiPermisosimpresion.js";
-
-import comboboxProgramaSeleccionado from "@/components/etapasComponentes/comboboxProgramaSeleccionado.vue";
-import calendario from "@/components/etapasComponentes/calendario.vue";
-import textareaInvolucrados from "@/components/etapasComponentes/textareaInvolucrados.vue";
-import textfieldElaboro from "@/components/etapasComponentes/textfieldElaboro.vue";
-import comboboxCargos from "@/components/etapasComponentes/comboboxCargos.vue";
-import textareaRegistro from "@/components/etapasComponentes/textareaRegistro.vue";
-import cardPerlfilAgresor from "@/components/etapasComponentes/cardPerlfilAgresor.vue";
-//import esunincidente from "@/components/etapasComponentes/esunincidente.vue";
-import cardPerfilVictima from "@/components/etapasComponentes/cardPerfilVictima.vue";
-import textareaMedidasProteccion from "@/components/etapasComponentes/textareaMedidasProteccion.vue";
-import textareaTestigos from "@/components/etapasComponentes/textareaTestigos.vue";
-import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
 import validacionReporteInicial from   "@/components/etapas/validaciones/validacionReporteInicial.js";
-//import valoracionIntegralEtapa from '@/components/etapas/valoracionIntegralEtapa.vue';
 import impresiones_etapauno from '@/components/etapas/impresiones/impresiones_etapauno.js';
+import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
+import eventBus from '@/eventBus.js';
+import apidoctosapoyo from '@/apialdeas/apiDoctosApoyo.js';
+
+//import comboboxProgramaSeleccionado from "@/components/etapasComponentes/comboboxProgramaSeleccionado.vue";
+//import calendario from "@/components/etapasComponentes/calendario.vue";
+//import textareaInvolucrados from "@/components/etapasComponentes/textareaInvolucrados.vue";
+//import textfieldElaboro from "@/components/etapasComponentes/textfieldElaboro.vue";
+//import comboboxCargos from "@/components/etapasComponentes/comboboxCargos.vue";
+//import textareaRegistro from "@/components/etapasComponentes/textareaRegistro.vue";
+//import cardPerlfilAgresor from "@/components/etapasComponentes/cardPerlfilAgresor.vue";
+//import esunincidente from "@/components/etapasComponentes/esunincidente.vue";
+////import cardPerfilVictima from "@/components/etapasComponentes/cardPerfilVictima.vue";
+//import textareaMedidasProteccion from "@/components/etapasComponentes/textareaMedidasProteccion.vue";
+//import textareaTestigos from "@/components/etapasComponentes/textareaTestigos.vue";
+//import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
+//import valoracionIntegralEtapa from '@/components/etapas/valoracionIntegralEtapa.vue';
 //import emailjs from 'emailjs-com';
 //import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
 
 
-import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
-import eventBus from '@/eventBus.js';
+
 //import eventBus2 from '@/eventBus.js';
 //import uploadFile3 from '@/components/manipulacionArchivos/uploadFIle3.vue';
 //import uploadFile4 from '@/components/manipulacionArchivos/uploadFile4.vue';
-import apidoctosapoyo from '@/apialdeas/apiDoctosApoyo.js';
+
 
 ////////////////////////////////////////////////
 // necesarios para utilizar el tool-tip
@@ -446,23 +448,22 @@ Vue.component('v-popover', VPopover);*/
 
 export default {
   components: {
-    barraDocumentosVue,
-    comboboxProgramaSeleccionado,
-    calendario,
-    textareaInvolucrados,
-    textfieldElaboro,
-    comboboxCargos,
-    textareaRegistro,
-    cardPerlfilAgresor,
+
+    barraDocumentosVue : ()  => import("../barradocumentos/barraDocumentos.vue"),
+    comboboxProgramaSeleccionado : ()  => import("@/components/etapasComponentes/comboboxProgramaSeleccionado.vue"),
+    calendario : ()  => import("@/components/etapasComponentes/calendario.vue"),
+    textareaInvolucrados : ()  => import("@/components/etapasComponentes/textareaInvolucrados.vue"),
+    textfieldElaboro : ()  => import("@/components/etapasComponentes/textfieldElaboro.vue"),
+    comboboxCargos : ()  => import("@/components/etapasComponentes/comboboxCargos.vue"),
+    textareaRegistro : ()  => import("@/components/etapasComponentes/textareaRegistro.vue"),
+    cardPerlfilAgresor : ()  => import("@/components/etapasComponentes/cardPerlfilAgresor.vue"),
     //esunincidente,
-    cardPerfilVictima,
-    textareaMedidasProteccion,
-    textareaTestigos,
-    BarraDeNavegacion,
+    cardPerfilVictima : ()  => import("@/components/etapasComponentes/cardPerfilVictima.vue"),
+    textareaMedidasProteccion : ()  => import("@/components/etapasComponentes/textareaMedidasProteccion.vue"),
+    textareaTestigos : ()  => import("@/components/etapasComponentes/textareaTestigos.vue"),
+    BarraDeNavegacion : ()  => import("@/components/etapas/BarraDeNavegacion.vue"),
     ////uploadFile3,
     uploadFile4 : ()  => import("@/components/manipulacionArchivos/uploadFile4.vue")
-   
-
   },
 
   computed: {
@@ -482,12 +483,7 @@ export default {
        /* Para mostrar el componente uploadFile4 */
        eventBus.$emit('cargarArchivo_con_id',this.$store.state.incidentes.etapainicial_actavaloracion_docto);
        this.verActaDeHechos = true;
-
-
-
     }
-
-
   },
 
   methods: {

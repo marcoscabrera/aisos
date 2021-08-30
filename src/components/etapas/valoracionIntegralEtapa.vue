@@ -211,42 +211,41 @@
   </v-container>
 </template>
 <script>
-import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
+//import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
 
-import barraDocumentosVue from "../barradocumentos/barraDocumentos.vue";
+//import barraDocumentosVue from "../barradocumentos/barraDocumentos.vue";
 import apiValoracion from "@/apialdeas/apiValoracion.js";
 import apiArchivos from "@/apialdeas/apiArchivos.js";
-
-import textareaValoracion from "@/components/etapasComponentesValoracion/textareaValoracion.vue";
-import cardTipologia from "@/components/etapasComponentesValoracion/cardTipologia.vue";
-
-import cardNivelIncidente from "@/components/etapasComponentesValoracion/cardNivelIncidente.vue";
-//import cardConfirmacion from "../etapasComponentesValoracion/cardConfirmacion.vue";
-import cardTipoCaso from "../etapasComponentesValoracion/cardTipoCaso.vue";
-import cardTipoRespuesta from "../etapasComponentesValoracion/cardTipoRespuesta.vue";
-//import cardMedidasIntegrales from "../etapasComponentesValoracion/cardMedidasIntegrales.vue";
 import validacionReporteInicial from   "@/components/etapas/validaciones/validacionReporteInicial.js";
-//import ComponenteConfirmacionIncidente from   "../etapasComponentesValoracion/ComponenteConfirmacionIncidente.vue";
-//import medidasCrud from "@/components/seguimiento/medidasCrud.vue";
-//import validacionArchivo from  "@/components/etapas/validaciones/validacionArchivos.js";
 import apiPermisosimpresion from "@/apialdeas/apiPermisosimpresion.js";
-//import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
-
-// envia los correos de notificacion
 import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
 import apidoctosapoyo from '@/apialdeas/apiDoctosApoyo.js';
 
+//import textareaValoracion from "@/components/etapasComponentesValoracion/textareaValoracion.vue";
+//import cardTipologia from "@/components/etapasComponentesValoracion/cardTipologia.vue";
+//import cardNivelIncidente from "@/components/etapasComponentesValoracion/cardNivelIncidente.vue";
+//import cardConfirmacion from "../etapasComponentesValoracion/cardConfirmacion.vue";
+//import cardTipoCaso from "../etapasComponentesValoracion/cardTipoCaso.vue";
+//import cardTipoRespuesta from "../etapasComponentesValoracion/cardTipoRespuesta.vue";
+//import cardMedidasIntegrales from "../etapasComponentesValoracion/cardMedidasIntegrales.vue";
+//import ComponenteConfirmacionIncidente from   "../etapasComponentesValoracion/ComponenteConfirmacionIncidente.vue";
+//import medidasCrud from "@/components/seguimiento/medidasCrud.vue";
+//import validacionArchivo from  "@/components/etapas/validaciones/validacionArchivos.js";
+//import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
+// envia los correos de notificacion
+
+
 export default {
   components: {
-    barraDocumentosVue,
-    cardMedidasIntegrales :() => import('../etapasComponentesValoracion/cardMedidasIntegrales.vue'),
-    textareaValoracion,
-    cardTipologia,
-    cardNivelIncidente,
-    //cardConfirmacion,
-    cardTipoCaso,
-    cardTipoRespuesta,BarraDeNavegacion,
-   // ComponenteConfirmacionIncidente
+    barraDocumentosVue    :()  => import("../barradocumentos/barraDocumentos.vue"),
+    cardMedidasIntegrales :()  => import('../etapasComponentesValoracion/cardMedidasIntegrales.vue'),
+    BarraDeNavegacion     :()  => import("@/components/etapas/BarraDeNavegacion.vue"),
+    textareaValoracion    :()  => import("@/components/etapasComponentesValoracion/textareaValoracion.vue"),
+    cardTipologia         :()  => import("@/components/etapasComponentesValoracion/cardTipologia.vue"),
+    cardNivelIncidente    :()  => import("@/components/etapasComponentesValoracion/cardNivelIncidente.vue"),
+    cardTipoCaso          :()  => import("../etapasComponentesValoracion/cardTipoCaso.vue"),
+    cardTipoRespuesta     :()  => import("../etapasComponentesValoracion/cardTipoRespuesta.vue"),
+   // ComponenteConfirmacionIncidente  //cardConfirmacion,
   },
 
 
