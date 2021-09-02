@@ -91,13 +91,13 @@ export default {
             axios
                 .put(endpoint, params)
                 .then((response) => {
-                    console.log("valor del data axiospost2 : " + response.data);
+                    console.log("valor del data axiosput : " + response.data);
 
                     resolve(response);
                     //return response.data;
                 })
                 .catch((error) => {
-                    console.log(error);
+                    console.log(error.data);
                     reject(error);
                 });
         });

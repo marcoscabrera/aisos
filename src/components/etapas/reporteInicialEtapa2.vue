@@ -412,13 +412,13 @@ import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
 import eventBus from '@/eventBus.js';
 import apidoctosapoyo from '@/apialdeas/apiDoctosApoyo.js';
 
-//import comboboxProgramaSeleccionado from "@/components/etapasComponentes/comboboxProgramaSeleccionado.vue";
+import comboboxProgramaSeleccionado from "@/components/etapasComponentes/comboboxProgramaSeleccionado.vue";
 //import calendario from "@/components/etapasComponentes/calendario.vue";
 //import textareaInvolucrados from "@/components/etapasComponentes/textareaInvolucrados.vue";
 //import textfieldElaboro from "@/components/etapasComponentes/textfieldElaboro.vue";
-//import comboboxCargos from "@/components/etapasComponentes/comboboxCargos.vue";
+import comboboxCargos from "@/components/etapasComponentes/comboboxCargos.vue";
 //import textareaRegistro from "@/components/etapasComponentes/textareaRegistro.vue";
-//import cardPerlfilAgresor from "@/components/etapasComponentes/cardPerlfilAgresor.vue";
+import cardPerlfilAgresor from "@/components/etapasComponentes/cardPerlfilAgresor.vue";
 //import esunincidente from "@/components/etapasComponentes/esunincidente.vue";
 ////import cardPerfilVictima from "@/components/etapasComponentes/cardPerfilVictima.vue";
 //import textareaMedidasProteccion from "@/components/etapasComponentes/textareaMedidasProteccion.vue";
@@ -450,13 +450,13 @@ export default {
   components: {
 
     barraDocumentosVue : ()  => import("../barradocumentos/barraDocumentos.vue"),
-    comboboxProgramaSeleccionado : ()  => import("@/components/etapasComponentes/comboboxProgramaSeleccionado.vue"),
+    comboboxProgramaSeleccionado ,//: ()  => import("@/components/etapasComponentes/comboboxProgramaSeleccionado.vue"),
     calendario : ()  => import("@/components/etapasComponentes/calendario.vue"),
     textareaInvolucrados : ()  => import("@/components/etapasComponentes/textareaInvolucrados.vue"),
     textfieldElaboro : ()  => import("@/components/etapasComponentes/textfieldElaboro.vue"),
-    comboboxCargos : ()  => import("@/components/etapasComponentes/comboboxCargos.vue"),
+    comboboxCargos ,//: ()  => import("@/components/etapasComponentes/comboboxCargos.vue"),
     textareaRegistro : ()  => import("@/components/etapasComponentes/textareaRegistro.vue"),
-    cardPerlfilAgresor : ()  => import("@/components/etapasComponentes/cardPerlfilAgresor.vue"),
+    cardPerlfilAgresor,// : ()  => import("@/components/etapasComponentes/cardPerlfilAgresor.vue"),
     //esunincidente,
     cardPerfilVictima : ()  => import("@/components/etapasComponentes/cardPerfilVictima.vue"),
     textareaMedidasProteccion : ()  => import("@/components/etapasComponentes/textareaMedidasProteccion.vue"),
@@ -1305,20 +1305,27 @@ const  {
     },
   },
 
-  mounted() {
-    console.log("en created, valor de this.modo : " + this.modo);
-    //--------------------------------------------------------------------
-    //ComponenteVuePdfViewer en la vista visorPDF 
-    //descargamos el componente en caso de que este halla sido cargado 
-    // con anterioridad
-    //--------------------------------------------------------------------
-    this.$store.dispatch("action_uivar_verComponenteVuePdfViewer",false);
-    //--------------------------------------------------------------------
-    this.overlay = true;
-    this.escogerProcedimiento();
+  created() {
 
-     //disparamos el evento en el componente 
-     //barraDocumentos
+
+     this.$nextTick(() => {
+         
+        console.log("en created, valor de this.modo : " + this.modo);
+        //--------------------------------------------------------------------
+        //ComponenteVuePdfViewer en la vista visorPDF 
+        //descargamos el componente en caso de que este halla sido cargado 
+        // con anterioridad
+        //--------------------------------------------------------------------
+        this.$store.dispatch("action_uivar_verComponenteVuePdfViewer",false);
+        //--------------------------------------------------------------------
+        this.overlay = true;
+        this.escogerProcedimiento();
+
+        //disparamos el evento en el componente 
+        //barraDocumentos
+
+      });
+
 
    
   },

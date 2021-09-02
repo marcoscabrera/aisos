@@ -59,8 +59,22 @@
 
     <br >
     <!-- =============================================== -->
+         <v-row v-if="mostrarAlerta">
+       <v-col>
+         <v-alert prominent type="warning"   >
 
-    
+           <v-row align="center">
+              <v-col class="grow">
+               El texto en este campo debe de ser distinto a "En Proceso de Valoracion"
+             </v-col>
+              <v-col class="shrink">
+                <v-btn color="green" @click.prevent.stop="ocultarMsg">Enterado</v-btn>
+              </v-col>
+      </v-row>
+             </v-alert>
+       </v-col>
+     </v-row>
+        <!-- =============================================== -->
   <v-card width="100%" v-if="ocultarConfirmacion">
     <v-card-title> ¿SE CONFIRMA QUE EL EVENTO ES UN INCIDENTE ? </v-card-title>
     <v-card-text>
@@ -257,6 +271,10 @@ export default {
 
   methods: {
 
+        ocultarMsg(){
+          this.mostrarAlerta= false;
+        },
+
         //Esta funcion se encarga de consultar la API para recuperar los documentos que 
         // se mostraran el componente Barradedocumentos
   
@@ -334,10 +352,16 @@ export default {
 
     confirmacionIclick(valor){
      
+      
       const {  
         etapavaloracion_textovi 
       } = this.$store.state.valoracion;
+       
+       if (etapavaloracion_textovi == 'En Proceso de Valoracion') {
+         
+         this.mostrarAlerta = true;
 
+       }else {
 
        let r =  validacionReporteInicial.existeInformacionParaCapturar_y_mayor_a(etapavaloracion_textovi,20);
        this.$store.dispatch('actions_uivars_error_textareaValoracion',r);
@@ -350,6 +374,7 @@ export default {
      valor == 'NO ES UN INCIDENTE' ? this.guardar_noesunincidente() 
      : this.proceso_seguir_Porque_Es_un_incidente();
 
+     }
     } ,
 
 
@@ -920,6 +945,7 @@ export default {
   },
   data() {
     return {
+      mostrarAlerta : false,
       overlay :false,
       archivos : [],
       verBotoneraconcierre :false,
