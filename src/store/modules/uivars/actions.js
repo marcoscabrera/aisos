@@ -1,4 +1,10 @@
 export default {
+
+    action_uivars_enDondeEstoy(context,valor){
+       
+        context.commit("mutation_uivars_enDondeEstoy",valor);
+
+    },
     
 
     action_uivars_overlay(context,valor){

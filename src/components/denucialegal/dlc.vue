@@ -378,7 +378,7 @@ export default {
 
     
          /****************************************************************
-         * ESTA FUNCION NAVEGA AL RANCHO 
+         * ESTA FUNCION NAVEGA AL DASHBOARD 
          ****************************************************************/
     
           regresar_al_dashboard() {
@@ -662,6 +662,9 @@ tieneUnValor(  valor ){
                    envioDeCorreos.enviarCorreos(correosRecibidos,this.folio,respuesta);
                    
                    }
+
+
+                  this.varDoctos=false;
 
                   this.$router.push({ name: "NotificacionRespuesta"});
                    

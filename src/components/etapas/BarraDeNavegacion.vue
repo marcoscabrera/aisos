@@ -188,9 +188,9 @@ import apiIncidentes from '@/apialdeas/apiIncidentes.js';
    ir_al_cierre(){
      console.log(" <<< BARRA DE NAVEGACION >>>> valor incidente >>>" + this.$store.state.incidentes.etapainicial_incidente);
 
-       //let id  = this.$store.state.incidentes.etapainicial_incidente;
-       //this.$router.push({ name: "Cierre", params: { incidenteId: id } });
-        this.$router.push({ name: "Actualizacion" });
+       let id  = this.$store.state.incidentes.etapainicial_incidente;
+       this.$router.push({ name: "Cierre", params: { incidenteId: id } });
+       // this.$router.push({ name: "Actualizacion" });
 
     },
 

@@ -1,5 +1,10 @@
 export default {
+    
 
+    mutation_uivars_enDondeEstoy(state,valor){
+
+          state.uivars_enDondeEstoy = valor;
+    },
 
     mutation_uivars_overlay(state,valor){
 

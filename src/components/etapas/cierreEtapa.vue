@@ -117,133 +117,148 @@
 
     <!-- =============================================== -->
 
- 
-      <cardDocumentoEnCierre 
-
-       labelCheckbox= "SE NOTIFICO AL ENTE RECTOR "
-        
-       :inputValueCheckbox ="Archivo_notificaciondif.hayArchivo"
-
-       :nombreArchivo ="Archivo_notificaciondif.nombreOriginal"
-
-       :colorIcono ="Archivo_notificaciondif.hayArchivo == false ? 'yellow' : 'green' "
+      <ComponenteCardsDocumentoEnCierre :v-if = "verActaHechos"
+       name="hechos"
+       texto = "ACTA DE HECHOS "
+       :id="this.datosParaCierre.denuncialegal.id_ActaHechos"
+       :nombre_de_archivo_original ="this.datosParaCierre.denuncialegal.nombre_documentoActaHechos"
+       >
+       
+      </ComponenteCardsDocumentoEnCierre>
+      <br>
+      <ComponenteCardsDocumentoEnCierre :v-if="verActaValoracion"
+       name="valoracion"
+       texto= "ACTA DE VALORACION "
+       :id="this.datosParaCierre.denuncialegal.id_ActaValoracion"
+       :nombre_de_archivo_original ="this.datosParaCierre.denuncialegal.nombre_documentoActaValoracion"
       >
-
-      </cardDocumentoEnCierre>
-
- 
-
-    <!-- =============================================== -->
-    <br />
-
-    <!-- =============================================== -->
-
-
-
-      <cardDocumentoEnCierre 
-
-       labelCheckbox= "SE NOTIFICÓ A LA AUTORIDAD CORRESPONDIENTE"
-        
-      :inputValueCheckbox ="Archivo_notificacionAutoridad.hayArchivo"
-
-       :nombreArchivo ="Archivo_notificacionAutoridad.nombreOriginal"
-
-       :colorIcono ="Archivo_notificacionAutoridad.hayArchivo === true ? 'green' : 'yellow' "
-   
-      >
-
-      </cardDocumentoEnCierre>
+      </ComponenteCardsDocumentoEnCierre>
+      <br>
 
  
+      <ComponenteCardsDocumentoEnCierre :v-if="verConsenso"
+       name="consenso"
+       texto= "CONSENSO NACIONAL "
+       :id="this.datosParaCierre.denuncialegal.id_consensodocto"
+       :nombre_de_archivo_original ="this.datosParaCierre.denuncialegal.nombre_documentoConsenso"
+         >
 
-    <!-- =============================================== -->
-    <br />
-    <!-- =============================================== -->
+      </ComponenteCardsDocumentoEnCierre>
+       <br>
 
-    
 
-      <cardDocumentoEnCierre 
 
-       labelCheckbox= "SE NOTIFICÓ Al PFN O AL ELPI CORRESPONDIENTE"
+      <ComponenteCardsDocumentoEnCierre :v-if="verInformePatronato"
+       name ="patronato"
+       texto= "INFORME  AL PATRONATO "
         
-       :inputValueCheckbox ="Archivo_notificacionPFN.hayArchivo"
+       :id="this.datosParaCierre.denuncialegal.id_nformePatronato"
+       :nombre_de_archivo_original ="this.datosParaCierre.denuncialegal.nombre_documentoPatronato"
+          >
 
-       :nombreArchivo ="Archivo_notificacionPFN.nombreOriginal"
+      </ComponenteCardsDocumentoEnCierre>
+      <br>
 
-       :colorIcono ="Archivo_notificacionPFN.hayArchivo === true ? 'green' : 'yellow' "
- 
-      >
+       <ComponenteCardsDocumentoEnCierre :v-if="verInformeRegional"
+       name ="regional"
+       texto= "INFORME  A OFICINA REGIONAL "
+       :id="this.datosParaCierre.denuncialegal.id_InformeRegional"
+       :nombre_de_archivo_original ="this.datosParaCierre.denuncialegal.nombre_documentoRegional"
+        >
 
-      </cardDocumentoEnCierre>
-      
-   
+      </ComponenteCardsDocumentoEnCierre>
+       <br>   
 
-    <!-- =============================================== -->
-    <br />
-    <!-- =============================================== -->
-
-    
-        <cardDocumentoEnCierre 
-
-       labelCheckbox= "SE NOTIFICÓ A LA PERSONA DENUNCIANTE"
+       <ComponenteCardsDocumentoEnCierre :v-if="verInformeEnteRector"
+       name ="rector"
+       texto= "INFORME  A ENTE RECTOR "
         
-       :inputValueCheckbox ="Archivo_notificacionDenunciante.hayArchivo"
+        :id="this.datosParaCierre.denuncialegal.id_doctoInformeEnteRector"
+       :nombre_de_archivo_original ="this.datosParaCierre.denuncialegal.nombre_doctoInformeEnteRector"
+           >
 
-       :nombreArchivo ="Archivo_notificacionDenunciante.nombreOriginal"
+      </ComponenteCardsDocumentoEnCierre>
+      <br>
 
-       :colorIcono ="Archivo_notificacionDenunciante.hayArchivo === true ? 'green' : 'yellow' "
-      >
+      <ComponenteCardsDocumentoEnCierre :v-if="verSoporteLegal"
+       name ="soporte"
+       texto= "SOPORTE DE ASESOR LEGAL "
+       :id="this.datosParaCierre.denuncialegal.id_docotoSoporteLegal"
+       :nombre_de_archivo_original ="this.datosParaCierre.denuncialegal.nombre_doctoSoporteLegal"
+          >
 
-      </cardDocumentoEnCierre>
-   
+      </ComponenteCardsDocumentoEnCierre>
+      <br>
 
-    <!-- =============================================== -->
-    <br />
-    <!-- =============================================== -->
 
-   
-      
-      <cardDocumentoEnCierre 
+      <ComponenteCardsDocumentoEnCierre :v-if="verSoporteEmocional"
+      name="emocional"
+       texto= "SOPORTE EMOCIONAL "
+       :id="this.datosParaCierre.denuncialegal.id_doctoSoporteEmocional"
+       :nombre_de_archivo_original ="this.datosParaCierre.denuncialegal.nombre_doctoSoporteEmocional"
+         >
+      </ComponenteCardsDocumentoEnCierre>
+      <br>
 
-       labelCheckbox= " ACTA DE VALORACIÓN DEL INCIDENTE"
+
+
+       <ComponenteCardsDocumentoEnCierre :v-if="verMedidasDisciplinarias"
+       name ="medidas"
+       texto= "MEDIDAS DISCIPLINARIAS "
+       :id   ="this.datosParaCierre.denuncialegal.id_medidasdocto"
+       :nombre_de_archivo_original ="this.datosParaCierre.denuncialegal.nombre_documentomedidasdocto"
+        >
+
+      </ComponenteCardsDocumentoEnCierre>
+       <br>
+
+
+     <ComponenteCardsDocumentoEnCierre :v-if="verDenuncia"
+       name ="denuncia"
+       texto= "DENUNCIA PRESENTADA"
+       :id   ="this.datosParaCierre.denuncialegal.id_denunciadocto"
+       :nombre_de_archivo_original ="this.datosParaCierre.denuncialegal.nombre_documentoDenuncia"
+            >
+
+      </ComponenteCardsDocumentoEnCierre>
+      <br>
+      <ComponenteCardsDocumentoEnCierre :v-if="verNotificacionPFN"
+       name = "pfn"
+       texto= "NOTIFICACION AL PFN"
+       :id   ="this.datosParaCierre.denuncialegal.id_Notificacionpfn"
+       :nombre_de_archivo_original ="this.datosParaCierre.denuncialegal.nombre_documentoNotificacionpfn"
+       >
+
+      </ComponenteCardsDocumentoEnCierre>
+      <br>
+
+      <ComponenteCardsDocumentoEnCierre :v-if="verNotificacionPersonaDenunciante"
+      name ="denuncia"
+       texto= "NOTIFICACION A LA PERSONA DENUNCIANTE"
+       :id   ="this.datosParaCierre.denuncialegal.id_NotificacionDenunciante"
+       :nombre_de_archivo_original ="this.datosParaCierre.denuncialegal.nombre_documentoNotificacionDenunciante"
+         >
+
+      </ComponenteCardsDocumentoEnCierre>
+       <br>
+      <ComponenteCardsDocumentoEnCierre :v-if="verPlanRecuperacionEmocional"
+      name ="emocional"
+
+       texto= "PLAN DE RECUPERACION EMOCIONAL CON SEGUIMIENTO"
         
-      :inputValueCheckbox ="Archivo_notificacionValoracion.hayArchivo"
+       :id   ="this.datosParaCierre.denuncialegal.id_NotificacionPlan"
+       :nombre_de_archivo_original ="this.datosParaCierre.denuncialegal.nombre_documentoNotificacionPlan"
+        >
 
-       :nombreArchivo ="Archivo_notificacionValoracion.nombreOriginal"
-
-       :colorIcono ="Archivo_notificacionValoracion.hayArchivo === true ? 'green' : 'yellow' "
-
-      >
-
-      </cardDocumentoEnCierre>      
-     
-    
+      </ComponenteCardsDocumentoEnCierre>
 
     <!-- =============================================== -->
     <br />
-    <!-- =============================================== -->
-
-    
-
-      <cardDocumentoEnCierre 
-
-       labelCheckbox= "SE CUENTA CON UN PLAN DE RECUPERACIÓN EMOCIONAL CON SEGUIMIENTO"
-        
-      :inputValueCheckbox ="Archivo_notificacionPlan.hayArchivo"
-
-       :nombreArchivo ="Archivo_notificacionPlan.nombreOriginal"
-
-       :colorIcono ="Archivo_notificacionPlan.hayArchivo === true ? 'green' : 'yellow' "
-
-      >
-
-      </cardDocumentoEnCierre>      
-
-   
 
     <!-- =============================================== -->
-    <br />
-    <!-- =============================================== -->
+
+
+
       <v-card width="100%">
         <v-card-title>
         </v-card-title>
@@ -314,9 +329,19 @@
     <!-- =============================================== -->
      <v-row v-if="mostrarAlerta">
        <v-col>
-         <v-alert type="warning"   >
-            Todavia no es posible realizar el cierre de este procedimiento de Desprotección Infantil
-         </v-alert>
+         <v-alert prominent type="warning"   >
+
+           <v-row align="center">
+              <v-col class="grow">
+               Todavia no es posible realizar el cierre de este procedimiento de Desprotección Infantil
+            <br>
+            por que es posible que alguna de las etapas anteriores no esten completadas debidamente
+        </v-col>
+              <v-col class="shrink">
+                <v-btn color="green" @click.prevent.stop="ocultarMsg">Enterado</v-btn>
+              </v-col>
+      </v-row>
+             </v-alert>
        </v-col>
      </v-row>
     <!-- =============================================== -->
@@ -380,7 +405,7 @@
 //import barraDocumentosVue from "../barradocumentos/barraDocumentos.vue";
 import usuariosCierre from "@/components/usuarios/usuariosCierre.vue";
 import apiIncidentes from '@/apialdeas/apiIncidentes.js';
-import cardDocumentoEnCierre from '@/components/etapasComponentesCierre/cardDocumentoEnCierre.vue';
+//import cardDocumentoEnCierre from '@/components/etapasComponentesCierre/cardDocumentoEnCierre.vue';
 import apiArchivos from '@/apialdeas/apiArchivos.js';
 import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
 import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
@@ -391,9 +416,11 @@ import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
 export default {
   components: {
     //barraDocumentosVue,
-    usuariosCierre,
-    cardDocumentoEnCierre ,
-    BarraDeNavegacion},
+    usuariosCierre ,
+   // cardDocumentoEnCierre ,
+    ComponenteCardsDocumentoEnCierre :() =>  import("@/components/etapasComponentesCierre/ComponenteCardsDocumentoEnCierre.vue"),
+    BarraDeNavegacion
+    },
 
   computed: {
     generarFolio() {
@@ -403,7 +430,11 @@ export default {
 
   methods: {
 
-  
+       ocultarMsg() {
+         
+         this.mostrarAlerta = false;
+
+       },
 
   
          PermisoImpresion(){
@@ -526,10 +557,13 @@ export default {
       
      // VISUALIZACIONDECIERRE
        console.log(" Permiso VISUALIZACIONDECIERRE  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.VISUALIZACIONDECIERRE)             
-        if (this.$store.state.usuarios.usuarios_usuariologueado_rol.VISUALIZACIONDECIERRE=='SI'){
+       
+       if (this.$store.state.usuarios.usuarios_usuariologueado_rol.VISUALIZACIONDECIERRE=='SI'){
    
       /*********************************************** */
      //obtenenemos el 
+     
+
       let incidenteId = this.$route.params.incidenteId;
 
       this.$store.dispatch("setear_incidente", this.incidenteId);
@@ -544,35 +578,56 @@ export default {
         response=>{ 
           
           console.log(response.data);
+
+          this.tipoDeRespuesta = response.data[0].tipoderespuesta;
+
+          console.log(" tipoDeRespuesta " +  response.data[0].tipoderespuesta);
+
+          if (this.tipoDeRespueta == 'DENUNCIA LEGAL'){
+
+
+            this.verActaHechos                      = true;
+            this.verActaValoracion                  = true;
+            this.verConsenso                        = true;
+            this.verInformePatronato                = true;
+            this.verInformeRegional                 = true;
+            this.verInformeEnteRector               = true;
+            this.verSoporteLegal                    = true;
+            this.verSoporteEmocional                = true;
+            this.verMedidasDisciplinarias           = true;
+            this.verDenuncia                        = true;
+            this.verNotificacionPFN                 = true;
+            this.verNotificacionPersonaDenunciante  = true;
+            this.verPlanRecuperacionEmocional       = true;
+
+
+          }
+
+          this.datosParaCierre = response.data[0];
           this.ESTADODELSEGUIMIENTO =response.data[0]["estadoseguimiento"];
           this.folio = response.data[0]["folio"];
            //setear el valor del filio para reporte de impresion 
           this.$store.dispatch("action_folio",this.folio);
-          this.programa= response.data[0]["nombrePrograma"];
-
-          this.elaboro= response.data[0]["elaboro"];
-           this.$store.dispatch("setear_Elaboro", this.elaboro);
+          this.programa       = response.data[0]["nombrePrograma"];
+          this.elaboro        = response.data[0]["elaboro"];
          
-          this.cargo= response.data[0]["cargousuario"];
-           this.$store.dispatch("setear_cargos",this.cargo);
-
-          this.testigos= response.data[0]["testigos"];
-          
-           this.$store.dispatch("action_etapainicial_testigoscierre",this.testigos);
-        
-          this.texto = response.data[0]['textocierre']; 
+          this.$store.dispatch("setear_Elaboro", this.elaboro);
+          this.cargo          = response.data[0]["cargousuario"];
+          this.$store.dispatch("setear_cargos",this.cargo);
+          this.testigos       = response.data[0]["testigos"];
+          this.$store.dispatch("action_etapainicial_testigoscierre",this.testigos);
+          this.texto          = response.data[0]['textocierre']; 
           this.$store.dispatch("action_textocierre",this.texto);
-          
-
-          this.cerrado = response.data[0]['estadoIncidente'];
+          this.cerrado        = response.data[0]['estadoIncidente'];
           console.log("cerrado ======>> " + this.cerrado );
+          this.sePuedeCerrarEnBaseAEdosAnteriores = response.data[0].denuncialegal.sePuedeCerrarPorEstados;
 
         
         
-        this.cerrado=='cerrado' ? this.mostarBotonDeCierre = false : this.mostarBotonDeCierre =true ;
+          this.cerrado=='cerrado' ? this.mostarBotonDeCierre = false : this.mostarBotonDeCierre =true ;
 
 
-        
+         this.overlay=false;
        
         
         
@@ -585,7 +640,7 @@ export default {
          this.Archivo_notificacionPlan.ext = response.data[0]['Archivo_Plan_ext'];
 */
       
-       
+       /*
          this.Archivo_notificacionPlan.nombreOriginal =response.data[0]['Archivo_planrecuperacion_nombreOriginal'];
          this.Archivo_notificacionPlan.id =response.data[0]['Archivo_planrecuperacion_id'];
          this.Archivo_notificacionPlan.hayArchivo =response.data[0]['Archivo_planrecuperacion_hayArchivo'];
@@ -594,9 +649,9 @@ export default {
          this.Archivo_notificacionPlan.ext = response.data[0]['Archivo_planrecuperacion_ext'];
  //'this.$store.dispatch('action_seguimiento_plan_docto_nombre', this.data_plan_docto['nombreOriginal']);
           this.$store.dispatch('action_seguimiento_planrecuperacion_docto_nombre',  this.Archivo_notificacionPlan.nombreOriginal);
+*/
 
-
-       
+       /*
          this.Archivo_notificacionValoracion.nombreOriginal =response.data[0]['Archivo_actavaloracion_nombreOriginal'];
          this.Archivo_notificacionValoracion.id =response.data[0]['Archivo_actavaloracion_id'];
          this.Archivo_notificacionValoracion.hayArchivo =response.data[0]['Archivo_actavaloracion_hayArchivo'];
@@ -605,8 +660,8 @@ export default {
          this.Archivo_notificacionValoracion.ext = response.data[0]['Archivo_actavaloracion_ext'];
 
         this.$store.dispatch('action_seguimiento_actavaloracion_docto_nombre', this.Archivo_notificacionValoracion.nombreOriginal);
-
-    
+*/
+    /*
          this.Archivo_notificacionDenunciante.nombreOriginal =response.data[0]['Archivo_notificaciondenunciante_nombreOriginal'];
          this.Archivo_notificacionDenunciante.id =response.data[0]['Archivo_notificaciondenunciante_id'];
          this.Archivo_notificacionDenunciante.hayArchivo =response.data[0]['Archivo_notificaciondenunciante_hayArchivo'];
@@ -614,8 +669,8 @@ export default {
          this.Archivo_notificacionDenunciante.directorio =response.data[0]['Archivo_notificaciondenunciante_directorio'];
          this.Archivo_notificacionDenunciante.ext = response.data[0]['Archivo_notificaciondenunciante_ext'];
          this.$store.dispatch('action_seguimiento_notificaciodenunciante_docto_nombre',  this.Archivo_notificacionDenunciante.nombreOriginal);
-
-
+*/
+/*
          this.Archivo_notificaciondif.nombreOriginal =response.data[0]['Archivo_notificaciondif_nombreOriginal'];
          this.Archivo_notificaciondif.id =response.data[0]['Archivo_notificaciondif_id'];
          this.Archivo_notificaciondif.hayArchivo =response.data[0]['Archivo_notificaciondif_hayArchivo'];
@@ -623,9 +678,9 @@ export default {
          this.Archivo_notificaciondif.directorio =response.data[0]['Archivo_notificaciondif_directorio'];
          this.Archivo_notificaciondif.ext = response.data[0]['Archivo_notificaciondif_ext'];
          this.$store.dispatch('action_seguimiento_notificaciondif_docto_nombre', this.Archivo_notificaciondif.nombreOriginal);
+*/
 
-
-         this.Archivo_notificacionAutoridad.nombreOriginal =response.data[0]['Archivo_notificacionautoridad_nombreOriginal'];
+/*       this.Archivo_notificacionAutoridad.nombreOriginal =response.data[0]['Archivo_notificacionautoridad_nombreOriginal'];
          this.Archivo_notificacionAutoridad.id =response.data[0]['Archivo_notificacionautoridad_id'];
          this.Archivo_notificacionAutoridad.hayArchivo =response.data[0]['Archivo_notificacionautoridad_hayArchivo'];
          this.Archivo_notificacionAutoridad.nombreInterno =response.data[0]['Archivo_notificacionautoridad_nombreinterno'];
@@ -633,9 +688,9 @@ export default {
          this.Archivo_notificacionAutoridad.ext = response.data[0]['Archivo_notificacionautoridad_ext'];
 
           this.$store.dispatch('action_seguimiento_notificacionautoridad_docto_nombre', this.Archivo_notificacionAutoridad.nombreOriginal);
-
+*/
         
-
+/*
          this.Archivo_notificacionPFN.nombreOriginal =response.data[0]['Archivo_notificacionPFN_nombreOriginal'];
          this.Archivo_notificacionPFN.id =response.data[0]['Archivo_notificacionPFN_id'];
          this.Archivo_notificacionPFN.hayArchivo =response.data[0]['Archivo_notificacionPFN_hayArchivo'];
@@ -643,12 +698,13 @@ export default {
          this.Archivo_notificacionPFN.directorio =response.data[0]['notificacionutoridad_directorio'];
          this.Archivo_notificacionPFN.ext = response.data[0]['Archivo_notificacionPFN_ext'];
          this.$store.dispatch('action_seguimiento_notificacionpfn_docto_nombre', this.Archivo_notificacionPFN.nombreOriginal);
-
+*/
 
            }
       ).catch(
         error =>{
           console.log(error);
+          this.overlay=false;
         }
       );
           this.overlay=false;
@@ -779,20 +835,31 @@ export default {
     },//termina cierre
 
     cerrarIncidente(){
-      console.log(this.mostrarAlerta);
-      this.mostrarAlerta=false;
-       console.log(this.mostrarAlerta);
-      if(this.ESTADODELSEGUIMIENTO=='abierto'){
-          this.mostrarAlerta=true;
-           console.log(this.mostrarAlerta);
-      }else{
 
-      this.loading= true ;
-      let res = this.validarCierre();
-      res ==true ? this.realizarElCierre()  :   this.revisarErrores() ;    
-      
-      
-      }
+      console.log(this.mostrarAlerta);
+
+      this.mostrarAlerta=false;
+
+       console.log(this.mostrarAlerta);
+
+      if( this.sePuedeCerrarEnBaseAEdosAnteriores == false){
+         this.mostrarAlerta=true;
+        
+      } else {
+
+        if(this.ESTADODELSEGUIMIENTO=='abierto'){
+            this.mostrarAlerta=true;
+            console.log(this.mostrarAlerta);
+        }else{
+
+        this.loading= true ;
+        let res = this.validarCierre();
+        res ==true ? this.realizarElCierre()  :   this.revisarErrores() ;    
+        
+        
+        }
+
+    }//se puede cerrar 
 
       
 
@@ -819,8 +886,10 @@ export default {
   // valores para regresar a esta pagina si se 
   // tiene que regresar despues de estar en imp
   // siones
+   //----------------------------------------------------
+     
   ////////////////////////////////////////////
-   let ruta_A_regresar  = '/cierre/'+  this.$route.params.id;
+   let ruta_A_regresar  = '/cierre/'+  this.$route.params.incidenteId;
     console.log("ruta_A_regresar : " + ruta_A_regresar);
     this.$store.dispatch("action_regresar_A_despues_de_impresion",ruta_A_regresar);
     /////////////////////////////////////////////
@@ -834,6 +903,41 @@ export default {
 
   data() {
     return {
+     
+     /*-------------------------------------------- */
+     /*  MOSTRAR O NO LOS COMPONENTES SEGUN SEA EL TIPO
+        DE RESPUESTA
+      ----------------------------------------------*/
+
+      verActaHechos                      : false,
+      verActaValoracion                  : false,
+      verConsenso                        : false,
+      verInformePatronato                : false,
+      verInformeRegional                 : false,
+      verInformeEnteRector               : false,
+      verSoporteLegal                    : false,
+      verSoporteEmocional                : false,
+      verMedidasDisciplinarias           : false,
+      verDenuncia                        : false,
+      verNotificacionPFN                 : false,
+      verNotificacionPersonaDenunciante  : false,
+      verPlanRecuperacionEmocional       : false,
+     
+     /* ----------------------------------------------*/
+
+     tipoDeRespuesta : '',
+
+     /* ----------------------------------------------*/
+
+     datosParaCierre : null,
+
+     /* esta variable guarda la informacion de que si es posible o no 
+        cerrar este incidente en base a los estados de las etapas anteriores */
+      
+      sePuedeCerrarEnBaseAEdosAnteriores :  false,
+
+
+
       showAyuda :false,
       overlay : false,
 

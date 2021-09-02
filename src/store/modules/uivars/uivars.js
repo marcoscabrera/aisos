@@ -4,7 +4,8 @@ import actions from './actions.js';
 export default {
 //para consultar iconos.
 state: {
-    
+    ////////////////////////////////////
+    uivars_enDondeEstoy : null,
     ///////////// parametros   /////////
     
     uivars_parametros : [],
