@@ -10,20 +10,22 @@
 
 
             <BarraDeNavegacion
-             activo_ri="1"
-             activo_vi="1"
-             activo_s="0"
-             activo_c="1"
+             verInicial       
+             verIntegral 
+             verSeguimiento 
+             verCierre
+
              ></BarraDeNavegacion>
 
         </v-col>
     </v-row>
     <br>
-    
+
+    <!--
     <v-alert type="warning">
       Este componente esta en proceso de actualizacion.
     </v-alert>
-    <!-- -->
+     -->
 
         <!-- pediente la fecha -->
     <FoliosComponente v-if="ocultar"
@@ -44,34 +46,27 @@
  <br >
     
     <!-- ==========================================  -->
-   
-  
+   <CardInformeAEnteRector_AI v-if="this.$store.state.abordaje.abordaje_mostrarTodo"
+   ></CardInformeAEnteRector_AI>
+     <br >
     <!-- =============================================== -->
-       <!-- abordaje_plan -->
-       
-      <ComponenteCardDoctoAbordaje v-if="ocultar"
-        :incidenteId ="incidenteIdPE"
-        :archivoId ="abordaje.plan_docto"
-        :nombreDelArchivo="data_plan_docto.nombreOriginal"
-        :sihayarchivo="data_plan_docto.hayArchivo"
-        :valorcombo="abordaje.plan"
-        ></ComponenteCardDoctoAbordaje>
-    <br >
+    <CardNotificacionPFN_AI v-if="this.$store.state.abordaje.abordaje_mostrarTodo"></CardNotificacionPFN_AI>
+      
+   <br>
 
-      <!-- ==========================================  -->
+   <ComponentePD_AI v-if="this.$store.state.abordaje.abordaje_mostrarTodo"></ComponentePD_AI>
+   <br>
 
-    
-    <ComponenteCardDocumentosOficiales v-if="ocultar"
-        :incidenteId ="incidenteIdPE"
+   <ComponenteActaValoracion_AI v-if="this.$store.state.abordaje.abordaje_mostrarTodo"></ComponenteActaValoracion_AI>
+   <br>
+   <ComponenteActaHechos_AI v-if="this.$store.state.abordaje.abordaje_mostrarTodo"></ComponenteActaHechos_AI>
+   <br>
+   <ComponentePlanEmocional_AI v-if="this.$store.state.abordaje.abordaje_mostrarTodo">
 
-        :archivoId ="abordaje.documentos_docto"
-        :nombreDelArchivo="data_documento_docto.nombreOriginal"
-        :sihayarchivo="data_documento_docto.hayArchivo"
-        :valorcombo="abordaje.documentos">
-        </ComponenteCardDocumentosOficiales>
-    
+   </ComponentePlanEmocional_AI>
+    <br>   
 
-    <br> 
+
     <v-alert :type="tipoalerta" v-if="ocultar">
        {{mensaje}}
     </v-alert>
@@ -135,7 +130,7 @@
 //import seguimientoCRUD from "@/components/seguimiento/seguimientoCRUD.vue";
 
 import abordajeinterno from '@/components/etapas/abordajeinterno.js'
-import apiArchivos from '@/apialdeas/apiArchivos.js';
+//import apiArchivos from '@/apialdeas/apiArchivos.js';
 //import cardProtocoloComponente  from  '@/components/etapasComponentesSeguimiento/cardProtocoloComponente.vue'
 import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
 /* importar en el componente , antes del export defaiñt*/
@@ -147,15 +142,100 @@ import FoliosComponente  from "@/components/denucialegal/componentesDenunciaLega
 
 import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
 
+import eventBus from '@/eventBus.js';
+
 export default {
+
+    data() {
+    return {
+      ocultar       : true,
+      overlay       : false,
+      estado        : '',
+      mensaje       : '',
+      tipoalerta    : '',
+      folioabordaje :'',
+      errores       : 0,
+      tipoderespuesta : '',
+      esDenuncia      : false,
+      verDenuncia_o_investigacion : false,
+      texto : '',
+      fecha : '',
+
+      data_plan_docto : [],
+      data_planrecuperacion_docto: [],
+      data_notificacionpfn_docto: [],
+      data_notificaciondif_docto: [],
+      data_notificacionautoridad_docto: [],
+      data_notificaciondenunciante_docto: [],
+      data_documento_docto: [],
+      data_actavaloracion_docto: [],
+
+      abordaje:[],
+
+      incidenteId:'',
+     
+      incidenteIdPE :"",
+
+      archivoIdPE : "",
+      nombreDelArchivoPE : "",
+      sihayarchivoPE: "",
+      planenejecucion: "",
+
+
+      folio :'sin asignar',
+      loading : false,
+
+      registroDelStatus: "",
+      planrecuperacion: "",
+    
+      doctooficial: "",
+
+      notificaciondif: "",
+
+      notificacionautoridad: "",
+
+      notificacionpfn: "",
+
+      notificaciondenunciante: "",
+
+      adulto: false,
+
+      pares: false,
+
+      itemsOpciones: ["SI", "NO", "POR CONFIRMAR"],
+
+      itemsUnidades: ["Unidad SOS Tijuana", "Unidad SOS CDMX"],
+
+      itemsCargos: ["Cuidador", "Mamá SOS", "Papá SOS"],
+      itemsFamilia: [
+        "Papá",
+        "Mamá",
+        "Hermano",
+        "Hermana",
+        "Padrastro",
+        "Madrastra",
+        "Tio",
+      ],
+
+      perfilAgresor: null,
+
+      date: new Date().toISOString().substr(0, 10),
+
+      menu2: false,
+    };
+  },
   components: {   
     FoliosComponente,  
-     BarraDeNavegacion,          
-    ComponenteTextAreaStatus : () => import('@/components/etapasComponentesAbordaje/ComponenteTextAreaStatus.vue'),
-    ComponenteCardDoctoAbordaje :()=> import('@/components/etapasComponentesAbordaje/ComponenteCardDoctoAbordaje.vue'),
-    ComponenteCardDocumentosOficiales:() => import('@/components/etapasComponentesAbordaje/ComponenteCardDocumentosOficiales.vue')
+    BarraDeNavegacion,          
+    ComponenteTextAreaStatus     :() =>   import('@/components/etapasComponentesAbordaje/ComponenteTextAreaStatus.vue'),
+    CardInformeAEnteRector_AI    :() =>   import('@/components/etapasComponentesAbordaje/CardInformeAEnteRector_AI.vue'),
+    CardNotificacionPFN_AI       :() =>   import('@/components/etapasComponentesAbordaje/CardNotificacionPFN_AI.vue'),
+    ComponentePD_AI              :() =>   import('@/components/etapasComponentesAbordaje/ComponentePD_Ai.vue'),
+    ComponenteActaValoracion_AI  :() =>   import('@/components/etapasComponentesAbordaje/ComponenteActaValoracion_AI.vue'),
+    ComponenteActaHechos_AI      :() =>   import('@/components/etapasComponentesAbordaje/ComponenteActaHechos_AI.vue'),
+    ComponentePlanEmocional_AI   :() =>   import('@/components/etapasComponentesAbordaje/ComponentePlanEmocional_AI.vue'),
 
-  },
+  }, 
 
   
   computed: {
@@ -218,8 +298,9 @@ export default {
 
     guardarRegistro() {
           // 
-          console.log(" Permiso EDITARDESEGUIMIENTO  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARDESEGUIMIENTO)             
-     if (this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARDESEGUIMIENTO=='SI'){
+     console.log(" Permiso EDITARDESEGUIMIENTO  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARDESEGUIMIENTO)             
+   
+   if (this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARDESEGUIMIENTO=='SI'){
 
      
        this.loading = true;
@@ -248,13 +329,19 @@ export default {
       */
      
      let parametros = {
-            incidenteid :  this.incidenteIdPE,        
-            status  : this.$store.state.abordaje.abordaje_status,            
-            plan      : this.$store.state.abordaje.abordaje_plan,             
-            documentos   : this.$store.state.abordaje.abordaje_documentos,           
-            plan_docto : this.$store.state.abordaje.abordaje_plan_docto, 
-            documentos_docto : this.$store.state.abordaje.abordaje_documentos_docto,
-     };
+            incidenteid              : this.incidenteIdPE,        
+            status                   : this.$store.state.abordaje.abordaje_status,
+            estado_informeenterector : this.$store.state.abordaje.abordaje_informaenterector,
+            id_informeenterector     : this.$store.state.abordaje.abordaje_docto_informaenterector,           
+            estado_pfn               : this.$store.state.abordaje.abordaje_seg_estado_pfn,
+            id_pfn                   : this.$store.state.abordaje.abordaje_seg_docto_pfn,
+            estado_pd                : this.$store.state.abordaje.abordaje_seg_estado_pd,
+            id_pd                    : this.$store.state.abordaje.abordaje_seg_docto_pd,
+            id_actahechos            : this.$store.state.abordaje.abordaje_docto_actahecho,
+            id_actavaloracion        : this.$store.state.abordaje.abordaje_docto_actavaloracion,
+            estado_pr                : this.$store.state.abordaje.abordaje_seg_estado_pr,
+            id_pr                    : this.$store.state.abordaje.abordaje_seg_docto_pr,
+  };
 
       console.log(" parametros " + JSON.stringify(parametros));
 
@@ -326,7 +413,11 @@ export default {
      
     },
     guardar__iraDashboard() {
+
+
+      this.$store.dispatch("action_abordaje_mostrarTodo",false);
       this.$router.push("/dashboard");
+
     },
 
     checkArray(arreglo){
@@ -382,112 +473,61 @@ export default {
         
         response => {
 
+
+          console.log("======================");
+          console.log("cargando el abordaje");
+          console.log("======================");
+          console.log(response.data);
+
       /*
-      respuesta de la api
-
-      {"0":
-      {"id":"1",
-      "incidenteid":"24",
-      "status":" ",
-      "plan":" ",
-      "plan_docto":"0",
-      "documentos":"0",
-      "documentos_docto":"0",
-      "estado":"abierto",
-      "fechaCreacion":"2021-03-18",
-      "fechaUpdate":"2021-03-18",
-      "programa":"2",
-      "folioabordaje":"AI--1-2021"},
-      "folioincidente":"MO-7-2021"}
-
-
-                  incidenteid :  this.incidenteIdPE,        
-            status  : this.$store.state.abordaje.abordaje_status,            
-            plan      : this.$store.state.abordaje.abordaje_plan,             
-            documentos   : this.$store.state.abordaje.abordaje_documentos,           
-            plan_docto : this.$store.state.abordaje.abordaje_plan_docto, 
-            documentos_docto : this.$store.state.abordaje.abordaje_documentos_docto,
-
       */
-      this.abordaje = response.data[0];
-      this.folio = response.data[1]["folioincidente"];
-      this.folioabordaje =  response.data[0]["folioabordaje"];
+      this.abordaje = response.data;
+      this.folio = response.data["folioIncidente"];
+      this.folioabordaje =  response.data["folioAbordaje"];
 
-      this.fecha =   response.data[0]["fechaUpdate"];  
-      this.texto =   response.data[0]["status"];  
+      this.fecha =   response.data["fechaUpdate"];  
+      this.texto =   response.data["status"];  
       this.$store.dispatch("action_abordaje_status", this.texto );
 
       //setear el valor del filio para reporte de impresion 
       this.$store.dispatch("action_folio",this.folio);
-      
-      this.incidenteId =response.data[0]["incidenteid"];
+      //this.incidenteId =response.data[0]["incidenteid"];
       /* *******************************************************/
-       let plan_docto = response.data[0]["plan_docto"];
-       this.$store.dispatch("action_abordaje_plan_docto",plan_docto);
-       this.$store.dispatch("action_abordaje_plan",response.data[0]["plan"]);
+      this.$store.dispatch("action_abordaje_informaenterector",       response.data.informaenterector);
+      this.$store.dispatch("action_abordaje_docto_informaenterector", response.data.docto_informaenterector);
+      this.$store.dispatch("action_abordaje_seg_estado_pfn",          response.data.seguimiento.notificacionpfn);
+      this.$store.dispatch("action_abordaje_seg_docto_pfn",           response.data.seguimiento.notificacionpfn_docto);
+      this.$store.dispatch("action_abordaje_seg_estado_pd",            response.data.seguimiento.notificaciodenunciante);
+     
+      this.$store.dispatch("action_abordaje_seg_docto_pd",     response.data.seguimiento.notificaciondenunciante_docto);
+     
+      this.$store.dispatch("action_abordaje_seg_estado_pr", response.data.seguimiento.planrecuperacion);
+      this.$store.dispatch("action_abordaje_seg_docto_pr",response.data.seguimiento.planrecuperacion_docto);
+      this.$store.dispatch("action_abordaje_docto_actahecho",response.data.id_actahechos);
+      this.$store.dispatch("action_abordaje_docto_actavaloracion",response.data.id_actavaloracion);
+     
+      /********************************************************************************************************/ 
+      // let plan_docto = response.data[0]["plan_docto"];
+       //this.$store.dispatch("action_abordaje_plan_docto",plan_docto);
+       //this.$store.dispatch("action_abordaje_plan",response.data[0]["plan"]);
 
-       let documentos_docto = response.data[0]["documentos_docto"];
-       this.$store.dispatch("action_abordaje_documentos_docto",documentos_docto);
-       this.$store.dispatch("action_abordaje_documentos",response.data[0]["documentos"]);
+       //let documentos_docto = response.data[0]["documentos_docto"];
+       //this.$store.dispatch("action_abordaje_documentos_docto",documentos_docto);
+       //this.$store.dispatch("action_abordaje_documentos",response.data[0]["documentos"]);
        
-       this.estado = response.data[0]["estado"];
+       this.estado = response.data["estado"];
+       
+       this.$store.dispatch("action_abordaje_mostrarTodo",true);
 
-       let archivo_plan_docto = apiArchivos.conseguirArchivo(plan_docto, this.$store.state);
-       let archivo_documentos_docto = apiArchivos.conseguirArchivo(documentos_docto, this.$store.state);
-   
-    /* 
-         action_abordaje_id 
+       eventBus.$emit('cargarArchivo_con_id');
 
-action_abordaje_incidenteid 
-,
-action_abordaje_status 
-,
-action_abordaje_plan
-,
-action_abordaje_documentos 
-action_abordaje_plan_docto 
-
-action_abordaje_documentos_docto 
- action_abordaje_plan_docto_nombre
-  action_abordaje_documentos_docto_nombre    */ 
-
-
-
-       /* --------------------------------------------------------------- */
-       archivo_plan_docto.then(
-         response => {
-           //console.log("archivo_plan_docto :" + JSON.stringify(response.data));
-
-           this.data_plan_docto = this.checkArray(  response.data[0]);
-          
-          this.$store.dispatch('action_abordaje_plan_docto_nombre', this.data_plan_docto['nombreOriginal']);
- 
-         }
-       ).catch(
-         error=> {
-           console.log(" error " + JSON.stringify(error.data));
-         }
-       );
+       this.overlay =  false;
+    
      
-        archivo_documentos_docto.then(
-         response => {
-           //console.log("archivo_documentos_docto :" + JSON.stringify(response.data));
-     
-          // this.data_documento_docto= response.data[0];
-             this.data_documento_docto =  this.checkArray(   response.data[0] );
-             this.$store.dispatch('action_abordaje_documentos_docto_nombre', this.data_documento_docto['nombreOriginal']);
-
-      }
-       ).catch(
-         error=> {
-           console.log(" error " + JSON.stringify(error.data));
-         }
-       );
-
-       /*===================================================================*/
 
       }).catch( error => {
               console.log(error);
+                this.overlay =  true;
       });
     
   /////////////////////////////////////////////
@@ -510,92 +550,20 @@ action_abordaje_documentos_docto
 
   mounted(){
 
-    this.overlay =  true;
- 
-     this.cargarSeguimientos();
+        this.overlay =  true;
+
+
+         this.$nextTick(() => {  
+
+           this.cargarSeguimientos();
+         });
+
      
-  },
+  }
+
+}
 
 
 
-  data() {
-    return {
-      ocultar :false,
-      overlay : false,
-      estado: '',
-      mensaje : '',
-      tipoalerta: '',
-      folioabordaje :'',
-      errores : 0,
-      tipoderespuesta : '',
-      esDenuncia : false,
-      verDenuncia_o_investigacion : false,
-      texto : '',
-      fecha : '',
-
-      data_plan_docto : [],
-      data_planrecuperacion_docto: [],
-      data_notificacionpfn_docto: [],
-      data_notificaciondif_docto: [],
-      data_notificacionautoridad_docto: [],
-      data_notificaciondenunciante_docto: [],
-      data_documento_docto: [],
-      data_actavaloracion_docto: [],
-
-      abordaje:[],
-
-      incidenteId:'',
-     
-      incidenteIdPE :"",
-
-      archivoIdPE : "",
-      nombreDelArchivoPE : "",
-      sihayarchivoPE: "",
-      planenejecucion: "",
-
-
-      folio :'sin asignar',
-      loading : false,
-
-      registroDelStatus: "",
-      planrecuperacion: "",
-    
-      doctooficial: "",
-
-      notificaciondif: "",
-
-      notificacionautoridad: "",
-
-      notificacionpfn: "",
-
-      notificaciondenunciante: "",
-
-      adulto: false,
-
-      pares: false,
-
-      itemsOpciones: ["SI", "NO", "POR CONFIRMAR"],
-
-      itemsUnidades: ["Unidad SOS Tijuana", "Unidad SOS CDMX"],
-
-      itemsCargos: ["Cuidador", "Mamá SOS", "Papá SOS"],
-      itemsFamilia: [
-        "Papá",
-        "Mamá",
-        "Hermano",
-        "Hermana",
-        "Padrastro",
-        "Madrastra",
-        "Tio",
-      ],
-
-      perfilAgresor: null,
-
-      date: new Date().toISOString().substr(0, 10),
-
-      menu2: false,
-    };
-  },
-};
 </script>
 

@@ -136,6 +136,12 @@ import apiIncidentes from '@/apialdeas/apiIncidentes.js';
 
 
         methods: {
+
+          descargarControles() {
+             //oculto componentes de abordaje interno
+             this.$store.dispatch("action_abordaje_mostrarTodo",false);
+          },
+
           actualizarProps() {
              
         this.verInicial       == true  ? this.verIni = true  : this.verIni = false;
@@ -144,7 +150,7 @@ import apiIncidentes from '@/apialdeas/apiIncidentes.js';
         this.verCierre        == true  ? this.verC   = true  : this.verC   = false;
         this.verRespuesta     == true  ?  this.verRes = true : this.verRes = false;
           },
-  buscarVersionViewport( ) {
+          buscarVersionViewport( ) {
         
         
 
@@ -176,7 +182,7 @@ import apiIncidentes from '@/apialdeas/apiIncidentes.js';
         IR_a_ri() {
 
        // named route
-          
+          this.descargarControles();
           console.log(" <<< BARRA DE NAVEGACION >>>> valor incidente >>>" + this.$store.state.incidentes.etapainicial_incidente);
 
           let id  = this.$store.state.incidentes.etapainicial_incidente;
@@ -186,8 +192,10 @@ import apiIncidentes from '@/apialdeas/apiIncidentes.js';
         },
 
    ir_al_cierre(){
-     console.log(" <<< BARRA DE NAVEGACION >>>> valor incidente >>>" + this.$store.state.incidentes.etapainicial_incidente);
-
+       
+       console.log(" <<< BARRA DE NAVEGACION >>>> valor incidente >>>" + this.$store.state.incidentes.etapainicial_incidente);
+        this.descargarControles();
+      
        let id  = this.$store.state.incidentes.etapainicial_incidente;
        this.$router.push({ name: "Cierre", params: { incidenteId: id } });
        // this.$router.push({ name: "Actualizacion" });
@@ -196,7 +204,7 @@ import apiIncidentes from '@/apialdeas/apiIncidentes.js';
 
     IR_a_Respuesta(){
 
-
+      this.descargarControles();
       let id  = this.$store.state.incidentes.etapainicial_incidente;
      // this.$router.push({ name: "Cierre", params: { incidenteId: id } });
      
@@ -244,6 +252,8 @@ import apiIncidentes from '@/apialdeas/apiIncidentes.js';
 
     },
     ir_al_seguimiento(){
+
+        this.descargarControles();
         console.log(" <<< BARRA DE NAVEGACION >>>> valor incidente >>>" + this.$store.state.incidentes.etapainicial_incidente);
 
         let id  = this.$store.state.incidentes.etapainicial_incidente;
@@ -255,6 +265,7 @@ import apiIncidentes from '@/apialdeas/apiIncidentes.js';
     },
       IR_a_vi(){
         
+         this.descargarControles();
        console.log(" <<< BARRA DE NAVEGACION >>>> valor incidente >>>" + this.$store.state.incidentes.etapainicial_incidente);
 
         let id  = this.$store.state.incidentes.etapainicial_incidente;
@@ -263,6 +274,8 @@ import apiIncidentes from '@/apialdeas/apiIncidentes.js';
       
       },
     IR_a_RUTA() {
+
+     this.descargarControles();
      console.log(" <<< BARRA DE NAVEGACION >>>> valor incidente >>>" + this.$store.state.incidentes.etapainicial_incidente);
 
       this.$router.push('/dashboard');

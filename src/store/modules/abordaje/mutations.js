@@ -1,3 +1,5 @@
+
+
 export default { 
  
  /*
@@ -8,6 +10,44 @@ export default {
  },
 
  */
+
+ 
+
+ mutation_abordaje_mostrarTodo(state,valor)
+ {state.abordaje_mostrarTodo =valor; },
+
+
+ mutation_abordaje_informaenterector(state,valor)
+ {state.abordaje_informaenterector =valor; },
+
+ mutation_abordaje_docto_informaenterector(state,valor)
+ {state.abordaje_docto_informaenterector =valor; },
+
+ mutation_abordaje_seg_estado_pfn(state,valor)
+ {state.abordaje_seg_estado_pfn =valor; },
+
+ mutation_abordaje_seg_docto_pfn(state,valor)
+ {state.abordaje_seg_docto_pfn =valor; },
+
+ mutation_abordaje_seg_estado_pd(state,valor)
+{state.abordaje_seg_estado_pd =valor; },
+
+mutation_abordaje_seg_docto_pd(state,valor)
+ {state.abordaje_seg_docto_pd  =valor; },
+
+ mutation_abordaje_seg_estado_pr(state,valor)
+{ state.abordaje_seg_estado_pr =valor; },
+
+mutation_abordaje_seg_docto_pr(state,valor)
+ {state.abordaje_seg_docto_pr  =valor; },
+
+ mutation_abordaje_docto_actahecho(state,valor)
+ {state.abordaje_docto_actahecho =valor; },
+
+ mutation_abordaje_docto_actavaloracion(state,valor)
+ {state.abordaje_docto_actavaloracion =valor; },
+
+
 mutation_abordaje_id( state, valor) {   
               state.abordaje_id  = valor 
             

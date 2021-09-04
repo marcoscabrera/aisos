@@ -85,8 +85,89 @@ action_abordaje_validacion_documentos ( context, valor) {
   context.commit("mutation_abordaje_validacion_documentos_docto", valor )
 
 },   
-      
-           
+
+
+action_abordaje_informaenterector(context,valor)
+{  context.commit("mutation_abordaje_informaenterector",valor);  },
+  
+
+action_abordaje_docto_informaenterector(context,valor){
+
+  context.commit("mutation_abordaje_docto_informaenterector",valor)
+
+},
+
+
+
+action_abordaje_mostrarTodo(context,valor){
+
+  context.commit("mutation_abordaje_mostrarTodo",valor)
+
+},
+
+
+
+
+action_abordaje_seg_estado_pfn(context,valor){
+
+  context.commit("mutation_abordaje_seg_estado_pfn",valor)
+
+},
+
+action_abordaje_seg_docto_pfn(context,valor){
+
+  context.commit("mutation_abordaje_seg_docto_pfn",valor)
+
+},
+
+
+action_abordaje_seg_estado_pd(context,valor){
+
+  context.commit("mutation_abordaje_seg_estado_pd",valor)
+
+},
+
+action_abordaje_seg_docto_pd(context,valor){
+
+  context.commit("mutation_abordaje_seg_docto_pd",valor)
+
+},
+
+action_abordaje_seg_estado_pr(context,valor){
+
+  context.commit("mutation_abordaje_seg_estado_pr",valor)
+
+},
+
+
+action_abordaje_seg_docto_pr(context,valor){
+
+  context.commit("mutation_abordaje_seg_docto_pr",valor)
+
+},
+
+
+action_abordaje_docto_actahecho(context,valor){
+
+  context.commit("mutation_abordaje_docto_actahecho",valor)
+
+},
+
+
+
+action_abordaje_docto_actavaloracion(context,valor){
+
+  context.commit("mutation_abordaje_docto_actavaloracion",valor)
+
+},
+
+
+
+
+
+
+
+        
         
 
  }
