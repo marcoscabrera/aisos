@@ -783,10 +783,19 @@ export default {
 
 
     guardar__iraDashboard() {
-      this.$router.push("/dashboard");
+
+            this.verConsensoNacional       = false ;
+            this.verMedidasDisciplinarias  = false ;
+            this.verDenunciaPresentada     = false ;
+            this.verNotificacionPFN        = false ;
+            this.verNotificacionPD         = false ;
+            this.verActaDeHechos           = false ;
+            this.verPlanRecuperacionEmo    = false ;
+
+             this.$router.push("/dashboard");
     },
 
-    checkArray(arreglo){
+  /*  checkArray(arreglo){
           console.log("contenido de arreglo");
            
          
@@ -814,7 +823,7 @@ export default {
           return arrayDeRegreso;
         //   console.log("valor : " +  arreglo['hayArchivo']);
 
-    },
+    },*/
 
 
     /***
@@ -876,6 +885,19 @@ export default {
             this.verConsensoNacional       = true ;
             this.verMedidasDisciplinarias  = true ;
             this.verDenunciaPresentada     = true ;
+            this.verNotificacionPFN        = true ;
+            this.verNotificacionPD         = true ;
+            this.verActaDeHechos           = true ;
+            this.verPlanRecuperacionEmo    = true ;
+
+
+        }
+
+        if ( this.tipoderespuesta == 'ABORDAJE INTERNO'){
+            
+           // this.verConsensoNacional       = true ;
+          //  this.verMedidasDisciplinarias  = true ;
+           // this.verDenunciaPresentada     = true ;
             this.verNotificacionPFN        = true ;
             this.verNotificacionPD         = true ;
             this.verActaDeHechos           = true ;
