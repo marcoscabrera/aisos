@@ -70,6 +70,7 @@
 <script>
 
 import apiTestigos from '@/apialdeas/apiTestigos.js';
+import eventBus from '@/eventBus';
 export default {
   props : { incidenteid : { type:String},
             testigos : {type: Array}},
@@ -114,15 +115,47 @@ export default {
   },
 
   watch: {
+
+     usuarios() {
+
+       console.log(" El valor de usuarios ha cambiado");
+       console.log( this.usuarios);
+
+
+     },
     dialog(val) {
       val || this.close();
     },
   },
 
-  created() {
+  mounted() {
     //this.initialize();
+     
+       eventBus.$on('cargarTestigos', (id = 0) => { 
+
+         //let id = this.incidenteid;
+      
+         let testigos = apiTestigos.cargarTestigos(id,this.$store);
+
+      testigos.then(
+        response => {
+            this.usuarios = response.data;
+
+            let cuantosUsuarios = this.usuarios.length;
+
+            this.$store.dispatch('actions_uivars_cuantosTestigos',cuantosUsuarios);
+        }
+      ).catch(
+        error=>{
+          console.log(error);
+        }
+      );
+
+
+        });
+
       this.$nextTick(() => {
-          this.poblarGrid();
+          this.poblarGrid_inicial();
       });
    
   },
@@ -131,6 +164,15 @@ export default {
 
     initialize() {
         this.usuarios = this.testigos;
+    },
+
+    poblarGrid_inicial() {
+          this.usuarios = this.testigos;
+     console.log("valor de  testigos ");
+      console.log(this.testigos);
+      console.log(this.usuarios);
+
+
     },
    poblarGrid () {
 

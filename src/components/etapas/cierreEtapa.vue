@@ -117,138 +117,148 @@
 
     <!-- =============================================== -->
 
-      <ComponenteCardsDocumentoEnCierre :v-if = "verActaHechos"
+      <ComponenteCardsDocumentoEnCierre v-if = "this.verActaHechos == true"
        name="hechos"
        texto = "ACTA DE HECHOS "
-       :id="this.datosParaCierre.denuncialegal.id_ActaHechos"
-       :nombre_de_archivo_original ="this.datosParaCierre.denuncialegal.nombre_documentoActaHechos"
+       :id="this.id_ActaHechos"
+       :nombre_de_archivo_original ="this.nombre_documentoActaHechos"
        >
        
+
       </ComponenteCardsDocumentoEnCierre>
+
       <br>
-      <ComponenteCardsDocumentoEnCierre :v-if="verActaValoracion"
+      <ComponenteCardsDocumentoEnCierre v-if="this.verActaValoracion  == true"
        name="valoracion"
        texto= "ACTA DE VALORACION "
-       :id="this.datosParaCierre.denuncialegal.id_ActaValoracion"
-       :nombre_de_archivo_original ="this.datosParaCierre.denuncialegal.nombre_documentoActaValoracion"
+       :id="this.id_ActaValoracion"
+       :nombre_de_archivo_original ="this.nombre_documentoActaValoracion"
+
       >
+
       </ComponenteCardsDocumentoEnCierre>
       <br>
 
  
-      <ComponenteCardsDocumentoEnCierre :v-if="verConsenso"
+      <ComponenteCardsDocumentoEnCierre v-if="this.verConsenso== true"
        name="consenso"
        texto= "CONSENSO NACIONAL "
-       :id="this.datosParaCierre.denuncialegal.id_consensodocto"
-       :nombre_de_archivo_original ="this.datosParaCierre.denuncialegal.nombre_documentoConsenso"
+       :id="this.id_consensodocto"
+       :nombre_de_archivo_original ="this.nombre_documentoConsenso"
          >
+
+
 
       </ComponenteCardsDocumentoEnCierre>
        <br>
 
 
 
-      <ComponenteCardsDocumentoEnCierre :v-if="verInformePatronato"
+      <ComponenteCardsDocumentoEnCierre v-if="this.verInformePatronato== true"
        name ="patronato"
        texto= "INFORME  AL PATRONATO "
         
-       :id="this.datosParaCierre.denuncialegal.id_nformePatronato"
-       :nombre_de_archivo_original ="this.datosParaCierre.denuncialegal.nombre_documentoPatronato"
+       :id="this.id_nformePatronato"
+       :nombre_de_archivo_original ="this.nombre_documentoPatronato"
           >
+
+
 
       </ComponenteCardsDocumentoEnCierre>
       <br>
 
-       <ComponenteCardsDocumentoEnCierre :v-if="verInformeRegional"
+       <ComponenteCardsDocumentoEnCierre v-if="verInformeRegional== true"
        name ="regional"
        texto= "INFORME  A OFICINA REGIONAL "
-       :id="this.datosParaCierre.denuncialegal.id_InformeRegional"
-       :nombre_de_archivo_original ="this.datosParaCierre.denuncialegal.nombre_documentoRegional"
+       :id="this.id_InformeRegional"
+       :nombre_de_archivo_original ="this.nombre_documentoRegional"
         >
-
       </ComponenteCardsDocumentoEnCierre>
        <br>   
 
-       <ComponenteCardsDocumentoEnCierre :v-if="verInformeEnteRector"
-       name ="rector"
-       texto= "INFORME  A ENTE RECTOR "
-        
-        :id="this.datosParaCierre.denuncialegal.id_doctoInformeEnteRector"
-       :nombre_de_archivo_original ="this.datosParaCierre.denuncialegal.nombre_doctoInformeEnteRector"
+       <ComponenteCardsDocumentoEnCierre v-if="verInformeEnteRector== true"
+        name ="rector"
+        texto= "INFORME  A ENTE RECTOR "
+        :id="this.id_doctoInformeEnteRector"
+        :nombre_de_archivo_original ="this.nombre_doctoInformeEnteRector"
            >
-
       </ComponenteCardsDocumentoEnCierre>
       <br>
 
-      <ComponenteCardsDocumentoEnCierre :v-if="verSoporteLegal"
+      <ComponenteCardsDocumentoEnCierre v-if="this.verSoporteLegal== true"
        name ="soporte"
        texto= "SOPORTE DE ASESOR LEGAL "
-       :id="this.datosParaCierre.denuncialegal.id_docotoSoporteLegal"
-       :nombre_de_archivo_original ="this.datosParaCierre.denuncialegal.nombre_doctoSoporteLegal"
+       :id="this.id_docotoSoporteLegal"
+       :nombre_de_archivo_original ="this.nombre_doctoSoporteLegal"
           >
 
       </ComponenteCardsDocumentoEnCierre>
       <br>
 
 
-      <ComponenteCardsDocumentoEnCierre :v-if="verSoporteEmocional"
+      <ComponenteCardsDocumentoEnCierre v-if="this.verSoporteEmocional== true"
       name="emocional"
        texto= "SOPORTE EMOCIONAL "
-       :id="this.datosParaCierre.denuncialegal.id_doctoSoporteEmocional"
-       :nombre_de_archivo_original ="this.datosParaCierre.denuncialegal.nombre_doctoSoporteEmocional"
+       :id="this.id_doctoSoporteEmocional"
+       :nombre_de_archivo_original ="this.nombre_doctoSoporteEmocional"
          >
+
       </ComponenteCardsDocumentoEnCierre>
       <br>
 
 
 
-       <ComponenteCardsDocumentoEnCierre :v-if="verMedidasDisciplinarias"
+       <ComponenteCardsDocumentoEnCierre v-if="this.verMedidasDisciplinarias== true"
        name ="medidas"
        texto= "MEDIDAS DISCIPLINARIAS "
-       :id   ="this.datosParaCierre.denuncialegal.id_medidasdocto"
-       :nombre_de_archivo_original ="this.datosParaCierre.denuncialegal.nombre_documentomedidasdocto"
+       :id   ="this.id_medidasdocto"
+       :nombre_de_archivo_original ="this.nombre_documentomedidasdocto"
         >
+
 
       </ComponenteCardsDocumentoEnCierre>
        <br>
 
 
-     <ComponenteCardsDocumentoEnCierre :v-if="verDenuncia"
+     <ComponenteCardsDocumentoEnCierre v-if="this.verDenuncia== true"
        name ="denuncia"
        texto= "DENUNCIA PRESENTADA"
-       :id   ="this.datosParaCierre.denuncialegal.id_denunciadocto"
-       :nombre_de_archivo_original ="this.datosParaCierre.denuncialegal.nombre_documentoDenuncia"
+       :id   ="this.id_denunciadocto"
+       :nombre_de_archivo_original ="this.nombre_documentoDenuncia"
             >
+
 
       </ComponenteCardsDocumentoEnCierre>
       <br>
-      <ComponenteCardsDocumentoEnCierre :v-if="verNotificacionPFN"
+      <ComponenteCardsDocumentoEnCierre v-if="this.verNotificacionPFN== true"
        name = "pfn"
        texto= "NOTIFICACION AL PFN"
-       :id   ="this.datosParaCierre.denuncialegal.id_Notificacionpfn"
-       :nombre_de_archivo_original ="this.datosParaCierre.denuncialegal.nombre_documentoNotificacionpfn"
+       :id   ="this.id_Notificacionpfn"
+       :nombre_de_archivo_original ="this.nombre_documentoNotificacionpfn"
        >
 
       </ComponenteCardsDocumentoEnCierre>
       <br>
 
-      <ComponenteCardsDocumentoEnCierre :v-if="verNotificacionPersonaDenunciante"
+      <ComponenteCardsDocumentoEnCierre v-if="this.verNotificacionPersonaDenunciante== true"
       name ="denuncia"
        texto= "NOTIFICACION A LA PERSONA DENUNCIANTE"
-       :id   ="this.datosParaCierre.denuncialegal.id_NotificacionDenunciante"
-       :nombre_de_archivo_original ="this.datosParaCierre.denuncialegal.nombre_documentoNotificacionDenunciante"
+       :id   ="this.id_NotificacionDenunciante"
+       :nombre_de_archivo_original ="this.nombre_documentoNotificacionDenunciante"
          >
 
       </ComponenteCardsDocumentoEnCierre>
        <br>
-      <ComponenteCardsDocumentoEnCierre :v-if="verPlanRecuperacionEmocional"
-      name ="emocional"
 
-       texto= "PLAN DE RECUPERACION EMOCIONAL CON SEGUIMIENTO"
+
+      <ComponenteCardsDocumentoEnCierre v-if="this.verPlanRecuperacionEmocional == true"
+        name ="emocional"
+        texto= "PLAN DE RECUPERACION EMOCIONAL CON SEGUIMIENTO"
         
-       :id   ="this.datosParaCierre.denuncialegal.id_NotificacionPlan"
-       :nombre_de_archivo_original ="this.datosParaCierre.denuncialegal.nombre_documentoNotificacionPlan"
+       :id   ="this.id_NotificacionPlan"
+       :nombre_de_archivo_original ="this.nombre_documentoNotificacionPlan"
         >
+
 
       </ComponenteCardsDocumentoEnCierre>
 
@@ -313,8 +323,8 @@
           NOMBRE, CARGO Y FIRMA DE QUIEN ELABORA EL ACTA DE CIERRE
         </v-card-title>
         <v-card-text>
-          <usuariosCierre :incidenteid="incidenteid"
-                          :testigos="testigos">
+          <usuariosCierre :incidenteid="this.incidenteid"
+                          :testigos="this.testigos">
                           </usuariosCierre>
         </v-card-text>
       </v-card>
@@ -409,6 +419,8 @@ import apiIncidentes from '@/apialdeas/apiIncidentes.js';
 import apiArchivos from '@/apialdeas/apiArchivos.js';
 import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
 import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
+
+import eventBus from '@/eventBus';
 
 //import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
 
@@ -564,28 +576,37 @@ export default {
      //obtenenemos el 
      
 
-      let incidenteId = this.$route.params.incidenteId;
+      let incidente_Id = this.$route.params.incidenteId;
 
-      this.$store.dispatch("setear_incidente", this.incidenteId);
+      //this.$store.dispatch("setear_incidente", this.incidenteId);
+      console.log(" valorthe incidenteid : " + incidente_Id);
 
-      this.incidenteid = incidenteId;
+      this.incidenteid = incidente_Id;
 
-      console.log("valor de incidenteID : " + incidenteId);
+     // console.log("valor de incidenteID : " + incidenteId);
 
-      let datos = apiIncidentes.revisarCierre(incidenteId, this.$store);
+      let datos = apiIncidentes.revisarCierre(this.incidenteid, this.$store);
 
       datos.then(
         response=>{ 
           
-          console.log(response.data);
+        //  console.log(response.data);
 
           this.tipoDeRespuesta = response.data[0].tipoderespuesta;
 
-          console.log(" tipoDeRespuesta " +  response.data[0].tipoderespuesta);
+          //console.log(" tipoDeRespuesta " +  response.data[0].tipoderespuesta);
+          // console.log(" tipoDeRespuesta " +   this.tipoDeRespuesta );
 
-          if (this.tipoDeRespueta == 'DENUNCIA LEGAL'){
+            this.testigos       = response.data[0]["testigos"];
+             console.log(" VaLOR DE TESTIGOS ");
+              console.log(response.data[0]["testigos"]);
+            console.log(this.testigos);
 
+          if (this.tipoDeRespuesta == 'DENUNCIA LEGAL'){
 
+            this.sePuedeCerrarEnBaseAEdosAnteriores = response.data[0].denuncialegal.sePuedeCerrarPorEstados;
+            
+           this.datosParaCierre = response.data[0]["denuncialegal"];
             this.verActaHechos                      = true;
             this.verActaValoracion                  = true;
             this.verConsenso                        = true;
@@ -601,9 +622,152 @@ export default {
             this.verPlanRecuperacionEmocional       = true;
 
 
+         this.id_NotificacionPlan = this.datosParaCierre.id_NotificacionPlan;
+         this.nombre_documentoNotificacionPlan = this.datosParaCierre.nombre_documentoNotificacionPlan;
+         this.id_NotificacionDenunciante= this.datosParaCierre.id_NotificacionDenunciante;
+         this.nombre_documentoNotificacionDenunciante= this.datosParaCierre.nombre_documentoNotificacionDenunciante;
+         this.id_Notificacionpfn= this.datosParaCierre.id_Notificacionpfn;
+         this.nombre_documentoNotificacionpfn= this.datosParaCierre.nombre_documentoNotificacionpfn;
+
+         this.id_denunciadocto= this.datosParaCierre.id_denunciadocto;
+         this.nombre_documentoDenuncia= this.datosParaCierre.nombre_documentoDenuncia;
+         this.id_medidasdocto= this.datosParaCierre.id_medidasdocto;
+         this.nombre_documentomedidasdocto= this.datosParaCierre.nombre_documentomedidasdocto;
+         this.id_doctoSoporteEmocional= this.datosParaCierre.id_doctoSoporteEmocional;
+         this.nombre_doctoSoporteEmocional= this.datosParaCierre.nombre_doctoSoporteEmocional;
+         this.id_docotoSoporteLegal= this.datosParaCierre.id_docotoSoporteLegal;
+         this.nombre_doctoSoporteLegal= this.datosParaCierre.nombre_doctoSoporteLegal;
+         this.id_doctoInformeEnteRector= this.datosParaCierre.id_doctoInformeEnteRector;
+         this.nombre_doctoInformeEnteRector= this.datosParaCierre.nombre_doctoInformeEnteRector;
+
+         this.id_InformeRegional= this.datosParaCierre.id_InformeRegional;
+         this.nombre_documentoRegional= this.datosParaCierre.nombre_documentoRegional;
+         this.id_nformePatronato= this.datosParaCierre.id_nformePatronato;
+         this.nombre_documentoPatronato= this.datosParaCierre.nombre_documentoPatronato;
+         this.id_consensodocto= this.datosParaCierre.id_consensodocto;
+         this.nombre_documentoConsenso= this.datosParaCierre.nombre_documentoConsenso;
+         this.id_ActaHechos= this.datosParaCierre.id_ActaHechos;
+         this.nombre_documentoActaHechos= this.datosParaCierre.nombre_documentoActaHechos;
+
+         this.id_ActaValoracion= this.datosParaCierre.id_ActaValoracion;
+         this.nombre_documentoActaValoracion  = this.datosParaCierre.nombre_documentoActaValoracion;      
+
+
+
           }
 
-          this.datosParaCierre = response.data[0];
+          if (this.tipoDeRespuesta == 'ABORDAJE INTERNO'){
+
+           // console.log(  " dentro de tipo de respuesta abordaje interno " );
+            this.sePuedeCerrarEnBaseAEdosAnteriores = response.data[0].abordaje.sePuedeCerrarPorEstados;
+            
+             //console.log(  " antes de asignar a datosparacierrre " );
+             this.datosParaCierre = response.data[0]["abordaje"];
+            // console.log(    this.datosParaCierre  );
+            // console.log(  " despues de asignar a datosparacierrre " );
+
+            // console.log(response.data[0]["abordaje"]);
+            // console.log(  this.datosParaCierre );
+            this.verConsenso                        = false;
+            this.verInformePatronato                = false;
+            this.verInformeRegional                 = false;
+            this.verSoporteLegal                    = false;
+            this.verSoporteEmocional                = false;
+            this.verMedidasDisciplinarias           = false;
+            this.verDenuncia                        = false;  
+
+            this.verActaHechos                      = true;
+            this.verActaValoracion                  = true;
+            this.verNotificacionPFN                 = true;
+            this.verNotificacionPersonaDenunciante  = true;
+            this.verPlanRecuperacionEmocional       = true;
+             this.verInformeEnteRector               = true;
+
+            
+           
+
+          //  console.log(this.verActaHechos                     );
+          //  console.log(this.verActaValoracion                 );
+          //  console.log(this.verInformeEnteRector              );
+         //  console.log( this.verNotificacionPFN                );
+         //  console.log( this.verNotificacionPersonaDenunciante );
+//console.log( this.verPlanRecuperacionEmocional      );
+
+          // console.log( this.verConsenso                       );
+          // console.log( this.verInformePatronato               );
+          // console.log( this.verInformeRegional                );
+         //  console.log( this.verSoporteLegal                   );
+         //  console.log( this.verSoporteEmocional               );
+         ////   console.log(this.verMedidasDisciplinarias          );
+            
+         //  console.log( this.verDenuncia   );                     
+
+           
+
+
+         this.id_NotificacionPlan = this.datosParaCierre.id_NotificacionPlan;
+         this.nombre_documentoNotificacionPlan = this.datosParaCierre.nombre_NotificacionPlan;
+          
+         //  console.log( this.id_NotificacionPlan   );  
+        //    console.log( this.nombre_documentoNotificacionPlan   ); 
+
+         this.id_NotificacionDenunciante= this.datosParaCierre.id_NotificacionDenunciante;
+         this.nombre_documentoNotificacionDenunciante= this.datosParaCierre.nombre_NotificacionDenunciante;
+         
+         // console.log( this.id_NotificacionDenunciante   );  
+         //   console.log( this.nombre_documentoNotificacionDenunciante   ); 
+
+      
+      this.id_Notificacionpfn= this.datosParaCierre.id_Notificacionpfn;
+         this.nombre_documentoNotificacionpfn= this.datosParaCierre.nombre_Notificacionpfn;
+
+          //.log( this.id_Notificacionpfn   );  
+          //  console.log( this.nombre_documentoNotificacionpfn   ); 
+         //this.id_denunciadocto= this.datosParaCierre.id_denunciadocto;
+         //this.nombre_documentoDenuncia= this.datosParaCierre.nombre_documentoDenuncia;
+        // this.id_medidasdocto= this.datosParaCierre.id_medidasdocto;
+        // this.nombre_documentomedidasdocto= this.datosParaCierre.nombre_documentomedidasdocto;
+         //this.id_doctoSoporteEmocional= this.datosParaCierre.id_doctoSoporteEmocional;
+         //this.nombre_doctoSoporteEmocional= this.datosParaCierre.nombre_doctoSoporteEmocional;
+         //this.id_docotoSoporteLegal= this.datosParaCierre.id_docotoSoporteLegal;
+         //this.nombre_doctoSoporteLegal= this.datosParaCierre.nombre_doctoSoporteLegal;
+       
+         //this.id_InformeRegional= this.datosParaCierre.id_InformeRegional;
+         //this.nombre_documentoRegional= this.datosParaCierre.nombre_documentoRegional;
+         //this.id_nformePatronato= this.datosParaCierre.id_nformePatronato;
+         //this.nombre_documentoPatronato= this.datosParaCierre.nombre_documentoPatronato;
+         //this.id_consensodocto= this.datosParaCierre.id_consensodocto;
+         //this.nombre_documentoConsenso= this.datosParaCierre.nombre_documentoConsenso;
+       
+           /*
+  'nombre_actahecho'                    => $nombre_actahecho,
+                               'nombre_actavaloracion'               => $nombre_actavaloracion,
+                               'nombre_Notificacionpfn'              => $nombre_Notificacionpfn,
+                               'nombre_NotificacionDenunciante'      => $nombre_NotificacionDenunciante,
+                               'nombre_NotificacionPlan'             => $nombre_NotificacionPlan,
+
+
+           */
+       
+       this.id_ActaHechos= this.datosParaCierre.id_ActaHechos;
+         this.nombre_documentoActaHechos= this.datosParaCierre.nombre_actahecho;
+          //.log( this.id_ActaHechos   );  
+          //console.log( this.nombre_documentoActaHechos   ); 
+
+          this.id_ActaValoracion= this.datosParaCierre.id_ActaValoracion;
+          this.nombre_documentoActaValoracion  = this.datosParaCierre.nombre_actavaloracion;      
+         // console.log( this.id_ActaValoracion   );  
+          //console.log( this.nombre_documentoActaValoracion   ); 
+
+         this.id_doctoInformeEnteRector= this.datosParaCierre.id_doctoinformerector;
+         this.nombre_doctoInformeEnteRector= this.datosParaCierre.nombre_informerector;
+
+         //console.log( this.id_doctoInformeEnteRector   );  
+          //console.log( this.nombre_doctoInformeEnteRector   ); 
+
+          }
+
+        
           this.ESTADODELSEGUIMIENTO =response.data[0]["estadoseguimiento"];
           this.folio = response.data[0]["folio"];
            //setear el valor del filio para reporte de impresion 
@@ -614,14 +778,16 @@ export default {
           this.$store.dispatch("setear_Elaboro", this.elaboro);
           this.cargo          = response.data[0]["cargousuario"];
           this.$store.dispatch("setear_cargos",this.cargo);
-          this.testigos       = response.data[0]["testigos"];
+         
           this.$store.dispatch("action_etapainicial_testigoscierre",this.testigos);
           this.texto          = response.data[0]['textocierre']; 
           this.$store.dispatch("action_textocierre",this.texto);
           this.cerrado        = response.data[0]['estadoIncidente'];
           console.log("cerrado ======>> " + this.cerrado );
-          this.sePuedeCerrarEnBaseAEdosAnteriores = response.data[0].denuncialegal.sePuedeCerrarPorEstados;
 
+          eventBus.$emit('cargarTestigos',  this.$route.params.incidenteId );
+
+         
         
         
           this.cerrado=='cerrado' ? this.mostarBotonDeCierre = false : this.mostarBotonDeCierre =true ;
@@ -879,6 +1045,9 @@ export default {
   },
 
   mounted() {
+
+
+    this.$nextTick(() => {
     
     this.overlay=true;
    // if ($this.$nextTick){
@@ -896,7 +1065,8 @@ export default {
  
       this.cargarDatos();
   //  }
-
+    
+    });
     
 
   },
@@ -923,7 +1093,41 @@ export default {
       verNotificacionPersonaDenunciante  : false,
       verPlanRecuperacionEmocional       : false,
      
-     /* ----------------------------------------------*/
+     /* ---------------------------------------------
+     DATOS PARA LOS COMPONENTES
+     ------------------------------------------------*/
+      id_NotificacionPlan : '0',
+      nombre_documentoNotificacionPlan :'NO',
+      id_NotificacionDenunciante: '0',
+      nombre_documentoNotificacionDenunciante:'NO',
+      id_Notificacionpfn: '0',
+      nombre_documentoNotificacionpfn:'NO',
+
+      id_denunciadocto: '0',
+      nombre_documentoDenuncia:'NO',
+      id_medidasdocto: '0',
+      nombre_documentomedidasdocto:'NO',
+      id_doctoSoporteEmocional: '0',
+      nombre_doctoSoporteEmocional:'NO',
+      id_docotoSoporteLegal: '0',
+      nombre_doctoSoporteLegal:'NO',
+      id_doctoInformeEnteRector: '0',
+      nombre_doctoInformeEnteRector:'NO',
+
+      id_InformeRegional: '0',
+      nombre_documentoRegional:'NO',
+      id_nformePatronato: '0',
+      nombre_documentoPatronato:'NO',
+      id_consensodocto: '0',
+      nombre_documentoConsenso:'NO',
+      id_ActaHechos: '0',
+      nombre_documentoActaHechos:'NO',
+
+      id_ActaValoracion: '0',
+      nombre_documentoActaValoracion  :'NO',      
+
+
+     /*----------------------------------------------*/
 
      tipoDeRespuesta : '',
 
