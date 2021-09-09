@@ -755,6 +755,7 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
           console.log(" ========== estado  > " + estado );
 
           if (estado == "cerrado"){
+            this.ocultarConfirmacion= false;
             this.permisodemodificacion();
           }
           

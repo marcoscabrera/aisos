@@ -127,6 +127,41 @@
   </v-card>
   
   <br>
+  <!--====================================================== -->
+       <v-card width="100%" v-if="verTextovi">
+          <v-card-title>JUSTIFICACION  --solo por poner un texto -- </v-card-title>
+          <v-card-text>
+            <v-row>
+                <textareaValoracion :texto="textovi"></textareaValoracion>
+             </v-row>
+          </v-card-text>
+          <v-card-actions>
+            <v-row>
+              <v-col>
+                 <v-btn color="red" 
+                   dark 
+                   dense 
+                   block
+                   @click.prevent.stop="confirmacion_cancelar">
+                    Cancelar    
+        
+                 </v-btn>
+              </v-col>
+              <v-col>
+                  <v-btn color="green" 
+                   dark 
+                   dense 
+                   block
+                   @click.prevent.stop="confirmacion_texto_siguiente">
+                    {{textoBoton_en_textovi}}
+                  </v-btn>
+              </v-col>
+            </v-row>
+          </v-card-actions>
+        </v-card>
+
+    <br >
+    <!-- =============================================== -->
 
     <!-- =============================================== -->  
      <v-card width="100%" v-if="verDatosComplementarios">
@@ -443,10 +478,15 @@ export default {
     cardTipologia         :()  => import("@/components/etapasComponentesValoracion/cardTipologia.vue"),
     cardNivelIncidente    :()  => import("@/components/etapasComponentesValoracion/cardNivelIncidente.vue"),
     cardTipoCaso          :()  => import("../etapasComponentesValoracion/cardTipoCaso.vue"),
-
+    textareaValoracion    :()  => import("@/components/etapasComponentesValoracion/textareaValoracion.vue"),
+ 
   },
   data() {
     return {
+      textoBoton_en_textovi : '',
+      verTextovi : false,
+      validarTextovi : false,
+      textovi : '',
 
       mostrarBotonGuardar : true,
       
@@ -534,7 +574,37 @@ export default {
              this.verComponentes          = true ;
               this.verBotones                =true;
            },
-           
+
+           /*-----------------------------------
+           Se ejecuta despues de que se escribe 
+           el dictamen
+           ------------------------------------*/       
+
+           confirmacion_texto_siguiente() {
+
+             
+            let v =this.$store.state.valoracion.etapavaloracion_textovi;
+
+            if (v.length < 100){
+               this.$store.dispatch("actions_uivars_error_textareaValoracion","El texto no debe ser menor a 100 caracteres");
+
+            }else{
+
+
+                if (this.tipo_de_respuesta =="no"){
+
+                    this.ejecutar_cierre_por_no_ser_incidente();
+                }else {
+
+                  this.verDatosComplementarios = true;
+                  this.verComponentes          = false ;
+                  //this.verBotones                =true;
+                  this.verTextovi = false;
+                }
+            }//termina validacion   
+
+
+           },
            /*-----------------------------------
            
            ------------------------------------*/
@@ -581,7 +651,7 @@ export default {
             
                 incidenteid: this.investigacion.incidenteid,
                 //id: this.investigacion.id,              
-                //textovi: etapavaloracion_textovi,
+                textovi: this.$store.state.valoracion.etapavaloracion_textovi,
                 tipologiadelincidente:tipologiadelincidente,
                 niveldelincidente: niveldelincidente,
                 tipodecaso: tipodecaso,
@@ -660,27 +730,43 @@ export default {
             if ( valor == 'no'){
                 this.verDatosComplementarios = false;
                 this.verConfirmacionRespuesta= false;
+
+                this.verTextovi = true;
+                this.textoBoton_en_textovi = "Cerrar por no ser incidente"
                                   
-                var parmetros = {
-              
-                //id: this.id,
-                incidenteid: this.investigacion.incidenteid,
-                //textovi: this.$store.state.valoracion.etapavaloracion_textovi,
-              
-                accion : 'cierre_desde_investigacion'
-              };
-                this.guardar_noesunincidente( parmetros );
+
             }else {
                 //actualizamos
 
-            this.verDatosComplementarios = true;
+            //this.verDatosComplementarios = true;
             this.verConfirmacionRespuesta= false;
+            this.verTextovi = true;
+             this.textoBoton_en_textovi = "Siguiente"
+               
                                   
 
 
            }
 
           },
+
+          ejecutar_cierre_por_no_ser_incidente(){
+           
+              var parmetros = {
+              
+                //id: this.id,
+                incidenteid: this.investigacion.incidenteid,
+                 textovi: this.$store.state.valoracion.etapavaloracion_textovi,
+                // textovi: this.textovi,
+              
+                accion : 'cierre_desde_investigacion'
+              };
+              console.log("valor para cieere por no ser incidenre");
+              console.log(parmetros);
+                this.guardar_noesunincidente( parmetros );
+          },
+
+          /***********************************/
 
           cancelarOperacion() {
             this.verFormularioConfirmacion = false;
