@@ -96,8 +96,8 @@
 
         <v-col cols="12" xs="12" sm="4" md="4">
 
-           <v-btn color="blue" dark dense block
-           @click="confirmacionIclick('INVESTIGACION')">
+           <v-btn color="blue" dark dense block :loading ="loadinginvestigacion"
+           @click="iniciaInvestigacionInterna">
            Se requiere Investigacion    
           </v-btn>  
         </v-col>
@@ -295,7 +295,7 @@ export default {
 
     guardar_noesunincidente(){
        
-             var parmetros = {
+        var parmetros = {
       
         id: this.id,
         incidenteid: this.incidenteid,
@@ -359,7 +359,11 @@ export default {
        
        if (etapavaloracion_textovi == 'En Proceso de Valoracion') {
          
-         this.mostrarAlerta = true;
+         if (valor == 'INVESTIGACION'){
+              this.mostrarAlerta = true;
+         }else {
+             this.mostrarAlerta = true;
+         }
 
        }else {
 
@@ -371,13 +375,25 @@ export default {
         /////////////////////////////////////////////
         
              
-     valor == 'NO ES UN INCIDENTE' ? this.guardar_noesunincidente() 
-     : this.proceso_seguir_Porque_Es_un_incidente();
+     valor == 'NO ES UN INCIDENTE' ? this.guardar_noesunincidente(): 
+     valor == 'SI ES UN INCIDENTE' ? this.proceso_seguir_Porque_Es_un_incidente(): 
+     this.iniciaInvestigacionInterna();
 
      }
     } ,
 
+/*
+AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
+*/
+  iniciaInvestigacionInterna() {
+    
+    this.loadinginvestigacion =true;
+     console.log ("iuniciando valoracion interna ");
+     this.ejecutar_crearInvestigacion();
 
+
+  },
+  /* */
 
    validarCaptura(valor){
       
@@ -820,6 +836,71 @@ export default {
 
     },
 
+
+    /****************************************** */
+
+    ejecutar_crearInvestigacion() {
+
+       const {
+     
+        etapavaloracion_textovi
+       
+
+      } = this.$store.state.valoracion;
+   
+        var parmetros = {
+        //'fechacreacion'         : $datos['fechacreacion'],
+        // 'fechaupdate'           : $datos['fechaupdate'],
+        id: this.id,
+        incidenteid: this.incidenteid,
+        textovi: etapavaloracion_textovi,
+        confirmaincidente :"investigacion",
+        accion:"crearinvestigacion"
+
+      };
+
+      
+        let update = apiValoracion.updateValoracion(parmetros, this.$store);
+
+        update.then(
+          response => {
+
+              console.log(response);
+
+              
+ 
+              this.loadinginvestigacion=false;
+              /*
+               
+                'msg'       => 'ok',
+                'incidente' => 'investigacion',
+              
+              */
+
+              if (response.data.msg== 'ok'){
+
+                this.$store.dispatch("setear_Incidente",this.incidenteid);
+
+                this.$router.push({
+                  name: "InvestigacionInterna",
+                  params: { incidenteId: this.incidenteid },
+                });
+
+              }
+          }
+        ).catch(
+          error => {
+
+              console.log(error.data);
+
+          }
+        );
+
+
+
+
+    },
+    /*******************************************/
     ejecutar_actualizaValoracion(){
 
 
@@ -857,7 +938,8 @@ export default {
         tipoderespuesta: etapavaloracion_tipoderespuesta,
         medidasintegrales:  etapavaloracion_medidasintegrales,
        // medidasintegrales_docto : etapavaloracion_medidasintegrales_docto,
-        estado : 'cerrado'
+        estado : 'cerrado',
+        accion:"respuestanormal"
       };
 
       console.log(parmetros);
@@ -945,6 +1027,7 @@ export default {
   },
   data() {
     return {
+      loadinginvestigacion :false,
       mostrarAlerta : false,
       overlay :false,
       archivos : [],

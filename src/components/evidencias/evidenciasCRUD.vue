@@ -45,7 +45,7 @@
         mdi-video
       </v-icon>
       <v-icon color="green" v-if="item.tipo == 'Audio'">
-        mdi-audiobook
+        mdi-music-note
       </v-icon>
     </template>
 

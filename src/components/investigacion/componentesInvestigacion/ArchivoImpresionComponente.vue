@@ -5,32 +5,27 @@
         <v-card-title>{{titulo}} </v-card-title>
         <v-card-text>
           <v-row>
-            <v-col cols="12" xs="12" sm="12" md="6">
-            <uploadFile2 
-                
-                directorio="/uploads/investigacion"
-                :HayArchivo ="sihayarchivo"
-                :nombreArchivo="nombreDelArchivo"
-                :incidenteid ="incidenteId"
-                :archivoId="archivoId"
-                :action_a_Ejecutar="action_a_ejecutar"
-                modulo="investigacion"
-                :campoState="campo">
-                </uploadFile2> 
-            </v-col>
-            <v-col cols="12" xs="12" sm="12" md="6">
-             <!-- <v-btn
-                :loading="loading"
-                :disabled="loading"
-                color="primary"
-                @click="impresion"
-                block
-              >
-                <v-icon right dark> mdi-printer </v-icon>
-                <v-spacer></v-spacer>
+            <v-col cols="12" xs="12" sm="12" md="4" lg="4">
 
-                Imprimir
-              </v-btn> -->
+                 <v-text-field class="marginTop"
+                        :value="titulo"
+                        label="Solo"
+                        solo
+                        readonly
+                ></v-text-field>
+
+            </v-col>
+            <v-col cols="12" xs="12" sm="12" md="8" lg="8">
+
+
+
+                
+                  <uploadFile4
+                  :archivoId ="archivoId"
+                  :action_a_Ejecutar ="action_a_ejecutar"
+                 >
+                 </uploadFile4>
+           
             </v-col>
           </v-row>
         </v-card-text>
@@ -40,7 +35,7 @@
 </template>
 
 <script>
-import uploadFile2 from '@/components/manipulacionArchivos/uploadFile2.vue';
+//import uploadFile2 from '@/components/manipulacionArchivos/uploadFile2.vue';
 export default {
     name : 'ArchivoImpresionComponente',
     data() {
@@ -50,7 +45,9 @@ export default {
     },
 
     components :{
-        uploadFile2
+
+        uploadFile4 :() => import('@/components/manipulacionArchivos/uploadFile4.vue' )
+
     },
 
     props : {
@@ -78,3 +75,8 @@ export default {
     
 }
 </script>
+<style >
+.marginTop{
+    margin-top: 14px !important;
+}
+</style>

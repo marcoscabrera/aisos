@@ -4,8 +4,16 @@
     <v-card-text>
       <v-row>
         <v-col cols="12" xs="12" sm="6" md="6"  
-               class ="text-center font-weight-black px-4 pt-4 pb-3"> 
-              <h6>Nivel del Incidente</h6>
+              > 
+             
+
+
+                            <v-text-field 
+                           value="Nivel del Incidente"
+                           label="Solo"
+                        solo
+                        readonly
+                ></v-text-field>
          </v-col>
 
         <v-col cols="12" xs="12" sm="6" md="6">
@@ -58,3 +66,9 @@ export default {
   },
 };
 </script>
+
+<style >
+.marginTop{
+    margin-top: 14px !important;
+}
+</style>

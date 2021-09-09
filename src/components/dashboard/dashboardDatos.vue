@@ -241,6 +241,18 @@
      
      <!-- Tipo de respuesta    v-if="item.estado == 'En Proceso de Valoracion'"-->
 
+       <template v-slot:item.investigacion="{ item }" >
+          
+
+
+          <v-btn v-if="item.investigacion != '0'"
+           :color="item.colorInvestigacion"
+           @click.prevent.stop="ir_a_investigacion(item)">
+            SI
+          </v-btn>
+
+       </template> 
+
     <template v-slot:item.tipoderespuesta="{ item }" >
 
       <v-btn  v-if="item.tipoderespuesta == 'INVESTIGACION INTERNA'"
@@ -322,6 +334,16 @@
         @click.stop.prevent="irAValoracionIntegral(item.id)"
       >
         EN ESPERA DE VALORACION INTEGRAL
+      </v-btn>
+
+      <v-btn v-if="item.estado == 'EN INVESTIGACION INTERNA'"
+        color="yellow"
+        dark
+        dense
+        block
+        class="letrasNegras"
+        @click.stop.prevent="ir_a_investigacion_interna(item)">
+       EN INVESTIGACION INTERNA
       </v-btn>
 
       <v-btn v-if="item.estado == 'en llenado de respuesta'"
@@ -482,6 +504,7 @@ import apiIncidentes from "@/apialdeas/apiIncidentes.js";
 import apiProgramas from  "@/apialdeas/apiProgramas.js"; 
 import validacionSeguimiento from '@/components/etapas/validaciones/validacionSeguimiento.js';
 //import PanelDenunciaComponentes from '@/components/usuarios/componentes/PanelDenunciaComponentes.vue';
+//import apiInvestigacion from '@/apialdeas/apiInvestigacion.js';
 
 
 export default {
@@ -553,6 +576,8 @@ export default {
      
       { text: "V Inicial", value: "etapauno" },
       { text: "V Integral", value: "etapados" },
+      { text : "Investigacion", value : "investigacion"},
+     // { text :"colorInvestigacion", value:"colorInvestigacion"},
       { text: "Respuesta", value: "tipoderespuesta" },
       { text: "Seguimiento", value: "etapatres" },
       { text: "Cierre", value: "etapacuatro" },
@@ -574,7 +599,8 @@ export default {
       { text: "Fecha", value: "fechaAlta" },
       { text: "¿Incidente?", value: "incidenteconfirmado" },
       { text: "Confirmacion", value: "confirmaincidente" },
-
+      { text : "Investigacion", value : "investigacion"},
+      // { text :"colorInvestigacion", value:"colorInvestigacion"},
       { text: "Respuesta", value: "tipoderespuesta" },
       //{ text: "Hechos", value: "data-table-expand" },
       // { text: "Activo", value: "activo" },
@@ -923,6 +949,35 @@ export default {
        this.buscarVersionViewport();
     },
 
+    /*******************************************************
+    
+     ******************************************************/
+
+     ir_a_investigacion(valor){
+
+
+        this.$store.dispatch("setear_Incidente",valor.id);
+
+        this.$router.push({
+          name: "InvestigacionInterna",
+          params: { incidenteId: valor.id },
+        });
+
+       
+
+
+     },
+     ir_a_investigacion_interna(valor){
+
+        this.$store.dispatch("setear_Incidente",valor.id);
+
+        this.$router.push({
+          name: "InvestigacionInterna",
+          params: { incidenteId: valor.id },
+        });
+
+     },
+    //-------------------------------------------
     ir_a_respuesta(valor) {
       /* 
         "DENUNCIA PENAL",

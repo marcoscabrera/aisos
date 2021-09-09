@@ -566,4 +566,13 @@ export default {
 
 
 </script>
-
+<style>
+.paraCardTitulo {
+  border: 1px;
+  border-color :black;
+  padding-left: 15px;
+  color: rgba(255, 0, 0, 0.6) !important;
+  font-size: 1.05rem;
+  text-transform: none
+}
+</style>

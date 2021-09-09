@@ -24,6 +24,7 @@ export default {
       action_tipologiadelincidente( context, valor) {
         context.commit("mutation_tipologiadelincidente", valor);
       }, //termina acccion 
+      
 
       action_niveldelincidente(context, valor) { 
 
