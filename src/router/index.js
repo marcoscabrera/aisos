@@ -121,6 +121,28 @@ const routes = [
     component: () =>
       import(/* webpackChunckName:"visorpdf2" */ "../views/VisorPDF.vue"),
   },
+
+  {
+    path: "/visorvideo",
+    name: "VisorVideo",
+    meta: { requiresAuth : true },
+    component: () =>
+      import(/* webpackChunckName:"visorvideo" */ "../views/VisorVideo.vue"),
+  },
+  {
+    path: "/visoraudio",
+    name: "VisorAudio",
+    meta: { requiresAuth : true },
+    component: () =>
+      import(/* webpackChunckName:"visoraudio" */ "../views/VisorAudio.vue"),
+  },
+  {
+    path: "/visorimagen",
+    name: "VisorImagen",
+    meta: { requiresAuth : true },
+    component: () =>
+      import(/* webpackChunckName:"visorimagen" */ "../views/VisorImagen.vue"),
+  },
   {
     path: "/mantenimiento",
     name: "mantenimiento",

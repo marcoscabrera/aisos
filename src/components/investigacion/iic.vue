@@ -296,107 +296,29 @@
             <v-col> ENTREVISTAS, BITACORAS, GRABACIONES, FOTOGRAFIAS </v-col>
             <v-col>
               <v-btn color="primary" block dense dark @click="irAevidencias">
-                 Evidencias
+                 Ir a Evidencias
               </v-btn>
             </v-col>
           </v-row>
           <v-row>
             <v-col>  
-              <v-btn
-                class="mx-2"
-                fab
-                dark
-                large
-                color="purple"
-              >
 
-                 <v-badge
-                  bordered
-                  
-                  :content="totalDoctos"
-                >              
-                <v-icon dark>
-                   mdi-file-pdf
-                </v-icon>
-                 
 
-        
-                </v-badge>
-              </v-btn>
+             <ComponenteCardsArchivo :numero="totalDoctos" icono="mdi-file-pdf" ></ComponenteCardsArchivo>
+            
             </v-col>
 
             <v-col>  
-               <v-btn
-                class="mx-2"
-                fab
-                dark
-                large
-                color="purple"
-              >
-                <v-badge
-                  bordered
-                  
-                   :content="totalImagen"
-                >      
-                      <v-icon dark>
-                        mdi-file-image
-                    </v-icon>
-
-
-                </v-badge>
-              </v-btn>
-            </v-col>
+              <ComponenteCardsArchivo :numero="totalImagen" icono="mdi-file-image" ></ComponenteCardsArchivo>
+     
+           </v-col>
 
             <v-col> 
-
-                  <v-btn
-                  class="mx-2"
-                  fab
-                  dark
-                  large
-                  color="purple"
-                >
-                  <v-badge
-                  bordered
-                  
-                   :content="totalVideo"
-                >
-                               
-                  <v-icon dark>
-                      mdi-video
-                  </v-icon>
-
-                </v-badge>
-                </v-btn>
-              
-              
-              
+              <ComponenteCardsArchivo :numero="totalVideo" icono="mdi-video" ></ComponenteCardsArchivo>
              </v-col>
              <v-col>
 
-                  <v-btn
-                  class="mx-2"
-                  fab
-                  dark
-                  large
-                  color="purple"
-                >
-                     <v-badge
-                      
-                       bordered
-                       
-                       :content="totalAudio"
-                    >               
-                  <v-icon dark>
-                    mdi-music-note
-                  </v-icon>
-
-                      
-                </v-badge>
-                </v-btn>
-                
-           
-
+               <ComponenteCardsArchivo :numero="totalAudio" icono="mdi-music-note" ></ComponenteCardsArchivo>
              </v-col>
           </v-row>
         </v-card-text>
@@ -479,7 +401,7 @@ export default {
     cardNivelIncidente    :()  => import("@/components/etapasComponentesValoracion/cardNivelIncidente.vue"),
     cardTipoCaso          :()  => import("../etapasComponentesValoracion/cardTipoCaso.vue"),
     textareaValoracion    :()  => import("@/components/etapasComponentesValoracion/textareaValoracion.vue"),
- 
+    ComponenteCardsArchivo :() => import("@/components/investigacion/componentesInvestigacion/ComponenteCardsArchivos.vue")
   },
   data() {
     return {

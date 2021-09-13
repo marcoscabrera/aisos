@@ -55,7 +55,7 @@
         <template slot="error"></template> Change the error message design 
         <template slot="loading"></template>  Change the pdf loader design
       --> 
-       <div id="app" style="width:100%" v-if="verPDf">
+   <div id="app" style="width:100%" v-if="verPDf">
 
     <PDFView
       :src.sync="archivo" 
@@ -113,13 +113,13 @@ export default {
        this.$store.dispatch("action_uivar_verComponenteVuePdfViewer",false);
       
        let  r = this.$store.state.uivars.regresar_A_despues_de_impresion;
-       let id = this.$store.state.uivars.id_regresar_A_despues_de_impresion;
+       //let id = this.$store.state.uivars.id_regresar_A_despues_de_impresion;
 
        console.log(" valor de r  " + r);
-       console.log(" valor de id " + id);
+       //console.log(" valor de id " + id);
 
         typeof r ;
-        typeof id;
+       // typeof id;
 
         this.$router.push(r);
      },

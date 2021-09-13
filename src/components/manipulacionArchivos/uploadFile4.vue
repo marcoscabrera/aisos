@@ -12,8 +12,9 @@
         <v-file-input
           show-size
           label="Adjunta tu documento"
-         
-          accept="application/pdf"
+          
+          
+          :accept="mimesAceptados"
           @change="selectFile"
           @click:clear="mostrarbotonUpload"
         ></v-file-input>
@@ -94,6 +95,7 @@ import ComponenteDocumentoEnLinea from './ComponenteDocumentoEnLinea.vue';
 
 import { BlobServiceClient } from "@azure/storage-blob";
 
+
 export default {
 
   name: "uploadFile4",
@@ -107,7 +109,7 @@ export default {
   
 
   props : {
-
+    tipoPermitido             : {type:String , default : 'todos'},
     archivoId                 : {type:String , default :'0'},
     incidenteid               : {type:String , default :'0'},
     directorio                : {type:String , default :''},
@@ -126,17 +128,59 @@ export default {
 
   computed :{
 
+     mimesAceptados(){
+
+       let respuesta ="";
+
+           switch(this.tipoPermitido) {
+
+              case 'docto':
+                respuesta = "application/pdf";
+                break;
+              case 'imagen':
+                respuesta = "image/jpeg,image/gif,image/svg+xml";
+                break;
+              case 'video':
+                respuesta ="video/3gpp,video/mp4,video/ogg";
+                break;
+              case 'audio':
+                respuesta = "audio/mpeg, 	audio/x-wav";
+                break;
+              case 'todos':
+                respuesta =  "application/pdf";
+                break;
+              default:
+                console.log("no se puede procersar");
+      
+    }
+
+
+       return respuesta;
+
+     },
+
      resetProps() {
 
        let x = {};
        
-       if( this.archivoId =="0"){
+       if( this.archivoId_nuevoValor =="0"){
           console.log("valor");
        }else {
+         
+          // si el valor es numerico convertirlo a cadena 
+
+          let tipo= typeof this.archivoId_nuevoValor;
+          let valor = '';
+         if (tipo == "number" ){
+            valor = this.archivoId_nuevoValor.toString();
+              }else {
+
+                valor = this.archivoId_nuevoValor;
+              }
 
           x = { 
-                 id                         : this.archivoId,
-                 nombre_de_archivo_original : this.nombre_de_archivo_original }
+                 id                         : valor,
+                 nombre_de_archivo_original : this.nombre_de_archivo_original_nuevoValor }
 
          console.log("valor de x resetprops "+ JSON.stringify(x));
      }
@@ -147,6 +191,12 @@ export default {
   },
   data() {
     return {
+     tipoDocto         : ["pdf"],
+     tipoImagen        : ["png","jpg", "gif","svg"],
+     tipoVideo         : ["mp4","ogg","webm","egp","3GP"],
+     tipoAudio         : ["mp3","wav"],
+      archivoId_nuevoValor : '',
+      nombre_de_archivo_original_nuevoValor : '',
 
       blobSasUrl       : 'https://demorebelbotstorage.blob.core.windows.net/contenedorpdf?sp=racwdl&st=2021-08-05T18:42:30Z&se=2021-12-02T03:42:30Z&sv=2020-08-04&sr=c&sig=k2gd8q5fNmbasodAAs6ygz%2FXUmFKOWK8EjHpJJqtn40%3D',
       sasToken         : 'sp=racwdl&st=2021-08-05T18:42:30Z&se=2021-12-02T03:42:30Z&sv=2020-08-04&sr=c&sig=k2gd8q5fNmbasodAAs6ygz%2FXUmFKOWK8EjHpJJqtn40%3D',
@@ -323,7 +373,7 @@ export default {
          // console.log(" fileinfos : " + this.fileInfos);
 
         this.elArchivo =response.data[0]['nombreOriginal'];
-        this.nombre_de_archivo_original = response.data[0]['nombreOriginal'];
+        this.nombre_de_archivo_original_nuevoValor = response.data[0]['nombreOriginal'];
 
          let idElArchvio = JSON.stringify(response.data[0]['id']);
 
@@ -335,7 +385,7 @@ export default {
 
          this.ocultarFileinput= false;
          this.archivoEnLinea= true;
-         this.nombre_de_archivo_original =  this.elArchivo;    
+         this.nombre_de_archivo_original_nuevoValor =  this.elArchivo;    
          this.subionotok= true;
 
          this.el_componente = "ComponenteDocumentoEnLinea";
@@ -443,6 +493,47 @@ export default {
 
   },
 
+  validarTipoDeArchivo(nombre) {
+
+    /*
+     tipoDocto         : ["pdf"],
+     tipoImagen        : ["png","jpg", "gif","svg"],
+     tipoVideo         : ["mp4","ogg","webm","egp","3GP"],
+     tipoAudio         : ["mp3","wav"],
+    
+    */
+
+    let respuesta = false;
+    let datosArchivo     = nombre.split('.');
+    
+    let tipo             = datosArchivo[1];
+    let valorRecuperado  = '';
+    //let criterio = array();
+    switch(this.tipoPermitido) {
+
+      case 'docto':
+        valorRecuperado = this.tipoDocto.find(element => element == tipo);
+        break;
+      case 'imagen':
+        valorRecuperado = this.tipoImagen.find(element => element == tipo);
+        break;
+      case 'video':
+        valorRecuperado = this.tipoVideo.find(element => element == tipo);
+        break;
+      case 'audio':
+        valorRecuperado = this.tipoAudio.find(element => element == tipo);
+        break;
+      default:
+        console.log("no se puede procersar");
+      
+    }
+   
+   valorRecuperado == tipo ? respuesta = true : respuesta = false;
+
+   return respuesta;
+     
+  },
+
   async subir_archivo_a_azure(){
    
    /* Mostramos el boton verde que dice subiendo 
@@ -486,7 +577,20 @@ export default {
      //const file2 = document.getElementById("file2").files[0];
      console.log(file);
      const promises = [];
+     
+     let sePuedeSubirElArchivo =false;
+     if (this.tipoPermitido == "todos"){
+         
+         sePuedeSubirElArchivo = true;
 
+     }else {
+       
+        sePuedeSubirElArchivo = this.validarTipoDeArchivo(file.name);
+          
+     }
+      
+      if (sePuedeSubirElArchivo == true){
+      /********************************************************* */
       try{
            
            //console.log(" filename " + file2.name );
@@ -549,8 +653,8 @@ export default {
                typeof response;
                console.log(" valor de response : " +  JSON.stringify(response));
 
-               this.archivoId = response.data.id;
-               this.nombre_de_archivo_original  = response.data.nombreOriginal;
+               this.archivoId_nuevoValor = response.data.id;
+               this.nombre_de_archivo_original_nuevoValor  = response.data.nombreOriginal;
                this.archivoEnLinea =true;
                this.ocultarFileinput = false;
                this.subionotok= true;
@@ -589,7 +693,14 @@ export default {
           this.color="Red";
            return "error";
        });
+       /********************************************************* */
+      }else {
 
+         //no se puede subir el archivo por la validacion
+
+         console.log(" este formato de archivo no esta permitido");
+
+      }
       // console.log("Valor de la promesa ");
 
       // console.log(promises);
