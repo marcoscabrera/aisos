@@ -186,6 +186,8 @@ import apiParametros from '@/apialdeas/apiParametros.js';
  controlDeSesion.cerrarSesion(this.$store,this.$router);
             },
             aceptar() {
+
+                this.$store.dispatch("action_uivars_menu",2);
                 this.mostrarMenuLateral();
                    
                 this.$router.push('Dashboard');

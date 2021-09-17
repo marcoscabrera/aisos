@@ -1,5 +1,19 @@
 export default {
 
+   
+    action_uivars_verAsistenteNavegacion(context, valor){
+        context.commit("mutation_uivars_verAsistenteNavegacion", valor); 
+    },
+
+   action_uivars_verDocumentosAyuda(context,valor) {
+        
+    context.commit("mutation_uivars_verDocumentosAyuda", valor);
+   },
+
+    action_uivars_menu( context, valor) {
+
+        context.commit("mutation_uivars_menu",valor);
+    },
     action_uivars_enDondeEstoy(context,valor){
        
         context.commit("mutation_uivars_enDondeEstoy",valor);

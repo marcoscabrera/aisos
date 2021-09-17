@@ -1,7 +1,7 @@
 <template>
   <v-container>
 
-    <v-row>
+    <v-row v-show="true">
         <v-col cols="12" xs="12" sm="12" md="6">
            <h2>Valoración Inicial</h2>
         </v-col>
@@ -28,7 +28,19 @@
         -->
         </v-col>
     </v-row>
-   
+
+    <ComponenteBarraDeNavegacionGral v-show="false"
+     titulo="Valoración Inicial"></ComponenteBarraDeNavegacionGral>
+     <br>
+     <ComponenteDocumentosAyuda v-show="false"
+             class="elevado"
+            :files = "archivos"
+            categoria = "vi">
+
+     </ComponenteDocumentosAyuda>
+     <ComponenteAsistenteNavegacion v-if="this.$store.state.uivars.uivars_verAsistenteNavegacion" :datosIncidente="datosNavegacion" >
+
+     </ComponenteAsistenteNavegacion>
 
     <v-row>
       <v-col cols="12" xs="12" md="6"  >
@@ -72,7 +84,7 @@
             </v-icon>
           </v-col>
           <v-col cols="12" xs="11" md="11"> -->
-            <barraDocumentosVue 
+            <barraDocumentosVue v-if="false"
             class="elevado"
             :files = "archivos"
             categoria = "vi">
@@ -412,6 +424,7 @@ import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
 import eventBus from '@/eventBus.js';
 import apidoctosapoyo from '@/apialdeas/apiDoctosApoyo.js';
 
+
 import comboboxProgramaSeleccionado from "@/components/etapasComponentes/comboboxProgramaSeleccionado.vue";
 //import calendario from "@/components/etapasComponentes/calendario.vue";
 //import textareaInvolucrados from "@/components/etapasComponentes/textareaInvolucrados.vue";
@@ -448,7 +461,7 @@ Vue.component('v-popover', VPopover);*/
 
 export default {
   components: {
-
+    
     barraDocumentosVue : ()  => import("../barradocumentos/barraDocumentos.vue"),
     comboboxProgramaSeleccionado ,//: ()  => import("@/components/etapasComponentes/comboboxProgramaSeleccionado.vue"),
     calendario : ()  => import("@/components/etapasComponentes/calendario.vue"),
@@ -462,7 +475,10 @@ export default {
     textareaMedidasProteccion : ()  => import("@/components/etapasComponentes/textareaMedidasProteccion.vue"),
     textareaTestigos : ()  => import("@/components/etapasComponentes/textareaTestigos.vue"),
     BarraDeNavegacion : ()  => import("@/components/etapas/BarraDeNavegacion.vue"),
-    ////uploadFile3,
+    ComponenteAsistenteNavegacion: ()  => import("@/components/barranavegacion/ComponenteAsistenteNavegacion.vue"),
+    ComponenteBarraDeNavegacionGral: ()  => import("@/components/etapas/ComponenteBarraDeNavegacionGral.vue"),
+    ComponenteDocumentosAyuda :() => import("../barradocumentos/ComponenteDocumentosAyuda.vue"),
+   ////uploadFile3,
     uploadFile4 : ()  => import("@/components/manipulacionArchivos/uploadFile4.vue")
   },
 
@@ -949,7 +965,8 @@ const  {
         //let a = JSON.parse(response.data);
         let a = response.data;
         //let atipo = typeof a;
-
+        
+        this.datosNavegacion = response.data.datosNavegacion ;
         console.log("valor de idRecuperado  : " +  response.data.id);
         let idRecuperado = response.data.id;
 
@@ -1286,6 +1303,9 @@ const  {
           // console.log(JSON.stringify(response.data));
           /** */
           this.$store.dispatch("setear_Incidente", this.$route.params.id);
+          this.datosNavegacion = response.data.datosNavegacion ;
+           console.log("datos de navegacion");
+          console.log( this.datosNavegacion);
           this.asignarAVariablesValoresDeConsulta2(response);
 
           this.modo = "update";
@@ -1307,6 +1327,16 @@ const  {
 
   created() {
 
+     //---------------------------------------------------------------
+     // Ocultamos el componente que muestra la ayuda  y la barra de 
+     // navegacion
+     //---------------------------------------------------------------
+     
+     this.$store.dispatch("action_uivars_verAsistenteNavegacion", false);
+
+     this.$store.dispatch("action_uivars_verDocumentosAyuda", false);
+
+      //---------------------------------------------------------------
 
      this.$nextTick(() => {
          
@@ -1332,6 +1362,7 @@ const  {
 
   data() {
     return {
+      datosNavegacion : null,
       verActaDeHechos: false,
      showFolio: false,
      showCombo :false,

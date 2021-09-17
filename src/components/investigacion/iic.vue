@@ -34,7 +34,7 @@
 
      <!-- =============================================== -->
     <v-card width="100%" v-if="verFormularioConfirmacion">
-          <v-card-title> LISTO PARA FINALIZAR </v-card-title>
+          <v-card-title> Estamos por finalizar </v-card-title>
         <v-card-text>
             <v-row >
               <v-col>
@@ -49,7 +49,11 @@
                         <span  >
                         Esta investigación cumple con los requisitos para su finalización.
                         <br>
-                        <strong>¿Desea cerrar esta investigación?</strong>
+                        <strong>
+                          Deberá seleccionar el tipo de respuesta 
+                          a la investigación intenar para poder cerrar la               
+                          investigación.
+                          </strong>
                         </span>
 
                         <span  class="d-none">
@@ -76,7 +80,7 @@
                             dense 
                             @click.prevent.stop="cerrarInvestigacion"
                         >
-                            Cerrar esta investigacion
+                           Seleccionar respuesta
                         </v-btn>
 
                         </template>
@@ -92,6 +96,8 @@
   <v-card width="100%" v-if="verConfirmacionRespuesta">
     <v-card-title> LA RESPUESTA ES  </v-card-title>
     <v-card-subtitle>
+      Al seleccionar el tipo de respuesta se da por cerrada la investigación.
+      <br>
       En base a esta investigación se concluye que la respuesta que se dara es de tipo
     </v-card-subtitle>
     <v-card-text>

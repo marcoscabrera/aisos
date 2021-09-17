@@ -157,7 +157,7 @@
           </v-col>
         </v-row>
       </v-container>
-      <v-alert type="warning" v-if="verValidacion">
+      <v-alert :type="tipo" v-if="verValidacion">
         {{ errorMsg}}
       </v-alert>
     </v-card-text>
@@ -203,6 +203,7 @@ export default {
   name: "agregarEvidenciaComponente",
     data() {
         return {
+                type     : 'warning',
                 verVideo :false,
                 rutavideo  : '',
                 mimetipo   : 'video/mp4',
@@ -599,6 +600,10 @@ export default {
             this.estado ="guardado";
             //this.verGuardar = false;
             this.registroid = response.data.id;
+
+            this.verValidacion = true;
+            this.errorMsg ="La evidencia ha sido guardada";
+            this.tipo = "success";
 
             /***************************** */
             //this.bajar_un_blob_and_convertirlo_a_cadena(ubicacion_a_guardar);

@@ -108,7 +108,7 @@ export default {
       { text: "ir a Evidencia", value: "ubicacion" },
       { text: "tipo", value: "tipo" },
       { text: "Activo", value: "activo" },
-      { text: "acciones", value: "actions", sortable: false },
+      //{ text: "acciones", value: "actions", sortable: false },
     ],
     editedIndex: -1,
     editedItem: {

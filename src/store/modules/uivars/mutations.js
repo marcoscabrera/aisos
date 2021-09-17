@@ -1,6 +1,20 @@
 export default {
     
 
+    
+
+    mutation_uivars_verAsistenteNavegacion(state,valor){
+        state.uivars_verAsistenteNavegacion = valor;
+    },
+
+mutation_uivars_verDocumentosAyuda(state,valor){
+    state.uivars_verDocumentosAyuda = valor;
+},
+
+    mutation_uivars_menu(state,valor){
+      state.uivars_menu = valor;
+    },
+
     mutation_uivars_enDondeEstoy(state,valor){
 
           state.uivars_enDondeEstoy = valor;
