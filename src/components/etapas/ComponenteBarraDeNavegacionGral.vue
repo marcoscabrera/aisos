@@ -10,9 +10,70 @@
           ETAPA
         </div>
         <v-list-item-title >
-          <span class="text-h4 mb-1" >
-             {{titulo}}
-          </span>
+          <v-row>
+              <v-col cols=12 xs="12" sm="12" md="4" lg="4">
+                <span class="text-h4 mb-1" >
+                  {{titulo}}
+                </span>
+              </v-col>
+              <v-col cols=12 xs="12" sm="12" md="8" lg="8">
+
+                  <v-row>
+                        <v-col cols="12" xs="12" sm="12" md="3" lg="3">
+                              
+                              <v-text-field  v-if="verFolio"
+                                  id="labelFolio"
+                                  class=" text-h5 mb-1 posicion_15" 
+                                  :value="folio"
+                                  label="FOLIO"
+                                  filled
+                                  background-color="white"
+                                >
+                              
+                                </v-text-field>
+                        </v-col>
+
+                        <v-col cols="12" xs="12" sm="12" md="3" lg="3">
+                              <v-text-field v-if="verFolioRespuesta"
+                                  id="labelFolio_respuesta"
+                                  class="  text-h5 mb-1 posicion_15"
+                                  :value="folioRespuesta"
+                                  :label="folioRespuesta_texto"
+                                  filled
+                                  background-color="white"
+                                >
+                              
+                                </v-text-field>
+                        </v-col>
+
+                        <v-col cols="12" xs="12" sm="12" md="3" lg="3">
+                              <v-text-field v-if="verFecha"
+                                :value ="fecha"
+                                class=" text-h5 mb-1 posicion_15"
+                                label="Creado"
+                                prepend-icon="mdi-calendar"
+                                readonly
+
+                              ></v-text-field>
+                        </v-col>
+
+                        <v-col cols="12" xs="12" sm="12" md="3" lg="3">
+                              <v-text-field v-if="verFechaUpdate"
+                                :value ="fechaUpdate"
+                                class=" text-h5 mb-1 posicion_15 "
+                                label="Actualizado"
+                                prepend-icon="mdi-calendar"
+                                readonly
+
+                              ></v-text-field>
+                        </v-col>
+
+
+                  </v-row>
+
+              </v-col>
+          </v-row>
+
 
          <!-- <span class="text-h6 mb-1" >
              Folio # sin asignar
@@ -100,7 +161,26 @@ import apiIncidentes from '@/apialdeas/apiIncidentes.js';
           verIntegral    : { type : Boolean ,default : false},
           verCierre      : { type : Boolean ,default : false},
           titulo         : { type : String  , default : '' },
+          opciones       : { type : Object}
+
  
+        },
+
+        watch : {
+        
+        opciones(newValue) {
+                this.verFolio             =newValue.verFolio;
+               this.verFolioRespuesta     =newValue.verFolioRespuesta;
+               this.verFecha              =newValue.verFecha;
+               this.verFechaUpdate        =newValue.verFechaUpdate;
+               this.folio                 =newValue.folio;
+               this.folioRespuesta        =newValue.folioRespuesta;
+               this.fecha                 =newValue.fecha;
+               this.fechaUpdate           =newValue.fechaUpdate;
+               this.folioRespuesta_texto = newValue.folioRespuesta_texto
+               console.log("valores de opciones " );
+               console.log(newValue);
+        }
         },
 
         computed : {
@@ -148,26 +228,35 @@ import apiIncidentes from '@/apialdeas/apiIncidentes.js';
         data() {
 
             return {
-              id : 0,
-              claseResponsive : '',
-              verSeg : true,
-              verIni : true,
-              verInt :true,
-              verRes :true,
-              verC : true,
-              breakpoints : {'xs' : 'minimoBotonEnBarra',
-                             'sm' : 'minimoBotonEnBarra',
-                             'md' :  '',
-                             'lg' :  '',
-                             'xl' :  ''},
-             tipoRespuestas :  {
-                               'DENUNCIA LEGAL' : {
-                                 'name' : 'DenunciaLegal',
-                                 'params' : { denunciaId: this.id }
-                               },
-                                'ABORDAJE INTERNO' : {
-                                 'texto' : 'AbordajeInterno',
-                                 'valor' : { incidenteId: this.id }
+              verFolio          : false,
+              verFolioRespuesta : false,
+              verFecha          : false,
+              verFechaUpdate    : false, 
+              folio             : '',
+              folioRespuesta    : '',
+              fecha             : '',
+              fechaUpdate       : '',
+              folioRespuesta_texto : '',
+              id                : 0,
+              claseResponsive   : '',
+              verSeg            : true,
+              verIni            : true,
+              verInt            : true,
+              verRes            : true,
+              verC              : true,
+              breakpoints       : {'xs' : 'minimoBotonEnBarra',
+                                  'sm' : 'minimoBotonEnBarra',
+                                  'md' :  '',
+                                  'lg' :  '',
+                                  'xl' :  ''},
+             tipoRespuestas     :  {
+                                   'DENUNCIA LEGAL' : {
+                                   'name' : 'DenunciaLegal',
+                                   'params' : { denunciaId: this.id }
+                                  },
+                                   'ABORDAJE INTERNO' : {
+                                   'texto' : 'AbordajeInterno',
+                                   'valor' : { incidenteId: this.id }
                                },
             },
 
@@ -184,13 +273,35 @@ import apiIncidentes from '@/apialdeas/apiIncidentes.js';
 
             mounted () {
               //this.actualizarProps();
+              this.inicializarBarra();
               this.buscarVersionViewport( ) ;
             },
 
 
         methods: {
 
+          inicializarBarra() {
+                   
+                   
+
+               this.verFolio              =this.opciones.verFolio;
+               this.verFolioRespuesta     =this.opciones.verFolioRespuesta;
+               this.verFecha              =this.opciones.verFecha;
+               this.verFechaUpdate        =this.opciones.verFechaUpdate;
+               this.folio                 =this.opciones.folio;
+               this.folioRespuesta        =this.opciones.folioRespuesta;
+               this.fecha                 =this.opciones.fecha;
+               this.fechaUpdate           =this.opciones.fechaUpdate;
+               this.folioRespuesta_texto = this.opciones.folioRespuesta_texto
+
+                console.log("valores de opciones en mounted " );
+               console.log(this.opciones);
+        
+
+          },
+
           verLaNav() {
+
             
            let v = false ;
            this.$store.state.uivars.uivars_verAsistenteNavegacion == false ? v= true : v= false;
@@ -370,5 +481,9 @@ import apiIncidentes from '@/apialdeas/apiIncidentes.js';
 <style >
 .minimoBotonEnBarra{
   min-width: 52px !important;
+}
+
+.posicion_15{
+  margin-top : -15px !important;
 }
 </style>
