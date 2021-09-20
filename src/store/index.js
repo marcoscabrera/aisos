@@ -17,6 +17,7 @@ import abordaje from './modules/abordaje/abordaje.js'
 import estadisticas from './modules/estadisticas/estadisticas.js'
 import notificacion from './modules/notificacion/notificacion.js'
 import doctosapoyo from './modules/doctosapoyo/doctosapoyo.js'
+import parametros from './modules/parametros/parametros.js'
 Vue.use(Vuex)
 //export default new Vuex.Store
 const store =  new Vuex.Store({
@@ -26,7 +27,7 @@ const store =  new Vuex.Store({
 // LOCALHOST
 ///////////////////////////////////////   
 
-//urlServidor: 'http://127.0.0.1/apialdeas',
+urlServidor: 'http://127.0.0.1/apialdeas',
 
 
 ///////////////////////////////////////
@@ -41,7 +42,7 @@ const store =  new Vuex.Store({
 ///////////////////////////////////////
 // API DEMO
 /////////////////////////////////////// 
-urlServidor : 'https://apidemo2.azurewebsites.net',
+//urlServidor : 'https://apidemo2.azurewebsites.net',
 
 version: '1.1.23 Servidor Pruebas',
 
@@ -65,7 +66,8 @@ version: '1.1.23 Servidor Pruebas',
     abordaje,
     estadisticas,
     notificacion,
-    doctosapoyo
+    doctosapoyo,
+    parametros
   }
 })
   

@@ -111,8 +111,9 @@ methods : {
    // const sas = this.sasGT
     const containerName = "contenedorpdf";
     const blobName = this.nombre_de_archivo_original;
+    const conexionsas = this.$store.state.parametros.parametros_conexionsas;
 
-    const blobServiceClient = new BlobServiceClient(this.blobSasUrl);
+    const blobServiceClient = new BlobServiceClient(conexionsas);
 
      const containerClient = blobServiceClient.getContainerClient(containerName);
      const blobClient = containerClient.getBlobClient(blobName);

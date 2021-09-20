@@ -189,11 +189,29 @@ import apiParametros from '@/apialdeas/apiParametros.js';
 
                 this.$store.dispatch("action_uivars_menu",2);
                 this.mostrarMenuLateral();
+
+                //cargamos el parametro conexiosas.
+                // deberiamos encriptarlo ?
+
+                this.cargarParametros();
                    
                 this.$router.push('Dashboard');
-            }
-        },
+            },
+          cargarParametros() {
+      var az = apiParametros.getParametro("cadenasas", this.$store);
+      az.then((response) => {
+        console.log(response.data.valor);
+    
+        this.$store.dispatch("action_parametros_conexionsas",response.data.valor);
+       
+      }).catch((error) => {
+        console.log(error);
+      });
         
+      }         
+        }
+
+
     }
 </script>
 
