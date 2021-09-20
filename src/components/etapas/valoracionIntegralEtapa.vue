@@ -777,6 +777,13 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
               };
 
               this.verBarraGral= true;
+
+               console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+               console.log(" datos de navegfaciaon en valoracion Integral ");
+
+               this.datosNavegacion = response.data[0]["datosNavegacion"];
+               console.log( this.datosNavegacion );
+               console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         
           
          this.confirmaincidente == "SI ES UN INCIDENTE" ?
@@ -1068,6 +1075,7 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
     return {
       opcionesBarra: [],
       verBarraGral : false,
+      datosNavegacion : null,
       
       loadinginvestigacion :false,
       mostrarAlerta : false,
