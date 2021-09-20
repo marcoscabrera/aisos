@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row>
+   <!-- <v-row>
         <v-col cols="12" xs="12" sm="12" md="6">
            <h2>Valoración Integral</h2>
         </v-col>
@@ -20,8 +20,25 @@
              ></BarraDeNavegacion>
 
         </v-col>
-    </v-row>
+    </v-row>-->
 
+     <ComponenteBarraDeNavegacionGral v-if="verBarraGral"
+     titulo="Valoración Integral"
+     :opciones = "opcionesBarra"
+     >
+     </ComponenteBarraDeNavegacionGral>
+     <br>
+     <ComponenteDocumentosAyuda 
+             class="elevado"
+            :files = "archivos"
+            categoria = "vi">
+
+     </ComponenteDocumentosAyuda>
+     <ComponenteAsistenteNavegacion v-if="this.$store.state.uivars.uivars_verAsistenteNavegacion" :datosIncidente="datosNavegacion" >
+
+     </ComponenteAsistenteNavegacion>
+
+ <!--
     <v-row>
       <v-col cols="12" xs="12" md="6">
         <v-text-field
@@ -37,15 +54,15 @@
           </v-text-field>
       </v-col>
 
-      <v-col cols="12" xs="12" md="6">
+      <v-col cols="12" xs="12" md="6"> -->
         <!-- mustra los documentos como ayuda de esta seccion-->
-        <barraDocumentosVue
+       <!-- <barraDocumentosVue
         :files="archivos">
         </barraDocumentosVue>
 
       </v-col>
-    </v-row>
-    <br>
+    </v-row> 
+    <br> -->
  
 <!--====================================================== -->
        <v-card width="100%" >
@@ -251,14 +268,17 @@ import apidoctosapoyo from '@/apialdeas/apiDoctosApoyo.js';
 
 export default {
   components: {
-    barraDocumentosVue    :()  => import("../barradocumentos/barraDocumentos.vue"),
-    cardMedidasIntegrales :()  => import('../etapasComponentesValoracion/cardMedidasIntegrales.vue'),
-    BarraDeNavegacion     :()  => import("@/components/etapas/BarraDeNavegacion.vue"),
-    textareaValoracion    :()  => import("@/components/etapasComponentesValoracion/textareaValoracion.vue"),
-    cardTipologia         :()  => import("@/components/etapasComponentesValoracion/cardTipologia.vue"),
-    cardNivelIncidente    :()  => import("@/components/etapasComponentesValoracion/cardNivelIncidente.vue"),
-    cardTipoCaso          :()  => import("../etapasComponentesValoracion/cardTipoCaso.vue"),
-    cardTipoRespuesta     :()  => import("../etapasComponentesValoracion/cardTipoRespuesta.vue"),
+   // barraDocumentosVue              :()  => import("../barradocumentos/barraDocumentos.vue"),
+    cardMedidasIntegrales           :()  => import('../etapasComponentesValoracion/cardMedidasIntegrales.vue'),
+   // BarraDeNavegacion               :()  => import("@/components/etapas/BarraDeNavegacion.vue"),
+    textareaValoracion              :()  => import("@/components/etapasComponentesValoracion/textareaValoracion.vue"),
+    cardTipologia                   :()  => import("@/components/etapasComponentesValoracion/cardTipologia.vue"),
+    cardNivelIncidente              :()  => import("@/components/etapasComponentesValoracion/cardNivelIncidente.vue"),
+    cardTipoCaso                    :()  => import("../etapasComponentesValoracion/cardTipoCaso.vue"),
+    cardTipoRespuesta               :()  => import("../etapasComponentesValoracion/cardTipoRespuesta.vue"),
+    ComponenteAsistenteNavegacion   : ()  => import("@/components/barranavegacion/ComponenteAsistenteNavegacion.vue"),
+    ComponenteBarraDeNavegacionGral : ()  => import("@/components/etapas/ComponenteBarraDeNavegacionGral.vue"),
+    ComponenteDocumentosAyuda       : () => import("../barradocumentos/ComponenteDocumentosAyuda.vue"),
    // ComponenteConfirmacionIncidente  //cardConfirmacion,
   },
 
@@ -739,6 +759,24 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
           this.confirmaincidente = response.data[0]["confirmaincidente"];
           this.$store.dispatch('action_confirmaincidente',this.confirmaincidente);   
           
+          //////////////////////////////////////////////////////////////////////
+          // seteamos los valores para mostrar en la barra de navegacion nueva
+          //////////////////////////////////////////////////////////////////////
+                 this.opcionesBarra = {
+
+               'verFolio'              : true , 
+               'verFolioRespuesta'     : false ,  
+               'verFecha'              : true , 
+               'verFechaUpdate'        : true ,  
+               'folio'                 : this.folio, 
+               'folioRespuesta'        : '' ,     
+               'fecha'                 : response.data[0]["fechacreacion"] , 
+               'fechaUpdate'           : response.data[0]["fechaupdate"],   
+               'folioRespuesta_texto'  : ''   
+
+              };
+
+              this.verBarraGral= true;
         
           
          this.confirmaincidente == "SI ES UN INCIDENTE" ?
@@ -1007,10 +1045,10 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
   // siones
   ////////////////////////////////////////////
    let ruta_A_regresar  = '/valoracionintegral/' + this.$route.params.id;
-    console.log("ruta_A_regresar : " + ruta_A_regresar);
-    this.$store.dispatch("action_regresar_A_despues_de_impresion",ruta_A_regresar);
-      /////////////////////////////////////////////
-    let rolActual = this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARANTESDECIERREDELAVALORACIONINTEGRAL;
+   console.log("ruta_A_regresar : " + ruta_A_regresar);
+   this.$store.dispatch("action_regresar_A_despues_de_impresion",ruta_A_regresar);
+   /////////////////////////////////////////////
+   let rolActual = this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARANTESDECIERREDELAVALORACIONINTEGRAL;
     
     this.$store.dispatch("action_medidasintegrales_docto",0);
 
@@ -1028,6 +1066,9 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
   },
   data() {
     return {
+      opcionesBarra: [],
+      verBarraGral : false,
+      
       loadinginvestigacion :false,
       mostrarAlerta : false,
       overlay :false,

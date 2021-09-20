@@ -1,7 +1,7 @@
 <template>
   <v-container>
   
-
+  <!--
     <v-row>
         <v-col cols="12" xs="12" sm="12" md="6">
            <h2>Seguimiento</h2>
@@ -25,6 +25,8 @@
         </v-col>
     </v-row>
 
+    -->
+    <!--
     <v-row>
       <v-col cols="12" xs="12" md="6">
         <v-text-field
@@ -63,10 +65,12 @@
           <v-date-picker v-model="date" @input="menu2 = false"></v-date-picker>
         </v-menu>
       </v-col>
-    </v-row>
+    </v-row> -->
 
-    <!-- =============================================== -->
-    <br >
+    <!-- =============================================== 
+       <br > 
+    -->
+
   <!--  <v-card width="100%"  >
           <v-card-title> </v-card-title>
           <v-card-text>
@@ -108,6 +112,22 @@
     <!-- <h4>ACCIONES A REALIZAR</h4> -->
 
     <!-- =============================================== -->
+    <ComponenteBarraDeNavegacionGral v-if="verBarraGral"
+     titulo="Seguimiento"
+     :opciones = "opcionesBarra"
+     >
+     </ComponenteBarraDeNavegacionGral>
+     <br>
+     <ComponenteDocumentosAyuda 
+             class="elevado"
+            :files = "archivos"
+            categoria = "vi">
+
+     </ComponenteDocumentosAyuda>
+     <ComponenteAsistenteNavegacion v-if="this.$store.state.uivars.uivars_verAsistenteNavegacion" :datosIncidente="datosNavegacion" >
+
+     </ComponenteAsistenteNavegacion>
+
 
 
     <CardConsensoNacional v-if="verConsensoNacional">
@@ -294,13 +314,14 @@
 <script>
 //import barraDocumentosVue from "../barradocumentos/barraDocumentos.vue"; //
 //import seguimientoCRUD from "@/components/seguimiento/seguimientoCRUD.vue";
+//import cardProtocoloComponente  from  '@/components/etapasComponentesSeguimiento/cardProtocoloComponente.vue'
+//import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
+/* importar en el componente , antes del export defaiñt*/
+//import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
+
 import seguimientoEtapa from '@/components/etapas/seguimientoEtapa.js'
 import apiArchivos from '@/apialdeas/apiArchivos.js';
-//import cardProtocoloComponente  from  '@/components/etapasComponentesSeguimiento/cardProtocoloComponente.vue'
-import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
-/* importar en el componente , antes del export defaiñt*/
 import validacionSeguimiento from "@/components/etapas/validaciones/validacionSeguimiento.js";
-//import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
 import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
 
 //import { mapState } from 'vuex';
@@ -309,7 +330,7 @@ import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
 export default {
    components: {     
    //cardProtocoloComponente,  
-   BarraDeNavegacion,          
+  // BarraDeNavegacion,          
    // textAreaRegistroDelEstatus : () => import('@/components/etapasComponentesSeguimiento/textAreaRegistroDelEstatus.vue'),
    // cardPlanEnEjecucion :()=> import('@/components/etapasComponentesSeguimiento/cardPlanEnEjecucion.vue'),
   CardDenunciaPresentada :()=> import('@/components/etapasComponentesSeguimiento/CardDenunciaPresentada.vue'),
@@ -327,12 +348,23 @@ export default {
   cardPlanRecuperacion :() => import('@/components/etapasComponentesSeguimiento/cardPlanRecuperacion.vue'),
   CardActaDeHechos :() => import('@/components/etapasComponentesSeguimiento/CardActaDeHechos.vue'),
   // cardDocumentosOficiales:() => import('@/components/etapasComponentesSeguimiento/cardDocumentosOficiales.vue')
+    ComponenteAsistenteNavegacion   : ()  => import("@/components/barranavegacion/ComponenteAsistenteNavegacion.vue"),
+    ComponenteBarraDeNavegacionGral : ()  => import("@/components/etapas/ComponenteBarraDeNavegacionGral.vue"),
+    ComponenteDocumentosAyuda       : ()  => import("../barradocumentos/ComponenteDocumentosAyuda.vue"),
 
   },
 
 
   data() {
     return {
+
+      /********************************************
+      VARIABLE PARA GUARDAR LOS VALORES DE LA BARRA
+      PRINCIPAL
+      ******************************************** */
+
+       opcionesBarra       : [],
+       verBarraGral        : false,
 
       /********************************************
       VARIABLES PARA OCULTAR/MOSTRAR LOS COMPONENTES
@@ -875,6 +907,25 @@ export default {
          this.seguimiento =response.data.respuesta;
          seguimientoEtapa.asignarVariablesGLobales( this.seguimiento ,this.$store );
 
+        //////////////////////////////////////////////////////////////////////
+        // seteamos los valores para mostrar en la barra de navegacion nueva
+        //////////////////////////////////////////////////////////////////////
+            this.opcionesBarra = {
+
+               'verFolio'              : true , 
+               'verFolioRespuesta'     : false ,  
+               'verFecha'              : false , 
+               'verFechaUpdate'        : false ,  
+               'folio'                 : this.folio, 
+               'folioRespuesta'        : '' ,     
+               'fecha'                 : '' , 
+               'fechaUpdate'           : '',   
+               'folioRespuesta_texto'  : ''   
+
+     };
+       
+        this.verBarraGral= true;
+   
         /***************************************************************
         CON ESTO DECIDIMOS QUE COMPONENTES MOSTRAR SEGUN EL TIPO DE
         RESPUESTA   #ocultar     

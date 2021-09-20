@@ -45,7 +45,7 @@
 
      </ComponenteAsistenteNavegacion>
 
-    <v-row>
+    <v-row v-if="verFolio">
       <v-col cols="12" xs="12" md="6"  >
 
          
@@ -465,24 +465,24 @@ Vue.component('v-popover', VPopover);*/
 export default {
   components: {
     
-    barraDocumentosVue : ()  => import("../barradocumentos/barraDocumentos.vue"),
+    barraDocumentosVue              : ()  => import("../barradocumentos/barraDocumentos.vue"),
     comboboxProgramaSeleccionado ,//: ()  => import("@/components/etapasComponentes/comboboxProgramaSeleccionado.vue"),
-    calendario : ()  => import("@/components/etapasComponentes/calendario.vue"),
-    textareaInvolucrados : ()  => import("@/components/etapasComponentes/textareaInvolucrados.vue"),
-    textfieldElaboro : ()  => import("@/components/etapasComponentes/textfieldElaboro.vue"),
+    calendario                      : ()  => import("@/components/etapasComponentes/calendario.vue"),
+    textareaInvolucrados            : ()  => import("@/components/etapasComponentes/textareaInvolucrados.vue"),
+    textfieldElaboro                : ()  => import("@/components/etapasComponentes/textfieldElaboro.vue"),
     comboboxCargos ,//: ()  => import("@/components/etapasComponentes/comboboxCargos.vue"),
-    textareaRegistro : ()  => import("@/components/etapasComponentes/textareaRegistro.vue"),
+    textareaRegistro                : ()  => import("@/components/etapasComponentes/textareaRegistro.vue"),
     cardPerlfilAgresor,// : ()  => import("@/components/etapasComponentes/cardPerlfilAgresor.vue"),
     //esunincidente,
-    cardPerfilVictima : ()  => import("@/components/etapasComponentes/cardPerfilVictima.vue"),
-    textareaMedidasProteccion : ()  => import("@/components/etapasComponentes/textareaMedidasProteccion.vue"),
-    textareaTestigos : ()  => import("@/components/etapasComponentes/textareaTestigos.vue"),
-    BarraDeNavegacion : ()  => import("@/components/etapas/BarraDeNavegacion.vue"),
-    ComponenteAsistenteNavegacion: ()  => import("@/components/barranavegacion/ComponenteAsistenteNavegacion.vue"),
-    ComponenteBarraDeNavegacionGral: ()  => import("@/components/etapas/ComponenteBarraDeNavegacionGral.vue"),
-    ComponenteDocumentosAyuda :() => import("../barradocumentos/ComponenteDocumentosAyuda.vue"),
+    cardPerfilVictima               : ()  => import("@/components/etapasComponentes/cardPerfilVictima.vue"),
+    textareaMedidasProteccion       : ()  => import("@/components/etapasComponentes/textareaMedidasProteccion.vue"),
+    textareaTestigos                : ()  => import("@/components/etapasComponentes/textareaTestigos.vue"),
+    BarraDeNavegacion               : ()  => import("@/components/etapas/BarraDeNavegacion.vue"),
+    ComponenteAsistenteNavegacion   : ()  => import("@/components/barranavegacion/ComponenteAsistenteNavegacion.vue"),
+    ComponenteBarraDeNavegacionGral : ()  => import("@/components/etapas/ComponenteBarraDeNavegacionGral.vue"),
+    ComponenteDocumentosAyuda       : () => import("../barradocumentos/ComponenteDocumentosAyuda.vue"),
    ////uploadFile3,
-    uploadFile4 : ()  => import("@/components/manipulacionArchivos/uploadFile4.vue")
+    uploadFile4                     : ()  => import("@/components/manipulacionArchivos/uploadFile4.vue")
   },
 
   computed: {
@@ -1303,6 +1303,11 @@ const  {
         this.overlay =false;
       } else {
         //console.log("valor actual de parametroId : " + parametroId);
+        
+        //ocultamos el campo del folio, esto lo hacemos por que ya se muestra
+        //en la barra
+        this.verFolio = false;
+
 
         let P_incidente = apiIncidentes.recuperarUnIncidente(
           parametroId,
@@ -1343,8 +1348,8 @@ const  {
                'verFechaUpdate'        : true ,  
                'folio'                 : this.folio, 
                'folioRespuesta'        : '' ,     
-               'fecha'                 : response.fechaAlta , 
-               'fechaUpdate'           : response.fechaUpdate,   
+               'fecha'                 : response.data.fechaAlta , 
+               'fechaUpdate'           : response.data.fechaUpdate,   
                'folioRespuesta_texto'  : ''   
 
      };
@@ -1441,6 +1446,7 @@ const  {
 
   data() {
     return {
+      verFolio        :true,
       verBarraGral    : false,
       opcionesBarra   : null,
       datosNavegacion : null,

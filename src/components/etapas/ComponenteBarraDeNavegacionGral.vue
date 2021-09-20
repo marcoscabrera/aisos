@@ -23,7 +23,7 @@
                               
                               <v-text-field  v-if="verFolio"
                                   id="labelFolio"
-                                  class=" text-h5 mb-1 posicion_15" 
+                                  class=" text-h6 mb-1 posicion_15" 
                                   :value="folio"
                                   label="FOLIO"
                                   filled
@@ -36,7 +36,7 @@
                         <v-col cols="12" xs="12" sm="12" md="3" lg="3">
                               <v-text-field v-if="verFolioRespuesta"
                                   id="labelFolio_respuesta"
-                                  class="  text-h5 mb-1 posicion_15"
+                                  class="  text-h6 mb-1 posicion_15"
                                   :value="folioRespuesta"
                                   :label="folioRespuesta_texto"
                                   filled
@@ -49,10 +49,11 @@
                         <v-col cols="12" xs="12" sm="12" md="3" lg="3">
                               <v-text-field v-if="verFecha"
                                 :value ="fecha"
-                                class=" text-h5 mb-1 posicion_15"
+                                class=" text-h6 mb-1 posicion_15"
                                 label="Creado"
                                 prepend-icon="mdi-calendar"
                                 readonly
+                                filled
 
                               ></v-text-field>
                         </v-col>
@@ -60,10 +61,11 @@
                         <v-col cols="12" xs="12" sm="12" md="3" lg="3">
                               <v-text-field v-if="verFechaUpdate"
                                 :value ="fechaUpdate"
-                                class=" text-h5 mb-1 posicion_15 "
+                                class=" text-h6 mb-1 posicion_15 "
                                 label="Actualizado"
                                 prepend-icon="mdi-calendar"
                                 readonly
+                                filled
 
                               ></v-text-field>
                         </v-col>
@@ -169,7 +171,7 @@ import apiIncidentes from '@/apialdeas/apiIncidentes.js';
         watch : {
         
         opciones(newValue) {
-                this.verFolio             =newValue.verFolio;
+               this.verFolio             =newValue.verFolio;
                this.verFolioRespuesta     =newValue.verFolioRespuesta;
                this.verFecha              =newValue.verFecha;
                this.verFechaUpdate        =newValue.verFechaUpdate;
@@ -178,7 +180,7 @@ import apiIncidentes from '@/apialdeas/apiIncidentes.js';
                this.fecha                 =newValue.fecha;
                this.fechaUpdate           =newValue.fechaUpdate;
                this.folioRespuesta_texto = newValue.folioRespuesta_texto
-               console.log("valores de opciones " );
+               console.log("===>>> valores de opciones <<<=== " );
                console.log(newValue);
         }
         },

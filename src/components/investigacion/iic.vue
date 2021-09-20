@@ -1,7 +1,7 @@
 <template>
   <v-container name="investigacion">
     <!-- pediente la fecha -->
-        <v-row>
+     <!--   <v-row>
         <v-col cols="12" xs="12" sm="12" md="6">
            <h2>Investigacion Interna</h2>
         </v-col>
@@ -13,23 +13,39 @@
              ></BarraDeNavegacion>
 
         </v-col>
-    </v-row>
-    <FoliosComponente
+    </v-row>  -->
+    <!--<FoliosComponente
       :folio="investigacion.folio"
       :foliodenuncia="investigacion.folioinvestigacion"
       :date ="investigacion.fechaCreacion"
       tipofolio="INVESTIGACIÓN"
     >
     </FoliosComponente>
-    <br />
+    <br /> -->
 
-    <v-row>
+     <ComponenteBarraDeNavegacionGral v-if="verBarraGral"
+     titulo="Investigación"
+     :opciones = "opcionesBarra"
+     >
+     </ComponenteBarraDeNavegacionGral>
+     
+     <ComponenteDocumentosAyuda 
+             class="elevado"
+            :files = "files"
+            categoria = "vi">
+
+     </ComponenteDocumentosAyuda>
+     <ComponenteAsistenteNavegacion v-if="this.$store.state.uivars.uivars_verAsistenteNavegacion" :datosIncidente="datosNavegacion" >
+
+     </ComponenteAsistenteNavegacion>
+
+  <!--  <v-row>
       <v-col cols="12" xs="12" sm="6" md="6"> </v-col>
       <v-col cols="12" xs="12" sm="6" md="6">
         <barraDocumentos :files="files"> </barraDocumentos>
       </v-col>
-    </v-row>
-     <br>
+    </v-row>  -->
+     
     <!-- =============================================== -->
 
      <!-- =============================================== -->
@@ -384,33 +400,46 @@
 
 
 <script>
-import FoliosComponente from "@/components/denucialegal/componentesDenunciaLegal/FoliosComponente.vue";
+//import FoliosComponente from "@/components/denucialegal/componentesDenunciaLegal/FoliosComponente.vue";
+//import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
+// envia los correos de notificacion
+//import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
+//import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
+//import barraDocumentos from "@/components/barradocumentos/barraDocumentos.vue";
 import RegistroIncidenteComponente from "@/components/investigacion/componentesInvestigacion/RegistroIncidenteComponente.vue";
 import ArchivoImpresionComponente from "@/components/investigacion/componentesInvestigacion/ArchivoImpresionComponente.vue";
 import apiInvestigacion from "@/apialdeas/apiInvestigacion.js";
-import barraDocumentos from "@/components/barradocumentos/barraDocumentos.vue";
-import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
-// envia los correos de notificacion
-//import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
 import apidoctosapoyo from '@/apialdeas/apiDoctosApoyo.js';
-//import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
 import eventBus from '@/eventBus';
 import apiValoracion from "@/apialdeas/apiValoracion.js";
 
 export default {
   components: {
-    FoliosComponente,
+    //FoliosComponente,
+
+    // barraDocumentos,
+    //BarraDeNavegacion,
     RegistroIncidenteComponente,
     ArchivoImpresionComponente,
-    barraDocumentos,BarraDeNavegacion,
-    cardTipologia         :()  => import("@/components/etapasComponentesValoracion/cardTipologia.vue"),
-    cardNivelIncidente    :()  => import("@/components/etapasComponentesValoracion/cardNivelIncidente.vue"),
-    cardTipoCaso          :()  => import("../etapasComponentesValoracion/cardTipoCaso.vue"),
-    textareaValoracion    :()  => import("@/components/etapasComponentesValoracion/textareaValoracion.vue"),
-    ComponenteCardsArchivo :() => import("@/components/investigacion/componentesInvestigacion/ComponenteCardsArchivos.vue")
-  },
+    cardTipologia                   : ()  => import("@/components/etapasComponentesValoracion/cardTipologia.vue"),
+    cardNivelIncidente              : ()  => import("@/components/etapasComponentesValoracion/cardNivelIncidente.vue"),
+    cardTipoCaso                    : ()  => import("../etapasComponentesValoracion/cardTipoCaso.vue"),
+    textareaValoracion              : ()  => import("@/components/etapasComponentesValoracion/textareaValoracion.vue"),
+    ComponenteCardsArchivo          : ()  => import("@/components/investigacion/componentesInvestigacion/ComponenteCardsArchivos.vue"),
+    ComponenteAsistenteNavegacion   : ()  => import("@/components/barranavegacion/ComponenteAsistenteNavegacion.vue"),
+    ComponenteBarraDeNavegacionGral : ()  => import("@/components/etapas/ComponenteBarraDeNavegacionGral.vue"),
+    ComponenteDocumentosAyuda       : ()  => import("../barradocumentos/ComponenteDocumentosAyuda.vue"),
+
+ },
   data() {
     return {
+
+      datosIncidente        : [],
+      opcionesBarra         : [],
+      verBarraGral          : false,
+
+      datosNavegacion :{},
+
       textoBoton_en_textovi : '',
       verTextovi : false,
       validarTextovi : false,
@@ -872,6 +901,34 @@ export default {
     },
 
     asignarVariables(investigacion) {
+
+        //////////////////////////////////////////////////////////////////////
+        // seteamos los valores para mostrar en la barra de navegacion nueva
+        //////////////////////////////////////////////////////////////////////
+            this.opcionesBarra = {
+
+               'verFolio'              : true , 
+               'verFolioRespuesta'     : true ,  
+               'verFecha'              : true , 
+               'verFechaUpdate'        : true ,  
+               'folio'                 : investigacion.folio, 
+               'folioRespuesta'        : investigacion.folioinvestigacion ,     
+               'fecha'                 : investigacion.fechaCreacion , 
+               'fechaUpdate'           : investigacion.fechaUpdate,   
+               'folioRespuesta_texto'  : 'Investigación'   
+
+     };
+
+      this.verBarraGral= true;
+
+      this.datosNavegacion = investigacion.datosNavegacion ;
+      console.log("<<<<<<<< datos de navegacion en valoracion integral >>>>>>>");
+      console.log( this.datosNavegacion );
+      console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>");
+
+     //this.
+      //////////////////////////////////////////////////////////////////////
+
       this.folio = investigacion.folio;
 
       this.folioinvestigacion = investigacion.folioinvestigacion;
@@ -988,6 +1045,7 @@ export default {
         this.asignarVariables(this.investigacion);
 
         this.cargarTodosLosDoctos("i");
+
          //-------------------------------------------
          // mostramos todos los componentes
          //-------------------------------------------

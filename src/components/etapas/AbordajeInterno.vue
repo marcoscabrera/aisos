@@ -2,7 +2,7 @@
   <v-container>
   
 
-    <v-row>
+   <!-- <v-row>
         <v-col cols="12" xs="12" sm="12" md="6">
            <h2>Abordaje Interno</h2>
         </v-col>
@@ -19,7 +19,7 @@
 
         </v-col>
     </v-row>
-    <br>
+    <br> -->
 
     <!--
     <v-alert type="warning">
@@ -27,13 +27,30 @@
     </v-alert>
      -->
 
-        <!-- pediente la fecha -->
+        <!-- pediente la fecha 
     <FoliosComponente v-if="ocultar"
     :folio="folio"
     :foliodenuncia ="folioabordaje"
     :date="fecha"
     tipofolio="ABORDAJE INTERNO">
-    </FoliosComponente>
+    </FoliosComponente>-->
+
+    <ComponenteBarraDeNavegacionGral v-if="verBarraGral"
+     titulo="Abordaje"
+     :opciones = "opcionesBarra"
+     >
+     </ComponenteBarraDeNavegacionGral>
+     <br>
+     <ComponenteDocumentosAyuda 
+             class="elevado"
+            :files = "archivos"
+            categoria = "vi">
+
+     </ComponenteDocumentosAyuda>
+     <ComponenteAsistenteNavegacion v-if="this.$store.state.uivars.uivars_verAsistenteNavegacion" :datosIncidente="datosNavegacion" >
+
+     </ComponenteAsistenteNavegacion>
+
 
 
     <!-- =============================================== -->
@@ -128,26 +145,24 @@
 <script>
 //import barraDocumentosVue from "../barradocumentos/barraDocumentos.vue"; //
 //import seguimientoCRUD from "@/components/seguimiento/seguimientoCRUD.vue";
-
-import abordajeinterno from '@/components/etapas/abordajeinterno.js'
 //import apiArchivos from '@/apialdeas/apiArchivos.js';
 //import cardProtocoloComponente  from  '@/components/etapasComponentesSeguimiento/cardProtocoloComponente.vue'
-import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
+//import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
 /* importar en el componente , antes del export defaiñt*/
+//import FoliosComponente  from "@/components/denucialegal/componentesDenunciaLegal/FoliosComponente.vue";
+
+import abordajeinterno from '@/components/etapas/abordajeinterno.js'
 import validacionSeguimiento from "@/components/etapas/validaciones/validacionSeguimiento.js";
-
 import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
-
-import FoliosComponente  from "@/components/denucialegal/componentesDenunciaLegal/FoliosComponente.vue";
-
 import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
-
 import eventBus from '@/eventBus.js';
 
 export default {
 
     data() {
     return {
+      opcionesBarra       : [],
+      verBarraGral : false,
       ocultar       : true,
       overlay       : false,
       estado        : '',
@@ -225,15 +240,18 @@ export default {
     };
   },
   components: {   
-    FoliosComponente,  
-    BarraDeNavegacion,          
-    ComponenteTextAreaStatus     :() =>   import('@/components/etapasComponentesAbordaje/ComponenteTextAreaStatus.vue'),
-    CardInformeAEnteRector_AI    :() =>   import('@/components/etapasComponentesAbordaje/CardInformeAEnteRector_AI.vue'),
-    CardNotificacionPFN_AI       :() =>   import('@/components/etapasComponentesAbordaje/CardNotificacionPFN_AI.vue'),
-    ComponentePD_AI              :() =>   import('@/components/etapasComponentesAbordaje/ComponentePD_Ai.vue'),
-    ComponenteActaValoracion_AI  :() =>   import('@/components/etapasComponentesAbordaje/ComponenteActaValoracion_AI.vue'),
-    ComponenteActaHechos_AI      :() =>   import('@/components/etapasComponentesAbordaje/ComponenteActaHechos_AI.vue'),
-    ComponentePlanEmocional_AI   :() =>   import('@/components/etapasComponentesAbordaje/ComponentePlanEmocional_AI.vue'),
+    //FoliosComponente,  
+    //BarraDeNavegacion,          
+    ComponenteTextAreaStatus        : () =>   import('@/components/etapasComponentesAbordaje/ComponenteTextAreaStatus.vue'),
+    CardInformeAEnteRector_AI       : () =>   import('@/components/etapasComponentesAbordaje/CardInformeAEnteRector_AI.vue'),
+    CardNotificacionPFN_AI          : () =>   import('@/components/etapasComponentesAbordaje/CardNotificacionPFN_AI.vue'),
+    ComponentePD_AI                 : () =>   import('@/components/etapasComponentesAbordaje/ComponentePD_Ai.vue'),
+    ComponenteActaValoracion_AI     : () =>   import('@/components/etapasComponentesAbordaje/ComponenteActaValoracion_AI.vue'),
+    ComponenteActaHechos_AI         : () =>   import('@/components/etapasComponentesAbordaje/ComponenteActaHechos_AI.vue'),
+    ComponentePlanEmocional_AI      : () =>   import('@/components/etapasComponentesAbordaje/ComponentePlanEmocional_AI.vue'),
+    ComponenteAsistenteNavegacion   : ()  => import("@/components/barranavegacion/ComponenteAsistenteNavegacion.vue"),
+    ComponenteBarraDeNavegacionGral : ()  => import("@/components/etapas/ComponenteBarraDeNavegacionGral.vue"),
+    ComponenteDocumentosAyuda       : ()  => import("../barradocumentos/ComponenteDocumentosAyuda.vue"),
 
   }, 
 
@@ -505,7 +523,25 @@ export default {
       this.$store.dispatch("action_abordaje_seg_docto_pr",response.data.seguimiento.planrecuperacion_docto);
       this.$store.dispatch("action_abordaje_docto_actahecho",response.data.id_actahechos);
       this.$store.dispatch("action_abordaje_docto_actavaloracion",response.data.id_actavaloracion);
-     
+
+
+        //////////////////////////////////////////////////////////////////////
+        // seteamos los valores para mostrar en la barra de navegacion nueva
+        //////////////////////////////////////////////////////////////////////
+            this.opcionesBarra = {
+
+               'verFolio'              : true , 
+               'verFolioRespuesta'     : true ,  
+               'verFecha'              : true , 
+               'verFechaUpdate'        : true ,  
+               'folio'                 : this.folio, 
+               'folioRespuesta'        :  response.data["folioAbordaje"] ,     
+               'fecha'                 :  response.data["fechaCreacion"], 
+               'fechaUpdate'           :  response.data["fechaUpdate"],   
+               'folioRespuesta_texto'  : 'Abordaje Interno'   
+
+            };
+            this.verBarraGral= true;
       /********************************************************************************************************/ 
       // let plan_docto = response.data[0]["plan_docto"];
        //this.$store.dispatch("action_abordaje_plan_docto",plan_docto);
