@@ -23,11 +23,17 @@ Vue.use(Vuex)
 const store =  new Vuex.Store({
   state: {
 
+    servidores : { 
+          
+      'local' : 'http://127.0.0.1/apialdeas',
+      'demo'  : 'https://apidemo2.azurewebsites.net',
+      'pro'   : 'https://apiproteccioninfantil3.azurewebsites.net'
+    },
 ///////////////////////////////////////
 // LOCALHOST
 ///////////////////////////////////////   
 
-urlServidor: 'http://127.0.0.1/apialdeas',
+//urlServidor: 'http://127.0.0.1/apialdeas',
 
 
 ///////////////////////////////////////
@@ -40,11 +46,11 @@ urlServidor: 'http://127.0.0.1/apialdeas',
    
 
 ///////////////////////////////////////
-// API DEMO
+// ACTUAL
 /////////////////////////////////////// 
-//urlServidor : 'https://apidemo2.azurewebsites.net',
+urlServidor : this.servidores.demo,
 
-version: '1.1.23 Servidor Pruebas',
+version: '1.1.24 Servidor Pruebas',
 
 
 

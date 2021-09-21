@@ -423,15 +423,14 @@ import impresiones_etapauno from '@/components/etapas/impresiones/impresiones_et
 import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
 import eventBus from '@/eventBus.js';
 import apidoctosapoyo from '@/apialdeas/apiDoctosApoyo.js';
-
-
+import cardPerlfilAgresor from "@/components/etapasComponentes/cardPerlfilAgresor.vue";
+import comboboxCargos from "@/components/etapasComponentes/comboboxCargos.vue";
 import comboboxProgramaSeleccionado from "@/components/etapasComponentes/comboboxProgramaSeleccionado.vue";
+
 //import calendario from "@/components/etapasComponentes/calendario.vue";
 //import textareaInvolucrados from "@/components/etapasComponentes/textareaInvolucrados.vue";
 //import textfieldElaboro from "@/components/etapasComponentes/textfieldElaboro.vue";
-import comboboxCargos from "@/components/etapasComponentes/comboboxCargos.vue";
 //import textareaRegistro from "@/components/etapasComponentes/textareaRegistro.vue";
-import cardPerlfilAgresor from "@/components/etapasComponentes/cardPerlfilAgresor.vue";
 //import esunincidente from "@/components/etapasComponentes/esunincidente.vue";
 ////import cardPerfilVictima from "@/components/etapasComponentes/cardPerfilVictima.vue";
 //import textareaMedidasProteccion from "@/components/etapasComponentes/textareaMedidasProteccion.vue";
@@ -440,14 +439,9 @@ import cardPerlfilAgresor from "@/components/etapasComponentes/cardPerlfilAgreso
 //import valoracionIntegralEtapa from '@/components/etapas/valoracionIntegralEtapa.vue';
 //import emailjs from 'emailjs-com';
 //import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
-
-
-
 //import eventBus2 from '@/eventBus.js';
 //import uploadFile3 from '@/components/manipulacionArchivos/uploadFIle3.vue';
 //import uploadFile4 from '@/components/manipulacionArchivos/uploadFile4.vue';
-
-
 ////////////////////////////////////////////////
 // necesarios para utilizar el tool-tip
 ////////////////////////////////////////////////
@@ -709,10 +703,10 @@ export default {
           etapainicial_fecha ,
           etapainicial_involucrados,
           etapainicial_elaboro,
-           etapainicial_cargos,
-            etapainicial_registrohechos,
-            etapainicial_perfilvictima,
-           etapainicial_recibeayuda,
+          etapainicial_cargos,
+          etapainicial_registrohechos,
+          etapainicial_perfilvictima,
+          etapainicial_recibeayuda,
           etapainicial_medidasproteccion,
           //etapainicial_incidenteconfirmado,
           etapainicial_testigos
@@ -765,6 +759,50 @@ export default {
     this.validarCaptura(r);
 
   
+      
+
+      console.log("valor de perfil agresor ");
+      console.log(this.$store.state.incidentes.etapainicial_perfildelagresor.length );
+    if ( this.$store.state.incidentes.etapainicial_perfildelagresor.length == 0 ){
+         
+         r= true;
+         this.$store.dispatch("action_uivars_error_comboPerfilAgresor",true);
+
+    }else {
+
+     
+
+      if  (this.$store.state.incidentes.etapainicial_perfildelagresor=="ADULTO A NIÑA O NIÑO"){
+           
+           if ( this.$store.state.incidentes.etapainicial_paadultocolaborador.length > 0 && 
+                this.$store.state.incidentes.etapainicial_paadultocolaboradortipo.length > 0)
+            {
+                r= false;
+                 this.$store.dispatch("action_uivars_error_comboPerfilAgresor",r);
+            }else{
+                r= true;
+                 this.$store.dispatch("action_uivars_error_comboPerfilAgresor",r);
+            }
+      }else{
+
+             if ( this.$store.state.incidentes.etapainicial_paadultocolaborador.length > 0 )
+            {
+                r= false;
+                 this.$store.dispatch("action_uivars_error_comboPerfilAgresor",r);
+            }else{
+                r= true;
+                 this.$store.dispatch("action_uivars_error_comboPerfilAgresor",r);
+            }
+
+
+      }
+
+    }//termina validacion combo perfilagresor 
+
+
+    this.validarCaptura(r);
+
+    
 
 
 

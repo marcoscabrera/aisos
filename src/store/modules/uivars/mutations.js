@@ -1,7 +1,10 @@
 export default {
     
 
-    
+
+    mutation_uivars_error_comboPerfilAgresor(state,valor){
+        state.uivars_error_comboPerfilAgresor = valor;
+    },
 
     mutation_uivars_verAsistenteNavegacion(state,valor){
         state.uivars_verAsistenteNavegacion = valor;

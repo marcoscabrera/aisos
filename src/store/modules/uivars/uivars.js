@@ -49,6 +49,8 @@ state: {
     uivars_error_comboboxCargos : false,
     uivars_error_textareaRegistros : false,
 
+    uivars_error_comboPerfilAgresor : false,
+
     uivars_error_comboPerfilvictima : false,
     uivars_error_comboRecibeAyuda : false,
 

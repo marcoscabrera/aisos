@@ -71,6 +71,11 @@
           >
           </v-select>
         </v-col>
+        <v-alert v-if="this.$store.state.uivars.uivars_error_comboPerfilAgresor" type="error">
+          
+          Debes de escoger una opcion.
+
+        </v-alert>
       </v-row>
     </v-card-text>
   </v-card>
@@ -125,6 +130,9 @@ export default {
       this.combofamiliarorigen = true;
     },
     cambioEnPerfil(evento) {
+
+        this.$store.dispatch('setear_Paadultocolaborador','');
+         this.$store.dispatch('setear_Paadultocolaboradortipo','');
      // console.log("--------------");
 //console.log(" componente CardPerfilAgresor");
     //  console.log("--------------");
