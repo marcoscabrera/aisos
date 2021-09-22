@@ -426,15 +426,15 @@ import impresiones_etapauno from '@/components/etapas/impresiones/impresiones_et
 import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
 import eventBus from '@/eventBus.js';
 import apidoctosapoyo from '@/apialdeas/apiDoctosApoyo.js';
-
-
+import comboboxCargos from "@/components/etapasComponentes/comboboxCargos.vue";
+import cardPerlfilAgresor from "@/components/etapasComponentes/cardPerlfilAgresor.vue";
 import comboboxProgramaSeleccionado from "@/components/etapasComponentes/comboboxProgramaSeleccionado.vue";
+
+
 //import calendario from "@/components/etapasComponentes/calendario.vue";
 //import textareaInvolucrados from "@/components/etapasComponentes/textareaInvolucrados.vue";
 //import textfieldElaboro from "@/components/etapasComponentes/textfieldElaboro.vue";
-import comboboxCargos from "@/components/etapasComponentes/comboboxCargos.vue";
 //import textareaRegistro from "@/components/etapasComponentes/textareaRegistro.vue";
-import cardPerlfilAgresor from "@/components/etapasComponentes/cardPerlfilAgresor.vue";
 //import esunincidente from "@/components/etapasComponentes/esunincidente.vue";
 ////import cardPerfilVictima from "@/components/etapasComponentes/cardPerfilVictima.vue";
 //import textareaMedidasProteccion from "@/components/etapasComponentes/textareaMedidasProteccion.vue";
@@ -904,7 +904,7 @@ const  {
       etapainicial_recibeayuda,
       etapainicial_medidasproteccion,
      // etapainicial_incidenteconfirmado,
-      etapainicial_testigos,
+       etapainicial_testigos,
        etapainicial_actavaloracion_docto
        } =this.$store.state.incidentes;
      
@@ -917,38 +917,37 @@ const  {
      //  etapainicial_actavaloracion.length == 0 ? id_docto_temp = 0 : id_docto_temp = etapainicial_actavaloracion;
       /*==========================================*/
       var parametros = {
-        programa: etapainicial_programa,
-        fechaAlta:etapainicial_fecha,
-        fechaUpdate: etapainicial_fecha,
-        usuarioCreador: usuarioCreador,
-        involucrados: etapainicial_involucrados,
-        elaboro: etapainicial_elaboro,
-        cargousuario: etapainicial_cargos,
-        registrohechos: etapainicial_registrohechos,
+        programa            : etapainicial_programa,
+        fechaAlta           : etapainicial_fecha,
+        fechaUpdate         : etapainicial_fecha,
+        usuarioCreador      : usuarioCreador,
+        involucrados        : etapainicial_involucrados,
+        elaboro             : etapainicial_elaboro,
+        cargousuario        : etapainicial_cargos,
+        registrohechos      : etapainicial_registrohechos,
+        perfildelagresor    : etapainicial_perfildelagresor,
 
-        perfildelagresor: etapainicial_perfildelagresor,
-
-        paadultocolaborador: etapainicial_paadultocolaborador,
+        paadultocolaborador : etapainicial_paadultocolaborador,
         paadultocolaboradortipo: etapainicial_paadultocolaboradortipo,
-        pafamilia: '',
-        pafamiliatipo: '',
-        adultoexterno: '',
+        pafamilia           : '',
+        pafamiliatipo       : '',
+        adultoexterno       : '',
 
-        nnj: '',
-        perfilvictima: etapainicial_perfilvictima,
-        recibeayuda: etapainicial_recibeayuda,
+        nnj                 : '',
+        perfilvictima       : etapainicial_perfilvictima,
+        recibeayuda         : etapainicial_recibeayuda,
         medidasproinmediatasdiatas:etapainicial_medidasproteccion,
-        incidenteconfirmado: 'NO', //incidenteconfirmado,
-        testigos: etapainicial_testigos,
-        etapa: etapa,
-        etapauno: "visible",
-        etapados: "visible",
-        etapatres: "invisible",
-        etapacuatro: "invisible",
-        coloretapauno: "green",
-        coloretapados: "yellow",
-        coloretapatres: "yellow",
-        coloretapacuatro: "yellow",
+        incidenteconfirmado : 'NO', //incidenteconfirmado,
+        testigos            : etapainicial_testigos,
+        etapa               : etapa,
+        etapauno            : "visible",
+        etapados            : "visible",
+        etapatres           : "invisible",
+        etapacuatro         : "invisible",
+        coloretapauno       : "green",
+        coloretapados       : "yellow",
+        coloretapatres      : "yellow",
+        coloretapacuatro    : "yellow",
         
         actavaloracion_docto : etapainicial_actavaloracion_docto
       };
@@ -973,10 +972,9 @@ const  {
         console.log("valor de idRecuperado  : " +  response.data.id);
         let idRecuperado = response.data.id;
 
-        
         this.$store.dispatch('setear_Incidente',idRecuperado);
 
-       console.log("valor de idRecuperado  : " + idRecuperado);
+        console.log("valor de idRecuperado  : " + idRecuperado);
 
         this.modo = "update";
 
@@ -993,10 +991,6 @@ const  {
             ///////////////////////////////////////////
              // }
         /*************************************************************************************/
-       
-
-         
-
           this.verBotonImpresion = false;
         
           //limpiar variables globales de incidente
@@ -1032,13 +1026,10 @@ const  {
     nuevo_incidente() {
       //console.log(" Permiso ALTADEVALORACIONINICIAL  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.ALTADEVALORACIONINICIAL)             
      if (this.$store.state.usuarios.usuarios_usuariologueado_rol.ALTADEVALORACIONINICIAL=='SI'){
-           
-     
+
       this.validacion_sePuedeCapturar();
       
       this.errores>0 ? this.revisarErrores() : this.guardar_nuevoIncidente();
-
-      
 
        }// termina if de permiso
     }, //termina nuevo_incidente
@@ -1072,11 +1063,8 @@ const  {
     this.estamosActualizando=true;
     //ocultamos los programas y el seleccionador de fecha
     this.mostarCalendario_y_selectorProgramas = false;
-
-
-
      // console.log("==>asignarAVariablesValoresDeConsulta<== : ");
-      //console.log(JSON.stringify(respuesta.data));
+     //console.log(JSON.stringify(respuesta.data));
       var a = respuesta.data;
      // console.log("valor de a " + a);
      //   console.log(a);
@@ -1089,14 +1077,9 @@ const  {
       if (abierto == 'green'){
          //console.log(" verificando permiso de modificacion con estado cerrado");
          this.permisodemodificacion();
-
       }
       /********************* */
-
       this.usuarioCreador = a.usuarioCreador;
-
-      
-     
       this.folio = a.folio;
        /***************************************
        * para no grabar uno nuevo
@@ -1133,13 +1116,6 @@ const  {
      this.paadultocolaborador = a.paadultocolaborador;
      this.paadultocolaboradortipo = a.paadultocolaboradortipo;
 
-     /*console.log('-----------');
-     console.log(this.perfildelagresor);
-     console.log(this.paadultocolaborador);
-     console.log(this.paadultocolaboradortipo);*/
-
-     
-
       this.medidasproteccion = a.medidasproinmediatas;
 
       this.testigos = a.testigos;
@@ -1167,11 +1143,10 @@ const  {
 
    /******************************* */
     asignarAVariablesValoresDeConsulta(respuesta) {
+
       console.log("==>asignarAVariablesValoresDeConsulta<== : ");
-      //console.log(JSON.stringify(respuesta.data));
+
       var a = respuesta.data;
-      //console.log("valor de a " + a);
-       //console.log(a);
 
       /**************+++++++++++ 
        * si esta cerrado la etapa y se quiere modificar
@@ -1184,10 +1159,6 @@ const  {
 
       }
       /********************* */
-
-
-      //let nombrePrograma = a[0]['nombreprograma'];
-     // console.log("nombre programa " + nombrePrograma);
      
       this.folio = a[0]["folio"];
        /***************************************
@@ -1222,18 +1193,12 @@ const  {
      this.paadultocolaborador = a[0]["paadultocolaborador"];
      this.paadultocolaboradortipo = a[0]["paadultocolaboradortipo"];
 
-    /* console.log('-----------');
-     console.log(this.perfildelagresor);
-     console.log(this.paadultocolaborador);
-     console.log(this.paadultocolaboradortipo);*/
+   
+    this.medidasproteccion = a[0]["medidasproinmediatas"];
 
-     
+    this.testigos = a[0]["testigos"];
 
-      this.medidasproteccion = a[0]["medidasproinmediatas"];
-
-      this.testigos = a[0]["testigos"];
-
-     this.incidenteconfirmado = a[0]["incidenteconfirmado"];
+    this.incidenteconfirmado = a[0]["incidenteconfirmado"];
 
 
     /* console.log("que variable es files : ") ;

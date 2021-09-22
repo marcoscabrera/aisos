@@ -367,6 +367,13 @@ export default {
        verBarraGral        : false,
 
       /********************************************
+      VARIABLE PARA GUARDAR LOS VALORES QUE DEMUESTRA
+      A  LAS ETAPAS QUE SE PUEDE NAVEGAR EN EL ASISTEN
+      TE DE NAVEGACION
+      ******************************************** */
+       datosNavegacion    : [],
+
+      /********************************************
       VARIABLES PARA OCULTAR/MOSTRAR LOS COMPONENTES
       SEGUN SEA EL TIPO DE RESPUESTA
       ******************************************** */
@@ -925,6 +932,8 @@ export default {
      };
        
         this.verBarraGral= true;
+
+        this.datosNavegacion = response.data.datosNavegacion;
    
         /***************************************************************
         CON ESTO DECIDIMOS QUE COMPONENTES MOSTRAR SEGUN EL TIPO DE

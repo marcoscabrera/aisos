@@ -161,82 +161,84 @@ export default {
 
     data() {
     return {
-      opcionesBarra       : [],
-      verBarraGral : false,
-      ocultar       : true,
-      overlay       : false,
-      estado        : '',
-      mensaje       : '',
-      tipoalerta    : '',
-      folioabordaje :'',
-      errores       : 0,
-      tipoderespuesta : '',
-      esDenuncia      : false,
-      verDenuncia_o_investigacion : false,
-      texto : '',
-      fecha : '',
+      archivos                           : [],
+      opcionesBarra                      : [],
+      verBarraGral                       : false,
+      datosNavegacion                    : [],
+      ocultar                            : true,
+      overlay                            : false,
+      estado                             : '',
+      mensaje                            : '',
+      tipoalerta                         : '',
+      folioabordaje                      : '',
+      errores                            : 0,
+      tipoderespuesta                    : '',
+      esDenuncia                         : false,
+      verDenuncia_o_investigacion        : false,
+      texto                              : '',
+      fecha                              : '',
 
-      data_plan_docto : [],
-      data_planrecuperacion_docto: [],
-      data_notificacionpfn_docto: [],
-      data_notificaciondif_docto: [],
-      data_notificacionautoridad_docto: [],
-      data_notificaciondenunciante_docto: [],
-      data_documento_docto: [],
-      data_actavaloracion_docto: [],
+      data_plan_docto                    : [],
+      data_planrecuperacion_docto        : [],
+      data_notificacionpfn_docto         : [],
+      data_notificaciondif_docto         : [],
+      data_notificacionautoridad_docto   : [],
+      data_notificaciondenunciante_docto : [],
+      data_documento_docto               : [],
+      data_actavaloracion_docto          : [],
 
-      abordaje:[],
+      abordaje                           : [],
 
-      incidenteId:'',
+      incidenteId                        : '',
      
-      incidenteIdPE :"",
+      incidenteIdPE                      : "",
 
-      archivoIdPE : "",
-      nombreDelArchivoPE : "",
-      sihayarchivoPE: "",
-      planenejecucion: "",
+      archivoIdPE                        : "",
+      nombreDelArchivoPE                 : "",
+      sihayarchivoPE                     : "",
+      planenejecucion                    : "",
 
 
-      folio :'sin asignar',
-      loading : false,
+      folio                              :'sin asignar',
+      loading                            : false,
 
-      registroDelStatus: "",
-      planrecuperacion: "",
+      registroDelStatus                  : "",
+      planrecuperacion                   : "",
     
-      doctooficial: "",
+      doctooficial                       : "",
 
-      notificaciondif: "",
+      notificaciondif                    : "",
 
-      notificacionautoridad: "",
+      notificacionautoridad              : "",
 
-      notificacionpfn: "",
+      notificacionpfn                    : "",
 
-      notificaciondenunciante: "",
+      notificaciondenunciante            : "",
 
-      adulto: false,
+      adulto                             : false,
 
-      pares: false,
+      pares                              : false,
 
-      itemsOpciones: ["SI", "NO", "POR CONFIRMAR"],
+      itemsOpciones                      : ["SI", "NO", "POR CONFIRMAR"],
 
-      itemsUnidades: ["Unidad SOS Tijuana", "Unidad SOS CDMX"],
+      itemsUnidades                      : ["Unidad SOS Tijuana", "Unidad SOS CDMX"],
 
-      itemsCargos: ["Cuidador", "Mamá SOS", "Papá SOS"],
-      itemsFamilia: [
-        "Papá",
-        "Mamá",
-        "Hermano",
-        "Hermana",
-        "Padrastro",
-        "Madrastra",
-        "Tio",
-      ],
+      itemsCargos                        : ["Cuidador", "Mamá SOS", "Papá SOS"],
+      itemsFamilia                       : [
+                                            "Papá",
+                                            "Mamá",
+                                            "Hermano",
+                                            "Hermana",
+                                            "Padrastro",
+                                            "Madrastra",
+                                            "Tio",
+                                          ],
 
-      perfilAgresor: null,
+      perfilAgresor                       : null,
 
-      date: new Date().toISOString().substr(0, 10),
+      date                                : new Date().toISOString().substr(0, 10),
 
-      menu2: false,
+      menu2                               : false,
     };
   },
   components: {   
@@ -361,7 +363,7 @@ export default {
             id_pr                    : this.$store.state.abordaje.abordaje_seg_docto_pr,
   };
 
-      console.log(" parametros " + JSON.stringify(parametros));
+      //console.log(" parametros " + JSON.stringify(parametros));
 
       let update = abordajeinterno.updateSeguimiento(parametros, this.$store);
 
@@ -369,7 +371,7 @@ export default {
         response =>{
 
           console.log( JSON.stringify(response.data));
-          console.log( 'actualizado seguimiento'+ response.data.estado);
+         // console.log( 'actualizado seguimiento'+ response.data.estado);
           this.loading = false;
 
           if (response.data.estado=='abierto'){
@@ -386,8 +388,8 @@ export default {
                  ****************************************************************/
                   
                   let correosRecibidos = response.data["correos"];
-                  console.log("Variable de correos");
-                  console.log(correosRecibidos);
+                 // console.log("Variable de correos");
+                 // console.log(correosRecibidos);
 
        
                   
@@ -439,14 +441,14 @@ export default {
     },
 
     checkArray(arreglo){
-          console.log("contenido de arreglo");
+          //console.log("contenido de arreglo");
            
          
          let cadena =  JSON.stringify(arreglo);
 
           var x = cadena.length;
           
-          console.log("valor length : " +  x );
+         // console.log("valor length : " +  x );
 
           let arrayDeRegreso = [];
           if (x==0){
@@ -492,10 +494,10 @@ export default {
         response => {
 
 
-          console.log("======================");
-          console.log("cargando el abordaje");
-          console.log("======================");
-          console.log(response.data);
+          //console.log("======================");
+         // console.log("cargando el abordaje");
+         // console.log("======================");
+         // console.log(response.data);
 
       /*
       */
@@ -515,14 +517,12 @@ export default {
       this.$store.dispatch("action_abordaje_docto_informaenterector", response.data.docto_informaenterector);
       this.$store.dispatch("action_abordaje_seg_estado_pfn",          response.data.seguimiento.notificacionpfn);
       this.$store.dispatch("action_abordaje_seg_docto_pfn",           response.data.seguimiento.notificacionpfn_docto);
-      this.$store.dispatch("action_abordaje_seg_estado_pd",            response.data.seguimiento.notificaciodenunciante);
-     
-      this.$store.dispatch("action_abordaje_seg_docto_pd",     response.data.seguimiento.notificaciondenunciante_docto);
-     
-      this.$store.dispatch("action_abordaje_seg_estado_pr", response.data.seguimiento.planrecuperacion);
-      this.$store.dispatch("action_abordaje_seg_docto_pr",response.data.seguimiento.planrecuperacion_docto);
-      this.$store.dispatch("action_abordaje_docto_actahecho",response.data.id_actahechos);
-      this.$store.dispatch("action_abordaje_docto_actavaloracion",response.data.id_actavaloracion);
+      this.$store.dispatch("action_abordaje_seg_estado_pd",           response.data.seguimiento.notificaciodenunciante);
+      this.$store.dispatch("action_abordaje_seg_docto_pd",            response.data.seguimiento.notificaciondenunciante_docto);
+      this.$store.dispatch("action_abordaje_seg_estado_pr",           response.data.seguimiento.planrecuperacion);
+      this.$store.dispatch("action_abordaje_seg_docto_pr",            response.data.seguimiento.planrecuperacion_docto);
+      this.$store.dispatch("action_abordaje_docto_actahecho",         response.data.id_actahechos);
+      this.$store.dispatch("action_abordaje_docto_actavaloracion",    response.data.id_actavaloracion);
 
 
         //////////////////////////////////////////////////////////////////////
@@ -541,7 +541,14 @@ export default {
                'folioRespuesta_texto'  : 'Abordaje Interno'   
 
             };
+
             this.verBarraGral= true;
+            console.log("===========================");
+            console.log(response.data);
+            console.log("=== Datos de navegacion===");
+            console.log(response.data.navegacion);
+
+            this.datosNavegacion = response.data.datosNavegacion;
       /********************************************************************************************************/ 
       // let plan_docto = response.data[0]["plan_docto"];
        //this.$store.dispatch("action_abordaje_plan_docto",plan_docto);
