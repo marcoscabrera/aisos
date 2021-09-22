@@ -1,7 +1,7 @@
 <template>
   <v-container>
 
-    <v-row v-show="true">
+    <v-row v-show="false">
         <v-col cols="12" xs="12" sm="12" md="6">
            <h2>Valoración Inicial</h2>
         </v-col>
@@ -29,10 +29,13 @@
         </v-col>
     </v-row>
 
-    <ComponenteBarraDeNavegacionGral v-show="false"
-     titulo="Valoración Inicial"></ComponenteBarraDeNavegacionGral>
+    <ComponenteBarraDeNavegacionGral v-if="verBarraGral"
+     titulo="Valoración Inicial"
+     :opciones = "opcionesBarra"
+     >
+     </ComponenteBarraDeNavegacionGral>
      <br>
-     <ComponenteDocumentosAyuda v-show="false"
+     <ComponenteDocumentosAyuda 
              class="elevado"
             :files = "archivos"
             categoria = "vi">
@@ -42,7 +45,7 @@
 
      </ComponenteAsistenteNavegacion>
 
-    <v-row>
+    <v-row v-if="verFolio">
       <v-col cols="12" xs="12" md="6"  >
 
          
@@ -423,15 +426,15 @@ import impresiones_etapauno from '@/components/etapas/impresiones/impresiones_et
 import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
 import eventBus from '@/eventBus.js';
 import apidoctosapoyo from '@/apialdeas/apiDoctosApoyo.js';
-
-
+import comboboxCargos from "@/components/etapasComponentes/comboboxCargos.vue";
+import cardPerlfilAgresor from "@/components/etapasComponentes/cardPerlfilAgresor.vue";
 import comboboxProgramaSeleccionado from "@/components/etapasComponentes/comboboxProgramaSeleccionado.vue";
+
+
 //import calendario from "@/components/etapasComponentes/calendario.vue";
 //import textareaInvolucrados from "@/components/etapasComponentes/textareaInvolucrados.vue";
 //import textfieldElaboro from "@/components/etapasComponentes/textfieldElaboro.vue";
-import comboboxCargos from "@/components/etapasComponentes/comboboxCargos.vue";
 //import textareaRegistro from "@/components/etapasComponentes/textareaRegistro.vue";
-import cardPerlfilAgresor from "@/components/etapasComponentes/cardPerlfilAgresor.vue";
 //import esunincidente from "@/components/etapasComponentes/esunincidente.vue";
 ////import cardPerfilVictima from "@/components/etapasComponentes/cardPerfilVictima.vue";
 //import textareaMedidasProteccion from "@/components/etapasComponentes/textareaMedidasProteccion.vue";
@@ -462,24 +465,24 @@ Vue.component('v-popover', VPopover);*/
 export default {
   components: {
     
-    barraDocumentosVue : ()  => import("../barradocumentos/barraDocumentos.vue"),
+    barraDocumentosVue              : ()  => import("../barradocumentos/barraDocumentos.vue"),
     comboboxProgramaSeleccionado ,//: ()  => import("@/components/etapasComponentes/comboboxProgramaSeleccionado.vue"),
-    calendario : ()  => import("@/components/etapasComponentes/calendario.vue"),
-    textareaInvolucrados : ()  => import("@/components/etapasComponentes/textareaInvolucrados.vue"),
-    textfieldElaboro : ()  => import("@/components/etapasComponentes/textfieldElaboro.vue"),
+    calendario                      : ()  => import("@/components/etapasComponentes/calendario.vue"),
+    textareaInvolucrados            : ()  => import("@/components/etapasComponentes/textareaInvolucrados.vue"),
+    textfieldElaboro                : ()  => import("@/components/etapasComponentes/textfieldElaboro.vue"),
     comboboxCargos ,//: ()  => import("@/components/etapasComponentes/comboboxCargos.vue"),
-    textareaRegistro : ()  => import("@/components/etapasComponentes/textareaRegistro.vue"),
+    textareaRegistro                : ()  => import("@/components/etapasComponentes/textareaRegistro.vue"),
     cardPerlfilAgresor,// : ()  => import("@/components/etapasComponentes/cardPerlfilAgresor.vue"),
     //esunincidente,
-    cardPerfilVictima : ()  => import("@/components/etapasComponentes/cardPerfilVictima.vue"),
-    textareaMedidasProteccion : ()  => import("@/components/etapasComponentes/textareaMedidasProteccion.vue"),
-    textareaTestigos : ()  => import("@/components/etapasComponentes/textareaTestigos.vue"),
-    BarraDeNavegacion : ()  => import("@/components/etapas/BarraDeNavegacion.vue"),
-    ComponenteAsistenteNavegacion: ()  => import("@/components/barranavegacion/ComponenteAsistenteNavegacion.vue"),
-    ComponenteBarraDeNavegacionGral: ()  => import("@/components/etapas/ComponenteBarraDeNavegacionGral.vue"),
-    ComponenteDocumentosAyuda :() => import("../barradocumentos/ComponenteDocumentosAyuda.vue"),
+    cardPerfilVictima               : ()  => import("@/components/etapasComponentes/cardPerfilVictima.vue"),
+    textareaMedidasProteccion       : ()  => import("@/components/etapasComponentes/textareaMedidasProteccion.vue"),
+    textareaTestigos                : ()  => import("@/components/etapasComponentes/textareaTestigos.vue"),
+    BarraDeNavegacion               : ()  => import("@/components/etapas/BarraDeNavegacion.vue"),
+    ComponenteAsistenteNavegacion   : ()  => import("@/components/barranavegacion/ComponenteAsistenteNavegacion.vue"),
+    ComponenteBarraDeNavegacionGral : ()  => import("@/components/etapas/ComponenteBarraDeNavegacionGral.vue"),
+    ComponenteDocumentosAyuda       : () => import("../barradocumentos/ComponenteDocumentosAyuda.vue"),
    ////uploadFile3,
-    uploadFile4 : ()  => import("@/components/manipulacionArchivos/uploadFile4.vue")
+    uploadFile4                     : ()  => import("@/components/manipulacionArchivos/uploadFile4.vue")
   },
 
   computed: {
@@ -705,21 +708,21 @@ export default {
       this.errores = 0;
 
     const  { 
-          etapainicial_programa,
-          etapainicial_fecha ,
-          etapainicial_involucrados,
-          etapainicial_elaboro,
-           etapainicial_cargos,
+            etapainicial_programa,
+            etapainicial_fecha ,
+            etapainicial_involucrados,
+            etapainicial_elaboro,
+            etapainicial_cargos,
             etapainicial_registrohechos,
             etapainicial_perfilvictima,
-           etapainicial_recibeayuda,
-          etapainicial_medidasproteccion,
-          //etapainicial_incidenteconfirmado,
-          etapainicial_testigos
-           } =this.$store.state.incidentes;
+            etapainicial_recibeayuda,
+            etapainicial_medidasproteccion,
+            //etapainicial_incidenteconfirmado,
+            etapainicial_testigos
+           } = this.$store.state.incidentes;
 
-   let r =  validacionReporteInicial.existeInformacionParaCapturar(etapainicial_programa);
-   this.$store.dispatch('actions_uivars_error_seleccionarPrograma',r);
+    let r =  validacionReporteInicial.existeInformacionParaCapturar(etapainicial_programa);
+    this.$store.dispatch('actions_uivars_error_seleccionarPrograma',r);
     this.validarCaptura(r);
 
     r= validacionReporteInicial.existeInformacionParaCapturar(etapainicial_fecha);
@@ -901,7 +904,7 @@ const  {
       etapainicial_recibeayuda,
       etapainicial_medidasproteccion,
      // etapainicial_incidenteconfirmado,
-      etapainicial_testigos,
+       etapainicial_testigos,
        etapainicial_actavaloracion_docto
        } =this.$store.state.incidentes;
      
@@ -914,38 +917,37 @@ const  {
      //  etapainicial_actavaloracion.length == 0 ? id_docto_temp = 0 : id_docto_temp = etapainicial_actavaloracion;
       /*==========================================*/
       var parametros = {
-        programa: etapainicial_programa,
-        fechaAlta:etapainicial_fecha,
-        fechaUpdate: etapainicial_fecha,
-        usuarioCreador: usuarioCreador,
-        involucrados: etapainicial_involucrados,
-        elaboro: etapainicial_elaboro,
-        cargousuario: etapainicial_cargos,
-        registrohechos: etapainicial_registrohechos,
+        programa            : etapainicial_programa,
+        fechaAlta           : etapainicial_fecha,
+        fechaUpdate         : etapainicial_fecha,
+        usuarioCreador      : usuarioCreador,
+        involucrados        : etapainicial_involucrados,
+        elaboro             : etapainicial_elaboro,
+        cargousuario        : etapainicial_cargos,
+        registrohechos      : etapainicial_registrohechos,
+        perfildelagresor    : etapainicial_perfildelagresor,
 
-        perfildelagresor: etapainicial_perfildelagresor,
-
-        paadultocolaborador: etapainicial_paadultocolaborador,
+        paadultocolaborador : etapainicial_paadultocolaborador,
         paadultocolaboradortipo: etapainicial_paadultocolaboradortipo,
-        pafamilia: '',
-        pafamiliatipo: '',
-        adultoexterno: '',
+        pafamilia           : '',
+        pafamiliatipo       : '',
+        adultoexterno       : '',
 
-        nnj: '',
-        perfilvictima: etapainicial_perfilvictima,
-        recibeayuda: etapainicial_recibeayuda,
+        nnj                 : '',
+        perfilvictima       : etapainicial_perfilvictima,
+        recibeayuda         : etapainicial_recibeayuda,
         medidasproinmediatasdiatas:etapainicial_medidasproteccion,
-        incidenteconfirmado: 'NO', //incidenteconfirmado,
-        testigos: etapainicial_testigos,
-        etapa: etapa,
-        etapauno: "visible",
-        etapados: "visible",
-        etapatres: "invisible",
-        etapacuatro: "invisible",
-        coloretapauno: "green",
-        coloretapados: "yellow",
-        coloretapatres: "yellow",
-        coloretapacuatro: "yellow",
+        incidenteconfirmado : 'NO', //incidenteconfirmado,
+        testigos            : etapainicial_testigos,
+        etapa               : etapa,
+        etapauno            : "visible",
+        etapados            : "visible",
+        etapatres           : "invisible",
+        etapacuatro         : "invisible",
+        coloretapauno       : "green",
+        coloretapados       : "yellow",
+        coloretapatres      : "yellow",
+        coloretapacuatro    : "yellow",
         
         actavaloracion_docto : etapainicial_actavaloracion_docto
       };
@@ -970,10 +972,9 @@ const  {
         console.log("valor de idRecuperado  : " +  response.data.id);
         let idRecuperado = response.data.id;
 
-        
         this.$store.dispatch('setear_Incidente',idRecuperado);
 
-       console.log("valor de idRecuperado  : " + idRecuperado);
+        console.log("valor de idRecuperado  : " + idRecuperado);
 
         this.modo = "update";
 
@@ -990,10 +991,6 @@ const  {
             ///////////////////////////////////////////
              // }
         /*************************************************************************************/
-       
-
-         
-
           this.verBotonImpresion = false;
         
           //limpiar variables globales de incidente
@@ -1029,13 +1026,10 @@ const  {
     nuevo_incidente() {
       //console.log(" Permiso ALTADEVALORACIONINICIAL  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.ALTADEVALORACIONINICIAL)             
      if (this.$store.state.usuarios.usuarios_usuariologueado_rol.ALTADEVALORACIONINICIAL=='SI'){
-           
-     
+
       this.validacion_sePuedeCapturar();
       
       this.errores>0 ? this.revisarErrores() : this.guardar_nuevoIncidente();
-
-      
 
        }// termina if de permiso
     }, //termina nuevo_incidente
@@ -1069,11 +1063,8 @@ const  {
     this.estamosActualizando=true;
     //ocultamos los programas y el seleccionador de fecha
     this.mostarCalendario_y_selectorProgramas = false;
-
-
-
      // console.log("==>asignarAVariablesValoresDeConsulta<== : ");
-      //console.log(JSON.stringify(respuesta.data));
+     //console.log(JSON.stringify(respuesta.data));
       var a = respuesta.data;
      // console.log("valor de a " + a);
      //   console.log(a);
@@ -1086,14 +1077,9 @@ const  {
       if (abierto == 'green'){
          //console.log(" verificando permiso de modificacion con estado cerrado");
          this.permisodemodificacion();
-
       }
       /********************* */
-
       this.usuarioCreador = a.usuarioCreador;
-
-      
-     
       this.folio = a.folio;
        /***************************************
        * para no grabar uno nuevo
@@ -1130,13 +1116,6 @@ const  {
      this.paadultocolaborador = a.paadultocolaborador;
      this.paadultocolaboradortipo = a.paadultocolaboradortipo;
 
-     /*console.log('-----------');
-     console.log(this.perfildelagresor);
-     console.log(this.paadultocolaborador);
-     console.log(this.paadultocolaboradortipo);*/
-
-     
-
       this.medidasproteccion = a.medidasproinmediatas;
 
       this.testigos = a.testigos;
@@ -1164,11 +1143,10 @@ const  {
 
    /******************************* */
     asignarAVariablesValoresDeConsulta(respuesta) {
+
       console.log("==>asignarAVariablesValoresDeConsulta<== : ");
-      //console.log(JSON.stringify(respuesta.data));
+
       var a = respuesta.data;
-      //console.log("valor de a " + a);
-       //console.log(a);
 
       /**************+++++++++++ 
        * si esta cerrado la etapa y se quiere modificar
@@ -1181,10 +1159,6 @@ const  {
 
       }
       /********************* */
-
-
-      //let nombrePrograma = a[0]['nombreprograma'];
-     // console.log("nombre programa " + nombrePrograma);
      
       this.folio = a[0]["folio"];
        /***************************************
@@ -1219,18 +1193,12 @@ const  {
      this.paadultocolaborador = a[0]["paadultocolaborador"];
      this.paadultocolaboradortipo = a[0]["paadultocolaboradortipo"];
 
-    /* console.log('-----------');
-     console.log(this.perfildelagresor);
-     console.log(this.paadultocolaborador);
-     console.log(this.paadultocolaboradortipo);*/
+   
+    this.medidasproteccion = a[0]["medidasproinmediatas"];
 
-     
+    this.testigos = a[0]["testigos"];
 
-      this.medidasproteccion = a[0]["medidasproinmediatas"];
-
-      this.testigos = a[0]["testigos"];
-
-     this.incidenteconfirmado = a[0]["incidenteconfirmado"];
+    this.incidenteconfirmado = a[0]["incidenteconfirmado"];
 
 
     /* console.log("que variable es files : ") ;
@@ -1281,9 +1249,30 @@ const  {
       if (parametroId == undefined) {
         //console.log("valor de parametroID : " + parametroId);
        //eventBus.$emit('cargarArchivo_con_id');
+
+       this.opcionesBarra = {
+
+               'verFolio'              : false , 
+               'verFolioRespuesta'     : false ,  
+               'verFecha'              : false , 
+               'verFechaUpdate'        : false ,  
+               'folio'                 : '', 
+               'folioRespuesta'        : '' ,     
+               'fecha'                 : '' , 
+               'fechaUpdate'           : '',   
+               'folioRespuesta_texto'  : ''   
+
+     };
+
+     this.verBarraGral = true ;
         this.overlay =false;
       } else {
         //console.log("valor actual de parametroId : " + parametroId);
+        
+        //ocultamos el campo del folio, esto lo hacemos por que ya se muestra
+        //en la barra
+        this.verFolio = false;
+
 
         let P_incidente = apiIncidentes.recuperarUnIncidente(
           parametroId,
@@ -1304,9 +1293,38 @@ const  {
           /** */
           this.$store.dispatch("setear_Incidente", this.$route.params.id);
           this.datosNavegacion = response.data.datosNavegacion ;
-           console.log("datos de navegacion");
+          console.log("datos de navegacion");
           console.log( this.datosNavegacion);
+
           this.asignarAVariablesValoresDeConsulta2(response);
+        /******************************************************************
+         Reasignamos los valores a la barra de navegacion gral.
+        *********************** ********************************************* */
+          console.log("  response.data.fechaAlta");
+          console.log(  response.data.fechaAlta);
+          console.log("  response.data.fechaUpdate");
+          console.log(  response.data.fechaUpdate );
+                   
+           this.opcionesBarra = {
+
+               'verFolio'              : true , 
+               'verFolioRespuesta'     : false ,  
+               'verFecha'              : true , 
+               'verFechaUpdate'        : true ,  
+               'folio'                 : this.folio, 
+               'folioRespuesta'        : '' ,     
+               'fecha'                 : response.data.fechaAlta , 
+               'fechaUpdate'           : response.data.fechaUpdate,   
+               'folioRespuesta_texto'  : ''   
+
+     };
+           console.log(">>>>>>> >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<");
+           console.log(">>>>>>> datos de opciones para la barra general >>>><<<");
+           console.log(">>>>>>> >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<");
+           console.log(  this.opcionesBarra );
+
+          this.verBarraGral = true ;
+                               
 
           this.modo = "update";
           this.verBotonImpresion = false;
@@ -1326,6 +1344,37 @@ const  {
   },
 
   created() {
+
+     //---------------------------------------------------------------
+     // creamos el objecto que pasamos como referencia hacia el compo-
+     //nete < ComponenteBarraDeNavegacionGral >, para formar la barra
+     //---------------------------------------------------------------
+    /*
+    
+               verFolio              para ver el campo de folio
+               verFolioRespuesta     para ver el campo de folio respuesta
+               verFecha              para ver el campo de fecha
+               verFechaUpdate        para ver el campo de fecha actualizacion
+               folio                 para pasar el valor del folio
+               folioRespuesta        para pasar el valor del folio de la respuesta 
+                                          denuncia, abordaje o investigacion
+               fecha                 para paser el valor de la fecha
+               fechaUpdate           para pasar el valor de la fecha de actualizacion
+               folioRespuesta_texto  para pasar el texto de que si el folio de respuesta
+                                          es denucnua*/
+     /*.opcionesBarra = {
+
+               'verFolio'              : false , 
+               'verFolioRespuesta'     : false ,  
+               'verFecha'              : false , 
+               'verFechaUpdate'        : false ,  
+               'folio'                 : '', 
+               'folioRespuesta'        : '' ,     
+               'fecha'                 : '' , 
+               'fechaUpdate'           : '',   
+               'folioRespuesta_texto'  : ''   
+
+     };*/
 
      //---------------------------------------------------------------
      // Ocultamos el componente que muestra la ayuda  y la barra de 
@@ -1362,18 +1411,21 @@ const  {
 
   data() {
     return {
+      verFolio        :true,
+      verBarraGral    : false,
+      opcionesBarra   : null,
       datosNavegacion : null,
-      verActaDeHechos: false,
-     showFolio: false,
-     showCombo :false,
-     showDocumentos :false,
+      verActaDeHechos : false,
+     showFolio        : false,
+     showCombo        : false,
+     showDocumentos   : false,
 
-      tip1 : ' Existe este tooltiop ',
-      overlay: false,
-      archivos :[],
-      archivoId : '0',
-      sihayarchivo : false,
-      usuarioCreador : '',
+      tip1            : ' Existe este tooltiop ',
+      overlay         : false,
+      archivos        : [],
+      archivoId       :  '0',
+      sihayarchivo    : false,
+      usuarioCreador  : '',
       mostarCalendario_y_selectorProgramas:true,
       nombrePrograma: '',
       estamosActualizando: false,

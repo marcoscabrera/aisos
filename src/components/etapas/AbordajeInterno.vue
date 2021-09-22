@@ -2,7 +2,7 @@
   <v-container>
   
 
-    <v-row>
+   <!-- <v-row>
         <v-col cols="12" xs="12" sm="12" md="6">
            <h2>Abordaje Interno</h2>
         </v-col>
@@ -19,7 +19,7 @@
 
         </v-col>
     </v-row>
-    <br>
+    <br> -->
 
     <!--
     <v-alert type="warning">
@@ -27,13 +27,30 @@
     </v-alert>
      -->
 
-        <!-- pediente la fecha -->
+        <!-- pediente la fecha 
     <FoliosComponente v-if="ocultar"
     :folio="folio"
     :foliodenuncia ="folioabordaje"
     :date="fecha"
     tipofolio="ABORDAJE INTERNO">
-    </FoliosComponente>
+    </FoliosComponente>-->
+
+    <ComponenteBarraDeNavegacionGral v-if="verBarraGral"
+     titulo="Abordaje"
+     :opciones = "opcionesBarra"
+     >
+     </ComponenteBarraDeNavegacionGral>
+     <br>
+     <ComponenteDocumentosAyuda 
+             class="elevado"
+            :files = "archivos"
+            categoria = "vi">
+
+     </ComponenteDocumentosAyuda>
+     <ComponenteAsistenteNavegacion v-if="this.$store.state.uivars.uivars_verAsistenteNavegacion" :datosIncidente="datosNavegacion" >
+
+     </ComponenteAsistenteNavegacion>
+
 
 
     <!-- =============================================== -->
@@ -128,112 +145,115 @@
 <script>
 //import barraDocumentosVue from "../barradocumentos/barraDocumentos.vue"; //
 //import seguimientoCRUD from "@/components/seguimiento/seguimientoCRUD.vue";
-
-import abordajeinterno from '@/components/etapas/abordajeinterno.js'
 //import apiArchivos from '@/apialdeas/apiArchivos.js';
 //import cardProtocoloComponente  from  '@/components/etapasComponentesSeguimiento/cardProtocoloComponente.vue'
-import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
+//import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
 /* importar en el componente , antes del export defaiñt*/
+//import FoliosComponente  from "@/components/denucialegal/componentesDenunciaLegal/FoliosComponente.vue";
+
+import abordajeinterno from '@/components/etapas/abordajeinterno.js'
 import validacionSeguimiento from "@/components/etapas/validaciones/validacionSeguimiento.js";
-
 import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
-
-import FoliosComponente  from "@/components/denucialegal/componentesDenunciaLegal/FoliosComponente.vue";
-
 import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
-
 import eventBus from '@/eventBus.js';
 
 export default {
 
     data() {
     return {
-      ocultar       : true,
-      overlay       : false,
-      estado        : '',
-      mensaje       : '',
-      tipoalerta    : '',
-      folioabordaje :'',
-      errores       : 0,
-      tipoderespuesta : '',
-      esDenuncia      : false,
-      verDenuncia_o_investigacion : false,
-      texto : '',
-      fecha : '',
+      archivos                           : [],
+      opcionesBarra                      : [],
+      verBarraGral                       : false,
+      datosNavegacion                    : [],
+      ocultar                            : true,
+      overlay                            : false,
+      estado                             : '',
+      mensaje                            : '',
+      tipoalerta                         : '',
+      folioabordaje                      : '',
+      errores                            : 0,
+      tipoderespuesta                    : '',
+      esDenuncia                         : false,
+      verDenuncia_o_investigacion        : false,
+      texto                              : '',
+      fecha                              : '',
 
-      data_plan_docto : [],
-      data_planrecuperacion_docto: [],
-      data_notificacionpfn_docto: [],
-      data_notificaciondif_docto: [],
-      data_notificacionautoridad_docto: [],
-      data_notificaciondenunciante_docto: [],
-      data_documento_docto: [],
-      data_actavaloracion_docto: [],
+      data_plan_docto                    : [],
+      data_planrecuperacion_docto        : [],
+      data_notificacionpfn_docto         : [],
+      data_notificaciondif_docto         : [],
+      data_notificacionautoridad_docto   : [],
+      data_notificaciondenunciante_docto : [],
+      data_documento_docto               : [],
+      data_actavaloracion_docto          : [],
 
-      abordaje:[],
+      abordaje                           : [],
 
-      incidenteId:'',
+      incidenteId                        : '',
      
-      incidenteIdPE :"",
+      incidenteIdPE                      : "",
 
-      archivoIdPE : "",
-      nombreDelArchivoPE : "",
-      sihayarchivoPE: "",
-      planenejecucion: "",
+      archivoIdPE                        : "",
+      nombreDelArchivoPE                 : "",
+      sihayarchivoPE                     : "",
+      planenejecucion                    : "",
 
 
-      folio :'sin asignar',
-      loading : false,
+      folio                              :'sin asignar',
+      loading                            : false,
 
-      registroDelStatus: "",
-      planrecuperacion: "",
+      registroDelStatus                  : "",
+      planrecuperacion                   : "",
     
-      doctooficial: "",
+      doctooficial                       : "",
 
-      notificaciondif: "",
+      notificaciondif                    : "",
 
-      notificacionautoridad: "",
+      notificacionautoridad              : "",
 
-      notificacionpfn: "",
+      notificacionpfn                    : "",
 
-      notificaciondenunciante: "",
+      notificaciondenunciante            : "",
 
-      adulto: false,
+      adulto                             : false,
 
-      pares: false,
+      pares                              : false,
 
-      itemsOpciones: ["SI", "NO", "POR CONFIRMAR"],
+      itemsOpciones                      : ["SI", "NO", "POR CONFIRMAR"],
 
-      itemsUnidades: ["Unidad SOS Tijuana", "Unidad SOS CDMX"],
+      itemsUnidades                      : ["Unidad SOS Tijuana", "Unidad SOS CDMX"],
 
-      itemsCargos: ["Cuidador", "Mamá SOS", "Papá SOS"],
-      itemsFamilia: [
-        "Papá",
-        "Mamá",
-        "Hermano",
-        "Hermana",
-        "Padrastro",
-        "Madrastra",
-        "Tio",
-      ],
+      itemsCargos                        : ["Cuidador", "Mamá SOS", "Papá SOS"],
+      itemsFamilia                       : [
+                                            "Papá",
+                                            "Mamá",
+                                            "Hermano",
+                                            "Hermana",
+                                            "Padrastro",
+                                            "Madrastra",
+                                            "Tio",
+                                          ],
 
-      perfilAgresor: null,
+      perfilAgresor                       : null,
 
-      date: new Date().toISOString().substr(0, 10),
+      date                                : new Date().toISOString().substr(0, 10),
 
-      menu2: false,
+      menu2                               : false,
     };
   },
   components: {   
-    FoliosComponente,  
-    BarraDeNavegacion,          
-    ComponenteTextAreaStatus     :() =>   import('@/components/etapasComponentesAbordaje/ComponenteTextAreaStatus.vue'),
-    CardInformeAEnteRector_AI    :() =>   import('@/components/etapasComponentesAbordaje/CardInformeAEnteRector_AI.vue'),
-    CardNotificacionPFN_AI       :() =>   import('@/components/etapasComponentesAbordaje/CardNotificacionPFN_AI.vue'),
-    ComponentePD_AI              :() =>   import('@/components/etapasComponentesAbordaje/ComponentePD_Ai.vue'),
-    ComponenteActaValoracion_AI  :() =>   import('@/components/etapasComponentesAbordaje/ComponenteActaValoracion_AI.vue'),
-    ComponenteActaHechos_AI      :() =>   import('@/components/etapasComponentesAbordaje/ComponenteActaHechos_AI.vue'),
-    ComponentePlanEmocional_AI   :() =>   import('@/components/etapasComponentesAbordaje/ComponentePlanEmocional_AI.vue'),
+    //FoliosComponente,  
+    //BarraDeNavegacion,          
+    ComponenteTextAreaStatus        : () =>   import('@/components/etapasComponentesAbordaje/ComponenteTextAreaStatus.vue'),
+    CardInformeAEnteRector_AI       : () =>   import('@/components/etapasComponentesAbordaje/CardInformeAEnteRector_AI.vue'),
+    CardNotificacionPFN_AI          : () =>   import('@/components/etapasComponentesAbordaje/CardNotificacionPFN_AI.vue'),
+    ComponentePD_AI                 : () =>   import('@/components/etapasComponentesAbordaje/ComponentePD_Ai.vue'),
+    ComponenteActaValoracion_AI     : () =>   import('@/components/etapasComponentesAbordaje/ComponenteActaValoracion_AI.vue'),
+    ComponenteActaHechos_AI         : () =>   import('@/components/etapasComponentesAbordaje/ComponenteActaHechos_AI.vue'),
+    ComponentePlanEmocional_AI      : () =>   import('@/components/etapasComponentesAbordaje/ComponentePlanEmocional_AI.vue'),
+    ComponenteAsistenteNavegacion   : ()  => import("@/components/barranavegacion/ComponenteAsistenteNavegacion.vue"),
+    ComponenteBarraDeNavegacionGral : ()  => import("@/components/etapas/ComponenteBarraDeNavegacionGral.vue"),
+    ComponenteDocumentosAyuda       : ()  => import("../barradocumentos/ComponenteDocumentosAyuda.vue"),
 
   }, 
 
@@ -343,7 +363,7 @@ export default {
             id_pr                    : this.$store.state.abordaje.abordaje_seg_docto_pr,
   };
 
-      console.log(" parametros " + JSON.stringify(parametros));
+      //console.log(" parametros " + JSON.stringify(parametros));
 
       let update = abordajeinterno.updateSeguimiento(parametros, this.$store);
 
@@ -351,7 +371,7 @@ export default {
         response =>{
 
           console.log( JSON.stringify(response.data));
-          console.log( 'actualizado seguimiento'+ response.data.estado);
+         // console.log( 'actualizado seguimiento'+ response.data.estado);
           this.loading = false;
 
           if (response.data.estado=='abierto'){
@@ -368,8 +388,8 @@ export default {
                  ****************************************************************/
                   
                   let correosRecibidos = response.data["correos"];
-                  console.log("Variable de correos");
-                  console.log(correosRecibidos);
+                 // console.log("Variable de correos");
+                 // console.log(correosRecibidos);
 
        
                   
@@ -421,14 +441,14 @@ export default {
     },
 
     checkArray(arreglo){
-          console.log("contenido de arreglo");
+          //console.log("contenido de arreglo");
            
          
          let cadena =  JSON.stringify(arreglo);
 
           var x = cadena.length;
           
-          console.log("valor length : " +  x );
+         // console.log("valor length : " +  x );
 
           let arrayDeRegreso = [];
           if (x==0){
@@ -474,10 +494,10 @@ export default {
         response => {
 
 
-          console.log("======================");
-          console.log("cargando el abordaje");
-          console.log("======================");
-          console.log(response.data);
+          //console.log("======================");
+         // console.log("cargando el abordaje");
+         // console.log("======================");
+         // console.log(response.data);
 
       /*
       */
@@ -497,15 +517,38 @@ export default {
       this.$store.dispatch("action_abordaje_docto_informaenterector", response.data.docto_informaenterector);
       this.$store.dispatch("action_abordaje_seg_estado_pfn",          response.data.seguimiento.notificacionpfn);
       this.$store.dispatch("action_abordaje_seg_docto_pfn",           response.data.seguimiento.notificacionpfn_docto);
-      this.$store.dispatch("action_abordaje_seg_estado_pd",            response.data.seguimiento.notificaciodenunciante);
-     
-      this.$store.dispatch("action_abordaje_seg_docto_pd",     response.data.seguimiento.notificaciondenunciante_docto);
-     
-      this.$store.dispatch("action_abordaje_seg_estado_pr", response.data.seguimiento.planrecuperacion);
-      this.$store.dispatch("action_abordaje_seg_docto_pr",response.data.seguimiento.planrecuperacion_docto);
-      this.$store.dispatch("action_abordaje_docto_actahecho",response.data.id_actahechos);
-      this.$store.dispatch("action_abordaje_docto_actavaloracion",response.data.id_actavaloracion);
-     
+      this.$store.dispatch("action_abordaje_seg_estado_pd",           response.data.seguimiento.notificaciodenunciante);
+      this.$store.dispatch("action_abordaje_seg_docto_pd",            response.data.seguimiento.notificaciondenunciante_docto);
+      this.$store.dispatch("action_abordaje_seg_estado_pr",           response.data.seguimiento.planrecuperacion);
+      this.$store.dispatch("action_abordaje_seg_docto_pr",            response.data.seguimiento.planrecuperacion_docto);
+      this.$store.dispatch("action_abordaje_docto_actahecho",         response.data.id_actahechos);
+      this.$store.dispatch("action_abordaje_docto_actavaloracion",    response.data.id_actavaloracion);
+
+
+        //////////////////////////////////////////////////////////////////////
+        // seteamos los valores para mostrar en la barra de navegacion nueva
+        //////////////////////////////////////////////////////////////////////
+            this.opcionesBarra = {
+
+               'verFolio'              : true , 
+               'verFolioRespuesta'     : true ,  
+               'verFecha'              : true , 
+               'verFechaUpdate'        : true ,  
+               'folio'                 : this.folio, 
+               'folioRespuesta'        :  response.data["folioAbordaje"] ,     
+               'fecha'                 :  response.data["fechaCreacion"], 
+               'fechaUpdate'           :  response.data["fechaUpdate"],   
+               'folioRespuesta_texto'  : 'Abordaje Interno'   
+
+            };
+
+            this.verBarraGral= true;
+            console.log("===========================");
+            console.log(response.data);
+            console.log("=== Datos de navegacion===");
+            console.log(response.data.navegacion);
+
+            this.datosNavegacion = response.data.datosNavegacion;
       /********************************************************************************************************/ 
       // let plan_docto = response.data[0]["plan_docto"];
        //this.$store.dispatch("action_abordaje_plan_docto",plan_docto);

@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row>
+   <!-- <v-row>
         <v-col cols="12" xs="12" sm="12" md="6">
            <h2>Valoración Integral</h2>
         </v-col>
@@ -20,8 +20,25 @@
              ></BarraDeNavegacion>
 
         </v-col>
-    </v-row>
+    </v-row>-->
 
+     <ComponenteBarraDeNavegacionGral v-if="verBarraGral"
+     titulo="Valoración Integral"
+     :opciones = "opcionesBarra"
+     >
+     </ComponenteBarraDeNavegacionGral>
+     <br>
+     <ComponenteDocumentosAyuda 
+             class="elevado"
+            :files = "archivos"
+            categoria = "vi">
+
+     </ComponenteDocumentosAyuda>
+     <ComponenteAsistenteNavegacion v-if="this.$store.state.uivars.uivars_verAsistenteNavegacion" :datosIncidente="datosNavegacion" >
+
+     </ComponenteAsistenteNavegacion>
+
+ <!--
     <v-row>
       <v-col cols="12" xs="12" md="6">
         <v-text-field
@@ -37,15 +54,15 @@
           </v-text-field>
       </v-col>
 
-      <v-col cols="12" xs="12" md="6">
+      <v-col cols="12" xs="12" md="6"> -->
         <!-- mustra los documentos como ayuda de esta seccion-->
-        <barraDocumentosVue
+       <!-- <barraDocumentosVue
         :files="archivos">
         </barraDocumentosVue>
 
       </v-col>
-    </v-row>
-    <br>
+    </v-row> 
+    <br> -->
  
 <!--====================================================== -->
        <v-card width="100%" >
@@ -251,14 +268,17 @@ import apidoctosapoyo from '@/apialdeas/apiDoctosApoyo.js';
 
 export default {
   components: {
-    barraDocumentosVue    :()  => import("../barradocumentos/barraDocumentos.vue"),
-    cardMedidasIntegrales :()  => import('../etapasComponentesValoracion/cardMedidasIntegrales.vue'),
-    BarraDeNavegacion     :()  => import("@/components/etapas/BarraDeNavegacion.vue"),
-    textareaValoracion    :()  => import("@/components/etapasComponentesValoracion/textareaValoracion.vue"),
-    cardTipologia         :()  => import("@/components/etapasComponentesValoracion/cardTipologia.vue"),
-    cardNivelIncidente    :()  => import("@/components/etapasComponentesValoracion/cardNivelIncidente.vue"),
-    cardTipoCaso          :()  => import("../etapasComponentesValoracion/cardTipoCaso.vue"),
-    cardTipoRespuesta     :()  => import("../etapasComponentesValoracion/cardTipoRespuesta.vue"),
+   // barraDocumentosVue              :()  => import("../barradocumentos/barraDocumentos.vue"),
+    cardMedidasIntegrales           :()  => import('../etapasComponentesValoracion/cardMedidasIntegrales.vue'),
+   // BarraDeNavegacion               :()  => import("@/components/etapas/BarraDeNavegacion.vue"),
+    textareaValoracion              :()  => import("@/components/etapasComponentesValoracion/textareaValoracion.vue"),
+    cardTipologia                   :()  => import("@/components/etapasComponentesValoracion/cardTipologia.vue"),
+    cardNivelIncidente              :()  => import("@/components/etapasComponentesValoracion/cardNivelIncidente.vue"),
+    cardTipoCaso                    :()  => import("../etapasComponentesValoracion/cardTipoCaso.vue"),
+    cardTipoRespuesta               :()  => import("../etapasComponentesValoracion/cardTipoRespuesta.vue"),
+    ComponenteAsistenteNavegacion   : ()  => import("@/components/barranavegacion/ComponenteAsistenteNavegacion.vue"),
+    ComponenteBarraDeNavegacionGral : ()  => import("@/components/etapas/ComponenteBarraDeNavegacionGral.vue"),
+    ComponenteDocumentosAyuda       : () => import("../barradocumentos/ComponenteDocumentosAyuda.vue"),
    // ComponenteConfirmacionIncidente  //cardConfirmacion,
   },
 
@@ -680,6 +700,12 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
 
    async cargarValoracionIntegral() {
 
+      //-----------------------------------------
+      // Inicializamos el valor de campo de medidas
+      // integrales para no mostrar o cargar valores
+      // fantasmas
+      //-----------------------------------------
+
       this.$store.dispatch("action_medidasintegrales_docto",0);
 
 
@@ -691,9 +717,15 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
       //-----------------------------------------
 
 
-
+      //-----------------------------------------
+      // almacenamos en la variable local idx
+      // el valor del parametro id de la ruta que
+      // aparece en el explorador
+      //-----------------------------------------
       let idx = this.$route.params.id;
-      console.log("valor de incidenteid " + idx);
+      //console.log("valor de incidenteid " + idx);
+
+
       let res = apiValoracion.recuperarUnaValoracion(idx, this.$store);
       this.incidenteid = idx;
 
@@ -701,21 +733,19 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
       res
         .then((response) => {
 
-         this.$store.dispatch("action_medidasintegrales",response.data[0]["medidasintegrales"])
-
-
-          console.log("Datos de la valoracionIntegral ");
-          console.log(JSON.stringify(response.data));
+          this.$store.dispatch("action_medidasintegrales",response.data[0]["medidasintegrales"])
+         //console.log("Datos de la valoracionIntegral ");
+         // console.log(JSON.stringify(response.data));
 
           this.folio = response.data[0]["folio"];
-          console.log(">>>>>>>valor del folio:" + this.folio);
+          //console.log(">>>>>>>valor del folio:" + this.folio);
            this.$store.dispatch('action_folio', this.folio);
 
 
           this.estadoDeValoracion = response.data[0]["estado"];
-          console.log("valor de id : ");
+          //console.log("valor de id : ");
 
-          console.log(response.data[0]["id"]);
+          //console.log(response.data[0]["id"]);
           this.id = response.data[0]["id"];
 
           this.$store.dispatch("setear_Incidente", this.id);
@@ -724,9 +754,9 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
           this.$store.dispatch('action_textovi',this.textovi);
 
           this.tipologiadelincidente =
-            response.data[0]["tipologiadelincidente"];
-        this.$store.dispatch('action_tipologiadelincidente', this.tipologiadelincidente
-);
+          response.data[0]["tipologiadelincidente"];
+          this.$store.dispatch('action_tipologiadelincidente', 
+                                 this.tipologiadelincidente );
 
 
          this.niveldelincidente = response.data[0]["niveldelincidente"];
@@ -739,6 +769,36 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
           this.confirmaincidente = response.data[0]["confirmaincidente"];
           this.$store.dispatch('action_confirmaincidente',this.confirmaincidente);   
           
+          //////////////////////////////////////////////////////////////////////
+          // seteamos los valores para mostrar en la barra de navegacion nueva
+          //////////////////////////////////////////////////////////////////////
+                 this.opcionesBarra = {
+
+               'verFolio'              : true , 
+               'verFolioRespuesta'     : false ,  
+               'verFecha'              : true , 
+               'verFechaUpdate'        : true ,  
+               'folio'                 : this.folio, 
+               'folioRespuesta'        : '' ,     
+               'fecha'                 : response.data[0]["fechacreacion"] , 
+               'fechaUpdate'           : response.data[0]["fechaupdate"],   
+               'folioRespuesta_texto'  : ''   
+
+              };
+
+              this.verBarraGral= true;
+
+               //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+               //console.log(" DATOS DE RESPONSE DATA ");
+              // console.log( response.data );
+
+               //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+               //console.log(" DATOS DE NAVEGACION EN VALORACION INTEGRAL ");
+
+               this.datosNavegacion = response.data[0]["datosNavegacion"];
+               //console.log( response.data[0]["datosNavegacion"] );
+               //console.log( this.datosNavegacion );
+               //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         
           
          this.confirmaincidente == "SI ES UN INCIDENTE" ?
@@ -802,7 +862,10 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
         .catch((error) => {
           console.log(JSON.stringify(error.data));
         });
-    },
+    },  ///// TERMINA FUNCION cargarValoracionIntegral
+
+    /* ///////////////////////////////////////////////////////-*/
+
      
     async descargarDatosDelArchivo(id, state){
 
@@ -830,6 +893,9 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
      });
 
     },
+
+     /* ///////////////////////////////////////////////////////-*/
+
 
     ejecutar_b(){
 
@@ -866,7 +932,7 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
         update.then(
           response => {
 
-              console.log(response);
+            //  console.log(response);
 
               
  
@@ -902,13 +968,14 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
 
     },
     /*******************************************/
+
     ejecutar_actualizaValoracion(){
 
 
       this.validacionGeneral();
 
     //  console.log("<<<<< valor de this.errores en ejecutat_actualizavaloracon : >>>> " + this.errores)
-      console.log("valor de this.errores en ejecutar_actualizaValoracion " + this.errores);
+    //  console.log("valor de this.errores en ejecutar_actualizaValoracion " + this.errores);
 
       if (this.errores>0) return;
 
@@ -916,6 +983,7 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
        // etapavaloracion_incidenteid,
        // etapavaloracion_fechacreacion,
        // etapavaloracion_fechaupdate,
+        //etapavaloracion_medidasintegrales_docto       
         etapavaloracion_textovi,
         etapavaloracion_tipologiadelincidente,
         etapavaloracion_niveldelincidente,
@@ -923,12 +991,13 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
         etapavaloracion_confirmaincidente,
         etapavaloracion_tipoderespuesta,
         etapavaloracion_medidasintegrales,
-        //etapavaloracion_medidasintegrales_docto
+
       } = this.$store.state.valoracion;
 
       var parmetros = {
         //'fechacreacion'         : $datos['fechacreacion'],
         // 'fechaupdate'           : $datos['fechaupdate'],
+       // medidasintegrales_docto : etapavaloracion_medidasintegrales_docto,        
         id: this.id,
         incidenteid: this.incidenteid,
         textovi: etapavaloracion_textovi,
@@ -938,7 +1007,7 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
         confirmaincidente: "SI ES UN INCIDENTE",
         tipoderespuesta: etapavaloracion_tipoderespuesta,
         medidasintegrales:  etapavaloracion_medidasintegrales,
-       // medidasintegrales_docto : etapavaloracion_medidasintegrales_docto,
+
         estado : 'cerrado',
         accion:"respuestanormal"
       };
@@ -960,11 +1029,11 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
            ****************************************************************/
          
          let correosRecibidos = response.data["correos"];
-         console.log("Variable de correos");
-         console.log(correosRecibidos);
+         //console.log("Variable de correos");
+         //console.log(correosRecibidos);
          let tarea_realizada = "Se ha realizado la valoracion integral del reporte de Incidente";
           
-            console.log(" >>>>>>> valor  de parametro enviar correso : " + this.$store.state.uivars.uivars_parametros[6]["valor"] );
+        //    console.log(" >>>>>>> valor  de parametro enviar correso : " + this.$store.state.uivars.uivars_parametros[6]["valor"] );
       
             if (this.$store.state.uivars.uivars_parametros[6]["valor"]=='SI'){
 
@@ -1001,18 +1070,21 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
 
   created() {
     this.overlay = true ;
-       /////////////////////////////////////////////
+  
+  /////////////////////////////////////////////
   // valores para regresar a esta pagina si se 
   // tiene que regresar despues de estar en imp
   // siones
   ////////////////////////////////////////////
+
    let ruta_A_regresar  = '/valoracionintegral/' + this.$route.params.id;
-    console.log("ruta_A_regresar : " + ruta_A_regresar);
-    this.$store.dispatch("action_regresar_A_despues_de_impresion",ruta_A_regresar);
-      /////////////////////////////////////////////
-    let rolActual = this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARANTESDECIERREDELAVALORACIONINTEGRAL;
+  // console.log("ruta_A_regresar : " + ruta_A_regresar);
+   this.$store.dispatch("action_regresar_A_despues_de_impresion",ruta_A_regresar);
+   /////////////////////////////////////////////
+   
+   let rolActual = this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARANTESDECIERREDELAVALORACIONINTEGRAL;
     
-    this.$store.dispatch("action_medidasintegrales_docto",0);
+   this.$store.dispatch("action_medidasintegrales_docto",0);
 
 
     if (rolActual == "SI"){
@@ -1028,6 +1100,10 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
   },
   data() {
     return {
+      opcionesBarra: [],
+      verBarraGral : false,
+      datosNavegacion : null,
+      
       loadinginvestigacion :false,
       mostrarAlerta : false,
       overlay :false,

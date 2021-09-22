@@ -1,7 +1,7 @@
 <template>
   <v-container>
 
-    <v-row>
+   <!-- <v-row>
         <v-col cols="12" xs="12" sm="12" md="6">
            <h2> Cierre </h2>
         </v-col>
@@ -14,16 +14,16 @@
              verSeguimiento 
              verRespuesta 
              >
-             </BarraDeNavegacion>
+             </BarraDeNavegacion> -->
        <!-- import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
 
 -->
-        </v-col>
+    <!--    </v-col>
     </v-row>
-      <br>
+      <br>-->
 
 
-        <v-row>
+      <!--  <v-row>
             <v-col cols="12" xs="12" md="6">
               <v-text-field
                 id="labelFolio"
@@ -38,10 +38,33 @@
             </v-col>
         </v-row>
 
+        -->
+
 
       <!--  <v-col cols="12" xs="12" md="6">
         <barraDocumentosVue></barraDocumentosVue>
       </v-col> -->
+
+
+     <ComponenteBarraDeNavegacionGral v-if="verBarraGral"
+     titulo="Cierre"
+     :opciones = "opcionesBarra"
+     >
+     </ComponenteBarraDeNavegacionGral>
+     <br>
+     <ComponenteDocumentosAyuda 
+             class="elevado"
+            :files = "archivos"
+            categoria = "vi">
+
+     </ComponenteDocumentosAyuda>
+     <ComponenteAsistenteNavegacion v-if="this.$store.state.uivars.uivars_verAsistenteNavegacion" :datosIncidente="datosNavegacion" >
+
+     </ComponenteAsistenteNavegacion>
+
+
+
+      <!-- =========================================== -->
 
       <v-card width="100%">
         <v-card-title>
@@ -417,7 +440,7 @@ import usuariosCierre from "@/components/usuarios/usuariosCierre.vue";
 import apiIncidentes from '@/apialdeas/apiIncidentes.js';
 //import cardDocumentoEnCierre from '@/components/etapasComponentesCierre/cardDocumentoEnCierre.vue';
 import apiArchivos from '@/apialdeas/apiArchivos.js';
-import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
+//import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
 import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
 
 import eventBus from '@/eventBus';
@@ -431,7 +454,11 @@ export default {
     usuariosCierre ,
    // cardDocumentoEnCierre ,
     ComponenteCardsDocumentoEnCierre :() =>  import("@/components/etapasComponentesCierre/ComponenteCardsDocumentoEnCierre.vue"),
-    BarraDeNavegacion
+   // BarraDeNavegacion
+    //ComponenteAsistenteNavegacion   : ()  => import("@/components/barranavegacion/ComponenteAsistenteNavegacion.vue"),
+    ComponenteBarraDeNavegacionGral : ()  => import("@/components/etapas/ComponenteBarraDeNavegacionGral.vue"),
+    ComponenteDocumentosAyuda       : ()  => import("../barradocumentos/ComponenteDocumentosAyuda.vue"),
+
     },
 
   computed: {
@@ -767,6 +794,26 @@ export default {
 
           }
 
+        //////////////////////////////////////////////////////////////////////
+        // seteamos los valores para mostrar en la barra de navegacion nueva
+        //////////////////////////////////////////////////////////////////////
+            this.opcionesBarra = {
+
+               'verFolio'              : true , 
+               'verFolioRespuesta'     : false ,  
+               'verFecha'              : false , 
+               'verFechaUpdate'        : false ,  
+               'folio'                 : this.folio, 
+               'folioRespuesta'        : '' ,     
+               'fecha'                 : '' , 
+               'fechaUpdate'           : '',   
+               'folioRespuesta_texto'  : ''   
+
+            };
+
+            this.verBarraGral= true;
+   
+
         
           this.ESTADODELSEGUIMIENTO =response.data[0]["estadoseguimiento"];
           this.folio = response.data[0]["folio"];
@@ -1073,7 +1120,14 @@ export default {
 
   data() {
     return {
-     
+
+      /********************************************
+      VARIABLE PARA GUARDAR LOS VALORES DE LA BARRA
+      PRINCIPAL
+      ******************************************** */
+
+       opcionesBarra       : [],
+       verBarraGral        : false,
      /*-------------------------------------------- */
      /*  MOSTRAR O NO LOS COMPONENTES SEGUN SEA EL TIPO
         DE RESPUESTA

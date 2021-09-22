@@ -33,8 +33,6 @@ const store =  new Vuex.Store({
 // API PRODUCCION ** servidor de produccion//
 ///////////////////////////////////////  
 
-
-
 //urlServidor : 'https://apiproteccioninfantil3.azurewebsites.net',
    
 

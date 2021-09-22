@@ -1,7 +1,7 @@
 <template>
   <v-container name="denuncialegal">
 
-    <v-row>
+   <!-- <v-row>
         <v-col cols="12" xs="12" sm="12" md="6">
            <h2>Denuncia Legal</h2>
         </v-col>
@@ -18,27 +18,50 @@
              verSeguimiento 
              verCierre
             
-             ></BarraDeNavegacion>
+             ></BarraDeNavegacion> 
+             -->
 <!-- 
 
 
   import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
 
 -->
-        </v-col>
-    </v-row>
+    <!--    </v-col>
+    </v-row>   -->
+
     <!-- pediente la fecha -->
-    <FoliosComponente :folio="folio"
+    <!-- 
+      <FoliosComponente :folio="folio"
     :foliodenuncia ='denuncia.foliodenuncia'
     :date = 'denuncia.fechaCreacion'
     tipofolio="DENUNCIA">
     </FoliosComponente>
+    -->
 
   <!--  
           consensoArchivo_id:'',
       consensoArchivo_nombreArchivo :'',
       consensoArchivo_sihayarchivo : false -->
-    <v-row>
+
+
+    <ComponenteBarraDeNavegacionGral v-if="verBarraGral"
+     titulo="Denuncia Legal"
+     :opciones = "opcionesBarra"
+     >
+     </ComponenteBarraDeNavegacionGral>
+ 
+     <ComponenteDocumentosAyuda 
+             class="elevado"
+            :files = "files"
+            categoria = "vi">
+
+     </ComponenteDocumentosAyuda>
+     <ComponenteAsistenteNavegacion v-if="this.$store.state.uivars.uivars_verAsistenteNavegacion" :datosIncidente="datosNavegacion" >
+
+     </ComponenteAsistenteNavegacion>
+
+
+    <!-- <v-row>
       <v-col>
 
       </v-col>
@@ -47,8 +70,9 @@
 
        </barraDocumentos> 
       </v-col>
-    </v-row>
-    <br>
+    </v-row> -->
+
+
     <ConsensoComponente v-if="varDoctos"
           :valorcombo = "denuncia.consenso"  
           :incidenteId ="denuncia.incidenteid"
@@ -169,8 +193,7 @@ import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
 import apidoctosapoyo from '@/apialdeas/apiDoctosApoyo.js';
 import eventBus from '@/eventBus.js';
 import apiDenuncias from "@/apialdeas/apiDenuncias.js";
-import FoliosComponente  from "./componentesDenunciaLegal/FoliosComponente.vue";
-
+//import FoliosComponente  from "./componentesDenunciaLegal/FoliosComponente.vue";
 //import barraDocumentos  from "@/components/barradocumentos/barraDocumentos.vue";
 //import BarraDeNavegacion from "@/components/etapas/BarraDeNavegacion.vue";
 //import solicitudPermisoImpresion from '@/components/permisosimpresion/solicitudPermisoImpresion.js';
@@ -179,9 +202,9 @@ import FoliosComponente  from "./componentesDenunciaLegal/FoliosComponente.vue";
 export default {
 
   components : {
-    FoliosComponente,
-    barraDocumentos                 : () => import('@/components/barradocumentos/barraDocumentos.vue'),
-    BarraDeNavegacion               : () => import('@/components/etapas/BarraDeNavegacion.vue'),
+    //FoliosComponente,
+   // BarraDeNavegacion               : () => import('@/components/etapas/BarraDeNavegacion.vue'),
+   // barraDocumentos                 : () => import('@/components/barradocumentos/barraDocumentos.vue'),
     ConsensoComponente              : () => import('./componentesDenunciaLegal/ConsensoComponente.vue'),
     CardInformeAlPatronato          : () => import('./componentesDenunciaLegal/CardInformeAlPatronato.vue'),
     CardInformaOficinaRegional      : () => import('./componentesDenunciaLegal/CardInformaOficinaRegional.vue'),
@@ -190,10 +213,18 @@ export default {
     SoporteLegalComponente          : () => import('./componentesDenunciaLegal/SoporteLegalComponente.vue'),
     SoporteEmocionalComponente      : () => import('./componentesDenunciaLegal/SoporteEmocionalComponente.vue'),
     MedidasDisciplinariasComponente : () => import('./componentesDenunciaLegal/MedidasDisciplinariasComponente.vue'),
-    TextoAcercaDeLasMedidas         : () => import('./componentesDenunciaLegal/TextoAcercaDeLasMedidas.vue')
+    TextoAcercaDeLasMedidas         : () => import('./componentesDenunciaLegal/TextoAcercaDeLasMedidas.vue'),
+    ComponenteAsistenteNavegacion   : ()  => import("@/components/barranavegacion/ComponenteAsistenteNavegacion.vue"),
+    ComponenteBarraDeNavegacionGral : ()  => import("@/components/etapas/ComponenteBarraDeNavegacionGral.vue"),
+    ComponenteDocumentosAyuda       : ()  => import("../barradocumentos/ComponenteDocumentosAyuda.vue"),
+
 },
   data() {
     return {
+      opcionesBarra                 : [],
+      verBarraGral                  : false,
+      datosNavegacion               : {},
+
       overlay                       : false,
       numerosDoctos_a_Cargar        : 0,
       verAlerta                     : false,
@@ -339,6 +370,7 @@ export default {
       //------------------------------------------------------------
 
         this.cargarTodosLosDoctos("dl");
+      
 
       //----------------------------------------------------
       // valores para regresar a esta pagina si se 
@@ -442,7 +474,26 @@ export default {
   this.$store.dispatch('action_fechaUpdate'                 , datos.fechaUpdate);
   this.$store.dispatch('action_estado'                      , datos.estado);
 
-   
+        //////////////////////////////////////////////////////////////////////
+        // seteamos los valores para mostrar en la barra de navegacion nueva
+        //////////////////////////////////////////////////////////////////////
+            this.opcionesBarra = {
+
+               'verFolio'              : true , 
+               'verFolioRespuesta'     : true ,  
+               'verFecha'              : true , 
+               'verFechaUpdate'        : true ,  
+               'folio'                 : datos.folio, 
+               'folioRespuesta'        : datos.foliodenuncia ,     
+               'fecha'                 : datos.fechaCreacion , 
+               'fechaUpdate'           : datos.fechaUpdate,   
+               'folioRespuesta_texto'  : 'Denuncia Legal'   
+
+     };
+     
+     this.verBarraGral= true;
+
+     this.this.datosNavegacion = datos.datosNavegacion;
 
  /* Agregados en cambios de flujo
     action_denuncialegal_informapatronato 
