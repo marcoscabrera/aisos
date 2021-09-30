@@ -9,5 +9,6 @@ import mutations from './mutations.js';
         parametros_nombreParametro: null  ,
         parametros_descripcion: null  ,
         parametros_valor: null  ,
+        parametros_conexionsas : '',
               },          mutations, actions 
    }

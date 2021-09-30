@@ -1,5 +1,12 @@
 export default {
 
+
+    
+
+
+    action_uivars_error_comboPerfilAgresor(context, valor){
+        context.commit("mutation_uivars_error_comboPerfilAgresor", valor); 
+    },
    
     action_uivars_verAsistenteNavegacion(context, valor){
         context.commit("mutation_uivars_verAsistenteNavegacion", valor); 

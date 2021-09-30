@@ -103,6 +103,29 @@
       </v-card>
       <!-- termina v-card -->
     </v-col>
+
+     <v-col cols="12" xs="12" sm="6" md="12">
+      <v-card>
+        <v-card-title>Cadena SAS </v-card-title>
+        <v-card-text>Conexion a Azure Storage account</v-card-text>
+        <v-list-item>
+         <!-- <v-text-field v-model="acuerdoprivacidad" label="acuerdo de privacidad"></v-text-field> -->
+           <wysiwyg v-model="cadenasas" />
+        </v-list-item>
+        <v-card-actions>
+          <v-btn
+            primary
+            block
+            :loading="loading"
+            :disabled="loading"
+            @click="guardarParametro('cadenasas',cadenasas)"
+          >guardar</v-btn>
+        </v-card-actions>
+      </v-card>
+      <!-- termina v-card -->
+    </v-col>
+
+    <!-- ----- -->
   </v-row>
 </template>
 <script>
@@ -121,7 +144,9 @@ export default {
 
       versionapp: "",
 
-      acuerdoprivacidad : ""
+      acuerdoprivacidad : "",
+
+      cadenasas : ""
     };
   },
 
@@ -200,6 +225,18 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+       /* -----------------------------------------------------*/
+        var az5 = apiParametros.getParametro("cadenasas", this.$store);
+      az5
+        .then((response) => {
+          console.log(response.data.valor);
+
+          this.cadenasas = response.data.valor;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+       /* -----------------------------------------------------*/
     
     },
   },

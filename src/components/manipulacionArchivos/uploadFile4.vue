@@ -476,11 +476,18 @@ export default {
 
 
     const account = "demorebelbotstorage";
-    const sas = this.sasGT
+    const sas = this.sasGT;
+    typeof account;
+    typeof sas;
     const containerName = "contenedorpdf";
     const blobName = "acta_nacimiento_marcoscabrera.pdf";
 
-    const blobServiceClient = new BlobServiceClient(`https://${account}.blob.core.windows.net${sas}`);
+    const conexionsas = this.$store.state.parametros.parametros_conexionsas;
+    console.log("obteniendo cadena sas del servidor");
+    console.log( conexionsas );
+
+    //const blobServiceClient = new BlobServiceClient(`https://${account}.blob.core.windows.net${sas}`);
+    const blobServiceClient = new BlobServiceClient( conexionsas );
 
      const containerClient = blobServiceClient.getContainerClient(containerName);
      const blobClient = containerClient.getBlobClient(blobName);
@@ -567,9 +574,16 @@ export default {
    let file =  this.currentFile;
 
     console.log("subiendo un archivo a Azure");
-  
-      let blobServiceClient = new BlobServiceClient(blobSasUrl);
-     
+
+    const conexionsas = this.$store.state.parametros.parametros_conexionsas;
+    //blobSasUrl
+      try {
+      var blobServiceClient = new BlobServiceClient( conexionsas  );
+       console.log(" se creo el BlobServiceClient exitosamente");
+      }catch(error){
+        console.log("error al crear BlobServiceClient");
+        console.log(error);
+      }
      const containerClient = blobServiceClient.getContainerClient("contenedorpdf");
 
      //console.log(containerClient);

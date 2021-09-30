@@ -17,11 +17,18 @@ import abordaje from './modules/abordaje/abordaje.js'
 import estadisticas from './modules/estadisticas/estadisticas.js'
 import notificacion from './modules/notificacion/notificacion.js'
 import doctosapoyo from './modules/doctosapoyo/doctosapoyo.js'
+import parametros from './modules/parametros/parametros.js'
 Vue.use(Vuex)
 //export default new Vuex.Store
 const store =  new Vuex.Store({
   state: {
 
+    /*servidores : { 
+          
+      'local' : 'http://127.0.0.1/apialdeas',
+      'demo'  : 'https://apidemo2.azurewebsites.net',
+      'pro'   : 'https://apiproteccioninfantil3.azurewebsites.net'
+    },*/
 ///////////////////////////////////////
 // LOCALHOST
 ///////////////////////////////////////   
@@ -39,11 +46,11 @@ const store =  new Vuex.Store({
    
 
 ///////////////////////////////////////
-// API DEMO
+// ACTUAL
 /////////////////////////////////////// 
 urlServidor : 'https://apidemo2.azurewebsites.net',
 
-version: '1.1.23 Servidor Pruebas',
+version: '1.1.24 Servidor Pruebas',
 
 
 
@@ -65,7 +72,8 @@ version: '1.1.23 Servidor Pruebas',
     abordaje,
     estadisticas,
     notificacion,
-    doctosapoyo
+    doctosapoyo,
+    parametros
   }
 })
   
