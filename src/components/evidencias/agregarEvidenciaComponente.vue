@@ -141,6 +141,7 @@
               dense
               filled
               @change="cambiarInput($event)"
+              :disabled="deshabilitarCombo"
             >
             </v-select>
           </v-col>
@@ -206,6 +207,13 @@ export default {
   name: "agregarEvidenciaComponente",
     data() {
         return {
+
+                /**************************************************
+                * Permite que el combo se deshabilite despues de 
+                * guardarse la evidencia para que despues de guardada
+                * no se pueda cambiar el tipo de docuemnto
+                ****************************************************/
+                deshabilitarCombo : false,
                
                 /**************************************************
                 * Permite ver o no el componente
@@ -634,6 +642,8 @@ export default {
             this.verValidacion = true;
             this.errorMsg ="La evidencia ha sido guardada";
             this.tipo = "success";
+
+            this.deshabilitarCombo = true;
 
             /***************************** */
             //this.bajar_un_blob_and_convertirlo_a_cadena(ubicacion_a_guardar);

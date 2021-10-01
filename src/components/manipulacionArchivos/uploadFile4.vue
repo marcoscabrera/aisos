@@ -611,7 +611,12 @@ export default {
            const blockBlobClient = containerClient.getBlockBlobClient(file.name);
            var customBlockSize = file.size > 1024 * 1024 * 32 ? 1024 * 1024 * 4 : 1024 * 512;
             containerClient.singleBlobPutThresholdInBytes = customBlockSize;
-            
+
+            //--------------------------------------------------
+            // TO-DO
+            // CAMBIAR DE METODO PARA PODER LEER EL PORCENTAJE DE
+            // DE AVANZE DE SUBIDA DEL ARCHIVO ACTUAL.
+            //--------------------------------------------------
            promises.push(blockBlobClient.uploadBrowserData(file));
            console.log("objeto blockBlobClient");
            console.log(blockBlobClient);
