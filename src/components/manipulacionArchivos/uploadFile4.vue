@@ -609,7 +609,12 @@ export default {
            
            //console.log(" filename " + file2.name );
            const blockBlobClient = containerClient.getBlockBlobClient(file.name);
+           var customBlockSize = file.size > 1024 * 1024 * 32 ? 1024 * 1024 * 4 : 1024 * 512;
+            containerClient.singleBlobPutThresholdInBytes = customBlockSize;
+            
            promises.push(blockBlobClient.uploadBrowserData(file));
+           console.log("objeto blockBlobClient");
+           console.log(blockBlobClient);
 
       }catch(error){
         console.log(error);
