@@ -141,6 +141,7 @@
               dense
               filled
               @change="cambiarInput($event)"
+              :disabled="deshabilitarCombo"
             >
             </v-select>
           </v-col>
@@ -156,6 +157,9 @@
             <v-text-field v-else v-model='ubicacion' label="Ubicacion"></v-text-field>
           </v-col>
         </v-row>
+        <v-alert  type="info" v-if="mensajeExtensiones"> 
+           {{ extensionesPermitidas }}
+        </v-alert>
       </v-container>
       <v-alert :type="tipo" v-if="verValidacion">
         {{ errorMsg}}
@@ -203,6 +207,26 @@ export default {
   name: "agregarEvidenciaComponente",
     data() {
         return {
+
+                /**************************************************
+                * Permite que el combo se deshabilite despues de 
+                * guardarse la evidencia para que despues de guardada
+                * no se pueda cambiar el tipo de docuemnto
+                ****************************************************/
+                deshabilitarCombo : false,
+               
+                /**************************************************
+                * Permite ver o no el componente
+                * de alerta que muestra las extensiones permitidas
+                * 
+                ****************************************************/
+                mensajeExtensiones : false,
+                /**************************************************
+                * muestra el texto con las extensiones permitidas
+                ****************************************************/
+                extensionesPermitidas : '',
+
+
                 type     : 'warning',
                 verVideo :false,
                 rutavideo  : '',
@@ -495,18 +519,27 @@ export default {
       //configuramos el tipo de extension a validar en 
       //el componente uploadFIle4
       //["Documento", "Imagen", "Audio", "Video"],
+      this.mensajeExtensiones =true;
+      this.extensionesPermitidas= '';
       switch(evento) {
         case 'Documento':
         this.extensionPermitida = "docto";
+        this.extensionesPermitidas= 'Solo se permiten documentos PDF con extension .pdf';
         break;
         case 'Imagen':
         this.extensionPermitida = "imagen";
-        break;
+        this.extensionesPermitidas= 'Solo se permiten archivos con extension .png, .jpg, .gif y .svg';
+      
+      break;
         case 'Audio':
         this.extensionPermitida = "audio";
+        this.extensionesPermitidas= 'Solo se permiten archivos con extension .mp3 y .wav';
+    
         break;
         case 'Video':
         this.extensionPermitida = "video";
+        this.extensionesPermitidas= 'Solo se permiten archivos con extension .mp4, .ogg, .webm, .egp y  .3GP';
+    
         break;
         default:
           console.log("no se puede valirda");
@@ -562,7 +595,12 @@ export default {
 
     },
     save() {
+     //ocultamos el mensaje de las extesiones permitidas
+    this.mensajeExtensiones =false;
+    this.extensionesPermitidas= '';
+
      
+     //inicialiazmoa la animacion del loader del boton.
      this.loading = true;
 
     if ( this.validarEstaCaptura() == true ){
@@ -604,6 +642,8 @@ export default {
             this.verValidacion = true;
             this.errorMsg ="La evidencia ha sido guardada";
             this.tipo = "success";
+
+            this.deshabilitarCombo = true;
 
             /***************************** */
             //this.bajar_un_blob_and_convertirlo_a_cadena(ubicacion_a_guardar);
