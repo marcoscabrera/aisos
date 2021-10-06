@@ -33,7 +33,8 @@ const store =  new Vuex.Store({
 // LOCALHOST
 ///////////////////////////////////////   
 
-//urlServidor: 'http://127.0.0.1/apialdeas',
+
+urlServidor: 'http://127.0.0.1/apialdeas',
 
 
 ///////////////////////////////////////
@@ -48,7 +49,7 @@ const store =  new Vuex.Store({
 ///////////////////////////////////////
 // ACTUAL
 /////////////////////////////////////// 
-urlServidor : 'https://apidemo2.azurewebsites.net',
+//urlServidor : 'https://apidemo2.azurewebsites.net',
 
 version: '1.1.24 Servidor Pruebas',
 
