@@ -309,6 +309,26 @@ export default {
 
   methods: {
 
+    cargarArchivo_con_id( id ){
+
+           console.log("valor de id " + id);
+           console.log(" en envento eventbus.on cargarArchivo_con_id ");
+           
+           console.log(" valor del parametro archivoid :" + this.archivoId);
+           if (id == 0){ 
+               //typeof id;
+                 this.archivoID_por_si_las_dudas = this.archivoId;
+           }else {
+                 this.archivoID_por_si_las_dudas = id;
+           }
+
+          this.solicitarDocumentoAServidor( this.archivoID_por_si_las_dudas);
+           var event = Event;
+           event.stopPropagation;
+
+
+    },
+
     editarArchivo(){
        this.HayArchivo= false;
     },

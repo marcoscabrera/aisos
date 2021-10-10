@@ -297,16 +297,16 @@ export default {
        
         var parmetros = {
       
-        id: this.id,
-        incidenteid: this.incidenteid,
-        textovi: this.$store.state.valoracion.etapavaloracion_textovi,
-        tipologiadelincidente:'0',
-        niveldelincidente: '0',
-        tipodecaso: '0',
-        confirmaincidente: 'NO ES UN INCIDENTE',
-        tipoderespuesta: '0',
-        medidasintegrales:  '0',
-        estado : ''
+        id                    : this.id,
+        incidenteid           : this.incidenteid,
+        textovi               : this.$store.state.valoracion.etapavaloracion_textovi,
+        tipologiadelincidente : '0',
+        niveldelincidente     : '0',
+        tipodecaso            : '0',
+        confirmaincidente     : 'NO ES UN INCIDENTE',
+        tipoderespuesta       : '0',
+        medidasintegrales     : '0',
+        estado                : ''
       };
 
       console.log(parmetros);
@@ -317,8 +317,9 @@ export default {
         .then((response) => {
          // console.log(JSON.stringify(response.data));
          // let ruta =`/notificaciondos/${this.incidenteid}/${this.folio}/${etapavaloracion_confirmaincidente}`;
-         console.log(JSON.stringify(response.data));
+        // console.log(JSON.stringify(response.data));
          // this.$router.push(ruta);
+         typeof response;
          
           this.$router.push({
           name: "Notificaciondos",
@@ -397,10 +398,10 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
 
    validarCaptura(valor){
       
-      console.log("valor en validarCaptura : " + valor);
+     // console.log("valor en validarCaptura : " + valor);
       let suma=0 ;
       valor== false ? suma=0 : suma=1;
-      console.log("suma en validarCaptura : " + suma);
+     // console.log("suma en validarCaptura : " + suma);
 
       this.errores = this.errores + suma;
 
@@ -410,7 +411,7 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
 
       this.errores=0;
 
-      console.log("===================");
+     // console.log("===================");
        const {  
         etapavaloracion_textovi, 
         //etapavaloracion_confirmaincidente,
@@ -500,8 +501,8 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
                      promesa
                     .then( response => { 
 
-                        console.log(JSON.stringify(response.data));
-                        console.log(" Nombre del reporte : " + response.data.nombrereporte);
+                        //console.log(JSON.stringify(response.data));
+                        //console.log(" Nombre del reporte : " + response.data.nombrereporte);
                         
                         let directorio ="/apidatos/reportesetapas/" + response.data.nombrereporte;
                         
@@ -517,7 +518,7 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
                        ////////////////////////////////////////////
                        
                         let ruta_A_regresar  = '/valoracionintegral/' + this.$route.params.id;
-                        console.log("ruta_A_regresar : " + ruta_A_regresar);
+                        //console.log("ruta_A_regresar : " + ruta_A_regresar);
                         this.$store.dispatch("action_regresar_A_despues_de_impresion",ruta_A_regresar);
                          
                         /////////////////////////////////////////////
@@ -673,7 +674,7 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
     permisodemodificacion(){
         
      let valor = this.$store.state.usuarios.usuarios_usuariologueado_rol.MODIFICACIONREAPERTURAVALORACIONINICIAL;
-       console.log(" verificando permiso de modificacion con estado cerrado : valor " + valor);
+      // console.log(" verificando permiso de modificacion con estado cerrado : valor " + valor);
       
      valor == "SI" ? this.verBotoneraconcierre = true : this.verBotoneraconcierre = false  ;
     },
@@ -704,18 +705,18 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
          this.$store.dispatch("action_medidasintegrales",response.data[0]["medidasintegrales"])
 
 
-          console.log("Datos de la valoracionIntegral ");
-          console.log(JSON.stringify(response.data));
+          //console.log("Datos de la valoracionIntegral ");
+          //console.log(JSON.stringify(response.data));
 
           this.folio = response.data[0]["folio"];
-          console.log(">>>>>>>valor del folio:" + this.folio);
+         // console.log(">>>>>>>valor del folio:" + this.folio);
            this.$store.dispatch('action_folio', this.folio);
 
 
           this.estadoDeValoracion = response.data[0]["estado"];
-          console.log("valor de id : ");
+          //console.log("valor de id : ");
 
-          console.log(response.data[0]["id"]);
+          //console.log(response.data[0]["id"]);
           this.id = response.data[0]["id"];
 
           this.$store.dispatch("setear_Incidente", this.id);
@@ -723,17 +724,17 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
           this.textovi = response.data[0]["textovi"];
           this.$store.dispatch('action_textovi',this.textovi);
 
-          this.tipologiadelincidente =
-            response.data[0]["tipologiadelincidente"];
-        this.$store.dispatch('action_tipologiadelincidente', this.tipologiadelincidente
-);
+          this.tipologiadelincidente =  response.data[0]["tipologiadelincidente"];
+         this.$store.dispatch('action_tipologiadelincidente', 
+         this.tipologiadelincidente);
 
 
          this.niveldelincidente = response.data[0]["niveldelincidente"];
          this.$store.dispatch('action_niveldelincidente',this.niveldelincidente);
 
          this.tipodecaso = response.data[0]["tipodecaso"];
-         this.$store.dispatch('action_tipodecaso',this.niveldelincidente);
+         console.log(" this. tipodecaso " +  this.tipodecaso);
+         this.$store.dispatch('action_tipodecaso',this.tipodecaso);
 
 
           this.confirmaincidente = response.data[0]["confirmaincidente"];
@@ -752,7 +753,7 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
           
           let estado = response.data[0]["estado"];
 
-          console.log(" ========== estado  > " + estado );
+          //console.log(" ========== estado  > " + estado );
 
           if (estado == "cerrado"){
             this.ocultarConfirmacion= false;
@@ -792,8 +793,8 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
           //console.log("valor de planycronograma : " +  this.planycronograma  );
            //this.planycronograma.length>3 ?  this.hayPlan   = true :false;
           // this.plan =true;
-          console.log("typeof idarchivo");
-            console.log(typeof idarchivo);
+          //console.log("typeof idarchivo");
+          //  console.log(typeof idarchivo);
           idarchivo == '0'? this.planycronograma = '0':  this.descargarDatosDelArchivo(idarchivo, this.$store.state);
 
           this.overlay = false;
@@ -819,7 +820,7 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
 
           // nombre del archivo original para impresion
           this.$store.dispatch('action_medidasintegrales_docto', this.nombreDelArchivo);
-          console.log(" nombreOriginal :" + this.nombreDelArchivo);
+          //console.log(" nombreOriginal :" + this.nombreDelArchivo);
           this.hayPlan =true;
 
      })
@@ -866,7 +867,7 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
         update.then(
           response => {
 
-              console.log(response);
+             // console.log(response);
 
               
  
@@ -908,7 +909,7 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
       this.validacionGeneral();
 
     //  console.log("<<<<< valor de this.errores en ejecutat_actualizavaloracon : >>>> " + this.errores)
-      console.log("valor de this.errores en ejecutar_actualizaValoracion " + this.errores);
+      //console.log("valor de this.errores en ejecutar_actualizaValoracion " + this.errores);
 
       if (this.errores>0) return;
 
@@ -929,21 +930,21 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
       var parmetros = {
         //'fechacreacion'         : $datos['fechacreacion'],
         // 'fechaupdate'           : $datos['fechaupdate'],
-        id: this.id,
-        incidenteid: this.incidenteid,
-        textovi: etapavaloracion_textovi,
-        tipologiadelincidente:etapavaloracion_tipologiadelincidente,
-        niveldelincidente: etapavaloracion_niveldelincidente,
-        tipodecaso: etapavaloracion_tipodecaso,
-        confirmaincidente: "SI ES UN INCIDENTE",
-        tipoderespuesta: etapavaloracion_tipoderespuesta,
-        medidasintegrales:  etapavaloracion_medidasintegrales,
+        id: this.id ,
+        incidenteid            :  this.incidenteid,
+        textovi                :  etapavaloracion_textovi,
+        tipologiadelincidente  :  etapavaloracion_tipologiadelincidente,
+        niveldelincidente      :  etapavaloracion_niveldelincidente,
+        tipodecaso             :  etapavaloracion_tipodecaso,
+        confirmaincidente      :  "SI ES UN INCIDENTE",
+        tipoderespuesta        :  etapavaloracion_tipoderespuesta,
+        medidasintegrales      :  etapavaloracion_medidasintegrales,
        // medidasintegrales_docto : etapavaloracion_medidasintegrales_docto,
-        estado : 'cerrado',
-        accion:"respuestanormal"
+        estado                 : 'cerrado',
+        accion                 : "respuestanormal"
       };
 
-      console.log(parmetros);
+      //console.log(parmetros);
 
       let update = apiValoracion.updateValoracion(parmetros, this.$store);
 
@@ -960,11 +961,11 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
            ****************************************************************/
          
          let correosRecibidos = response.data["correos"];
-         console.log("Variable de correos");
-         console.log(correosRecibidos);
+         //console.log("Variable de correos");
+         //console.log(correosRecibidos);
          let tarea_realizada = "Se ha realizado la valoracion integral del reporte de Incidente";
           
-            console.log(" >>>>>>> valor  de parametro enviar correso : " + this.$store.state.uivars.uivars_parametros[6]["valor"] );
+           // console.log(" >>>>>>> valor  de parametro enviar correso : " + this.$store.state.uivars.uivars_parametros[6]["valor"] );
       
             if (this.$store.state.uivars.uivars_parametros[6]["valor"]=='SI'){
 
@@ -988,7 +989,7 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
     
     actualizarValoracion() {
 
-     console.log(" Permiso EDITARANTESDECIERREDELAVALORACIONINTEGRAL  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARANTESDECIERREDELAVALORACIONINTEGRAL)             
+    // console.log(" Permiso EDITARANTESDECIERREDELAVALORACIONINTEGRAL  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARANTESDECIERREDELAVALORACIONINTEGRAL)             
 
     if (this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARANTESDECIERREDELAVALORACIONINTEGRAL=='SI'){
 
@@ -999,6 +1000,10 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
     }
   },
 
+  mounted() {
+ // this.$store.dispatch("action_medidasintegrales",0);
+  },
+
   created() {
     this.overlay = true ;
        /////////////////////////////////////////////
@@ -1007,12 +1012,12 @@ AQUI INICIA EL PROCESO PARA UNA INVESTIGACION INTERNA
   // siones
   ////////////////////////////////////////////
    let ruta_A_regresar  = '/valoracionintegral/' + this.$route.params.id;
-    console.log("ruta_A_regresar : " + ruta_A_regresar);
+    //console.log("ruta_A_regresar : " + ruta_A_regresar);
     this.$store.dispatch("action_regresar_A_despues_de_impresion",ruta_A_regresar);
       /////////////////////////////////////////////
     let rolActual = this.$store.state.usuarios.usuarios_usuariologueado_rol.EDITARANTESDECIERREDELAVALORACIONINTEGRAL;
     
-    this.$store.dispatch("action_medidasintegrales_docto",0);
+    this.$store.dispatch("action_medidasintegrales",0);
 
 
     if (rolActual == "SI"){

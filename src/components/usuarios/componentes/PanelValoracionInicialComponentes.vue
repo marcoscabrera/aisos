@@ -15,7 +15,7 @@
 
                     <comboPermisoComponente
                         textoDescriptivo= 'Dar de baja  Valoracion Inicial'
-                        :valor ="this.$store.state.roles.roles_BAJAVALORACIONINICIALL"
+                        :valor ="this.$store.state.roles.roles_BAJAVALORACIONINICIAL"
                         nombrePermiso="BAJA DE VALORACION INICIAL"
                         accion_A_ejecutar = "action_BAJAVALORACIONINICIAL" 
                     >
@@ -31,7 +31,7 @@
 
                     <comboPermisoComponente
                         textoDescriptivo= ' Edicion de  Valoracion inicial'
-                        :valor ="this.$store.state.roles.roles_EDITARANTESDECIERREDELAVALORACIONINICIA"
+                        :valor ="this.$store.state.roles.roles_EDITARANTESDECIERREDELAVALORACIONINICIAL"
                         nombrePermiso="EDICION DE VALORACION INICIAL"
                         accion_A_ejecutar = "action_EDITARANTESDECIERREDELAVALORACIONINICIAL" 
                     >

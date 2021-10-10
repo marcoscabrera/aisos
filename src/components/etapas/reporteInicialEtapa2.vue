@@ -235,7 +235,7 @@
                </uploadFile3>  -->
 
 
-               <uploadFile4 v.if="verActaDeHechos"
+               <uploadFile4 ref="subirActaHechos" v.if="verActaDeHechos"
                  :archivoId ="this.$store.state.incidentes.etapainicial_actavaloracion_docto"
                  action_a_Ejecutar ="action_etapainicial_actavaloracion_docto"
                >
@@ -421,7 +421,7 @@ import apiPermisosimpresion  from "@/apialdeas/apiPermisosimpresion.js";
 import validacionReporteInicial from   "@/components/etapas/validaciones/validacionReporteInicial.js";
 import impresiones_etapauno from '@/components/etapas/impresiones/impresiones_etapauno.js';
 import envioDeCorreos from '@/enviarcorreos/envioDeCorreos.js';
-import eventBus from '@/eventBus.js';
+//import eventBus from '@/eventBus.js';
 import apidoctosapoyo from '@/apialdeas/apiDoctosApoyo.js';
 import cardPerlfilAgresor from "@/components/etapasComponentes/cardPerlfilAgresor.vue";
 import comboboxCargos from "@/components/etapasComponentes/comboboxCargos.vue";
@@ -454,26 +454,27 @@ Vue.component('v-popover', VPopover);*/
 
 
 export default {
+
   components: {
     
-    barraDocumentosVue : ()  => import("../barradocumentos/barraDocumentos.vue"),
+    barraDocumentosVue               : ()  => import("../barradocumentos/barraDocumentos.vue"),
     comboboxProgramaSeleccionado ,//: ()  => import("@/components/etapasComponentes/comboboxProgramaSeleccionado.vue"),
-    calendario : ()  => import("@/components/etapasComponentes/calendario.vue"),
-    textareaInvolucrados : ()  => import("@/components/etapasComponentes/textareaInvolucrados.vue"),
-    textfieldElaboro : ()  => import("@/components/etapasComponentes/textfieldElaboro.vue"),
+    calendario                       : ()  => import("@/components/etapasComponentes/calendario.vue"),
+    textareaInvolucrados             : ()  => import("@/components/etapasComponentes/textareaInvolucrados.vue"),
+    textfieldElaboro                 : ()  => import("@/components/etapasComponentes/textfieldElaboro.vue"),
     comboboxCargos ,//: ()  => import("@/components/etapasComponentes/comboboxCargos.vue"),
-    textareaRegistro : ()  => import("@/components/etapasComponentes/textareaRegistro.vue"),
+    textareaRegistro                 : ()  => import("@/components/etapasComponentes/textareaRegistro.vue"),
     cardPerlfilAgresor,// : ()  => import("@/components/etapasComponentes/cardPerlfilAgresor.vue"),
     //esunincidente,
-    cardPerfilVictima : ()  => import("@/components/etapasComponentes/cardPerfilVictima.vue"),
-    textareaMedidasProteccion : ()  => import("@/components/etapasComponentes/textareaMedidasProteccion.vue"),
-    textareaTestigos : ()  => import("@/components/etapasComponentes/textareaTestigos.vue"),
-    BarraDeNavegacion : ()  => import("@/components/etapas/BarraDeNavegacion.vue"),
-    ComponenteAsistenteNavegacion: ()  => import("@/components/barranavegacion/ComponenteAsistenteNavegacion.vue"),
-    ComponenteBarraDeNavegacionGral: ()  => import("@/components/etapas/ComponenteBarraDeNavegacionGral.vue"),
-    ComponenteDocumentosAyuda :() => import("../barradocumentos/ComponenteDocumentosAyuda.vue"),
+    cardPerfilVictima                 : ()  => import("@/components/etapasComponentes/cardPerfilVictima.vue"),
+    textareaMedidasProteccion         : ()  => import("@/components/etapasComponentes/textareaMedidasProteccion.vue"),
+    textareaTestigos                  : ()  => import("@/components/etapasComponentes/textareaTestigos.vue"),
+    BarraDeNavegacion                 : ()  => import("@/components/etapas/BarraDeNavegacion.vue"),
+    ComponenteAsistenteNavegacion     : ()  => import("@/components/barranavegacion/ComponenteAsistenteNavegacion.vue"),
+    ComponenteBarraDeNavegacionGral   : ()  => import("@/components/etapas/ComponenteBarraDeNavegacionGral.vue"),
+    ComponenteDocumentosAyuda         : () => import("../barradocumentos/ComponenteDocumentosAyuda.vue"),
    ////uploadFile3,
-    uploadFile4 : ()  => import("@/components/manipulacionArchivos/uploadFile4.vue")
+    uploadFile4                       : ()  => import("@/components/manipulacionArchivos/uploadFile4.vue")
   },
 
   computed: {
@@ -491,7 +492,8 @@ export default {
         
         console.log("monitoreando el valor de $store.state.incidentes.etapainicial_actavaloracion_docto " + this.$store.state.incidentes.etapainicial_actavaloracion_docto);
        /* Para mostrar el componente uploadFile4 */
-       eventBus.$emit('cargarArchivo_con_id',this.$store.state.incidentes.etapainicial_actavaloracion_docto);
+       ///eventBus.$emit('cargarArchivo_con_id',this.$store.state.incidentes.etapainicial_actavaloracion_docto);
+       this.$refs.subirActaHechos.cargarArchivo_con_id(this.$store.state.incidentes.etapainicial_actavaloracion_docto);
        this.verActaDeHechos = true;
     }
   },
@@ -523,21 +525,22 @@ export default {
    
 
       let datos =[];
-      datos.folio = this.folio;
-      datos.programa= this.programaSeleccionado;
-      datos.fecha= this.date;
-      datos.involucrados=  this.involucrados;
-      datos.Elaboro= this.elaboro ;
-      datos.cargos=this.cargo;
-      datos.RegistroHechos= this.registrohechos;
-      datos.perfildelagresor= this.perfildelagresor;
-      datos.paadultocolaborador=this.paadultocolaborador;
-      datos.paadultocolaboradortipo=this.paadultocolaboradortipo;
-      datos.perfilvictima= this.perfilvictima ;
-      datos.recibeayuda=  this.recibeayuda ;
-      datos.medidasproteccion=  this.medidasproteccion ;
-      datos.incidenteconfirmado=  this.incidenteconfirmado ;
-      datos.testigos= this.testigos;
+      datos.folio                   = this.folio;
+      datos.programa                = this.programaSeleccionado;
+      datos.fecha                   = this.date;
+      datos.involucrados            =  this.involucrados;
+      datos.Elaboro                 = this.elaboro ;
+      datos.cargos                  = this.cargo;
+      datos.RegistroHechos          = this.registrohechos;
+      datos.perfildelagresor        = this.perfildelagresor;
+      datos.paadultocolaborador     = this.paadultocolaborador;
+      datos.paadultocolaboradortipo = this.paadultocolaboradortipo;
+      datos.perfilvictima           = this.perfilvictima ;
+      datos.recibeayuda             =  this.recibeayuda ;
+      datos.medidasproteccion       =  this.medidasproteccion ;
+      datos.incidenteconfirmado     =  this.incidenteconfirmado ;
+      datos.testigos                = this.testigos;
+
       impresiones_etapauno.setearValores(datos, this.$store);
     },
 
@@ -844,7 +847,7 @@ const  {
       etapainicial_medidasproteccion,
       etapainicial_incidenteconfirmado,
       etapainicial_testigos,
-      etapainicial_actavaloracion_docto} =this.$store.state.incidentes;
+      etapainicial_actavaloracion_docto} = this.$store.state.incidentes;
      
       /* usuario creador es el usuario logueado. */
       var etapa = 1;
@@ -856,33 +859,33 @@ const  {
       console.log(" valor del id para actualizar " + this.id);
 
       var parametros = {
-        id : this.id,
-        involucrados: etapainicial_involucrados,
-        elaboro: etapainicial_elaboro,
-        cargousuario: etapainicial_cargos,
-        registrohechos: etapainicial_registrohechos,
-        perfildelagresor: etapainicial_perfildelagresor,
-        paadultocolaborador: etapainicial_paadultocolaborador,
-        paadultocolaboradortipo: etapainicial_paadultocolaboradortipo,
-        pafamilia: '',
-        pafamiliatipo: '',
-        adultoexterno: '',
-        nnj: '',
-        perfilvictima: etapainicial_perfilvictima,
-        recibeayuda: etapainicial_recibeayuda,
+        id                        : this.id,
+        involucrados              : etapainicial_involucrados,
+        elaboro                   : etapainicial_elaboro,
+        cargousuario              : etapainicial_cargos,
+        registrohechos            : etapainicial_registrohechos,
+        perfildelagresor          : etapainicial_perfildelagresor,
+        paadultocolaborador       : etapainicial_paadultocolaborador,
+        paadultocolaboradortipo   : etapainicial_paadultocolaboradortipo,
+        pafamilia                 : '',
+        pafamiliatipo             : '',
+        adultoexterno             : '',
+        nnj                       : '',
+        perfilvictima             : etapainicial_perfilvictima,
+        recibeayuda               : etapainicial_recibeayuda,
         medidasproinmediatasdiatas:etapainicial_medidasproteccion,
-        incidenteconfirmado: etapainicial_incidenteconfirmado, //incidenteconfirmado,
-        testigos: etapainicial_testigos,
-        etapa: etapa,
-        etapauno: "visible",
-        etapados: "visible",
-        etapatres: "invisible",
-        etapacuatro: "invisible",
-        coloretapauno: "green",
-        coloretapados: "yellow",
-        coloretapatres: "yellow",
-        coloretapacuatro: "yellow",
-        actavaloracion_docto :etapainicial_actavaloracion_docto
+        incidenteconfirmado       : etapainicial_incidenteconfirmado, //incidenteconfirmado,
+        testigos                  : etapainicial_testigos,
+        etapa                     : etapa,
+        etapauno                  : "visible",
+        etapados                  : "visible",
+        etapatres                 : "invisible",
+        etapacuatro               : "invisible",
+        coloretapauno             : "green",
+        coloretapados             : "yellow",
+        coloretapatres            : "yellow",
+        coloretapacuatro          : "yellow",
+        actavaloracion_docto      : etapainicial_actavaloracion_docto
       };
 
       console.log("== valores del incidente ==");
@@ -952,43 +955,43 @@ const  {
      //  etapainicial_actavaloracion.length == 0 ? id_docto_temp = 0 : id_docto_temp = etapainicial_actavaloracion;
       /*==========================================*/
       var parametros = {
-        programa: etapainicial_programa,
-        fechaAlta:etapainicial_fecha,
-        fechaUpdate: etapainicial_fecha,
-        usuarioCreador: usuarioCreador,
-        involucrados: etapainicial_involucrados,
-        elaboro: etapainicial_elaboro,
-        cargousuario: etapainicial_cargos,
-        registrohechos: etapainicial_registrohechos,
 
-        perfildelagresor: etapainicial_perfildelagresor,
+        programa                   : etapainicial_programa,
+        fechaAlta                  : etapainicial_fecha,
+        fechaUpdate                : etapainicial_fecha,
+        usuarioCreador             : usuarioCreador,
+        involucrados               : etapainicial_involucrados,
+        elaboro                    : etapainicial_elaboro,
+        cargousuario               : etapainicial_cargos,
+        registrohechos             :  etapainicial_registrohechos,
 
-        paadultocolaborador: etapainicial_paadultocolaborador,
-        paadultocolaboradortipo: etapainicial_paadultocolaboradortipo,
-        pafamilia: '',
-        pafamiliatipo: '',
-        adultoexterno: '',
+        perfildelagresor           : etapainicial_perfildelagresor,
 
-        nnj: '',
-        perfilvictima: etapainicial_perfilvictima,
-        recibeayuda: etapainicial_recibeayuda,
-        medidasproinmediatasdiatas:etapainicial_medidasproteccion,
-        incidenteconfirmado: 'NO', //incidenteconfirmado,
-        testigos: etapainicial_testigos,
-        etapa: etapa,
-        etapauno: "visible",
-        etapados: "visible",
-        etapatres: "invisible",
-        etapacuatro: "invisible",
-        coloretapauno: "green",
-        coloretapados: "yellow",
-        coloretapatres: "yellow",
-        coloretapacuatro: "yellow",
-        
-        actavaloracion_docto : etapainicial_actavaloracion_docto
+        paadultocolaborador        : etapainicial_paadultocolaborador,
+        paadultocolaboradortipo    : etapainicial_paadultocolaboradortipo,
+        pafamilia                  : '',
+        pafamiliatipo              : '',
+        adultoexterno              : '',
+
+        nnj                        : '',
+        perfilvictima              : etapainicial_perfilvictima,
+        recibeayuda                : etapainicial_recibeayuda,
+        medidasproinmediatasdiatas : etapainicial_medidasproteccion,
+        incidenteconfirmado        :  'NO', //incidenteconfirmado,
+        testigos                   : etapainicial_testigos,
+        etapa                      : etapa,
+        etapauno                   : "visible",
+        etapados                   : "visible",
+        etapatres                  : "invisible",
+        etapacuatro                : "invisible",
+        coloretapauno              : "green",
+        coloretapados              : "yellow",
+        coloretapatres             : "yellow",
+        coloretapacuatro           : "yellow",
+        actavaloracion_docto       : etapainicial_actavaloracion_docto
       };
 
-     // console.log("== valores del incidente ==");
+      // console.log("== valores del incidente ==");
       //console.log(JSON.stringify(parametros));
 
       let x = apiIncidentes.nuevoIncidente(parametros, this.$store);
@@ -1011,7 +1014,7 @@ const  {
         
         this.$store.dispatch('setear_Incidente',idRecuperado);
 
-       console.log("valor de idRecuperado  : " + idRecuperado);
+        console.log("valor de idRecuperado  : " + idRecuperado);
 
         this.modo = "update";
 
@@ -1064,16 +1067,19 @@ const  {
       });
 
     }, //termina funcion
+
+
+
+
     nuevo_incidente() {
       //console.log(" Permiso ALTADEVALORACIONINICIAL  "  +  this.$store.state.usuarios.usuarios_usuariologueado_rol.ALTADEVALORACIONINICIAL)             
-     if (this.$store.state.usuarios.usuarios_usuariologueado_rol.ALTADEVALORACIONINICIAL=='SI'){
-           
+      const  {ALTADEVALORACIONINICIAL } =  this.$store.state.usuarios.usuarios_usuariologueado_rol;
      
-      this.validacion_sePuedeCapturar();
-      
-      this.errores>0 ? this.revisarErrores() : this.guardar_nuevoIncidente();
+     if (ALTADEVALORACIONINICIAL=='SI'){
 
+          this.validacion_sePuedeCapturar();
       
+          this.errores>0 ? this.revisarErrores() : this.guardar_nuevoIncidente();
 
        }// termina if de permiso
     }, //termina nuevo_incidente
@@ -1081,7 +1087,8 @@ const  {
 
     update_incidente() {
 
-      this.guardar_nuevoIncidente();
+      //this.guardar_nuevoIncidente();
+      this.update_incidente_u();
      
     },
    
@@ -1141,12 +1148,28 @@ const  {
         if (this.folio != "Pendiente"){
           
          this.modo = "update";
+
          this.verBotonera=false;
         // console.log("folio :" + this.folio);
        //  console.log("modo :" + this.modo);
 
         }
        /************************************* */
+
+
+     /*****************************************
+      * para mostrar el boton guardar mientras
+      * el estado de la valoracion inicial es
+      * abierto - coloretapauno = yellow
+      * ************************************* */
+       console.log(">>>>>>>> coloretapauno >>>>>>>>>>" + a.coloretapauno);
+       a.coloretapauno == 'yellow' ?
+       this.verBotonera= true :
+       this.verBotonera = false;
+
+      /*****************************************/
+
+
       this.date = a.fechaAlta;
       this.programaSeleccionado = a.programa;
       this.nombrePrograma = a.nombreprograma;
@@ -1189,7 +1212,9 @@ const  {
        *************************************************************************************/
       this.$store.dispatch("action_etapainicial_actavaloracion_docto",a.actavaloracion_docto);
       this.verActaDeHechos = true;     
-      eventBus.$emit('cargarArchivo_con_id');
+      //eventBus.$emit('cargarArchivo_con_id');
+      this.$refs.subirActaHechos.cargarArchivo_con_id(this.$store.state.incidentes.etapainicial_actavaloracion_docto);
+      
        /*************************************************************************************/
   
 
@@ -1291,11 +1316,19 @@ const  {
 
 
     permisodemodificacion(){
+
+      console.log(" >>> verificando los permisos de modificacion ");
         
-     let valor = this.$store.state.usuarios.usuarios_usuariologueado_rol.MODIFICACIONREAPERTURAVALORACIONINICIAL;
+      const { MODIFICACIONREAPERTURAVALORACIONINICIAL } = this.$store.state.usuarios.usuarios_usuariologueado_rol;
        //console.log(" verificando permiso de modificacion con estado cerrado : valor " + valor);
       
-     valor == "SI" ? this.verBotoneraconcierre = true : this.verBotoneraconcierre = false  ;
+       console.log(" >>> verificando los permisos de modificacion " + MODIFICACIONREAPERTURAVALORACIONINICIAL);
+
+      MODIFICACIONREAPERTURAVALORACIONINICIAL == "SI" ? 
+      this.verBotoneraconcierre = true :
+      this.verBotoneraconcierre = false  ;
+      console.log(" >>> verBotoneraconcierre " + this.verBotoneraconcierre);
+
     },
 
     escogerProcedimiento() {
@@ -1337,12 +1370,16 @@ const  {
 
 
         P_incidente.then((response) => {
+
           console.log("recuperando los datos del incidente ");
+
           // console.log(JSON.stringify(response.data));
           /** */
           this.$store.dispatch("setear_Incidente", this.$route.params.id);
+
           this.datosNavegacion = response.data.datosNavegacion ;
-           console.log("datos de navegacion");
+
+          console.log("datos de navegacion");
           console.log( this.datosNavegacion);
           this.asignarAVariablesValoresDeConsulta2(response);
 
@@ -1364,6 +1401,13 @@ const  {
   },
 
   created() {
+
+     //---------------------------------------------------------------
+     // 
+     // Inicialiazacoin del valor para el documento de acta de valoracion
+     //---------------------------------------------------------------
+    this.$store.dispatch("action_etapainicial_actavaloracion_docto", 0);
+      
 
      //---------------------------------------------------------------
      // Ocultamos el componente que muestra la ayuda  y la barra de 
