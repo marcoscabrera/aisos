@@ -110,7 +110,12 @@
         <v-card-text>Conexion a Azure Storage account</v-card-text>
         <v-list-item>
          <!-- <v-text-field v-model="acuerdoprivacidad" label="acuerdo de privacidad"></v-text-field> -->
-           <wysiwyg v-model="cadenasas" />
+          <!-- <wysiwyg v-model="cadenasas" />  -->
+
+           <v-textarea v-model="cadenasas">
+
+           </v-textarea>
+
         </v-list-item>
         <v-card-actions>
           <v-btn

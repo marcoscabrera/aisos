@@ -37,7 +37,7 @@
               </uploadFile2> 
               -->
 
-              <uploadFile4
+              <uploadFile4 ref="subirActaValoracion"
                :archivoId ="this.$store.state.valoracion.etapavaloracion_medidasintegrales"
                 action_a_Ejecutar ="action_medidasintegrales"
               >
@@ -54,6 +54,20 @@
 <script>
 //import uploadFile from  '@/components/manipulacionArchivos/uploadFile.vue';
 export default {
+
+  watch :{
+    "$store.state.valoracion.etapavaloracion_medidasintegrales": function() {
+       
+       /* Observamos el valor de esta variable, que guarda el valor del documento 
+       de acta de hechos */
+        
+       // console.log("monitoreando el valor de $store.state.valoracion.etapavaloracion_medidasintegrales " + this.$store.state.valoracion.etapavaloracion_medidasintegrales);
+       /* Para mostrar el componente uploadFile4 */
+       ///eventBus.$emit('cargarArchivo_con_id',this.$store.state.incidentes.etapainicial_actavaloracion_docto);
+       this.$refs.subirActaValoracion.cargarArchivo_con_id(this.$store.state.valoracion.etapavaloracion_medidasintegrales);
+      // this.verActaDeHechos = true;
+    }
+  },
 
 
 
@@ -121,7 +135,8 @@ export default {
        console.log("this.sihayarchivox : " + this.sihayarchivox);
       // this.$refs.uploadFile.init();
       //this.$refs.uploadFile.archivoId =  this.$store.state.valoracion.etapavaloracion_medidasintegrales;
-      console.log("***********************************");
+      this.$refs.subirActaValoracion.cargarArchivo_con_id( this.$store.state.valoracion.etapavaloracion_medidasintegrales );
+     console.log("***********************************");
      })
      
    
