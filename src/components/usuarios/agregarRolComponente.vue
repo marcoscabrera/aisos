@@ -95,7 +95,10 @@ export default {
    
    
    if (this.$store.state.roles.roles_id ==0 ){
-      this.iniciaalizarVariables() 
+      this.iniciaalizarVariables();
+      this.nuevo=true;
+   }else {
+     this.nuevo=false;
    }
   
 
@@ -105,13 +108,13 @@ export default {
 
     asignarValorInput(evento){
 
-      console.log(" evento del switch " + evento);
+     // console.log(" evento del switch " + evento);
       let valor =0;
       evento == true ?  valor =1 : valor =0;
-      console.log("valor :" + valor);
+     // console.log("valor :" + valor);
 
       this.$store.dispatch('action_roles_activo',valor );
-       console.log(" VALOR DESPUES DE ASIGNAR EVENTO  " + this.$store.state.roles.roles_ACTIVO);
+      // console.log(" VALOR DESPUES DE ASIGNAR EVENTO  " + this.$store.state.roles.roles_ACTIVO);
 
     },
     iniciaalizarVariables(){
@@ -122,17 +125,22 @@ export default {
 this.$store.dispatch('action_ALTADECATALOGOS','NO');
 this.$store.dispatch('action_BAJADECATALOGOS','NO');
 this.$store.dispatch('action_MODIFICACIOnDECATALOGOS','NO');
+
 this.$store.dispatch('action_ALTADEUSUARIOS','NO');
 this.$store.dispatch('action_BAJADEUSUARIOS','NO');
 this.$store.dispatch('action_MODIFICACIONDEUSUARIOS','NO');
+
 this.$store.dispatch('action_ALTADEROL','NO');
 this.$store.dispatch('action_BAJADEROL','NO');
 this.$store.dispatch('action_MODIFICACIONDEROL','NO');
+
 this.$store.dispatch('action_ALTADEVALORACIONINICIAL','NO');
 this.$store.dispatch('action_MODIFICACIONREAPERTURAVALORACIONINICIAL','NO');
 this.$store.dispatch('action_EDITARANTESDECIERREDELAVALORACIONINICIAL','NO');
 this.$store.dispatch('action_BAJAVALORACIONINICIAL','NO');
 this.$store.dispatch('action_IMPRESIONVALORACIONINICIAL','NO');
+
+
 this.$store.dispatch('action_VISUALIZACIONVALORACIONINICIAL','NO');
 this.$store.dispatch('action_ALTADEVALORACIONINTEGRAL','NO');
 this.$store.dispatch('action_MODIFICACIONREAPERTURAVALORACIONINTEGRAL','NO');
@@ -269,37 +277,50 @@ this.$store.dispatch('action_roles_activo',true);
       } ;
 
 
-    console.log(" cual es el valor del roles_ACTIVO : " +  this.$store.state.roles.roles_ACTIVO);
+    //console.log(" cual es el valor del roles_ACTIVO : " +  this.$store.state.roles.roles_ACTIVO);
     let promesa ;
 
-    this.$store.state.roles.roles_id == 0 ? promesa = apiRoles.nuevo__roles(parametros,this.$store) :
+    this.nuevo ==true ? 
+    promesa = apiRoles.nuevo__roles(parametros,this.$store) :
     promesa =apiRoles.update__roles(parametros,this.$store) ;
 
 
      promesa
     .then( response => { 
-      console.log(" valor de : ");
-      console.log(response.data["id"]);
+      console.log(" valor de nuev o: " +  this.nuevo);
+     // console.log(response.data["id"]);
       this.RolId = response.data["id"];
-      console.log(" Valor de RolId : " +  this.RolId);
-       
+     // console.log(" Valor de RolId : " +  this.RolId);
+        this.nuevo = false;
        //actualizando el rol del usuario logueado .
        let idRolCargado = this.$store.state.usuarios.usuarios_usuariologueado_rol.id;
         
        let  rolCargado = apiRoles.cargar__roles(idRolCargado, this.$state);
         rolCargado
        .then( response => {
-          console.log(JSON.stringify(response.data));
+
+         typeof response;
+        
+          // console.log(JSON.stringify(response.data));
           //actualizamos los permisos del rol que tiene el usuario que esta 
           //logueado actualmente
           this.$store.dispatch('action_usuarios_usuariologueado_rol', response.data[0]);
+          this.loading= false;
        } )
-       .catch( error => { console.log(JSON.stringify(error.data))});
+       .catch( error => { 
+          typeof error;
+         //console.log(JSON.stringify(error.data));
+           this.loading= false;
+         });
 
       } )
-    .catch( error => { console.log(JSON.stringify(error.data))});
+    .catch( error => { 
+         typeof error;
+         //console.log(JSON.stringify(error.data));
+           this.loading= false;
+      });
 
-     this.loading= false;
+   
 
 
     },
@@ -310,7 +331,8 @@ this.$store.dispatch('action_roles_activo',true);
       RolId  : '0',
       loading: false,
       itemsOpciones:["SI","NO"],
-      nombreRol : ''
+      nombreRol : '',
+      nuevo: false,
 
     };
   },
