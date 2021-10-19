@@ -51,7 +51,7 @@ urlServidor : 'https://apiproteccioninfantil3.azurewebsites.net',
 /////////////////////////////////////// 
 //urlServidor : 'https://apidemo2.azurewebsites.net',
 
-version: '1.1.24 Servidor Produccion',
+version: '1.1.24 Servidor Produccion 633',
 
 
 
