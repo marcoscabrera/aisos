@@ -34,7 +34,7 @@ const store =  new Vuex.Store({
 ///////////////////////////////////////   
 
 
-urlServidor: 'http://127.0.0.1/apialdeas',
+//urlServidor: 'http://127.0.0.1/apialdeas',
 
 
 ///////////////////////////////////////
@@ -43,7 +43,7 @@ urlServidor: 'http://127.0.0.1/apialdeas',
 
 
 
-//urlServidor : 'https://apiproteccioninfantil3.azurewebsites.net',
+urlServidor : 'https://apiproteccioninfantil3.azurewebsites.net',
    
 
 ///////////////////////////////////////
@@ -51,7 +51,7 @@ urlServidor: 'http://127.0.0.1/apialdeas',
 /////////////////////////////////////// 
 //urlServidor : 'https://apidemo2.azurewebsites.net',
 
-version: '1.1.24 Servidor Pruebas',
+version: '1.1.24 Servidor Produccion',
 
 
 
